@@ -1,0 +1,465 @@
+-- ****************** SqlDBM: MySQL ******************;
+-- ***************************************************;
+
+
+-- ************************************** `City`
+
+CREATE TABLE `City`
+(
+ `ID`        integer NOT NULL AUTO_INCREMENT ,
+ `name`      linestring NOT NULL ,
+ `cityCode`  linestring NULL ,
+ `note`      multilinestring NULL ,
+ `countryID` integer NOT NULL ,
+
+PRIMARY KEY (`ID`),
+KEY `fkIdx_146` (`countryID`),
+CONSTRAINT `FK_146` FOREIGN KEY `fkIdx_146` (`countryID`) REFERENCES `Country` (`ID`)
+);
+
+
+
+
+
+
+-- ************************************** `Address`
+
+CREATE TABLE `Address`
+(
+ `ID`             integer NOT NULL AUTO_INCREMENT ,
+ `street`         linestring NULL ,
+ `houseNumber`    int NULL ,
+ `additionalLine` linestring NULL ,
+ `note`           multilinestring NULL ,
+ `cityID`         integer NOT NULL ,
+
+PRIMARY KEY (`ID`),
+KEY `fkIdx_135` (`cityID`),
+CONSTRAINT `FK_135` FOREIGN KEY `fkIdx_135` (`cityID`) REFERENCES `City` (`ID`)
+);
+
+
+-- ****************** SqlDBM: MySQL ******************;
+-- ***************************************************;
+
+
+-- ************************************** `ContactType`
+
+CREATE TABLE `ContactType`
+(
+ `ID`    integer NOT NULL AUTO_INCREMENT ,
+ `title` linestring NOT NULL ,
+ `note`  multilinestring NULL ,
+
+PRIMARY KEY (`ID`)
+);
+
+
+
+
+
+
+-- ************************************** `Contact`
+
+CREATE TABLE `Contact`
+(
+ `ID`     integer NOT NULL AUTO_INCREMENT ,
+ `typeID` integer NOT NULL ,
+ `value`  linestring NOT NULL ,
+ `note`   linestring NULL ,
+
+PRIMARY KEY (`ID`),
+KEY `fkIdx_74` (`typeID`),
+CONSTRAINT `FK_74` FOREIGN KEY `fkIdx_74` (`typeID`) REFERENCES `ContactType` (`ID`)
+);
+
+
+-- ****************** SqlDBM: MySQL ******************;
+-- ***************************************************;
+
+
+-- ************************************** `Country`
+
+CREATE TABLE `Country`
+(
+ `ID`            integer NOT NULL AUTO_INCREMENT ,
+ `name`          linestring NOT NULL ,
+ `postCode`      linestring NULL ,
+ `telephoneCode` linestring NULL ,
+ `internetCode`  linestring NULL ,
+ `note`          multilinestring NULL ,
+
+PRIMARY KEY (`ID`)
+);
+
+
+
+
+
+
+-- ************************************** `Expence`
+
+CREATE TABLE `Expence`
+(
+ `ID`         integer NOT NULL AUTO_INCREMENT ,
+ `title`      linestring NOT NULL ,
+ `value`      float NOT NULL ,
+ `currencyID` integer NOT NULL ,
+ `note`       multilinestring NULL ,
+ `taskID`     integer NOT NULL ,
+
+PRIMARY KEY (`ID`),
+KEY `fkIdx_156` (`taskID`),
+CONSTRAINT `FK_156` FOREIGN KEY `fkIdx_156` (`taskID`) REFERENCES `Task` (`ID`)
+);
+
+
+
+-- ****************** SqlDBM: MySQL ******************;
+-- ***************************************************;
+
+
+-- ************************************** `Organization`
+
+CREATE TABLE `Organization`
+(
+ `ID`               integer NOT NULL AUTO_INCREMENT ,
+ `administrativeID` linestring NULL ,
+ `name`             linestring NOT NULL ,
+ `addressID`        integer NOT NULL ,
+
+PRIMARY KEY (`ID`),
+KEY `fkIdx_122` (`addressID`),
+CONSTRAINT `FK_122` FOREIGN KEY `fkIdx_122` (`addressID`) REFERENCES `Address` (`ID`)
+);
+
+
+
+
+
+
+-- ************************************** `Memo`
+
+CREATE TABLE `Memo`
+(
+ `ID`        integer NOT NULL AUTO_INCREMENT ,
+ `timeStamp` datetime NOT NULL ,
+ `personID`  integer NOT NULL ,
+ `taskID`    integer NOT NULL ,
+ `ID_1`      integer NOT NULL ,
+ `ID_1_1`    integer NOT NULL ,
+
+PRIMARY KEY (`ID`),
+KEY `fkIdx_165` (`ID_1`),
+CONSTRAINT `FK_165` FOREIGN KEY `fkIdx_165` (`ID_1`) REFERENCES `Person` (`ID`),
+KEY `fkIdx_168` (`ID_1_1`),
+CONSTRAINT `FK_168` FOREIGN KEY `fkIdx_168` (`ID_1_1`) REFERENCES `Task` (`ID`)
+);
+
+
+
+
+
+-- ****************** SqlDBM: MySQL ******************;
+-- ***************************************************;
+
+
+-- ************************************** `Person`
+
+CREATE TABLE `Person`
+(
+ `ID`               integer NOT NULL AUTO_INCREMENT ,
+ `nameFirst`        linestring NOT NULL ,
+ `nameMiddle`       linestring NULL ,
+ `nameFamily`       linestring NOT NULL ,
+ `roleID`           integer NOT NULL ,
+ `addressID`        integer NOT NULL ,
+ `administrativeID` linestring NULL ,
+
+PRIMARY KEY (`ID`),
+KEY `fkIdx_51` (`addressID`),
+CONSTRAINT `FK_51` FOREIGN KEY `fkIdx_51` (`addressID`) REFERENCES `Address` (`ID`)
+);
+
+
+
+
+
+
+-- ************************************** `OrganizationContact`
+
+CREATE TABLE `OrganizationContact`
+(
+ `contactID`       integer NOT NULL ,
+ `organiozationID` integer NOT NULL ,
+
+KEY `fkIdx_118` (`contactID`),
+CONSTRAINT `FK_118` FOREIGN KEY `fkIdx_118` (`contactID`) REFERENCES `Contact` (`ID`),
+KEY `fkIdx_121` (`organiozationID`),
+CONSTRAINT `FK_121` FOREIGN KEY `fkIdx_121` (`organiozationID`) REFERENCES `Organization` (`ID`)
+);
+
+
+
+
+
+-- ****************** SqlDBM: MySQL ******************;
+-- ***************************************************;
+
+
+-- ************************************** `PersonOrganization`
+
+CREATE TABLE `PersonOrganization`
+(
+ `personID`       integer NOT NULL ,
+ `organizationID` integer NOT NULL ,
+
+KEY `fkIdx_110` (`personID`),
+CONSTRAINT `FK_110` FOREIGN KEY `fkIdx_110` (`personID`) REFERENCES `Person` (`ID`),
+KEY `fkIdx_113` (`organizationID`),
+CONSTRAINT `FK_113` FOREIGN KEY `fkIdx_113` (`organizationID`) REFERENCES `Organization` (`ID`)
+);
+
+
+
+
+
+
+-- ************************************** `PersonContact`
+
+CREATE TABLE `PersonContact`
+(
+ `contactID` integer NOT NULL ,
+ `personID`  integer NOT NULL ,
+
+KEY `fkIdx_63` (`contactID`),
+CONSTRAINT `FK_63` FOREIGN KEY `fkIdx_63` (`contactID`) REFERENCES `Contact` (`ID`),
+KEY `fkIdx_66` (`personID`),
+CONSTRAINT `FK_66` FOREIGN KEY `fkIdx_66` (`personID`) REFERENCES `Person` (`ID`)
+);
+
+
+
+
+
+-- ****************** SqlDBM: MySQL ******************;
+-- ***************************************************;
+
+
+-- ************************************** `RelationType`
+
+CREATE TABLE `RelationType`
+(
+ `ID`    integer NOT NULL AUTO_INCREMENT ,
+ `title` linestring NOT NULL ,
+ `note`  multilinestring NULL ,
+
+PRIMARY KEY (`ID`)
+);
+
+
+
+
+
+
+-- ************************************** `PersonPersonRelation`
+
+CREATE TABLE `PersonPersonRelation`
+(
+ `ID`              integer NOT NULL ,
+ `relationTypeID`  integer NOT NULL ,
+ `personMainID`    integer NOT NULL ,
+ `personRelatedID` integer NOT NULL ,
+
+PRIMARY KEY (`ID`),
+KEY `fkIdx_193` (`relationTypeID`),
+CONSTRAINT `FK_193` FOREIGN KEY `fkIdx_193` (`relationTypeID`) REFERENCES `RelationType` (`ID`),
+KEY `fkIdx_196` (`personMainID`),
+CONSTRAINT `FK_196` FOREIGN KEY `fkIdx_196` (`personMainID`) REFERENCES `Person` (`ID`),
+KEY `fkIdx_199` (`personRelatedID`),
+CONSTRAINT `FK_199` FOREIGN KEY `fkIdx_199` (`personRelatedID`) REFERENCES `Person` (`ID`)
+);
+
+
+
+
+
+-- ****************** SqlDBM: MySQL ******************;
+-- ***************************************************;
+
+
+-- ************************************** `Tag`
+
+CREATE TABLE `Tag`
+(
+ `ID`        integer NOT NULL AUTO_INCREMENT ,
+ `name`      linestring NOT NULL ,
+ `systemTag` integer NULL ,
+ `color`     integer NULL ,
+ `note`      multilinestring NULL ,
+
+PRIMARY KEY (`ID`)
+);
+
+
+
+
+
+
+-- ************************************** `TagOrganization`
+
+CREATE TABLE `TagOrganization`
+(
+ `tagID`          integer NOT NULL ,
+ `organizationID` integer NOT NULL ,
+
+KEY `fkIdx_148` (`tagID`),
+CONSTRAINT `FK_148` FOREIGN KEY `fkIdx_148` (`tagID`) REFERENCES `Tag` (`ID`),
+KEY `fkIdx_151` (`organizationID`),
+CONSTRAINT `FK_151` FOREIGN KEY `fkIdx_151` (`organizationID`) REFERENCES `Organization` (`ID`)
+);
+
+
+
+
+
+-- ****************** SqlDBM: MySQL ******************;
+-- ***************************************************;
+
+
+-- ************************************** `TagPerson`
+
+CREATE TABLE `TagPerson`
+(
+ `tagID`    integer NOT NULL ,
+ `personID` integer NOT NULL ,
+
+KEY `fkIdx_141` (`tagID`),
+CONSTRAINT `FK_141` FOREIGN KEY `fkIdx_141` (`tagID`) REFERENCES `Tag` (`ID`),
+KEY `fkIdx_144` (`personID`),
+CONSTRAINT `FK_144` FOREIGN KEY `fkIdx_144` (`personID`) REFERENCES `Person` (`ID`)
+);
+
+
+
+
+
+
+-- ************************************** `TagTask`
+
+CREATE TABLE `TagTask`
+(
+ `tagID`  integer NOT NULL ,
+ `taskID` integer NOT NULL ,
+
+KEY `fkIdx_131` (`tagID`),
+CONSTRAINT `FK_131` FOREIGN KEY `fkIdx_131` (`tagID`) REFERENCES `Tag` (`ID`),
+KEY `fkIdx_134` (`taskID`),
+CONSTRAINT `FK_134` FOREIGN KEY `fkIdx_134` (`taskID`) REFERENCES `Task` (`ID`)
+);
+
+
+
+
+
+-- ****************** SqlDBM: MySQL ******************;
+-- ***************************************************;
+
+
+-- ************************************** `TaskPriority`
+
+CREATE TABLE `TaskPriority`
+(
+ `ID`    integer NOT NULL AUTO_INCREMENT ,
+ `title` linestring NOT NULL ,
+ `order` integer NOT NULL ,
+ `note`  multilinestring NULL ,
+
+PRIMARY KEY (`ID`)
+);
+
+
+
+
+
+
+-- ************************************** `Task`
+
+CREATE TABLE `Task`
+(
+ `ID`              integer NOT NULL AUTO_INCREMENT ,
+ `title`           linestring NOT NULL ,
+ `datePlanStart`   datetime NULL ,
+ `datePlanEnd`     datetime NULL ,
+ `dateActualStart` datetime NULL ,
+ `dateActualEnd`   datetime NULL ,
+ `statusID`        integer NOT NULL ,
+ `priorityID`      integer NOT NULL ,
+ `weightID`        integer NOT NULL ,
+ `personID`        integer NOT NULL ,
+ `budgetAllocated` float NULL ,
+ `hoursAllocated`  float NULL ,
+ `hourSpent`       float NULL ,
+ `hourCost`        float NULL ,
+ `organizationID`  integer NULL ,
+ `locationID`      integer NULL ,
+ `parentID`        integer NULL ,
+ `description`     multilinestring NULL ,
+
+PRIMARY KEY (`ID`),
+KEY `fkIdx_100` (`weightID`),
+CONSTRAINT `FK_100` FOREIGN KEY `fkIdx_100` (`weightID`) REFERENCES `TaskWeight` (`ID`),
+KEY `fkIdx_116` (`organizationID`),
+CONSTRAINT `FK_116` FOREIGN KEY `fkIdx_116` (`organizationID`) REFERENCES `Organization` (`ID`),
+KEY `fkIdx_119` (`locationID`),
+CONSTRAINT `FK_119` FOREIGN KEY `fkIdx_119` (`locationID`) REFERENCES `Address` (`ID`),
+KEY `fkIdx_172` (`parentID`),
+CONSTRAINT `FK_172` FOREIGN KEY `fkIdx_172` (`parentID`) REFERENCES `Task` (`ID`),
+KEY `fkIdx_46` (`personID`),
+CONSTRAINT `FK_46` FOREIGN KEY `fkIdx_46` (`personID`) REFERENCES `Person` (`ID`),
+KEY `fkIdx_82` (`statusID`),
+CONSTRAINT `FK_82` FOREIGN KEY `fkIdx_82` (`statusID`) REFERENCES `TaskStatus` (`ID`),
+KEY `fkIdx_91` (`priorityID`),
+CONSTRAINT `FK_91` FOREIGN KEY `fkIdx_91` (`priorityID`) REFERENCES `TaskPriority` (`ID`)
+);
+
+
+
+
+
+-- ****************** SqlDBM: MySQL ******************;
+-- ***************************************************;
+
+
+-- ************************************** `TaskWeight`
+
+CREATE TABLE `TaskWeight`
+(
+ `ID`    integer NOT NULL AUTO_INCREMENT ,
+ `title` linestring NOT NULL ,
+ `order` integer NOT NULL ,
+ `note`  multilinestring NULL ,
+
+PRIMARY KEY (`ID`)
+);
+
+
+
+
+
+
+-- ************************************** `TaskStatus`
+
+CREATE TABLE `TaskStatus`
+(
+ `ID`    integer NOT NULL AUTO_INCREMENT ,
+ `title` linestring NOT NULL ,
+ `note`  multilinestring NULL ,
+
+PRIMARY KEY (`ID`)
+);
+
+
+
+
+

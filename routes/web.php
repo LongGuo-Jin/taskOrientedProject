@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('task', ['middleware' => 'task', 'uses' => 'TaskController@index']);
-Route::get('task/taskCard', ['middleware' => 'task', 'uses' => 'TaskController@taskCard']);
-Route::get('task/taskList', ['middleware' => 'task', 'uses' => 'TaskController@taskList']);
+Route::any('task', ['middleware' => 'task', 'uses' => 'TaskController@index']);
+Route::any('task/taskCard', ['middleware' => 'task', 'uses' => 'TaskController@taskCard']);
+Route::any('task/taskCardAdd', ['middleware' => 'task', 'uses' => 'TaskController@taskCardAdd']);
+Route::any('task/taskList', ['middleware' => 'task', 'uses' => 'TaskController@taskList']);

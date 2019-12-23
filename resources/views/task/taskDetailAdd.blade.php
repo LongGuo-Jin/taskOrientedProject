@@ -46,7 +46,7 @@
                                                         <select class="form-control" id="detail-add-person" name="personID">
                                                             <option value=""></option>
                                                             @foreach($PersonList as $personItem)
-                                                                <option value="{{$personItem['ID']}}">{{$personItem['nameFirst'] . " " . $personItem['nameFamily']}}</option>
+                                                                <option value="{{$personItem['ID']}}">{{$personItem['nameFamily'] . " " . $personItem['nameFirst']}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -97,7 +97,7 @@
                                         </div>
                                     </div>
                                     <div class="row detail-information-tags">
-                                        <div class="row col-lg-6">
+                                        <div class="row col-lg-12">
                                             <div class="col-lg-2" style="margin: auto 0px auto 0px;">
                                                 Tags
                                             </div>

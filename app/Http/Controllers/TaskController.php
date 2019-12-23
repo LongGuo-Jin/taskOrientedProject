@@ -43,15 +43,16 @@ class TaskController extends Controller
         $PersonTagNameList = $TagPerson->getPersonTagName();
         $systemTagList = $Tag->getSystemTagList();
 
-        $mod = $request->input('task_id') == "" ? "init": "search";
+        $Level = 1;
+        $parentId = 0;
+        $showType = $request->input('show_type') == "" ? "regular": $request->input('show_type');
+        $taskId = $request->input('task_id') == "" ? "": $request->input('task_id');
 
-        if ($mod == "init") {
-            $mainLevel = 1;
-            $parentId = 0;
-            $taskList[1] = $Task->getTaskListInit();
-
+        if ($taskId == "") {
+            $taskList = $Task->getTaskListInit();
         } else {
-
+            $taskDetails = $Task->getTaskListbyCond(array("taskID" => $taskId));
+            $taskList = $Task->getTaskList($taskDetails[0]);
         }
 
         return view('task/taskCard',
@@ -61,10 +62,10 @@ class TaskController extends Controller
                 'TaskStatusList' => $TaskStatusList,
                 'TaskWeightList' => $TaskWeightList,
                 'PersonTagNameList' => $PersonTagNameList,
-                'Level' => $mainLevel,
-                'parentId' => $parentId,
-                'taskList' => $taskList,
-                'systemTagList' => $systemTagList
+                'taskList' => $taskList['list'],
+                'systemTagList' => $systemTagList,
+                'showType' => $showType,
+                'taskId' => $taskId
             ]
         );
     }
@@ -73,13 +74,11 @@ class TaskController extends Controller
         $taskData = array(
             'title' =>  $request->input('title'),
             'datePlanStart' =>  $request->input('datePlanStart'),
-            'datePlanEnd' =>  $request->input('datePlanStart'),
+            'datePlanEnd' =>  $request->input('datePlanEnd'),
             'statusID' =>  $request->input('statusID'),
             'priorityID' =>  $request->input('priorityID'),
             'weightID' =>  $request->input('weightID'),
             'personID' =>  $request->input('personID'),
-            'taskCreator' =>  session()->get('login_person_id'),
-            'level' =>  $request->input('level'),
             'parentID' =>  $request->input('parentID') == 0 ? null: $request->input('parentID'),
             'description' =>  $request->input('description'),
             'tags' =>  $request->input('tagList'),
@@ -89,7 +88,11 @@ class TaskController extends Controller
         $Task = new Task();
         $ret = $Task->addTask($taskData);
 
-        print_r($ret);die;
+        $data = array();
+        $data["ID"] = $Task->getLastInsertId();
+        $data["result"] = $ret;
+
+        print_r(json_encode($data));die;
     }
 
     public function taskList() {

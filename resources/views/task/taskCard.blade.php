@@ -17,70 +17,213 @@
             <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
                 <div class="row">
                     <div class="content-task">
-                        @foreach($taskList as $level => $columnItem)
-                            <div class="col-task-regular">
+                        @foreach($taskList as $columnClass => $columnItem)
+                            <div class="column_{{$columnClass}}">
                                 <!--begin::Portlet-->
-                                <div class="kt-portlet">
+                                <div class="kt-portlet  kt-portlet--tabs">
                                     <div class="kt-portlet__head">
-                                        <div class="kt-portlet__head-label">
-                                            <button type="button" class="btn btn-outline-brand btn-elevate btn-icon header-btn">
-                                                <i class="fa fa-align-justify"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-outline-brand btn-elevate btn-icon header-btn">
-                                                <i class="flaticon-laptop"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-outline-brand btn-elevate btn-icon header-btn active">
-                                                <i class="flaticon-background"></i>
-                                            </button>
-                                        </div>
                                         <div class="kt-portlet__head-toolbar">
-                                            <div class="kt-portlet__head-actions">
-                                                <button type="button" class="btn btn-outline-brand btn-elevate btn-pill addTask"
-                                                        data-level="{{$level}}" data-parentid="{{$parentId}}">
-                                                    <i class="flaticon-add"></i>
-                                                </button>
-                                            </div>
+                                            <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-2x nav-tabs-line-primary" role="tablist">
+                                                <li class="nav-item dropdown">
+                                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="la la-cog"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" data-toggle="tab" href="#kt_simple_tab_{{$columnClass}}">
+                                                            <i class="fa fa-align-justify"></i>Simple
+                                                        </a>
+                                                        <a class="dropdown-item" data-toggle="tab" href="#kt_regular_tab_{{$columnClass}}">
+                                                            <i class="flaticon-laptop"></i>Regular
+                                                        </a>
+                                                        <a class="dropdown-item" data-toggle="tab" href="#kt_extended_tab_{{$columnClass}}">
+                                                            <i class="flaticon-background"></i>Extended
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="kt-portlet__head-actions">
+                                            <button type="button" class="btn btn-outline-brand btn-elevate btn-pill addTask">
+                                                <i class="flaticon-add"></i> Add Task
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="kt-portlet__body">
-                                        <div class="kt-scroll" data-scroll="true">
-                                            @foreach($columnItem as $taskItem)
-                                                <div class="kt-task-item thin">
-                                                    <div class="row">
-                                                        <div class="col-lg-2 task-status">
-                                                            <?php echo($taskItem['status_icon'])?>
-                                                        </div>
-                                                        <div class="col-lg-7">
-                                                            <div class="row task-name">
-                                                                {{$taskItem['title']}}
+                                        @if(isset($columnItem[0]["ID"]))
+                                            <div class="kt-scroll" data-scroll="true">
+                                            <div class="tab-content">
+                                                <div class="tab-pane active" id="kt_regular_tab_{{$columnClass}}">
+                                                    @foreach($columnItem as $taskItem)
+                                                        <div class="kt-regular-task-item thin <?php if($taskId == $taskItem['ID']) echo 'selected';?>" data-task_id="{{$taskItem['ID']}}" data-show_type="regular">
+                                                            <div class="row">
+                                                                <div class="col-lg-2 task-status">
+                                                                    <?php echo($taskItem['status_icon'])?>
+                                                                </div>
+                                                                <div class="col-lg-7">
+                                                                    <div class="row task-name">
+                                                                        {{$taskItem['title']}}
+                                                                    </div>
+                                                                    <div class="row project-name">
+                                                                        {{$taskItem['TagNames']}}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-3">
+                                                                    <span class="kt-badge kt-badge--brand kt-badge--lg">
+                                                                        {{$taskItem['psntagName']}}
+                                                                    </span>
+                                                                </div>
                                                             </div>
-                                                            <div class="row project-name">
-                                                                {{$taskItem['TagNames']}}
+                                                            <div class="kt-space-10"></div>
+                                                            <div class="progress" style="height: 6px;">
+                                                                <div class="progress-bar bg-dark" role="progressbar" style="width: 35%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                <div class="progress-bar" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                                            </div>
+                                                            <div class="kt-space-5"></div>
+                                                            <div class="row kt-item-date">
+                                                                <div class="col-lg-6 task-start-date">
+                                                                    {{$taskItem['datePlanStart']}}
+                                                                </div>
+                                                                <div class="col-lg-6 task-end-date">
+                                                                    {{$taskItem['datePlanEnd']}}
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-3">
-                                                            <span class="kt-badge kt-badge--brand kt-badge--lg" id="detail-add-personTag">
-                                                                {{$taskItem['psntagName']}}
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="kt-space-10"></div>
-                                                    <div class="progress" style="height: 6px;">
-                                                        <div class="progress-bar bg-dark" role="progressbar" style="width: 35%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                        <div class="progress-bar" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                    <div class="kt-space-5"></div>
-                                                    <div class="row kt-item-date">
-                                                        <div class="col-lg-6 task-start-date">
-                                                            {{$taskItem['datePlanStart']}}
-                                                        </div>
-                                                        <div class="col-lg-6 task-end-date">
-                                                            {{$taskItem['datePlanEnd']}}
-                                                        </div>
-                                                    </div>
+                                                    @endforeach
                                                 </div>
-                                            @endforeach
+                                                <div class="tab-pane" id="kt_extended_tab_{{$columnClass}}">
+                                                    @foreach($columnItem as $taskItem)
+                                                        <div class="row kt-extended-task-item <?php if($taskId == $taskItem['ID']) echo 'selected';?>"  data-task_id="{{$taskItem['ID']}}" data-show_type="extended">
+                                                            <div class="col-lg-8 extand-main-content">
+                                                                <div class="kt-extend-part fat">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-2 task-status">
+                                                                            <?php echo($taskItem['status_icon'])?>
+                                                                        </div>
+                                                                        <div class="col-lg-7">
+                                                                            <div class="row task-name kt-font-task-warning">
+                                                                                {{$taskItem['title']}}
+                                                                            </div>
+                                                                            <div class="row project-name">
+                                                                                {{$taskItem['TagNames']}}
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-3 person-tag">
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="kt-space-10"></div>
+                                                                    <div class="progress" style="height: 6px;">
+                                                                        <div class="progress-bar bg-success" role="progressbar" style="width: 70%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                    </div>
+                                                                    <div class="kt-space-5"></div>
+                                                                    <div class="row kt-item-date">
+                                                                        <div class="col-lg-6 task-start-date">
+                                                                            {{$taskItem['datePlanStart']}}
+                                                                        </div>
+                                                                        <div class="col-lg-6 task-end-date">
+                                                                            <p style="float: right">{{$taskItem['datePlanEnd']}}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="extand-below-content">
+                                                                <span class="kt-badge kt-badge--brand kt-badge--lg" id="detail-add-personTag">
+                                                                            {{$taskItem['psntagName']}}
+                                                                </span>
+                                                                    &nbsp;&nbsp;&nbsp;{{$taskItem['fullName']}}
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <div class="row" style="margin-top: 10px;">
+                                                                    <div class="col-lg-6">
+                                                                        <div class="triangle">
+                                                                            <span>{{$taskItem['priority_title']}}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-6">
+                                                                        <span class="kt-badge kt-badge--default kt-badge--md kt-badge--rounded">
+                                                                            {{$taskItem['weight']}}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row task-extand-description">
+                                                                    <div class="col-lg-6 task-extand-description-left">
+                                                                        Finished
+                                                                    </div>
+                                                                    <div class="col-lg-6 task-extand-description-right kt-font-success">
+                                                                        100%
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row task-extand-description">
+                                                                    <div class="col-lg-6 task-extand-description-left">
+                                                                        Hours
+                                                                    </div>
+                                                                    <div class="col-lg-6 task-extand-description-right kt-font-warning">
+                                                                        22,52
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row task-extand-description">
+                                                                    <div class="col-lg-6 task-extand-description-left">
+                                                                        Budget
+                                                                    </div>
+                                                                    <div class="col-lg-6 task-extand-description-right kt-font-success">
+                                                                        2.427,662
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row task-extand-description">
+                                                                    <div class="col-lg-6 task-extand-description-left">
+                                                                        Time
+                                                                    </div>
+                                                                    <div class="col-lg-6 task-extand-description-right kt-font-danger">
+                                                                        42D
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            @if($taskId == $taskItem['ID'])
+                                                                <div class="row task-extand-add">
+                                                                    <div class="col-lg-5">
+                                                                        <input type="text" class="form-control" placeholder="Add Expense">
+                                                                    </div>
+                                                                    <div class="col-lg-3">
+                                                                        <input type="text" class="form-control" placeholder="0.00">
+                                                                    </div>
+                                                                    <div class="col-lg-4">
+                                                                        <button type="button" class="btn btn-outline-brand btn-elevate btn-pill"><i class="flaticon-add"></i> Add</button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row task-extand-add">
+                                                                    <div class="col-lg-5">
+                                                                        <input type="text" class="form-control" placeholder="Add a Subtask">
+                                                                    </div>
+                                                                    <div class="col-lg-7">
+                                                                        <div class="extand-below-content">
+                                                                            <a href="#" class="btn btn-sm btn-icon btn-label-instagram btn-pill btn-icon-md">
+                                                                                TS
+                                                                            </a>
+                                                                            &nbsp;&nbsp;&nbsp;Tine Strehar
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                                <div class="tab-pane" id="kt_simple_tab_{{$columnClass}}">
+                                                    @foreach($columnItem as $taskItem)
+                                                        <div class="kt-simple-task-item thin  <?php if($taskId == $taskItem['ID']) echo 'selected';?>"  data-task_id="{{$taskItem['ID']}}" data-show_type="simple">
+                                                            <div class="row">
+                                                                <div class="col-lg-2 task-status">
+                                                                    <?php echo($taskItem['status_icon'])?>
+                                                                </div>
+                                                                <div class="col-lg-10 final-sub-task-name">
+                                                                    {{$taskItem['title']}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
                                         </div>
+                                        @endif
                                     </div>
                                 </div>
                                 <!--end::Portlet-->
@@ -100,11 +243,15 @@
 
 @section('script')
     <script src="{{asset('/assets/js/demo1/pages/crud/forms/widgets/bootstrap-select.js')}}" type="text/javascript"></script>
-    <script src="./assets/js/demo1/pages/crud/forms/widgets/bootstrap-datepicker.js" type="text/javascript"></script>
-    <script src="./assets/js/demo1/pages/components/extended/blockui.js" type="text/javascript"></script>
+    <script src="{{asset('/assets/js/demo1/pages/crud/forms/widgets/bootstrap-datepicker.js')}}" type="text/javascript"></script>
+    <script src="{{asset('/assets/js/demo1/pages/components/extended/blockui.js')}}" type="text/javascript"></script>
+    <script src="{{asset('/assets/js/demo1/pages/components/extended/sweetalert2.js')}}" type="text/javascript"></script>
 
     <script type="text/javascript">
         var personTagList = $.parseJSON('<?php echo(json_encode($PersonTagNameList));?>');
+        var base_url = "{{URL::to('')}}";
+        var task_id = "{{$taskId}}";
+        var showType = "{{$showType}}";
 
         $(document).ready(function () {
             var arrows;
@@ -142,7 +289,7 @@
                 },
 
                 submitHandler: function (form) {
-                    addTask();
+                    confirmAddTask();
                 }
             });
         });

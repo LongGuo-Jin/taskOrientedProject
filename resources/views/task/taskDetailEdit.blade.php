@@ -1,4 +1,4 @@
-<div class="col-lg-4 detail-edit">
+<div class="col-detail-add detail-edit">
     <div class="kt-portlet kt-portlet--tabs kt-portlet--height-fluid">
         <div class="kt-portlet__head">
             <div class="kt-portlet__head-label">

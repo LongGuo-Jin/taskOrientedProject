@@ -94,9 +94,42 @@ $(document).ready(function () {
 
 function setColumnType()
 {
-    $("div.column_0").addClass("col-task-regular");
-    $("div.column_1").addClass("col-task-regular");
-    $("div.column_2").addClass("col-task-simple");
+    $("div.parent_selected").parents("div.column-body").addClass("col-task-regular");
+    $("div.selected").parents("div.column-body").addClass("col-task-extended");
+    $("div.selected").parents("div.column-body").next("div.column-body").addClass("col-task-simple");
+
+    if ($("div.selected").length == 0)
+        $("div[data-column_id = 0]").addClass("col-task-regular");
+
+    var regColumId = $("div.col-task-regular").data("column_id");
+    var extendedColumId = $("div.col-task-extended").data("column_id");
+    var simpleColumId = $("div.col-task-simple").data("column_id");
+
+    $("div.col-task-regular").find("div.tab-pane").removeClass("active");
+    $("div.col-task-regular").find("div#kt_regular_tab_" + regColumId).addClass("active");
+    $("div.col-task-extended").find("div.tab-pane").removeClass("active");
+    $("div.col-task-extended").find("div#kt_extended_tab_" + extendedColumId).addClass("active");
+    $("div.col-task-simple").find("div.tab-pane").removeClass("active");
+    $("div.col-task-simple").find("div#kt_simple_tab_" + simpleColumId).addClass("active");
+}
+
+function reCalcWidth() {
+    var regular = 5, extended = 3, simple = 2;
+    var regularW = regular/(regular + extended + simple) * 100;
+    var extendW = extended/(regular + extended + simple) * 100;
+    var simpleW = simple/(regular + extended + simple) * 100;
+
+    $(".col-task-extend").css("-ms-flex", "0 0 " + extendW + "%");
+    $(".col-task-extend").css("flex", "0 0 " + extendW + "%");
+    $(".col-task-extend").css("max-width", "0 0 " + extendW + "%");
+
+    $(".col-task-regular").css("-ms-flex", "0 0 " + regularW + "%");
+    $(".col-task-regular").css("flex", "0 0 " + regularW + "%");
+    $(".col-task-regular").css("max-width", "0 0 " + regularW + "%");
+
+    $(".col-task-simple").css("-ms-flex", "0 0 " + simpleW + "%");
+    $(".col-task-simple").css("flex", "0 0 " + simpleW + "%");
+    $(".col-task-simple").css("max-width", "0 0 " + simpleW + "%");
 }
 
 function getBrowserDimensions() {

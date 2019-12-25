@@ -18,7 +18,7 @@
                 <div class="row">
                     <div class="content-task">
                         @foreach($taskList as $columnClass => $columnItem)
-                            <div class="column_{{$columnClass}}">
+                            <div class="column-body" data-column_id="{{$columnClass}}">
                                 <!--begin::Portlet-->
                                 <div class="kt-portlet  kt-portlet--tabs">
                                     <div class="kt-portlet__head">
@@ -54,7 +54,10 @@
                                             <div class="tab-content">
                                                 <div class="tab-pane active" id="kt_regular_tab_{{$columnClass}}">
                                                     @foreach($columnItem as $taskItem)
-                                                        <div class="kt-regular-task-item thin <?php if($taskId == $taskItem['ID'] || in_array($taskItem['ID'], $parents)) echo 'selected';?>" data-task_id="{{$taskItem['ID']}}" data-show_type="regular">
+                                                        <div class="kt-regular-task-item thin
+                                                        <?php if($taskId == $taskItem['ID']) echo 'selected';?>
+                                                        <?php if($taskId != $taskItem['ID'] && in_array($taskItem['ID'], $parents)) echo 'parent_selected';?>"
+                                                             data-task_id="{{$taskItem['ID']}}" data-show_type="regular">
                                                             <div class="row">
                                                                 <div class="col-lg-2 task-status">
                                                                     <?php echo($taskItem['status_icon'])?>

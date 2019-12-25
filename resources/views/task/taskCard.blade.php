@@ -43,7 +43,7 @@
                                             </ul>
                                         </div>
                                         <div class="kt-portlet__head-actions">
-                                            <button type="button" class="btn btn-outline-brand btn-elevate btn-pill addTask">
+                                            <button type="button" class="btn btn-outline-brand btn-elevate btn-pill addTask" data-parent_id="{{$parents[$columnClass]}}">
                                                 <i class="flaticon-add"></i> Add Task
                                             </button>
                                         </div>
@@ -54,7 +54,7 @@
                                             <div class="tab-content">
                                                 <div class="tab-pane active" id="kt_regular_tab_{{$columnClass}}">
                                                     @foreach($columnItem as $taskItem)
-                                                        <div class="kt-regular-task-item thin <?php if($taskId == $taskItem['ID']) echo 'selected';?>" data-task_id="{{$taskItem['ID']}}" data-show_type="regular">
+                                                        <div class="kt-regular-task-item thin <?php if($taskId == $taskItem['ID'] || in_array($taskItem['ID'], $parents)) echo 'selected';?>" data-task_id="{{$taskItem['ID']}}" data-show_type="regular">
                                                             <div class="row">
                                                                 <div class="col-lg-2 task-status">
                                                                     <?php echo($taskItem['status_icon'])?>
@@ -179,28 +179,41 @@
                                                                 </div>
                                                             </div>
                                                             @if($taskId == $taskItem['ID'])
+                                                                <input type="hidden" id="quick_token" name="_token" value="{{csrf_token()}}">
                                                                 <div class="row task-extand-add">
                                                                     <div class="col-lg-5">
                                                                         <input type="text" class="form-control" placeholder="Add Expense">
                                                                     </div>
-                                                                    <div class="col-lg-3">
+                                                                    <div class="row col-lg-4">
                                                                         <input type="text" class="form-control" placeholder="0.00">
                                                                     </div>
-                                                                    <div class="col-lg-4">
-                                                                        <button type="button" class="btn btn-outline-brand btn-elevate btn-pill"><i class="flaticon-add"></i> Add</button>
+                                                                    <div class="col-lg-3">
+                                                                        <button type="button" class="btn btn-outline-brand btn-elevate btn-pill" style="float: right;" onclick="quickAddExpense()">
+                                                                            <i class="flaticon-add"></i> Add
+                                                                        </button>
                                                                     </div>
                                                                 </div>
                                                                 <div class="row task-extand-add">
                                                                     <div class="col-lg-5">
-                                                                        <input type="text" class="form-control" placeholder="Add a Subtask">
+                                                                        <input type="text" class="form-control" id="quick-title" placeholder="Add a Subtask">
                                                                     </div>
-                                                                    <div class="col-lg-7">
-                                                                        <div class="extand-below-content">
-                                                                            <a href="#" class="btn btn-sm btn-icon btn-label-instagram btn-pill btn-icon-md">
-                                                                                TS
-                                                                            </a>
-                                                                            &nbsp;&nbsp;&nbsp;Tine Strehar
+                                                                    <div class="row col-lg-4">
+                                                                        <div class="col-lg-4">
+                                                                            <span class="kt-badge kt-badge--brand kt-badge--lg" id="quick-add-personTag"></span>
                                                                         </div>
+                                                                        <div class="col-lg-8">
+                                                                            <select class="form-control" id="quick-add-person" name="personID">
+                                                                                <option value=""></option>
+                                                                                @foreach($rolePersonList as $personItem)
+                                                                                    <option value="{{$personItem['ID']}}">{{$personItem['nameFamily'] . " " . $personItem['nameFirst']}}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-3">
+                                                                        <button type="button" class="btn btn-outline-brand btn-elevate btn-pill quick-add-task" data-parent_id="{{$parents[$columnClass]}}" style="float: right;">
+                                                                            <i class="flaticon-add"></i> Add
+                                                                        </button>
                                                                     </div>
                                                                 </div>
                                                             @endif
@@ -209,7 +222,7 @@
                                                 </div>
                                                 <div class="tab-pane" id="kt_simple_tab_{{$columnClass}}">
                                                     @foreach($columnItem as $taskItem)
-                                                        <div class="kt-simple-task-item thin  <?php if($taskId == $taskItem['ID']) echo 'selected';?>"  data-task_id="{{$taskItem['ID']}}" data-show_type="simple">
+                                                        <div class="kt-simple-task-item thin"  data-task_id="{{$taskItem['ID']}}" data-show_type="simple">
                                                             <div class="row">
                                                                 <div class="col-lg-2 task-status">
                                                                     <?php echo($taskItem['status_icon'])?>

@@ -2,8 +2,7 @@
     <div class="kt-portlet kt-portlet--tabs kt-portlet--height-fluid">
         <form class="kt-form kt-form--label-right" id="task_add_form">
             <input type="hidden" name="_token" value="{{csrf_token()}}">
-            <input type="hidden" id="level" name="level">
-            <input type="hidden" id="parentID" name="parentID">
+            <input type="hidden" name="parentID" id="add_parentID" value="">
             <div class="kt-portlet__head">
                 <div class="kt-portlet__head-label">
                     <h3 class="kt-portlet__head-title">
@@ -35,17 +34,17 @@
                                     <div class="row detail-information-staus">
                                         <div class="col-lg-6">
                                             <div class="row">
-                                                <div class="col-lg-2" style="margin: auto 0px auto 0px;">
+                                                <div class="col-lg-3" style="margin: auto 0px auto 0px;">
                                                     <span class="kt-badge kt-badge--brand kt-badge--lg" id="detail-add-personTag"></span>
                                                 </div>
-                                                <div class="col-lg-10">
+                                                <div class="col-lg-9">
                                                     <div class="detail-information-staus-title">
                                                         In Charge
                                                     </div>
                                                     <div class="detail-information-staus-content">
                                                         <select class="form-control" id="detail-add-person" name="personID">
                                                             <option value=""></option>
-                                                            @foreach($PersonList as $personItem)
+                                                            @foreach($rolePersonList as $personItem)
                                                                 <option value="{{$personItem['ID']}}">{{$personItem['nameFamily'] . " " . $personItem['nameFirst']}}</option>
                                                             @endforeach
                                                         </select>

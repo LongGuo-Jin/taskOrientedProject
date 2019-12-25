@@ -57,6 +57,16 @@
     <!-- begin:: Header Topbar -->
     <div class="kt-header__topbar">
 
+        <div class="kt-header__topbar-item">
+            <span style="margin-top: auto; margin-bottom: auto;">Select User:&nbsp;&nbsp;&nbsp;</span>
+            <select onchange=changeUserId() id="select_user" style="font-size: 10pt;">
+                @foreach($totalPersonList as $personItem)
+                    <option value="{{$personItem["ID"]}}" <?php if($personItem["ID"] == Session::get("login_person_id")) echo "selected=selected"?>>
+                        {{$personItem["nameFamily"]." ".$personItem["nameFirst"]."(roleID:".$personItem['roleID'].", Tag:".$PersonTagNameList[$personItem['ID']].")"}}
+                    </option>
+                @endforeach
+            </select>
+        </div>
 
         <!--begin: Search -->
 
@@ -96,12 +106,10 @@
 
 
 
-
         <!--begin: User Bar -->
         <div class="kt-header__topbar-item kt-header__topbar-item--user">
             <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="0px,0px">
                 <div class="kt-header__topbar-user">
-
                     <img class="kt-hidden" alt="Pic" src="./assets/media/users/300_25.jpg" />
 
                     <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->

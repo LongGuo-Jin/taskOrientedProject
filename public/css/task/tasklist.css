@@ -46,7 +46,9 @@ div.kt-quick-panel {
 	font-size: 8pt;
 }
 
-.detail-information-staus-content {
+.detail-information-staus-content, .detail-information-person-content, .detail-information-priority-content
+, .detail-information-weight-content
+{
 	font-size: 14pt;
 }
 

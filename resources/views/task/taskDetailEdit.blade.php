@@ -98,7 +98,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">
-                                                <div class="detail-information-weight-title">
+                                                <div class="detail-information-staus-title">
                                                     Weight
                                                 </div>
                                                 <div class="detail-information-weight-content">
@@ -148,14 +148,14 @@
                                         </div>
                                         <div class="col-lg-3 detail-content detail-start-date">
                                             <p>{{$taskDetails["datePlanStart"]}}</p>
-                                            <input type="text" class="form-control date-picker" style="display: none" name="datePlanStart" value="{{$taskDetails["datePlanStart"]}}" >
+                                            <input type="text" class="form-control date-picker" style="display: none" name="datePlanStart" autocomplete="off" value="{{$taskDetails["datePlanStart"]}}" >
                                         </div>
                                         <div class="col-lg-3 detail-label">
                                             End Date
                                         </div>
                                         <div class="col-lg-3 detail-content detail-end-date">
                                             <p>{{$taskDetails["datePlanEnd"]}}</p>
-                                            <input type="text" class="form-control date-picker" style="display: none" name="datePlanEnd" value="{{$taskDetails["datePlanEnd"]}}" >
+                                            <input type="text" class="form-control date-picker" style="display: none" name="datePlanEnd" autocomplete="off" value="{{$taskDetails["datePlanEnd"]}}" >
                                         </div>
                                     </div>
                                     <div class="row" style="margin-top: 15px">
@@ -164,23 +164,22 @@
                                         </div>
                                         <div class="col-lg-3 detail-content detail-actual-start-date">
                                             <p>{{$taskDetails["dateActualStart"]}}</p>
-                                            <input type="text" class="form-control date-picker" style="display: none" name="dateActualStart" value="{{$taskDetails["dateActualStart"]}}" >
                                         </div>
                                         <div class="col-lg-3 detail-label">
                                             Actual End Date
                                         </div>
                                         <div class="col-lg-3 detail-content  detail-actual-end-date">
                                             <p>{{$taskDetails["dateActualEnd"]}}</p>
-                                            <input type="text" class="form-control date-picker" style="display: none" name="dateActualEnd" value="{{$taskDetails["dateActualEnd"]}}" >
                                         </div>
                                     </div>
                                 </div>
                                 <div class="detail-information-description">
-                                    <h5>Description</h5><br>
-                                    <textarea class="form-control" id="edit_description" rows="5" name="description">{{$taskDetails["description"]}}</textarea>
+                                    <h5>Description</h5>
+                                    <p>{{$taskDetails["description"]}}</p>
+                                    <textarea class="form-control" id="edit_description" style="display: none" rows="5" name="description">{{$taskDetails["description"]}}</textarea>
                                 </div>
                                 <div class="detail-information-task-memos">
-                                    <h5>Memos</h5><br>
+                                    <h5>Memos</h5>
                                     <div class="row">
                                         <div class="col-lg-4 detail-content">
                                             15. 11. 2019 08:12

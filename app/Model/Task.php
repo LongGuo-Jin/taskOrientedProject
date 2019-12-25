@@ -21,7 +21,7 @@ class Task extends Model
     {
         $Person = new Person();
         $personInfo = $Person->getPerson(Session::get('login_person_id'));
-        $this->roleId = $personInfo[0]["roleID"];
+        $this->roleId = Session::get('login_role_id');
         $this->login_id = Session::get('login_person_id');
     }
 

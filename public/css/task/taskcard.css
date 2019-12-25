@@ -311,6 +311,11 @@ div.kt-quick-panel {
     padding-bottom: 30px;
 }
 
+.detail-edit p {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
 .detail-content {
     color: black;
     letter-spacing: 1px;

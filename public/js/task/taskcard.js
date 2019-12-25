@@ -6,9 +6,23 @@ $(document).ready(function () {
     });
 
     $('button.addTask').on('click', function () {
-            $('div.detail-edit').css('display', 'none');
-            $('div.detail-add').css('display', 'block');
-            $('div.detail-add input#add_parentID').val($(this).data("parent_id"));
+        var ret = 1;
+        var parentId = $(this).data("parent_id");
+        if (parentId == "")
+            ret = -1;
+
+        if (ret == -1 && userRoleId != 1) {
+            swal.fire(
+                'Warning',
+                'You can not add task in root level.',
+                'warning'
+            );
+            return ;
+        }
+        $('div.detail-add input#add_parentID').val(parentId);
+        $('div.detail-edit').css('display', 'none');
+        $('div.detail-add').css('display', 'block');
+
         }
     );
 
@@ -47,7 +61,7 @@ $(document).ready(function () {
                 if (newID != -1)
                 {
                     swal.fire(
-                        'Added!',
+                        'Updated!',
                         'You have updated task.',
                         'success'
                     ).then(function () {
@@ -74,10 +88,17 @@ $(document).ready(function () {
         ", div.detail-edit .detail-actual-start-date" +
         ", div.detail-edit .detail-actual-end-date" +
         ", div.detail-edit .detail-edit-tags").on("click", function () {
-            $("button#taskDetailUpdate").removeClass("disabled");
+        $("button#taskDetailUpdate").removeClass("disabled");
         $(this).children().eq(0).css("display", "none");
         $(this).children().eq(1).css("display", "block");
         $(this).children().eq(1).focus();
+    });
+
+    $("div.detail-information-description").on("click", function () {
+        $("button#taskDetailUpdate").removeClass("disabled");
+        $(this).children().eq(1).css("display", "none");
+        $(this).children().eq(2).css("display", "block");
+        $(this).children().eq(2).focus();
     });
 
     $( window ).resize(function() {
@@ -217,7 +238,7 @@ function addTask()
 function updateTask()
 {
     var ret = -1;
-    var tagList = "tagList=" + $("select[name=tags]").val();
+    var tagList = "tagList=" + $("div.detail-edit select[name=tags]").val();
     var params = $("#task_update_form").serialize() + "&" + tagList;
 
     $.ajax({

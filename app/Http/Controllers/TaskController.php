@@ -18,6 +18,8 @@ class TaskController extends Controller
     {
         if (Session::get('login_person_id') == "")
             Session::put('login_person_id', 1);
+        if (Session::get('login_role_id') == "")
+            Session::put('login_role_id', 1);
     }
 
     public function index() {
@@ -138,6 +140,9 @@ class TaskController extends Controller
     public function setLoginUser(Request $request) {
         Session::flush();
         Session::put('login_person_id', $request->input("user_id"));
+        $Person = new Person();
+        $personInfo = $Person->getPerson(Session::get('login_person_id'))[0]["roleID"];
+        Session::put('login_role_id', $personInfo);
 
         return redirect("task/taskCard");
     }

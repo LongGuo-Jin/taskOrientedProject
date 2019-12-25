@@ -142,7 +142,7 @@
                                                                             <span>{{$taskItem['priority_title']}}</span>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-lg-6">
+                                                                    <div class="col-lg-6" style="text-align: right">
                                                                         <span class="kt-badge kt-badge--default kt-badge--md kt-badge--rounded">
                                                                             {{$taskItem['weight']}}
                                                                         </span>
@@ -268,6 +268,7 @@
         var base_url = "{{URL::to('')}}";
         var task_id = "{{$taskId}}";
         var showType = "{{$showType}}";
+        var userRoleId = "<?php print_r(Session::get('login_role_id'));?>";
 
         $(document).ready(function () {
             var arrows;

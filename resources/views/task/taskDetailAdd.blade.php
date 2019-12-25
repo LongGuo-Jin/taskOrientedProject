@@ -117,13 +117,13 @@
                                                 Start Date
                                             </div>
                                             <div class="col-lg-3 detail-content">
-                                                <input type="text" class="form-control date-picker" name="datePlanStart"/>
+                                                <input type="text" class="form-control date-picker" name="datePlanStart" autocomplete="off"/>
                                             </div>
                                             <div class="col-lg-3 detail-label">
                                                 End Date
                                             </div>
                                             <div class="col-lg-3 detail-content">
-                                                <input type="text" class="form-control date-picker" name="datePlanEnd"/>
+                                                <input type="text" class="form-control date-picker" name="datePlanEnd" autocomplete="off"/>
                                             </div>
                                         </div>
                                         <div class="row" style="margin-top: 15px">
@@ -131,13 +131,13 @@
                                                 Actual Start Date
                                             </div>
                                             <div class="col-lg-3 detail-content">
-                                                <input type="text" class="form-control date-picker" name="dateActualStart"/>
+                                                <input type="text" class="form-control date-picker" name="dateActualStart" autocomplete="off"/>
                                             </div>
                                             <div class="col-lg-3 detail-label">
                                                 Actual End Date
                                             </div>
                                             <div class="col-lg-3 detail-content disable">
-                                                <input type="text" class="form-control date-picker" name="dateActualEnd"/>
+                                                <input type="text" class="form-control date-picker" name="dateActualEnd" autocomplete="off"/>
                                             </div>
                                         </div>
                                     </div>

@@ -71,7 +71,7 @@
                                                 </div>
                                                 <div class="detail-information-staus-content">
                                                     <p><?php print_r($taskDetails["status_icon"]);?></p>
-                                                    <p style="display: none;">
+                                                    <p @if($taskDetails["status_icon"] != "") style="display: none;" @endif>
                                                         <select class="form-control kt-selectpicker" id="detail-information-staus" name="statusID">
                                                             @foreach($TaskStatusList as $taskStatusItem)
                                                                 <option data-content="{{$taskStatusItem['note']}}" value="{{$taskStatusItem['ID']}}" <?php if($taskStatusItem['ID'] == $taskDetails["statusID"]) echo 'selected=selected';?>>
@@ -88,7 +88,7 @@
                                                 </div>
                                                 <div class="detail-information-priority-content">
                                                     <p>{{$taskDetails["priority_title"]}}</p>
-                                                    <p style="display: none;">
+                                                    <p @if ($taskDetails["priority_title"] != "") style="display: none;" @endif>
                                                         <select class="form-control kt-selectpicker"  id="detail-information-priority" name="priorityID">
                                                             @foreach($TaskPriorityList as $taskPriorityItem)
                                                                 <option value="{{$taskPriorityItem['ID']}}" <?php if($taskPriorityItem['ID'] == $taskDetails["priorityID"]) echo 'selected=selected';?>>{{$taskPriorityItem['title']}}</option>
@@ -103,7 +103,7 @@
                                                 </div>
                                                 <div class="detail-information-weight-content">
                                                     <p>{{$taskDetails["weight"]}}</p>
-                                                    <p style="display: none;">
+                                                    <p @if ($taskDetails["weight"]) style="display: none;" @endif>
                                                         <select class="form-control kt-selectpicker" id="detail-information-priority" name="weightID">
                                                             @foreach($TaskWeightList as $taskWeightItem)
                                                                 <option value="{{$taskWeightItem['ID']}}" <?php if($taskWeightItem['ID'] == $taskDetails["weightID"]) echo 'selected=selected';?>>{{$taskWeightItem['title']}}</option>
@@ -125,7 +125,7 @@
                                             $tmpTagArr = explode(",", $taskDetails["tags"]);
                                             ?>
                                         </p>
-                                        <p style="display: none;">
+                                        <p @if ($taskDetails["TagNameIcons"] != "") style="display: none;" @endif>
                                             <select class="form-control kt-selectpicker" multiple data-actions-box="true" name="tags">
                                                 @foreach($systemTagList as $tagItem)
                                                     <option data-content="{{$tagItem['note']}}" value="{{$tagItem['ID']}}"
@@ -148,14 +148,15 @@
                                         </div>
                                         <div class="col-lg-3 detail-content detail-start-date">
                                             <p>{{$taskDetails["datePlanStart"]}}</p>
-                                            <input type="text" class="form-control date-picker" style="display: none" name="datePlanStart" autocomplete="off" value="{{$taskDetails["datePlanStart"]}}" >
+                                            <input type="text" class="form-control date-picker" @if ($taskDetails["datePlanStart"] != "") style="display: none" @endif
+                                                   name="datePlanStart" autocomplete="off" value="{{$taskDetails["datePlanStart"]}}" >
                                         </div>
                                         <div class="col-lg-3 detail-label">
                                             End Date
                                         </div>
                                         <div class="col-lg-3 detail-content detail-end-date">
                                             <p>{{$taskDetails["datePlanEnd"]}}</p>
-                                            <input type="text" class="form-control date-picker" style="display: none" name="datePlanEnd" autocomplete="off" value="{{$taskDetails["datePlanEnd"]}}" >
+                                            <input type="text" class="form-control date-picker" @if ($taskDetails["datePlanEnd"] != "")) style="display: none" @endif name="datePlanEnd" autocomplete="off" value="{{$taskDetails["datePlanEnd"]}}" >
                                         </div>
                                     </div>
                                     <div class="row" style="margin-top: 15px">
@@ -176,7 +177,7 @@
                                 <div class="detail-information-description">
                                     <h5>Description</h5>
                                     <p>{{$taskDetails["description"]}}</p>
-                                    <textarea class="form-control" id="edit_description" style="display: none" rows="5" name="description">{{$taskDetails["description"]}}</textarea>
+                                    <textarea class="form-control" id="edit_description" @if ($taskDetails["description"] != "") style="display: none" @endif rows="5" name="description">{{$taskDetails["description"]}}</textarea>
                                 </div>
                                 <div class="detail-information-task-memos">
                                     <h5>Memos</h5>

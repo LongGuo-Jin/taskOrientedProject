@@ -5,6 +5,7 @@ use DB;
 use App\Helper\Common;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
+use DateTime;
 
 class Task extends Model
 {
@@ -77,18 +78,7 @@ class Task extends Model
         }
 
         $ret = $qrBuilder->orderBy('id', 'asc')->get()->toArray();
-
-        $Tag = new Tag();
-        $sysTagArr = $sysTagIconArr = Array();
-        $result = Common::stdClass2Array($ret);
-        foreach($Tag->getSystemTagList() as $key => $sysTagitem) {
-            $sysTagArr[$sysTagitem["ID"]] = $sysTagitem["name"];
-            $sysTagIconArr[$sysTagitem["ID"]] = $sysTagitem["note"];
-        }
-        foreach ($result as $key => $retItem) {
-            $result[$key]["TagNames"] = $this->getTagIds2Names($sysTagArr, $retItem["tags"]);
-            $result[$key]["TagNameIcons"] = $this->getTagIds2Names($sysTagIconArr, $retItem["tags"], "");
-        }
+        $result = $this->adtResult(Common::stdClass2Array($ret));
 
         $retArr[0] = $result;
 
@@ -114,7 +104,7 @@ class Task extends Model
                 $retArr[0] = $initList["list"][0];
                 $parentsArr[0] = $initList['parents'][0];
             } else {
-                $tmp = $this->getTaskListbyCond(array("taskID" => $parentId));
+                $tmp = $this->adtResult($this->getTaskListbyCond(array("taskID" => $parentId)));
                 if (count($tmp)) {
                     $retArr[0] = $tmp;
                     $upParentId = empty($tmp[0]["parentID"]) ? "": $tmp[0]["parentID"];
@@ -129,12 +119,12 @@ class Task extends Model
             $retArr[1] = $initList["list"][0];
             $parentsArr[1] = $initList['parents'][0];
         } else {
-            $retArr[1] = $this->getTaskListbyCond(array("parentID" => $parentId));
+            $retArr[1] = $this->adtResult($this->getTaskListbyCond(array("parentID" => $parentId)));
             $parentsArr[1] = $parentId;
         }
 
         //get third column data.
-        $tmp = $this->getTaskListbyCond(array("parentID" => $taskDetails["ID"]));
+        $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails["ID"])));
         $parentsArr[2] = $taskDetails["ID"];
         if (count($tmp))
             $retArr[2] = $tmp;
@@ -226,19 +216,7 @@ class Task extends Model
 
         $ret = $qrBuilder->orderBy('id', 'asc')->get()->toArray();
 
-        $retArr = Common::stdClass2Array($ret);
-        $Tag = new Tag();
-        $sysTagArr = $sysTagIconArr = Array();
-        foreach($Tag->getSystemTagList() as $key => $sysTagitem) {
-            $sysTagArr[$sysTagitem["ID"]] = $sysTagitem["name"];
-            $sysTagIconArr[$sysTagitem["ID"]] = $sysTagitem["note"];
-        }
-        foreach ($retArr as $key => $retItem) {
-            $retArr[$key]["TagNames"] = $this->getTagIds2Names($sysTagArr, $retItem["tags"]);
-            $retArr[$key]["TagNameIcons"] = $this->getTagIds2Names($sysTagIconArr, $retItem["tags"], "");
-        }
-
-        return $retArr;
+        return Common::stdClass2Array($ret);
     }
 
     public function getTagIds2Names($sysTagArr, $str, $delimiter = ",")
@@ -252,5 +230,60 @@ class Task extends Model
             $retStr = $retStr . $sysTagArr[$tmpItem] . " " .$delimiter;
 
         return substr($retStr, 0, -1);
+    }
+
+    public function adtResult($arr)
+    {
+        $retArr = $arr;
+        $Tag = new Tag();
+        $sysTagArr = $sysTagIconArr = Array();
+        foreach($Tag->getSystemTagList() as $key => $sysTagitem) {
+            $sysTagArr[$sysTagitem["ID"]] = $sysTagitem["name"];
+            $sysTagIconArr[$sysTagitem["ID"]] = $sysTagitem["note"];
+        }
+
+        $totalTaskArr = Common::stdClass2Array(
+            DB::table($this->table)->leftjoin("taskweight", "task.weightID", "=", "taskweight.ID")
+                ->select(DB::raw("sum(taskweight.title) as sumweight"), "task.parentID")
+                ->where("task.statusID", "!=", "5")
+                ->groupBy('task.parentID')
+                ->orderBy('task.parentID', 'asc')->get()->toArray());
+
+        $totalTaskWieght = array();
+        foreach ($totalTaskArr as $taskItem)
+            $totalTaskWieght[$taskItem["parentID"]] = !empty($taskItem["sumweight"]) ? $taskItem["sumweight"]: 0;
+
+        $finishTaskArr = Common::stdClass2Array(
+            DB::table($this->table)->leftjoin("taskweight", "task.weightID", "=", "taskweight.ID")
+                ->select(DB::raw("sum(taskweight.title) as sumweight"), "task.parentID")
+                ->where("task.statusID", "=", "4")
+                ->groupBy('task.parentID')
+                ->orderBy('task.parentID', 'asc')->get()->toArray());
+
+        $finishTaskWieght = array();
+        foreach ($finishTaskArr as $taskItem)
+            $finishTaskWieght[$taskItem["parentID"]] = !empty($taskItem["sumweight"]) ? $taskItem["sumweight"]: 0;
+
+
+        foreach ($retArr as $key => $retItem) {
+            $retArr[$key]["TagNames"] = $this->getTagIds2Names($sysTagArr, $retItem["tags"]);
+            $retArr[$key]["TagNameIcons"] = $this->getTagIds2Names($sysTagIconArr, $retItem["tags"], "");
+
+            $datetime1 = strtotime(str_replace(".", "/", $retItem['datePlanStart']));
+            $datetime2 = strtotime(str_replace(".", "/", $retItem['datePlanEnd']));
+            $nowtime = strtotime("today");
+            $totalDays = ($datetime2 - $datetime1) / 86400;
+            $spentDays = ($nowtime - $datetime1) / 86400;
+            $retArr[$key]['spentProgress'] = $totalDays == 0 ? 0 :round(($spentDays/$totalDays)*100);
+
+            $tmpTlweight = isset($totalTaskWieght[$retItem["ID"]]) ? $totalTaskWieght[$retItem["ID"]]: 0;
+            $tmpFiweight = isset($finishTaskWieght[$retItem["ID"]]) ? $finishTaskWieght[$retItem["ID"]]: 0;
+            $retArr[$key]['finishProgress'] = $tmpTlweight == 0 ? 0 :round(($tmpFiweight/$tmpTlweight)*100);
+
+            if ($retArr[$key]["statusID"] == 4)
+                $retArr[$key]['finishProgress'] = 100;
+        }
+
+        return $retArr;
     }
 }

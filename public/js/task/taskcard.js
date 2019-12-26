@@ -47,6 +47,9 @@ $(document).ready(function () {
     });
 
     $("button#taskDetailUpdate").on("click", function () {
+        if ($(this).hasClass("disabled"))
+            return;
+
         swal.fire({
             title: 'Are you sure?',
             text: "Do you update task?",

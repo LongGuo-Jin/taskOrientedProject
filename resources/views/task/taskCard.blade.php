@@ -78,8 +78,12 @@
                                                             </div>
                                                             <div class="kt-space-10"></div>
                                                             <div class="progress" style="height: 6px;">
-                                                                <div class="progress-bar bg-dark" role="progressbar" style="width: 35%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                <div class="progress-bar" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                @if($taskItem['spentProgress'] <= $taskItem['finishProgress'])
+                                                                    <div class="progress-bar bg-success" role="progressbar" style="width: {{$taskItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                @else
+                                                                    <div class="progress-bar bg-danger" role="progressbar" style="width: {{$taskItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                    <div class="progress-bar bg-gray" role="progressbar" style="width: {{$taskItem['finishProgress'] - $taskItem['spentProgress']}}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                @endif
                                                             </div>
                                                             <div class="kt-space-5"></div>
                                                             <div class="row kt-item-date">
@@ -116,7 +120,12 @@
                                                                     </div>
                                                                     <div class="kt-space-10"></div>
                                                                     <div class="progress" style="height: 6px;">
-                                                                        <div class="progress-bar bg-success" role="progressbar" style="width: 70%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        @if($taskItem['spentProgress'] <= $taskItem['finishProgress'])
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: {{$taskItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        @else
+                                                                            <div class="progress-bar bg-danger" role="progressbar" style="width: {{$taskItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            <div class="progress-bar bg-gray" role="progressbar" style="width: {{$taskItem['finishProgress'] - $taskItem['spentProgress']}}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        @endif
                                                                     </div>
                                                                     <div class="kt-space-5"></div>
                                                                     <div class="row kt-item-date">

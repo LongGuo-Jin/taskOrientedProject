@@ -50,7 +50,7 @@ class TaskController extends Controller
         if ($taskId == "") {
             $taskList = $Task->getTaskListInit();
         } else {
-            $taskDetails = $Task->getTaskListbyCond(array("taskID" => $taskId));
+            $taskDetails = $Task->adtResult($Task->getTaskListbyCond(array("taskID" => $taskId)));
             $taskList = $Task->getTaskList($taskDetails[0]);
         }
 
@@ -118,6 +118,11 @@ class TaskController extends Controller
             'tags' =>  $request->input('tagList'),
             'updateAt'   =>  date('Y-m-d h:i:s')
         );
+
+        if ($taskData["statusID"] == 2)
+            $taskData["dateActualStart"] = date('Y-m-d h:i:s');
+        if ($taskData["statusID"] == 4 || $taskData["statusID"] == 5)
+            $taskData["dateActualEnd"] = date('Y-m-d h:i:s');
 
         if ($request->input('taskID') != "")
             $taskID = $request->input('taskID');

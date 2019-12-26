@@ -1,7 +1,7 @@
 @if(!empty($taskDetails))
 <div class="col-detail-add detail-edit">
     <div class="kt-portlet kt-portlet--tabs kt-portlet--height-fluid">
-        <form class="kt-form" id="task_update_form">
+        <form class="kt-form" id="task_update_form" name="task_update_form" enctype="multipart/form-data">
             <input type="hidden" name="_token" value="{{csrf_token()}}">
             <input type="hidden" name="taskID" value="{{$taskId}}">
             <input type="hidden" name="parentID" value="{{$taskDetails["parentID"]}}">
@@ -51,7 +51,7 @@
                                                 </div>
                                                 <div class="detail-information-person-content">
                                                     <p>{{$taskDetails["fullName"]}}</p>
-                                                    <select class="form-control"  style="display: none" id="detail-add-person" name="personID" >
+                                                    <select class="form-control"  @if($taskDetails["fullName"] != "") style="display: none" @endif id="detail-add-person" name="personID" >
                                                         <option value=""></option>
                                                         @foreach($rolePersonList as $personItem)
                                                             <option value="{{$personItem['ID']}}" <?php if($personItem['ID'] == $taskDetails["personID"]) echo 'selected=selected';?>>
@@ -181,29 +181,19 @@
                                 </div>
                                 <div class="detail-information-task-memos">
                                     <h5>Memos</h5>
-                                    <div class="row">
-                                        <div class="col-lg-4 detail-content">
-                                            15. 11. 2019 08:12
+                                    @foreach($memos as $memoitem)
+                                        <div class="row">
+                                            <div class="col-lg-4 detail-content">
+                                                {{$memoitem["timeStamp"]}}
+                                            </div>
+                                            <div class="col-lg-3 detail-label">
+                                                {{$memoitem["fullName"]}}
+                                            </div>
+                                            <div class="col-lg-5 detail-content" style="display: block; text-overflow: ellipsis;  white-space: nowrap; overflow: hidden;">
+                                                {{$memoitem["Message"]}}
+                                            </div>
                                         </div>
-                                        <div class="col-lg-3 detail-label">
-                                            Tine Strehar
-                                        </div>
-                                        <div class="col-lg-5 detail-content">
-                                            Fixed!
-                                        </div>
-                                    </div>
-                                    <div class="row" style="margin-top: 15px">
-                                        <div class="col-lg-4 detail-content">
-                                            10. 10. 2019 07:37
-                                        </div>
-                                        <div class="col-lg-3 detail-label">
-                                            Janez Novak
-                                        </div>
-                                        <div class="col-lg-5">
-                                            Someone please fix the little wheel on the trolley. It keeps on
-                                            falling of if loaded.
-                                        </div>
-                                    </div>
+                                    @endforeach
                                     <div class="row">
                                         <input type="text"  class="form-control" name="memo">
                                     </div>
@@ -213,41 +203,48 @@
                                         <div class="col-lg-6">
                                             <h5>Attachmets</h5><br>
                                         </div>
-                                        <div class="custom-file col-lg-6">
-                                            <input type="file" class="custom-file-input" id="customFile">
-                                            <label class="custom-file-label" for="customFile">Choose file</label>
-                                        </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-lg-2">
-                                            <div class="kt-widget4__pic kt-widget4__pic--icon">
-                                                <img src="./assets/media/files/pdf.svg" alt="">
+                                    @foreach($attachs as $attchItem)
+                                        <div class="row attach_file" style="margin-top: 10px" data-tmpfilename="{{$attchItem['tmpFileName']}}">
+                                            <div class="col-lg-3">
+                                                <div class="kt-widget4__pic kt-widget4__pic--icon">
+                                                    <img src="./assets/media/files/pdf.svg" width="70%" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <div class="row">
+                                                    <div class="col-lg-12 detail-label">
+                                                        <h5>
+                                                        {{$attchItem['fileName']}}
+                                                        </h5>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-5 detail-label">
+                                                        Attached:
+                                                    </div>
+                                                    <div class="col-lg-7 detail-content">
+                                                        {{$attchItem['timestamp']}}
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-5 detail-label">
+                                                        Attached by:
+                                                    </div>
+                                                    <div class="col-lg-7 detail-content">
+                                                        {{$attchItem['fullName']}}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-7">
-                                            <div class="row">
-                                                <h5>
-                                                    Contract 2019-267 - Baustelle Ulm.pdf
-                                                </h5>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-5 detail-label">
-                                                    Attached:
-                                                </div>
-                                                <div class="col-lg-7 detail-content">
-                                                    10. 10. 2019
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-5 detail-label">
-                                                    Attached by:
-                                                </div>
-                                                <div class="col-lg-7 detail-content">
-                                                    Janez Novak
-                                                </div>
-                                            </div>
+                                    @endforeach
+                                    <div class="row" style="margin-top:30px;">
+                                        <div class="col-lg-1">
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="custom-file col-lg-10">
+                                            <input type="file" class="custom-file-input" id="customFile" name="fileName">
+                                            <input type="hidden" name="fileInfo">
+                                            <label class="custom-file-label" for="customFile">Choose file</label>
                                         </div>
                                     </div>
                                 </div>

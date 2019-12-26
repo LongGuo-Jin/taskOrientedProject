@@ -104,6 +104,10 @@ $(document).ready(function () {
         $(this).children().eq(2).focus();
     });
 
+    $("div.detail-edit input[name=memo]").on("click", function () {
+        $("button#taskDetailUpdate").removeClass("disabled");
+    });
+
     $( window ).resize(function() {
         fixScrollHeight();
     });
@@ -114,6 +118,31 @@ $(document).ready(function () {
 
     //set display type on each column.
     setColumnType();
+
+    $("input#customFile").on("change", function () {
+        var form = document.forms.namedItem("task_update_form"); // high importance!, here you need change "yourformname" with the name of your form
+        var formdata = new FormData(form); // high importance!
+
+        $("button#taskDetailUpdate").removeClass("disabled");
+        $.ajax({
+            async: true,
+            type: "POST",
+            dataType: "json", // or html if you want...
+            contentType: false, // high importance!
+            url: 'task/fileUpload', // you need change it.
+            data: formdata, // high importance!
+            processData: false, // high importance!
+            success: function (data) {
+                $("input[name=fileInfo]").val(JSON.stringify(data));
+            },
+            timeout: 10000
+        });
+    })
+
+    $("div.detail-edit .attach_file").on("click", function () {
+        var tmpFileName = $(this).data("tmpfilename");
+        window.location.href = base_url + "/uploads/" + tmpFileName;
+    });
 });
 
 function setColumnType()

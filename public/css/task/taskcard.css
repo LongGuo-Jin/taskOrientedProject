@@ -338,6 +338,9 @@ div.kt-quick-panel {
     padding-bottom: 30px;
     border-bottom:  1px solid;
 }
+.detail-information-task-memos .row {
+    margin-top: 15px;
+}
 
 .detail-information-task-attachments {
     padding-top: 30px;

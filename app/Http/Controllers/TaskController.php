@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Attachment;
+use App\Model\Memo;
 use App\Model\Person;
 use App\Model\Tag;
 use App\Model\TagPerson;
@@ -34,6 +36,8 @@ class TaskController extends Controller
         $TagPerson = new TagPerson();
         $Task = new Task();
         $Tag = new Tag();
+        $Memo = new Memo();
+        $Attachment = new Attachment();
 
         $totalPersonList = $Person->getPersonList();
         $rolePersonList = $Person->getrolePersonList();
@@ -44,6 +48,8 @@ class TaskController extends Controller
         $systemTagList = $Tag->getSystemTagList();
 
         $taskDetails = array();
+        $memos = array();
+        $attachs = array();
         $showType = $request->input('show_type') == "" ? "regular": $request->input('show_type');
         $taskId = $request->input('task_id') == "" ? "": $request->input('task_id');
 
@@ -51,6 +57,8 @@ class TaskController extends Controller
             $taskList = $Task->getTaskListInit();
         } else {
             $taskDetails = $Task->adtResult($Task->getTaskListbyCond(array("taskID" => $taskId)));
+            $memos = $Memo->getMemoByCond(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
+            $attachs = $Attachment->getAttachmentByCond(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
             $taskList = $Task->getTaskList($taskDetails[0]);
         }
 
@@ -67,7 +75,9 @@ class TaskController extends Controller
                 'systemTagList' => $systemTagList,
                 'showType' => $showType,
                 'taskId' => $taskId,
-                'taskDetails' => isset($taskDetails[0]) ? $taskDetails[0]: array()
+                'taskDetails' => isset($taskDetails[0]) ? $taskDetails[0]: array(),
+                'memos' => $memos,
+                'attachs' => $attachs
             ]
         );
     }
@@ -97,6 +107,18 @@ class TaskController extends Controller
         $Task = new Task();
         $ret = $Task->addTask($taskData);
 
+        if ($request->input('memo') != "") {
+            $Memo = new Memo();
+            $memo = array(
+                'timeStamp' => date("d.m.Y h:i"),
+                'personID' => Session::get('login_person_id'),
+                'taskID' => $Task->getLastInsertId(),
+                'Message' => $request->input('memo')
+            );
+
+            $ret = $Memo->addMemo($memo);
+        }
+
         $data = array();
         $data["ID"] = $Task->getLastInsertId();
         $data["result"] = $ret;
@@ -105,6 +127,10 @@ class TaskController extends Controller
     }
 
     public function taskCardUpdate(Request $request) {
+        $data = array();
+        $data["result"] = -1;
+        $taskID = "";
+
         $taskData = array(
             'title' =>  $request->input('title'),
             'datePlanStart' =>  $request->input('datePlanStart'),
@@ -124,17 +150,65 @@ class TaskController extends Controller
         if ($taskData["statusID"] == 4 || $taskData["statusID"] == 5)
             $taskData["dateActualEnd"] = date('Y-m-d h:i:s');
 
-        if ($request->input('taskID') != "")
+        if ($request->input('taskID') != "") {
             $taskID = $request->input('taskID');
+        } else {
+            print_r($data);die;
+        }
+
+        if ($request->input("fileInfo") != "") {
+            $fileInfo = $request->input("fileInfo");
+            $fileInfoArr = json_decode($fileInfo, true);
+
+            $attachment = new Attachment();
+            $attach = array(
+                'timeStamp' => date("d.m.Y h:i"),
+                'personID' => Session::get('login_person_id'),
+                'taskID' => $taskID,
+                'tmpFileName' => $fileInfoArr["tmpFileName"],
+                'fileName' => $fileInfoArr["fileName"],
+                'extension' => $fileInfoArr["extension"]
+            );
+
+            $ret = $attachment->addAttachment($attach);
+        }
 
         $Task = new Task();
         $ret = $Task->updateTask($taskID, $taskData);
 
-        $data = array();
+        if ($request->input('memo') != "") {
+            $Memo = new Memo();
+            $memo = array(
+                'timeStamp' => date("d.m.Y h:i"),
+                'personID' => Session::get('login_person_id'),
+                'taskID' => $taskID,
+                'Message' => $request->input('memo')
+            );
+
+            $ret = $Memo->addMemo($memo);
+        }
+
+
         $data["ID"] = $taskID;
         $data["result"] = $ret;
 
         print_r(json_encode($data));die;
+    }
+
+    public function fileUpload(Request $request)
+    {
+        $file = $request->file("fileName");
+        $destinationPath = 'uploads';
+        $fileName = date("Ymdhis")."_".$file->getClientOriginalName();
+        $file->move($destinationPath,$fileName);
+
+        $fileInfo = array(
+            "tmpFileName"  =>  $fileName,
+            "fileName"     =>   $file->getClientOriginalName(),
+            "extension"    =>   $file->getClientOriginalExtension()
+        );
+
+        print_r(json_encode($fileInfo));die;
     }
 
     public function taskList() {

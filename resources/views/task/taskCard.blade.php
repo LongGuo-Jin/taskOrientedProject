@@ -29,13 +29,13 @@
                                                         <i class="la la-cog"></i>
                                                     </a>
                                                     <div class="dropdown-menu">
-                                                        <a class="dropdown-item" data-toggle="tab" href="#kt_simple_tab_{{$columnClass}}">
+                                                        <a class="dropdown-item" data-toggle="tab" data-type="col-task-simple" href="#kt_simple_tab_{{$columnClass}}">
                                                             <i class="fa fa-align-justify"></i>Simple
                                                         </a>
-                                                        <a class="dropdown-item" data-toggle="tab" href="#kt_regular_tab_{{$columnClass}}">
+                                                        <a class="dropdown-item" data-toggle="tab" data-type="col-task-regular" href="#kt_regular_tab_{{$columnClass}}">
                                                             <i class="flaticon-laptop"></i>Regular
                                                         </a>
-                                                        <a class="dropdown-item" data-toggle="tab" href="#kt_extended_tab_{{$columnClass}}">
+                                                        <a class="dropdown-item" data-toggle="tab" data-type="col-task-extended" href="#kt_extended_tab_{{$columnClass}}">
                                                             <i class="flaticon-background"></i>Extended
                                                         </a>
                                                     </div>
@@ -115,7 +115,9 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-lg-3 person-tag">
-
+                                                                            <span class="kt-badge kt-badge--brand kt-badge--lg" id="detail-add-personTag">
+                                                                                {{$taskItem['psntagName']}}
+                                                                            </span>
                                                                         </div>
                                                                     </div>
                                                                     <div class="kt-space-10"></div>
@@ -138,10 +140,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="extand-below-content">
-                                                                <span class="kt-badge kt-badge--brand kt-badge--lg" id="detail-add-personTag">
-                                                                            {{$taskItem['psntagName']}}
-                                                                </span>
-                                                                    &nbsp;&nbsp;&nbsp;{{$taskItem['fullName']}}
+                                                                &nbsp;&nbsp;&nbsp;{{$taskItem['fullName']}}
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-4">
@@ -211,13 +210,15 @@
                                                                     </div>
                                                                     <div class="row col-lg-4">
                                                                         <div class="col-lg-4">
-                                                                            <span class="kt-badge kt-badge--brand kt-badge--lg" id="quick-add-personTag"></span>
+                                                                            <span class="kt-badge kt-badge--brand kt-badge--lg" id="quick-add-personTag">
+                                                                                {{$PersonTagNameList[Session::get('login_person_id')]}}
+                                                                            </span>
                                                                         </div>
                                                                         <div class="col-lg-8">
                                                                             <select class="form-control" id="quick-add-person" name="personID">
                                                                                 <option value=""></option>
                                                                                 @foreach($rolePersonList as $personItem)
-                                                                                    <option value="{{$personItem['ID']}}">{{$personItem['nameFamily'] . " " . $personItem['nameFirst']}}</option>
+                                                                                    <option value="{{$personItem['ID']}}" <?php if($personItem['ID'] == Session::get('login_person_id')) print_r("selected=selected");?>>{{$personItem['nameFamily'] . " " . $personItem['nameFirst']}}</option>
                                                                                 @endforeach
                                                                             </select>
                                                                         </div>
@@ -239,8 +240,13 @@
                                                                 <div class="col-lg-2 task-status">
                                                                     <?php echo($taskItem['status_icon'])?>
                                                                 </div>
-                                                                <div class="col-lg-10 final-sub-task-name">
+                                                                <div class="col-lg-7 final-sub-task-name">
                                                                     {{$taskItem['title']}}
+                                                                </div>
+                                                                <div class="col-lg-3 final-sub-task-name">
+                                                                    <span class="kt-badge kt-badge--brand kt-badge--lg">
+                                                                        {{$taskItem['psntagName']}}
+                                                                    </span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -297,12 +303,6 @@
                         required: true
                     },
                     personID: {
-                        required: true
-                    },
-                    datePlanStart: {
-                        required: true
-                    },
-                    datePlanEnd: {
                         required: true
                     }
                 },

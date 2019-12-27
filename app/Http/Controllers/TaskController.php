@@ -85,8 +85,8 @@ class TaskController extends Controller
     public function taskCardAdd(Request $request) {
         $taskData = array(
             'title' =>  $request->input('title'),
-            'datePlanStart' =>  $request->input('datePlanStart'),
-            'datePlanEnd' =>  $request->input('datePlanEnd'),
+            'datePlanStart' =>  $request->input('datePlanStart') == "" ? date("d.m.Y") : $request->input('datePlanStart'),
+            'datePlanEnd' =>  $request->input('datePlanEnd') == "" ? date("d.m.Y") : $request->input('datePlanEnd'),
             'statusID' =>  $request->input('statusID'),
             'priorityID' =>  $request->input('priorityID'),
             'weightID' =>  $request->input('weightID'),
@@ -95,6 +95,7 @@ class TaskController extends Controller
             'description' =>  $request->input('description'),
             'tags' =>  $request->input('tagList'),
             'taskCreatorID' => Session::get('login_person_id'),
+            'deleteFlag'    => 0,
             'creatAt'   =>  date('Y-m-d h:i:s'),
             'updateAt'   =>  date('Y-m-d h:i:s')
         );
@@ -133,8 +134,8 @@ class TaskController extends Controller
 
         $taskData = array(
             'title' =>  $request->input('title'),
-            'datePlanStart' =>  $request->input('datePlanStart'),
-            'datePlanEnd' =>  $request->input('datePlanEnd'),
+            'datePlanStart' =>  $request->input('datePlanStart') == "" ? date("d.m.Y") : $request->input('datePlanStart'),
+            'datePlanEnd' =>  $request->input('datePlanEnd') == "" ? date("d.m.Y") : $request->input('datePlanEnd'),
             'statusID' =>  $request->input('statusID'),
             'priorityID' =>  $request->input('priorityID'),
             'weightID' =>  $request->input('weightID'),
@@ -188,6 +189,32 @@ class TaskController extends Controller
             $ret = $Memo->addMemo($memo);
         }
 
+
+        $data["ID"] = $taskID;
+        $data["result"] = $ret;
+
+        print_r(json_encode($data));die;
+    }
+
+    public function taskCardDelete(Request $request) {
+        $data = array();
+        $data["result"] = -1;
+        $data["ID"] = "";
+        $taskID = "";
+
+        if ($request->input('taskID') != "") {
+            $taskID = $request->input('taskID');
+        } else {
+            print_r(json_encode($data));die;
+        }
+
+        $Task = new Task();
+        if ($Task->isFinalTask($taskID) ==  -1) {
+            $data["result"] = -2;
+            print_r(json_encode($data));die;
+        }
+
+        $ret = $Task->deleteTask($taskID);
 
         $data["ID"] = $taskID;
         $data["result"] = $ret;

@@ -50,35 +50,99 @@ $(document).ready(function () {
         if ($(this).hasClass("disabled"))
             return;
 
-        swal.fire({
-            title: 'Are you sure?',
-            text: "Do you update task?",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes',
-            cancelButtonText: 'No',
-            reverseButtons: true
-        }).then(function(result){
-            if (result.value) {
-                var newID = updateTask();
-                if (newID != -1)
-                {
+        var newID = updateTask();
+        if (newID != -1)
+        {
+            swal.fire(
+                'Updated!',
+                'You have updated task.',
+                'success'
+            ).then(function () {
+                window.location.href = base_url + "/task/taskCard?task_id=" + newID + "&show_type=regular";
+            });
+        } else {
+            swal.fire(
+                'Failed',
+                'You can not updated task.',
+                'error'
+            );
+        }
+    });
+
+    $("button#taskDetailDelete").on("click", function () {
+
+        if (userRoleId != 1) {
+            swal.fire(
+                'Warning!',
+                'Administrator can only delete.',
+                'Warning'
+            ).then(function () {
+                return;
+            });
+
+            return;
+        }
+
+        var taskId = $(this).data('taskid');
+        var params = "taskID=" + taskId + "&_token=" + $("div.detail-edit input[name=_token]").val();
+        var parentId = $(this).data("parentid");
+
+        $.ajax({
+            type:'POST',
+            url:'task/taskCardDelete',
+            data: params,
+            async: false,
+            timeout: 5000,
+            crossDomain: true,
+            beforeSend: function() {
+                KTApp.blockPage({
+                    overlayColor: '#000000',
+                    type: 'v2',
+                    state: 'warning',
+                    size: 'lg',
+                    opacity: 0.4,
+                });
+            },
+            complete: function(data) {
+                KTApp.unblockPage();
+            },
+            success:function(data) {
+                var result = $.parseJSON(data);
+                if (result["result"] == 1) {
                     swal.fire(
-                        'Updated!',
-                        'You have updated task.',
+                        'Success!',
+                        '',
                         'success'
                     ).then(function () {
-                        window.location.href = base_url + "/task/taskCard?task_id=" + newID + "&show_type=regular";
+                        if (parentId != "")
+                            window.location.href = base_url + "/task/taskCard?task_id=" + parentId + "&show_type=regular";
+                        else
+                            window.location.href = base_url + "/task/taskCard";
                     });
-                } else {
+                } else if (result["result"] == -2) {
                     swal.fire(
-                        'Failed',
-                        'You can not updated task.',
-                        'error'
-                    );
+                        'Failed!',
+                        'You can delete only last level task.',
+                        'warning'
+                    ).then(function () {
+                        if (parentId != "")
+                            window.location.href = base_url + "/task/taskCard?task_id=" + taskId + "&show_type=regular";
+                        else
+                            window.location.href = base_url + "/task/taskCard";
+                    });
+                }
+                else {
+                    swal.fire(
+                        'Failed!',
+                        '',
+                        'warning'
+                    ).then(function () {
+                            window.location.href = base_url + "/task/taskCard";
+                    });
                 }
             }
         });
+
     });
 
     //feature about edit-detail
@@ -88,8 +152,6 @@ $(document).ready(function () {
         ", div.detail-edit .detail-information-weight-content" +
         ", div.detail-edit .detail-start-date" +
         ", div.detail-edit .detail-end-date" +
-        ", div.detail-edit .detail-actual-start-date" +
-        ", div.detail-edit .detail-actual-end-date" +
         ", div.detail-edit .detail-edit-tags").on("click", function () {
         $("button#taskDetailUpdate").removeClass("disabled");
         $(this).children().eq(0).css("display", "none");
@@ -142,6 +204,15 @@ $(document).ready(function () {
     $("div.detail-edit .attach_file").on("click", function () {
         var tmpFileName = $(this).data("tmpfilename");
         window.location.href = base_url + "/uploads/" + tmpFileName;
+    });
+
+    $("div.kt-portlet__head-toolbar a[data-toggle=tab]").on("click", function () {
+        $(this).parents("div.column-body").removeClass("col-task-regular");
+        $(this).parents("div.column-body").removeClass("col-task-simple");
+        $(this).parents("div.column-body").removeClass("col-task-extended");
+        $(this).parents("div.column-body").addClass($(this).data("type"));
+
+        $(this).parents("div.content-task").children("div.column-body");
     });
 });
 
@@ -201,35 +272,23 @@ function fixScrollHeight() {
 
 function confirmAddTask()
 {
-    swal.fire({
-        title: 'Are you sure?',
-        text: "Do you add new task?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes',
-        cancelButtonText: 'No',
-        reverseButtons: true
-    }).then(function(result){
-        if (result.value) {
-            var newID = addTask();
-            if (newID != -1)
-            {
-                swal.fire(
-                    'Added!',
-                    'You have add new task.',
-                    'success'
-                ).then(function () {
-                    window.location.href = base_url + "/task/taskCard?task_id=" + newID + "&show_type=regular";
-                });
-            } else {
-                swal.fire(
-                    'Failed',
-                    'You can not add new task.',
-                    'error'
-                );
-            }
-        }
-    });
+    var newID = addTask();
+    if (newID != -1)
+    {
+        swal.fire(
+            'Added!',
+            'You have add new task.',
+            'success'
+        ).then(function () {
+            window.location.href = base_url + "/task/taskCard?task_id=" + newID + "&show_type=regular";
+        });
+    } else {
+        swal.fire(
+            'Failed',
+            'You can not add new task.',
+            'error'
+        );
+    }
 }
 
 function addTask()
@@ -305,35 +364,23 @@ function updateTask()
 $("button.quick-add-task").on("click", function () {
     var parentId = $(this).data("parent_id");
 
-    swal.fire({
-        title: 'Are you sure?',
-        text: "Do you add new subtask?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes',
-        cancelButtonText: 'No',
-        reverseButtons: true
-    }).then(function(result){
-        if (result.value) {
-            var newID = addSubTask();
-            if (newID != -1)
-            {
-                swal.fire(
-                    'Added!',
-                    'You have add new sub task.',
-                    'success'
-                ).then(function () {
-                    window.location.href = base_url + "/task/taskCard?task_id=" + newID + "&show_type=regular";
-                });
-            } else {
-                swal.fire(
-                    'Failed',
-                    'You can not add new sub task.',
-                    'error'
-                );
-            }
-        }
-    });
+    var newID = addSubTask();
+    if (newID != -1)
+    {
+        swal.fire(
+            'Added!',
+            'You have add new sub task.',
+            'success'
+        ).then(function () {
+            window.location.href = base_url + "/task/taskCard?task_id=" + newID + "&show_type=regular";
+        });
+    } else {
+        swal.fire(
+            'Failed',
+            'You can not add new sub task.',
+            'error'
+        );
+    }
 
     function addSubTask()
     {

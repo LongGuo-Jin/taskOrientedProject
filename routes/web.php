@@ -20,5 +20,6 @@ Route::any('task/taskCard', ['middleware' => 'task', 'uses' => 'TaskController@t
 Route::any('task/taskCardAdd', ['middleware' => 'task', 'uses' => 'TaskController@taskCardAdd']);
 Route::any('task/taskCardUpdate', ['middleware' => 'task', 'uses' => 'TaskController@taskCardUpdate']);
 Route::any('task/fileUpload', ['middleware' => 'task', 'uses' => 'TaskController@fileUpload']);
+Route::any('task/taskCardDelete', ['middleware' => 'task', 'uses' => 'TaskController@taskCardDelete']);
 Route::any('task/setLoginUser', ['middleware' => 'task', 'uses' => 'TaskController@setLoginUser']);
 Route::any('task/taskList', ['middleware' => 'task', 'uses' => 'TaskController@taskList']);

@@ -15,7 +15,7 @@ class Task extends Model
 
     protected $fillable = [
         'ID', 'title', 'datePlanStart', 'datePlanEnd', 'dateActualStart', 'dateActualEnd', 'statusID', 'priorityID', 'weightID', 'personID'
-        , 'budgetAllocated', 'hoursAllocated', 'hourSpent', 'hourCost', 'organizationID', 'locationID', 'taskCreatorID'
+        , 'budgetAllocated', 'hoursAllocated', 'hourSpent', 'hourCost', 'organizationID', 'locationID', 'taskCreatorID', 'deleteFlag'
     ];
 
     public function __construct()
@@ -58,6 +58,7 @@ class Task extends Model
             ->leftJoin("taskpriority", "task.priorityID", "=", "taskpriority.ID")
             ->leftJoin("taskweight", "task.weightID", "=", "taskweight.ID")
             ->leftJoin("person", "task.personID", "=", "person.ID")
+            ->where('deleteFlag', "!=", 1)
             ->select("{$this->table}.*", "tag.name as psntagName", "taskstatus.note as status_icon"
                 , "taskpriority.title as priority_title", "taskweight.title as weight"
                 , DB::raw("concat(person.nameFamily, ' ', person.nameFirst) as fullName"));
@@ -182,6 +183,7 @@ class Task extends Model
             ->leftJoin("taskpriority", "task.priorityID", "=", "taskpriority.ID")
             ->leftJoin("taskweight", "task.weightID", "=", "taskweight.ID")
             ->leftJoin("person", "task.personID", "=", "person.ID")
+            ->where('deleteFlag', "!=", 1)
             ->select("{$this->table}.*", "tag.name as psntagName", "taskstatus.note as status_icon"
                 , "taskpriority.title as priority_title", "taskweight.title as weight"
                 , DB::raw("concat(person.nameFamily, ' ', person.nameFirst) as fullName"));
@@ -285,5 +287,27 @@ class Task extends Model
         }
 
         return $retArr;
+    }
+
+    public function isFinalTask($taskId)
+    {
+        $checkRet = DB::table($this->table)
+            ->where("parentID", "=", $taskId)
+            ->where("deleteFlag", "=", 0)
+            ->select(DB::raw("count(*) as count"))->get()->toArray();
+        $checkArr = Common::stdClass2Array($checkRet);
+        if (isset($checkArr[0]['count']) && $checkArr[0]['count'] == 0)
+            return 1;
+
+        return -1;
+    }
+
+    public function deleteTask($taskId)
+    {
+        $ret = DB::table($this->table)
+            ->where("ID", "=" , $taskId)
+            ->update(array("deleteFlag" => 1));
+
+        return $ret;
     }
 }

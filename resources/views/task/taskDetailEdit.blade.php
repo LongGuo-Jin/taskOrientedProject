@@ -296,6 +296,7 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-taskid="{{$taskId}}" data-parentid="{{$taskDetails["parentID"]}}" id="taskDetailDelete">Delete</button>
                 <button type="button" class="btn btn-primary disabled" id="taskDetailUpdate">Update</button>
             </div>
         </form>

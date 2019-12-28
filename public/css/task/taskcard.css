@@ -280,11 +280,15 @@ div.kt-quick-panel {
     padding: 0px 20px 10px 20px;
 }
 
+.detail-budget-content {
+    padding: 0px 20px 10px 20px;
+}
+
 .detail-information-staus {
     margin-top: 30px;
 }
 
-.detail-information-task-name {
+.detail-information-task-name, .detail-budget-task-name, .detail-statistics-task-name {
     font-size: 16pt;
     font-weight: bold;
     margin-top: 10px;
@@ -309,6 +313,12 @@ div.kt-quick-panel {
     border-bottom:  1px solid;
     padding-top: 30px;
     padding-bottom: 30px;
+}
+
+.detail-income-content, .detail-expense-content {
+    margin-top: 30px;
+    border-top: 1px solid;
+    padding-top: 20px;
 }
 
 .detail-edit p {
@@ -338,6 +348,13 @@ div.kt-quick-panel {
     padding-bottom: 30px;
     border-bottom:  1px solid;
 }
+
+.detail-information-task-budget {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-bottom:  1px solid;
+}
+
 .detail-information-task-memos .row {
     margin-top: 15px;
 }
@@ -417,4 +434,40 @@ div.kt-quick-panel {
 div.kt-portlet__head-actions {
     margin-top:auto;
     margin-bottom:auto;
+}
+
+div.detail-budget-dashboard .row {
+    font-size: 12pt;
+    margin-top: 10px;
+    letter-spacing: 1px;
+}
+
+div.detail-budget-dashboard .balance {
+    font-size: 13pt;
+    padding-top: 15px;
+    padding-bottom: 5px;
+    border-top: 1px solid;
+    letter-spacing: 2px;
+    color: #c69393;
+}
+
+div.detail-statistics-content {
+    padding: 0px 20px 10px 20px;
+}
+
+.statistics-content {
+    color: black;
+    letter-spacing: 1px;
+    font-size: 10pt;
+}
+
+.statistics-label {
+    letter-spacing: 2px;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 10pt;
+}
+
+.statistics-row {
+    margin-top: 10px;
 }

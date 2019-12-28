@@ -87,9 +87,10 @@ $(document).ready(function () {
         var params = "taskID=" + taskId + "&_token=" + $("div.detail-edit input[name=_token]").val();
         var parentId = $(this).data("parentid");
 
+        //confirm what is final subtask.
         $.ajax({
             type:'POST',
-            url:'task/taskCardDelete',
+            url:'task/isFinalTask',
             data: params,
             async: false,
             timeout: 5000,
@@ -108,41 +109,25 @@ $(document).ready(function () {
             },
             success:function(data) {
                 var result = $.parseJSON(data);
-                if (result["result"] == 1) {
-                    swal.fire(
-                        'Success!',
-                        '',
-                        'success'
-                    ).then(function () {
-                        if (parentId != "")
-                            window.location.href = base_url + "/task/taskCard?task_id=" + parentId + "&show_type=regular";
-                        else
-                            window.location.href = base_url + "/task/taskCard";
+                if (result["result"] == -1) {
+                    swal.fire({
+                        title: 'This task has sub task.',
+                        text: "Do you allow to delete entire sub task?",
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes',
+                        cancelButtonText: 'No',
+                        reverseButtons: true
+                    }).then(function(result){
+                        if (result.value) {
+                            deleteTask(params, parentId);
+                        }
                     });
-                } else if (result["result"] == -2) {
-                    swal.fire(
-                        'Failed!',
-                        'You can delete only last level task.',
-                        'warning'
-                    ).then(function () {
-                        if (parentId != "")
-                            window.location.href = base_url + "/task/taskCard?task_id=" + taskId + "&show_type=regular";
-                        else
-                            window.location.href = base_url + "/task/taskCard";
-                    });
-                }
-                else {
-                    swal.fire(
-                        'Failed!',
-                        '',
-                        'warning'
-                    ).then(function () {
-                            window.location.href = base_url + "/task/taskCard";
-                    });
+                } else {
+                    deleteTask(params, parentId);
                 }
             }
         });
-
     });
 
     //feature about edit-detail
@@ -214,10 +199,149 @@ $(document).ready(function () {
 
         $(this).parents("div.content-task").children("div.column-body");
     });
+
+    $("button#budgetAdd").on("click", function () {
+        var description = $("input#income_description").val();
+        var income = $("input#income").val();
+        var params = "description=" + description + "&income=" + income + "&taskID=" + task_id
+            + "&_token=" + $("div.detail-edit input[name=_token]").val();
+
+        $.ajax({
+            type:'POST',
+            url:'task/addBudget',
+            data: params,
+            async: false,
+            timeout: 5000,
+            crossDomain: true,
+            beforeSend: function() {
+                KTApp.blockPage({
+                    overlayColor: '#000000',
+                    type: 'v2',
+                    state: 'warning',
+                    size: 'lg',
+                    opacity: 0.4,
+                });
+            },
+            complete: function(data) {
+                KTApp.unblockPage();
+            },
+            success:function(data) {
+                var result = $.parseJSON(data);
+                if (result["result"] == 1) {
+                    swal.fire(
+                        'Success!',
+                        '',
+                        'success'
+                    ).then(function () {
+                        window.location.href = base_url + "/task/taskCard?task_id=" + task_id + "&show_type=regular" + "&detailTab=budget";
+                    });
+                }
+            }
+        });
+    });
+
+    $("button#expensetAdd").on("click", function () {
+        var description = $("input#expense_description").val();
+        var expense = $("input#expense").val();
+        var params = "description=" + description + "&expense=" + expense + "&taskID=" + task_id
+            + "&_token=" + $("div.detail-edit input[name=_token]").val();
+
+        $.ajax({
+            type:'POST',
+            url:'task/addExpense',
+            data: params,
+            async: false,
+            timeout: 5000,
+            crossDomain: true,
+            beforeSend: function() {
+                KTApp.blockPage({
+                    overlayColor: '#000000',
+                    type: 'v2',
+                    state: 'warning',
+                    size: 'lg',
+                    opacity: 0.4,
+                });
+            },
+            complete: function(data) {
+                KTApp.unblockPage();
+            },
+            success:function(data) {
+                var result = $.parseJSON(data);
+                if (result["result"] == 1) {
+                    swal.fire(
+                        'Success!',
+                        '',
+                        'success'
+                    ).then(function () {
+                        window.location.href = base_url + "/task/taskCard?task_id=" + task_id + "&show_type=regular" + "&detailTab=budget";
+                    });
+                }
+            }
+        });
+    });
 });
+
+function deleteTask(params, parentId)
+{
+    var ret = -1;
+    $.ajax({
+        type:'POST',
+        url:'task/taskCardDelete',
+        data: params,
+        async: false,
+        timeout: 5000,
+        crossDomain: true,
+        beforeSend: function() {
+            KTApp.blockPage({
+                overlayColor: '#000000',
+                type: 'v2',
+                state: 'warning',
+                size: 'lg',
+                opacity: 0.4,
+            });
+        },
+        complete: function(data) {
+            KTApp.unblockPage();
+        },
+        success:function(data) {
+            var result = $.parseJSON(data);
+            if (result["result"] == 1) {
+                swal.fire(
+                    'Success!',
+                    '',
+                    'success'
+                ).then(function () {
+                    if (parentId != "")
+                        window.location.href = base_url + "/task/taskCard?task_id=" + parentId + "&show_type=regular";
+                    else
+                        window.location.href = base_url + "/task/taskCard";
+                });
+            }
+            else if (result["result"] > 1) {
+                swal.fire(
+                    'Success!',
+                    '',
+                    'success'
+                ).then(function () {
+                    window.location.href = base_url + "/task/taskCard";
+                });
+            }
+            else {
+                swal.fire(
+                    'Failed!',
+                    '',
+                    'warning'
+                ).then(function () {
+
+                });
+            }
+        }
+    });
+}
 
 function setColumnType()
 {
+    //set Tab for task column
     $("div.parent_selected").parents("div.column-body").addClass("col-task-regular");
     $("div.selected").parents("div.column-body").addClass("col-task-extended");
     $("div.selected").parents("div.column-body").next("div.column-body").addClass("col-task-simple");
@@ -235,6 +359,22 @@ function setColumnType()
     $("div.col-task-extended").find("div#kt_extended_tab_" + extendedColumId).addClass("active");
     $("div.col-task-simple").find("div.tab-pane").removeClass("active");
     $("div.col-task-simple").find("div#kt_simple_tab_" + simpleColumId).addClass("active");
+
+    //set Tab for task detail
+    $("div.detail-edit div.tab-pane").removeClass("active");
+    $("div.detail-edit div.kt-portlet__head li.nav-item a").removeClass("active");
+    if (detailTab == "budget") {
+        $("div.detail-edit div#edit_panel_tab_budget").addClass("active");
+        $("div.detail-edit div.kt-portlet__head a#tab_budget").addClass("active");
+    }
+    else if (detailTab == "statistics") {
+        $("div.detail-edit div#edit_panel_tab_statistics").addClass("active");
+        $("div.detail-edit div.kt-portlet__head a#tab_statistics").addClass("active");
+    }
+    else {
+        $("div.detail-edit div#edit_panel_tab_information").addClass("active");
+        $("div.detail-edit div.kt-portlet__head a#tab_information").addClass("active");
+    }
 }
 
 function reCalcWidth() {
@@ -372,7 +512,7 @@ $("button.quick-add-task").on("click", function () {
             'You have add new sub task.',
             'success'
         ).then(function () {
-            window.location.href = base_url + "/task/taskCard?task_id=" + newID + "&show_type=regular";
+            window.location.href = base_url + "/task/taskCard?task_id=" + task_id + "&show_type=regular";
         });
     } else {
         swal.fire(
@@ -385,7 +525,7 @@ $("button.quick-add-task").on("click", function () {
     function addSubTask()
     {
         var ret = -1;
-        var params = "parentID=" + parentId + "&title=" + $("input#quick-title").val() + "&parentID=" + task_id + "&personID=" + $("select#quick-add-person").val() +
+        var params = "title=" + $("input#quick-title").val() + "&parentID=" + task_id + "&personID=" + $("select#quick-add-person").val() +
             "&_token=" + $("input#quick_token").val();
 
         $.ajax({

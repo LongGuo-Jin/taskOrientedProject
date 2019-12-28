@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Model\Attachment;
+use App\Model\Budget;
+use App\Model\Expense;
+use App\Model\History;
 use App\Model\Memo;
 use App\Model\Person;
 use App\Model\Tag;
@@ -12,7 +15,9 @@ use App\Model\TaskPriority;
 use App\Model\TaskStatus;
 use App\Model\TaskWeight;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Psy\Command\HistoryCommand;
 
 class TaskController extends Controller
 {
@@ -37,7 +42,10 @@ class TaskController extends Controller
         $Task = new Task();
         $Tag = new Tag();
         $Memo = new Memo();
+        $Budget = new Budget();
+        $Expense = new Expense();
         $Attachment = new Attachment();
+        $History = new History();
 
         $totalPersonList = $Person->getPersonList();
         $rolePersonList = $Person->getrolePersonList();
@@ -49,17 +57,30 @@ class TaskController extends Controller
 
         $taskDetails = array();
         $memos = array();
+        $budget = array();
+        $expense = array();
         $attachs = array();
+        $statisticsData = array();
+        $history = array();
+        $expenseSum = $budgetSum = 0;
         $showType = $request->input('show_type') == "" ? "regular": $request->input('show_type');
         $taskId = $request->input('task_id') == "" ? "": $request->input('task_id');
+        $detailTab = "information";
 
         if ($taskId == "") {
             $taskList = $Task->getTaskListInit();
         } else {
             $taskDetails = $Task->adtResult($Task->getTaskListbyCond(array("taskID" => $taskId)));
             $memos = $Memo->getMemoByCond(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
+            $budget = $Budget->getBudgetByCond(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
+            $expense = $Expense->getExpenseByCond(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
+            $expenseSum = $Expense->getSumExpense(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
+            $budgetSum = $Budget->getSumBudget(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
             $attachs = $Attachment->getAttachmentByCond(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
+            $history = $History->getHistoryByCond(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
+            $statisticsData = $Task->getStatisticsData($taskDetails[0]);
             $taskList = $Task->getTaskList($taskDetails[0]);
+            $detailTab = $request->input("detailTab");
         }
 
         return view('task/taskCard',
@@ -77,7 +98,14 @@ class TaskController extends Controller
                 'taskId' => $taskId,
                 'taskDetails' => isset($taskDetails[0]) ? $taskDetails[0]: array(),
                 'memos' => $memos,
-                'attachs' => $attachs
+                'budget' => $budget,
+                'expense'=> $expense,
+                'attachs' => $attachs,
+                'expenseSum' => $expenseSum,
+                'budgetSum' => $budgetSum,
+                'detailTab' => $detailTab,
+                'statisticsData' => $statisticsData,
+                'history' => $history
             ]
         );
     }
@@ -106,22 +134,47 @@ class TaskController extends Controller
             $taskData["dateActualEnd"] = date('Y-m-d h:i:s');
 
         $Task = new Task();
-        $ret = $Task->addTask($taskData);
 
-        if ($request->input('memo') != "") {
-            $Memo = new Memo();
-            $memo = array(
-                'timeStamp' => date("d.m.Y h:i"),
+        try {
+            DB::beginTransaction();
+
+            $ret = $Task->addTask($taskData);
+            $taskID = $Task->getLastInsertId();
+
+            if ($request->input('memo') != "") {
+                $Memo = new Memo();
+                $memo = array(
+                    'timeStamp' => date("d.m.Y h:i"),
+                    'personID' => Session::get('login_person_id'),
+                    'taskID' => $taskID,
+                    'Message' => $request->input('memo')
+                );
+
+                $ret = $Memo->addMemo($memo);
+            }
+
+            $History = new History();
+            $historyData = array(
+                'eventDate' => date("d.m.Y h:i"),
                 'personID' => Session::get('login_person_id'),
-                'taskID' => $Task->getLastInsertId(),
-                'Message' => $request->input('memo')
+                'taskID' => $taskID,
+                'event' => "Created."
             );
+            $ret = $History->addHistory($historyData);
 
-            $ret = $Memo->addMemo($memo);
+            DB::commit();
+        }catch (\Exception $e ){
+            DB::rollBack();
+            $ret = -1;
         }
 
+        if ($ret != 1) {
+            DB::rollBack();
+        }
+
+
         $data = array();
-        $data["ID"] = $Task->getLastInsertId();
+        $data["ID"] = $taskID;
         $data["result"] = $ret;
 
         print_r(json_encode($data));die;
@@ -157,38 +210,71 @@ class TaskController extends Controller
             print_r($data);die;
         }
 
-        if ($request->input("fileInfo") != "") {
-            $fileInfo = $request->input("fileInfo");
-            $fileInfoArr = json_decode($fileInfo, true);
 
+        try{
+            DB::beginTransaction();
+
+            $Task = new Task();
             $attachment = new Attachment();
-            $attach = array(
-                'timeStamp' => date("d.m.Y h:i"),
-                'personID' => Session::get('login_person_id'),
-                'taskID' => $taskID,
-                'tmpFileName' => $fileInfoArr["tmpFileName"],
-                'fileName' => $fileInfoArr["fileName"],
-                'extension' => $fileInfoArr["extension"]
-            );
+            $History = new History();
+            $taskStatus = new TaskStatus();
 
-            $ret = $attachment->addAttachment($attach);
+            if ($request->input("fileInfo") != "") {
+                $fileInfo = $request->input("fileInfo");
+                $fileInfoArr = json_decode($fileInfo, true);
+
+                $attach = array(
+                    'timeStamp' => date("d.m.Y h:i"),
+                    'personID' => Session::get('login_person_id'),
+                    'taskID' => $taskID,
+                    'tmpFileName' => $fileInfoArr["tmpFileName"],
+                    'fileName' => $fileInfoArr["fileName"],
+                    'extension' => $fileInfoArr["extension"]
+                );
+
+                $ret = $attachment->addAttachment($attach);
+
+                $historyData = array(
+                    'eventDate' => date("d.m.Y h:i"),
+                    'personID' => Session::get('login_person_id'),
+                    'taskID' => $taskID,
+                    'event' => "Attachment added: {$attach['fileName']}"
+                );
+                $ret = $History->addHistory($historyData);
+            }
+
+            if ($request->input('memo') != "") {
+                $Memo = new Memo();
+                $memo = array(
+                    'timeStamp' => date("d.m.Y h:i"),
+                    'personID' => Session::get('login_person_id'),
+                    'taskID' => $taskID,
+                    'Message' => $request->input('memo')
+                );
+
+                $ret = $Memo->addMemo($memo);
+            }
+
+            $ret = $Task->updateTask($taskID, $taskData);
+            $oldStatusId = $request->input("oldstatusID");
+            if ($taskData["statusID"] != $oldStatusId) {
+                $historyData = array(
+                    'eventDate' => date("d.m.Y h:i"),
+                    'personID' => Session::get('login_person_id'),
+                    'taskID' => $taskID,
+                    'event' => "Status change: ".$taskStatus->getStatusName($taskData["statusID"])
+                );
+                $ret = $History->addHistory($historyData);
+            }
+
+            DB::commit();
+        }catch (\Exception $e) {
+            DB::rollBack();
+            $ret = -1;
         }
 
-        $Task = new Task();
-        $ret = $Task->updateTask($taskID, $taskData);
-
-        if ($request->input('memo') != "") {
-            $Memo = new Memo();
-            $memo = array(
-                'timeStamp' => date("d.m.Y h:i"),
-                'personID' => Session::get('login_person_id'),
-                'taskID' => $taskID,
-                'Message' => $request->input('memo')
-            );
-
-            $ret = $Memo->addMemo($memo);
-        }
-
+        if ($ret != 1)
+            DB::rollBack();
 
         $data["ID"] = $taskID;
         $data["result"] = $ret;
@@ -209,15 +295,35 @@ class TaskController extends Controller
         }
 
         $Task = new Task();
-        if ($Task->isFinalTask($taskID) ==  -1) {
-            $data["result"] = -2;
-            print_r(json_encode($data));die;
-        }
-
-        $ret = $Task->deleteTask($taskID);
+        $Task->tmpArr = array();
+        $Task->deleteSub($taskID);
+        $ret = $Task->deleteTask($Task->tmpArr);
 
         $data["ID"] = $taskID;
         $data["result"] = $ret;
+
+        print_r(json_encode($data));die;
+    }
+
+    public function isFinalTask(Request $request) {
+        $data = array();
+        $data["result"] = 1;
+        $data["ID"] = "";
+        $taskID = "";
+
+        if ($request->input('taskID') != "") {
+            $taskID = $request->input('taskID');
+        } else {
+            print_r(json_encode($data));die;
+        }
+
+        $Task = new Task();
+        if ($Task->isFinalTask($taskID) ==  -1) {
+            $data["result"] = -1;
+            print_r(json_encode($data));die;
+        }
+
+        $data["ID"] = $taskID;
 
         print_r(json_encode($data));die;
     }
@@ -251,5 +357,39 @@ class TaskController extends Controller
         Session::put('login_role_id', $personInfo);
 
         return redirect("task/taskCard");
+    }
+
+    public function addBudget(Request $request) {
+        $budgetData = array(
+            "taskID" => $request->input("taskID"),
+            "personID" => Session::get('login_person_id'),
+            "description" => $request->input("description"),
+            "income" => $request->input("income"),
+            "timestamp" => date("d.m.Y")
+        );
+
+        $Budget = new Budget();
+        $ret = $Budget->addBudget($budgetData);
+
+        $data["result"] = $ret;
+
+        print_r(json_encode($data));die;
+    }
+
+    public function addExpense(Request $request) {
+        $expenseData = array(
+            "taskID" => $request->input("taskID"),
+            "personID" => Session::get('login_person_id'),
+            "description" => $request->input("description"),
+            "expense" => $request->input("expense"),
+            "timestamp" => date("d.m.Y")
+        );
+
+        $Expense = new Expense();
+        $ret = $Expense->addExpense($expenseData);
+
+        $data["result"] = $ret;
+
+        print_r(json_encode($data));die;
     }
 }

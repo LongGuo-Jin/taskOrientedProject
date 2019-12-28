@@ -19,4 +19,14 @@ class TaskStatus extends Model
 
         return Common::stdClass2Array($ret);
     }
+
+    public function getStatusName($statusId){
+        $ret = DB::table($this->table)
+            ->where("ID", "=", $statusId)
+            ->orderBy('id', 'asc')->get()->toArray();
+
+        $retData = Common::stdClass2Array($ret);
+
+        return $retData[0]["title"];
+    }
 }

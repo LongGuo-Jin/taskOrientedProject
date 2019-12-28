@@ -12,6 +12,7 @@ class Task extends Model
     protected $table = "task";
     protected $roleId;
     protected $login_id;
+    public $tmpArr = array();
 
     protected $fillable = [
         'ID', 'title', 'datePlanStart', 'datePlanEnd', 'dateActualStart', 'dateActualEnd', 'statusID', 'priorityID', 'weightID', 'personID'
@@ -68,6 +69,10 @@ class Task extends Model
             case Common::constant("role.foreman"):
                 $qrBuilder = $qrBuilder->whereNull("task.parentID");
                 $qrBuilder = $qrBuilder->where("task.personID", "=", $this->login_id);
+                $qrBuilder = $qrBuilder->orwhere(function ($query) {
+                    $query->where("task.personID", "=", $this->login_id)
+                        ->where("taskCreatorID", "!=", $this->login_id);
+                });
                 break;
             case Common::constant("role.admin"):
                 $qrBuilder = $qrBuilder->whereNull("task.parentID");
@@ -248,6 +253,7 @@ class Task extends Model
             DB::table($this->table)->leftjoin("taskweight", "task.weightID", "=", "taskweight.ID")
                 ->select(DB::raw("sum(taskweight.title) as sumweight"), "task.parentID")
                 ->where("task.statusID", "!=", "5")
+                ->where("deleteFlag", "=", 0)
                 ->groupBy('task.parentID')
                 ->orderBy('task.parentID', 'asc')->get()->toArray());
 
@@ -259,6 +265,7 @@ class Task extends Model
             DB::table($this->table)->leftjoin("taskweight", "task.weightID", "=", "taskweight.ID")
                 ->select(DB::raw("sum(taskweight.title) as sumweight"), "task.parentID")
                 ->where("task.statusID", "=", "4")
+                ->where("deleteFlag", "=", 0)
                 ->groupBy('task.parentID')
                 ->orderBy('task.parentID', 'asc')->get()->toArray());
 
@@ -271,8 +278,8 @@ class Task extends Model
             $retArr[$key]["TagNames"] = $this->getTagIds2Names($sysTagArr, $retItem["tags"]);
             $retArr[$key]["TagNameIcons"] = $this->getTagIds2Names($sysTagIconArr, $retItem["tags"], "");
 
-            $datetime1 = strtotime(str_replace(".", "/", $retItem['datePlanStart']));
-            $datetime2 = strtotime(str_replace(".", "/", $retItem['datePlanEnd']));
+            $datetime1 = strtotime(str_replace(".", "-", $retItem['datePlanStart']));
+            $datetime2 = strtotime(str_replace(".", "-", $retItem['datePlanEnd']));
             $nowtime = strtotime("today");
             $totalDays = ($datetime2 - $datetime1) / 86400;
             $spentDays = ($nowtime - $datetime1) / 86400;
@@ -302,12 +309,48 @@ class Task extends Model
         return -1;
     }
 
-    public function deleteTask($taskId)
+    public function deleteTask($taskIds)
     {
         $ret = DB::table($this->table)
-            ->where("ID", "=" , $taskId)
+            ->whereIn("ID" , $taskIds)
             ->update(array("deleteFlag" => 1));
 
         return $ret;
+    }
+
+    function deleteSub($cat_id) {
+        $ret = Common::stdClass2Array(DB::table($this->table)
+            ->where("parentID", "=" , $cat_id)
+            ->select("*")->get()->toArray());
+
+        foreach ($ret as $retItem) {
+            $this->deleteSub($retItem["ID"]);
+        }
+
+        array_push($this->tmpArr, $cat_id);
+        return ;
+    }
+
+    function getStatisticsData($taskDetail) {
+        $statisticsData = array();
+        $datetime1 = strtotime(str_replace(".", "-", $taskDetail['datePlanStart']));
+        $datetime2 = strtotime(str_replace(".", "-", $taskDetail['datePlanEnd']));
+        $nowtime = strtotime("today");
+        $totalDay = ($datetime2 - $datetime1) / 86400;
+        $timeLeft = ($datetime2 - $nowtime) / 86400;
+        $statisticsData['timeLeft'] = $timeLeft;
+        $statisticsData['timeLeftPercent'] = $totalDay == 0 ? 100 : ($timeLeft/$totalDay)*100;
+
+        $retArr = Common::stdClass2Array(
+            DB::table($this->table)->select(DB::raw("count(*) as totalCount"), DB::raw("count(case when statusID = 4 then 1 end) AS finishCount"))
+                ->where("parentID", "=", $taskDetail["ID"])
+                ->where("deleteFlag", "=", 0)->get()->toArray());
+
+        $statisticsData["totalCount"] = isset($retArr[0]["totalCount"]) ? $retArr[0]["totalCount"]: 0;
+        $statisticsData["finishCount"] = isset($retArr[0]["finishCount"]) ? $retArr[0]["finishCount"]: 0;
+        $statisticsData["leftCount"] = $statisticsData["totalCount"] - $statisticsData["finishCount"];
+        $statisticsData["subFinishPercent"] = $statisticsData["totalCount"] == 0 ? 100 : ($statisticsData["finishCount"]/$statisticsData["totalCount"])*100;
+
+        return $statisticsData;
     }
 }

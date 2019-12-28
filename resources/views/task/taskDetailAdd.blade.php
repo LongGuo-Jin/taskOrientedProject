@@ -14,12 +14,6 @@
                         <li class="nav-item active">
                             <a class="nav-link active" data-toggle="tab" href="#kt_quick_panel_tab_information" role="tab">INFORMATION</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#kt_quick_panel_tab_logs" role="tab">BUDGET</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#kt_quick_panel_tab_settings" role="tab">STATISTICS</a>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -35,7 +29,9 @@
                                         <div class="col-lg-6">
                                             <div class="row">
                                                 <div class="col-lg-3" style="margin: auto 0px auto 0px;">
-                                                    <span class="kt-badge kt-badge--brand kt-badge--lg" id="detail-add-personTag"></span>
+                                                    <span class="kt-badge kt-badge--brand kt-badge--lg" id="detail-add-personTag">
+                                                        {{$PersonTagNameList[Session::get('login_person_id')]}}
+                                                    </span>
                                                 </div>
                                                 <div class="col-lg-9">
                                                     <div class="detail-information-staus-title">
@@ -45,7 +41,9 @@
                                                         <select class="form-control" id="detail-add-person" name="personID">
                                                             <option value=""></option>
                                                             @foreach($rolePersonList as $personItem)
-                                                                <option value="{{$personItem['ID']}}">{{$personItem['nameFamily'] . " " . $personItem['nameFirst']}}</option>
+                                                                <option value="{{$personItem['ID']}}" <?php if($personItem['ID'] == Session::get('login_person_id')) print_r("selected=selected");?>>
+                                                                    {{$personItem['nameFamily'] . " " . $personItem['nameFirst']}}
+                                                                </option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -163,12 +161,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="tab-pane" id="kt_quick_panel_tab_logs">
-
-                            </div>
-                            <div class="tab-pane" id="kt_quick_panel_tab_settings">
-
                             </div>
                         </div>
                     </div>

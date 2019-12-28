@@ -5,6 +5,7 @@
             <input type="hidden" name="_token" value="{{csrf_token()}}">
             <input type="hidden" name="taskID" value="{{$taskId}}">
             <input type="hidden" name="parentID" value="{{$taskDetails["parentID"]}}">
+            <input type="hidden" name="oldstatusID" value="{{$taskDetails["statusID"]}}">
             <div class="kt-portlet__head">
                 <div class="kt-portlet__head-label">
                     <h3 class="kt-portlet__head-title">
@@ -14,13 +15,13 @@
                 <div class="kt-portlet__head-toolbar">
                     <ul class="nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-brand" role="tablist">
                         <li class="nav-item active">
-                            <a class="nav-link active" data-toggle="tab" href="#kt_quick_panel_tab_information" role="tab">INFORMATION</a>
+                            <a class="nav-link active" data-toggle="tab" id="tab_information" href="#edit_panel_tab_information" role="tab">INFORMATION</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#kt_quick_panel_tab_logs" role="tab">BUDGET</a>
+                            <a class="nav-link" data-toggle="tab" id="tab_budget" href="#edit_panel_tab_budget" role="tab">BUDGET</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#kt_quick_panel_tab_settings" role="tab">STATISTICS</a>
+                            <a class="nav-link" data-toggle="tab"  id="tab_statistics" href="#edit_panel_tab_statistics" role="tab">STATISTICS</a>
                         </li>
                     </ul>
                 </div>
@@ -28,7 +29,7 @@
             <div class="kt-portlet__body">
                 <div class="kt-scroll" data-scroll="true" style="height: 600px">
                     <div class="tab-content">
-                        <div class="tab-pane active" id="kt_quick_panel_tab_information">
+                        <div class="tab-pane active" id="edit_panel_tab_information">
                             <div class="detail-infomation-content">
                                 <div class="row detail-information-title">
 
@@ -103,7 +104,7 @@
                                                 </div>
                                                 <div class="detail-information-weight-content">
                                                     <p>{{$taskDetails["weight"]}}</p>
-                                                    <p @if ($taskDetails["weight"]) style="display: none;" @endif>
+                                                    <p @if ($taskDetails["weight"] == 0) style="display: none;" @endif>
                                                         <select class="form-control kt-selectpicker" id="detail-information-priority" name="weightID">
                                                             @foreach($TaskWeightList as $taskWeightItem)
                                                                 <option value="{{$taskWeightItem['ID']}}" <?php if($taskWeightItem['ID'] == $taskDetails["weightID"]) echo 'selected=selected';?>>{{$taskWeightItem['title']}}</option>
@@ -250,47 +251,274 @@
                                 </div>
                                 <div class="detail-information-task-memos">
                                     <h5>History</h5><br>
+                                    @foreach($history as $historyItem)
+                                        <div class="row">
+                                            <div class="col-lg-4 detail-content">
+                                                {{$historyItem['eventDate']}}
+                                            </div>
+                                            <div class="col-lg-3 detail-label">
+                                                {{$historyItem['fullName']}}
+                                            </div>
+                                            <div class="col-lg-5 detail-content">
+                                                {{$historyItem['event']}}
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="edit_panel_tab_budget">
+                            <div class="detail-budget-content">
+                                <div class="row detail-budget-task-name">
+                                    <p>{{$taskDetails["title"]}}</p>
+                                </div>
+                                <div class="row detail-budget-dashboard">
+                                    <div class="col-lg-6">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                Budget
+                                            </div>
+                                            <div class="col-lg-6" style="text-align: right">
+                                                {{number_format($budgetSum, 2, ',', '.')}}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                Expense
+                                            </div>
+                                            <div class="col-lg-6" style="text-align: right">
+                                                {{number_format($expenseSum, 2, ',', '.')}}
+                                            </div>
+                                        </div>
+                                        <div class="row balance">
+                                            <div class="col-lg-6">
+                                                Balance
+                                            </div>
+                                            <div class="col-lg-6" style="text-align: right">
+                                                {{number_format($budgetSum - $expenseSum, 2, ',', '.')}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+
+                                    </div>
+                                </div>
+                                <div class="detail-income-content">
                                     <div class="row">
-                                        <div class="col-lg-4 detail-content">
-                                            15. 11. 2019 08:12
+                                        <div class="col-lg-6">
+                                            <h5>Budget</h5>
                                         </div>
-                                        <div class="col-lg-3 detail-label">
-                                            Tine Strehar
-                                        </div>
-                                        <div class="col-lg-5 detail-content">
-                                            Status change: Active
+                                        <div class="col-lg-6" style="text-align: right">
+                                            <h3>{{number_format($budgetSum, 2, ',', '.')}}</h3>
                                         </div>
                                     </div>
-                                    <div class="row" style="margin-top: 15px">
-                                        <div class="col-lg-4 detail-content">
-                                            10. 10. 2019 07:37
+                                    @foreach($budget as $budgetItem)
+                                        <div class="row" style="margin-top: 10px">
+                                            <div class="col-lg-3 detail-content">
+                                                {{$budgetItem["timestamp"]}}
+                                            </div>
+                                            <div class="col-lg-3 detail-label">
+                                                {{$budgetItem["fullName"]}}
+                                            </div>
+                                            <div class="col-lg-3 detail-content" style="display: block; text-overflow: ellipsis;  white-space: nowrap; overflow: hidden;">
+                                                {{$budgetItem["description"]}}
+                                            </div>
+                                            <div class="col-lg-3 detail-content" style="text-align: right;">
+                                                {{number_format($budgetItem["income"], 2, ',', '.')}}
+                                            </div>
                                         </div>
-                                        <div class="col-lg-3 detail-label">
-                                            Janez Novak
+                                    @endforeach
+                                    <div class="row" style="margin-top: 10px">
+                                        <div class="col-lg-7">
+                                            <input type="text"  class="form-control" id="income_description" name="description" placeholder="income description">
                                         </div>
                                         <div class="col-lg-5">
-                                            Attachment added: Contract 2019-267 - Fabrike Ulm.pdf
+                                            <input type="text"  class="form-control" id="income" name="income" placeholder="0,00">
                                         </div>
                                     </div>
-                                    <div class="row" style="margin-top: 15px">
-                                        <div class="col-lg-4 detail-content">
-                                            10. 10. 2019 07:35
+                                    <div class="row" style="margin-top: 10px">
+                                        <div class="col-lg-3">
                                         </div>
-                                        <div class="col-lg-3 detail-label">
-                                            Janez Novak
+                                        <div class="col-lg-9" style="text-align: right;">
+                                            <button type="button" class="btn btn-outline-brand btn-elevate btn-pill" id="budgetAdd">
+                                                <i class="flaticon-add"></i>
+                                                Add Budget
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="detail-expense-content">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h5>Expense</h5>
+                                        </div>
+                                        <div class="col-lg-6" style="text-align: right">
+                                            <h3>{{number_format($expenseSum, 2, ',', '.')}}</h3>
+                                        </div>
+                                    </div>
+                                    @foreach($expense as $expenseItem)
+                                        <div class="row" style="margin-top: 10px">
+                                            <div class="col-lg-3 detail-content">
+                                                {{$expenseItem["timestamp"]}}
+                                            </div>
+                                            <div class="col-lg-3 detail-label">
+                                                {{$expenseItem["fullName"]}}
+                                            </div>
+                                            <div class="col-lg-3 detail-content" style="display: block; text-overflow: ellipsis;  white-space: nowrap; overflow: hidden;">
+                                                {{$expenseItem["description"]}}
+                                            </div>
+                                            <div class="col-lg-3 detail-content" style="text-align: right;">
+                                                {{number_format($expenseItem["expense"], 2, ',', '.')}}
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                    <div class="row" style="margin-top: 10px">
+                                        <div class="col-lg-7">
+                                            <input type="text"  class="form-control" id="expense_description" name="description" placeholder="expense description">
                                         </div>
                                         <div class="col-lg-5">
-                                            Created
+                                            <input type="text"  class="form-control" id="expense" name="expense" placeholder="0,00">
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top: 10px">
+                                        <div class="col-lg-3">
+                                        </div>
+                                        <div class="col-lg-9" style="text-align: right;">
+                                            <button type="button" class="btn btn-outline-brand btn-elevate btn-pill" id="expensetAdd">
+                                                <i class="flaticon-add"></i>
+                                                Add Expense
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane" id="kt_quick_panel_tab_logs">
+                        <div class="tab-pane" id="edit_panel_tab_statistics">
+                            <div class="detail-statistics-content">
+                                <div class="row detail-statistics-task-name">
+                                    <p>{{$taskDetails["title"]}}</p>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="row statistics-row">
+                                            <div class="col-lg-6 statistics-label">
+                                                Start date
+                                            </div>
+                                            <div class="col-lg-6 statistics-content" style="text-align: right">
+                                                {{$taskDetails['datePlanStart']}}
+                                            </div>
+                                        </div>
+                                        <div class="row statistics-row">
+                                            <div class="col-lg-6 statistics-label">
+                                                End date
+                                            </div>
+                                            <div class="col-lg-6 statistics-content" style="text-align: right">
+                                                {{$taskDetails['datePlanEnd']}}
+                                            </div>
+                                        </div>
+                                        <div class="row statistics-row">
+                                            <div class="col-lg-6 statistics-label">
+                                                Time Left
+                                            </div>
+                                            <div class="col-lg-6 statistics-content" style="text-align: right">
+                                                {{$statisticsData['timeLeft']}}
+                                            </div>
+                                        </div>
+                                        <div class="row statistics-row">
+                                            <div class="col-lg-6 statistics-label">
+                                                Time Left%
+                                            </div>
+                                            <div class="col-lg-6 statistics-content" style="text-align: right">
+                                                {{$statisticsData['timeLeftPercent']}} %
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
 
-                        </div>
-                        <div class="tab-pane" id="kt_quick_panel_tab_settings">
-
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 20px;">
+                                    <div class="col-lg-6">
+                                        <div class="row statistics-row">
+                                            <div class="col-lg-6 statistics-label">
+                                                Progress
+                                            </div>
+                                            <div class="col-lg-6 statistics-content" style="text-align: right">
+                                                {{$taskDetails['finishProgress']}}%
+                                            </div>
+                                        </div>
+                                        <div class="row statistics-row">
+                                            <div class="col-lg-8 statistics-label">
+                                                Progress Left
+                                            </div>
+                                            <div class="col-lg-4 statistics-content" style="text-align: right">
+                                                {{100 - $taskDetails['finishProgress']}}%
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-1">
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <div class="row statistics-row" style="text-align: right;">
+                                            Progress
+                                        </div>
+                                        <div class="row statistics-row progress" style="height: 14px;">
+                                            @if($taskDetails['spentProgress'] <= $taskDetails['finishProgress'])
+                                                <div class="progress-bar bg-success" role="progressbar" style="width: {{$taskDetails['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                            @else
+                                                <div class="progress-bar bg-danger" role="progressbar" style="width: {{$taskDetails['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                <div class="progress-bar bg-dark" role="progressbar" style="width: {{$taskDetails['spentProgress'] - $taskDetails['finishProgress']}}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 20px;">
+                                    <div class="col-lg-6">
+                                        <div class="row statistics-row">
+                                            <div class="col-lg-6 statistics-label">
+                                                Sub Tasks
+                                            </div>
+                                            <div class="col-lg-6 statistics-content" style="text-align: right">
+                                                {{$statisticsData['totalCount']}}
+                                            </div>
+                                        </div>
+                                        <div class="row statistics-row">
+                                            <div class="col-lg-6 statistics-label">
+                                                Sub Tasks finished
+                                            </div>
+                                            <div class="col-lg-6 statistics-content" style="text-align: right">
+                                                {{$statisticsData['finishCount']}}
+                                            </div>
+                                        </div>
+                                        <div class="row statistics-row">
+                                            <div class="col-lg-6 statistics-label">
+                                                Sub Tasks Left
+                                            </div>
+                                            <div class="col-lg-6 statistics-content" style="text-align: right">
+                                                {{$statisticsData['leftCount']}}
+                                            </div>
+                                        </div>
+                                        <div class="row statistics-row">
+                                            <div class="col-lg-6 statistics-label">
+                                                Sub Tasks finished
+                                            </div>
+                                            <div class="col-lg-6 statistics-content" style="text-align: right">
+                                                {{$statisticsData['subFinishPercent']}}%
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-1">
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <div class="row statistics-row" style="text-align: right;">
+                                            Subtasks finished
+                                        </div>
+                                        <div class="row statistics-row progress" style="height: 14px;">
+                                            <div class="progress-bar bg-dark" role="progressbar" style="width: {{$statisticsData['subFinishPercent']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

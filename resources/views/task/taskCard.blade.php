@@ -82,7 +82,7 @@
                                                                     <div class="progress-bar bg-success" role="progressbar" style="width: {{$taskItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
                                                                 @else
                                                                     <div class="progress-bar bg-danger" role="progressbar" style="width: {{$taskItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                    <div class="progress-bar bg-gray" role="progressbar" style="width: {{$taskItem['finishProgress'] - $taskItem['spentProgress']}}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                    <div class="progress-bar bg-dark" role="progressbar" style="width: {{$taskItem['spentProgress'] - $taskItem['finishProgress']}}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                                                                 @endif
                                                             </div>
                                                             <div class="kt-space-5"></div>
@@ -126,7 +126,7 @@
                                                                             <div class="progress-bar bg-success" role="progressbar" style="width: {{$taskItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
                                                                         @else
                                                                             <div class="progress-bar bg-danger" role="progressbar" style="width: {{$taskItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                            <div class="progress-bar bg-gray" role="progressbar" style="width: {{$taskItem['finishProgress'] - $taskItem['spentProgress']}}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            <div class="progress-bar bg-dark" role="progressbar" style="width: {{$taskItem['spentProgress'] - $taskItem['finishProgress']}}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                                                                         @endif
                                                                     </div>
                                                                     <div class="kt-space-5"></div>
@@ -284,6 +284,7 @@
         var task_id = "{{$taskId}}";
         var showType = "{{$showType}}";
         var userRoleId = "<?php print_r(Session::get('login_role_id'));?>";
+        var detailTab = "{{$detailTab}}";
 
         $(document).ready(function () {
             var arrows;
@@ -292,7 +293,7 @@
                 orientation: "bottom right",
                 todayHighlight: true,
                 templates: arrows,
-                format: 'mm.dd.yyyy',
+                format: 'dd.mm.yyyy',
                 autoclose: true
             });
 

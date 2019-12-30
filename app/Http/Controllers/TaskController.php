@@ -200,7 +200,7 @@ class TaskController extends Controller
             'weightID' =>  $request->input('weightID'),
             'personID' =>  $request->input('personID'),
             'parentID' =>  $request->input('parentID') == 0 ? null: $request->input('parentID'),
-            'description' =>  $request->input('description'),
+            'description' =>  $request->input('info_description'),
             'tags' =>  $request->input('tagList'),
             'updateAt'   =>  date('Y-m-d h:i:s')
         );

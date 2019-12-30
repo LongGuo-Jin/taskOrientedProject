@@ -178,7 +178,7 @@
                                 <div class="detail-information-description">
                                     <h5>Description</h5>
                                     <p>{{$taskDetails["description"]}}</p>
-                                    <textarea class="form-control" id="edit_description" @if ($taskDetails["description"] != "") style="display: none" @endif rows="5" name="description">{{$taskDetails["description"]}}</textarea>
+                                    <textarea class="form-control" id="edit_description" @if ($taskDetails["description"] != "") style="display: none" @endif rows="5" name="info_description">{{$taskDetails["description"]}}</textarea>
                                 </div>
                                 <div class="detail-information-task-memos">
                                     <h5>Memos</h5>

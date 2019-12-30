@@ -62,7 +62,7 @@ class TaskController extends Controller
         $attachs = array();
         $statisticsData = array();
         $history = array();
-        $expenseSum = $budgetSum = 0;
+        $expenseSum = $budgetSum = $expenseTotalSum = $budgetTotalSum =0;
         $showType = $request->input('show_type') == "" ? "regular": $request->input('show_type');
         $taskId = $request->input('task_id') == "" ? "": $request->input('task_id');
         $detailTab = "information";
@@ -73,10 +73,13 @@ class TaskController extends Controller
         } else {
             $taskDetails = $Task->adtResult($Task->getTaskListbyCond(array("taskID" => $taskId)));
             $memos = $Memo->getMemoByCond(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
-            $budget = $Budget->getBudgetByCond(array("entireTree" => $entireTree));
-            $expense = $Expense->getExpenseByCond(array("entireTree" => $entireTree));
-            $expenseSum = $Expense->getSumExpense(array("entireTree" => $entireTree));
-            $budgetSum = $Budget->getSumBudget(array("entireTree" => $entireTree));
+            $budget = $Budget->getBudgetByCond(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
+            $expense = $Expense->getExpenseByCond(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
+            $expenseSum = $Expense->getSumExpense(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
+            $budgetSum = $Budget->getSumBudget(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
+            $expenseTotalSum = $Expense->getSumExpense(array("entireTree" => $entireTree));
+            $budgetTotalSum = $Budget->getSumBudget(array("entireTree" => $entireTree));
+
             $attachs = $Attachment->getAttachmentByCond(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
             $history = $History->getHistoryByCond(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
             $statisticsData = $Task->getStatisticsData($taskDetails[0]);
@@ -106,7 +109,9 @@ class TaskController extends Controller
                 'budgetSum' => $budgetSum,
                 'detailTab' => $detailTab,
                 'statisticsData' => $statisticsData,
-                'history' => $history
+                'history' => $history,
+                'expenseTotalSum' => $expenseTotalSum,
+                'budgetTotalSum' => $budgetTotalSum
             ]
         );
     }

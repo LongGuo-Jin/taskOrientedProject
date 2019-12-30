@@ -279,7 +279,7 @@
                                                 Budget
                                             </div>
                                             <div class="col-lg-6" style="text-align: right">
-                                                {{number_format($budgetSum, 2, ',', '.')}}
+                                                {{number_format($budgetTotalSum, 2, ',', '.')}}
                                             </div>
                                         </div>
                                         <div class="row">
@@ -287,7 +287,7 @@
                                                 Expense
                                             </div>
                                             <div class="col-lg-6" style="text-align: right">
-                                                {{number_format($expenseSum, 2, ',', '.')}}
+                                                {{number_format($expenseTotalSum, 2, ',', '.')}}
                                             </div>
                                         </div>
                                         <div class="row balance">
@@ -295,7 +295,7 @@
                                                 Balance
                                             </div>
                                             <div class="col-lg-6" style="text-align: right">
-                                                {{number_format($budgetSum - $expenseSum, 2, ',', '.')}}
+                                                {{number_format($budgetTotalSum - $expenseTotalSum, 2, ',', '.')}}
                                             </div>
                                         </div>
                                     </div>

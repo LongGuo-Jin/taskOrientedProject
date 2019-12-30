@@ -188,7 +188,10 @@ $(document).ready(function () {
 
     $("div.detail-edit .attach_file").on("click", function () {
         var tmpFileName = $(this).data("tmpfilename");
-        window.location.href = base_url + "/uploads/" + tmpFileName;
+        window.open(
+            base_url + "/uploads/" + tmpFileName,
+            '_blank' // <- This is what makes it open in a new window.
+        );
     });
 
     $("div.kt-portlet__head-toolbar a[data-toggle=tab]").on("click", function () {

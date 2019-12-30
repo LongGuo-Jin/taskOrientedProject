@@ -369,7 +369,7 @@ class Task extends Model
         $totalDay = ($datetime2 - $datetime1) / 86400;
         $timeLeft = ($datetime2 - $nowtime) / 86400;
         $statisticsData['timeLeft'] = $timeLeft;
-        $statisticsData['timeLeftPercent'] = $totalDay == 0 ? 100 : ($timeLeft/$totalDay)*100;
+        $statisticsData['timeLeftPercent'] = $totalDay == 0 ? 100 : round(($timeLeft/$totalDay)*100, 2);
 
         $retArr = Common::stdClass2Array(
             DB::table($this->table)->select(DB::raw("count(*) as totalCount"), DB::raw("count(case when statusID = 4 then 1 end) AS finishCount"))
@@ -379,7 +379,7 @@ class Task extends Model
         $statisticsData["totalCount"] = isset($retArr[0]["totalCount"]) ? $retArr[0]["totalCount"]: 0;
         $statisticsData["finishCount"] = isset($retArr[0]["finishCount"]) ? $retArr[0]["finishCount"]: 0;
         $statisticsData["leftCount"] = $statisticsData["totalCount"] - $statisticsData["finishCount"];
-        $statisticsData["subFinishPercent"] = $statisticsData["totalCount"] == 0 ? 100 : ($statisticsData["finishCount"]/$statisticsData["totalCount"])*100;
+        $statisticsData["subFinishPercent"] = $statisticsData["totalCount"] == 0 ? 100 : round(($statisticsData["finishCount"]/$statisticsData["totalCount"])*100, 2);
 
         return $statisticsData;
     }

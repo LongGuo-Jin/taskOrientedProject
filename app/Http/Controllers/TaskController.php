@@ -66,16 +66,17 @@ class TaskController extends Controller
         $showType = $request->input('show_type') == "" ? "regular": $request->input('show_type');
         $taskId = $request->input('task_id') == "" ? "": $request->input('task_id');
         $detailTab = "information";
+        $entireTree = $Task->getEntirTreeIds($taskId);
 
         if ($taskId == "") {
             $taskList = $Task->getTaskListInit();
         } else {
             $taskDetails = $Task->adtResult($Task->getTaskListbyCond(array("taskID" => $taskId)));
             $memos = $Memo->getMemoByCond(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
-            $budget = $Budget->getBudgetByCond(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
-            $expense = $Expense->getExpenseByCond(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
-            $expenseSum = $Expense->getSumExpense(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
-            $budgetSum = $Budget->getSumBudget(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
+            $budget = $Budget->getBudgetByCond(array("entireTree" => $entireTree));
+            $expense = $Expense->getExpenseByCond(array("entireTree" => $entireTree));
+            $expenseSum = $Expense->getSumExpense(array("entireTree" => $entireTree));
+            $budgetSum = $Budget->getSumBudget(array("entireTree" => $entireTree));
             $attachs = $Attachment->getAttachmentByCond(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
             $history = $History->getHistoryByCond(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
             $statisticsData = $Task->getStatisticsData($taskDetails[0]);
@@ -296,7 +297,7 @@ class TaskController extends Controller
 
         $Task = new Task();
         $Task->tmpArr = array();
-        $Task->deleteSub($taskID);
+        $Task->getAllSubTree($taskID);
         $ret = $Task->deleteTask($Task->tmpArr);
 
         $data["ID"] = $taskID;

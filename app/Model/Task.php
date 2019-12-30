@@ -318,17 +318,47 @@ class Task extends Model
         return $ret;
     }
 
-    function deleteSub($cat_id) {
+    function getAllSubTree($cat_id) {
         $ret = Common::stdClass2Array(DB::table($this->table)
             ->where("parentID", "=" , $cat_id)
+            ->where("deleteFlag", "=", 0)
             ->select("*")->get()->toArray());
 
         foreach ($ret as $retItem) {
-            $this->deleteSub($retItem["ID"]);
+            $this->getAllSubTree($retItem["ID"]);
         }
 
         array_push($this->tmpArr, $cat_id);
         return ;
+    }
+
+    function getRootTaskId($taskId) {
+        $ret = Common::stdClass2Array(DB::table($this->table)
+            ->where("ID", "=" , $taskId)
+            ->select("parentID")->get()->toArray());
+
+        $parentId = isset($ret[0]["parentID"]) ? $ret[0]["parentID"]: "";
+        $currId = $taskId;
+
+        while($parentId != "") {
+            $currId = $parentId;
+            $tmp = array();
+            $tmp = Common::stdClass2Array(DB::table($this->table)
+                ->where("ID", "=" , $parentId)
+                ->where("deleteFlag", "=", 0)
+                ->select("parentID")->get()->toArray());
+            $parentId = isset($tmp[0]["parentID"]) ? $tmp[0]["parentID"]: "";
+        }
+
+        return $currId;
+    }
+
+    function getEntirTreeIds($taskId) {
+        $rootTaskId = $this->getRootTaskId($taskId);
+        $this->tmpArr = array();
+        $this->getAllSubTree($rootTaskId);
+
+        return $this->tmpArr;
     }
 
     function getStatisticsData($taskDetail) {

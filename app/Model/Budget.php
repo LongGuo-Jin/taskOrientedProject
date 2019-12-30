@@ -24,6 +24,8 @@ class Budget extends Model
             $qrBuilder = $qrBuilder->where("budget.taskID", "=", $cond["taskID"]);
         if (isset($cond["personID"]) && $cond["personID"])
             $qrBuilder = $qrBuilder->where("budget.personID", "=", $cond["personID"]);
+        if (isset($cond["entireTree"]))
+            $qrBuilder = $qrBuilder->whereIn("budget.taskID", $cond["entireTree"]);
 
         $ret = $qrBuilder->orderBy('id', 'asc')->get()->toArray();
 
@@ -38,6 +40,8 @@ class Budget extends Model
             $qrBuilder = $qrBuilder->where("taskID", "=", $cond["taskID"]);
         if (isset($cond["personID"]) && $cond["personID"])
             $qrBuilder = $qrBuilder->where("personID", "=", $cond["personID"]);
+        if (isset($cond["entireTree"]))
+            $qrBuilder = $qrBuilder->whereIn("taskID", $cond["entireTree"]);
 
         $ret = $qrBuilder->get()->toArray();
         $result = Common::stdClass2Array($ret);

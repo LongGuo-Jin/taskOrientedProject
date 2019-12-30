@@ -104,7 +104,7 @@
                                                 </div>
                                                 <div class="detail-information-weight-content">
                                                     <p>{{$taskDetails["weight"]}}</p>
-                                                    <p @if ($taskDetails["weight"] == 0) style="display: none;" @endif>
+                                                    <p @if (isset($taskDetails["weight"])) style="display: none;" @endif>
                                                         <select class="form-control kt-selectpicker" id="detail-information-priority" name="weightID">
                                                             @foreach($TaskWeightList as $taskWeightItem)
                                                                 <option value="{{$taskWeightItem['ID']}}" <?php if($taskWeightItem['ID'] == $taskDetails["weightID"]) echo 'selected=selected';?>>{{$taskWeightItem['title']}}</option>

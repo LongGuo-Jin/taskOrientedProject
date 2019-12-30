@@ -282,6 +282,47 @@ $(document).ready(function () {
             }
         });
     });
+
+    $("button.quick-add-expense").on("click", function () {
+
+        var description = $("input#quick-expense-title").val();
+        var expense = $("input#quick-expense-val").val();
+        var params = "description=" + description + "&expense=" + expense + "&taskID=" + task_id
+            + "&_token=" + $("div.detail-edit input[name=_token]").val();
+
+        $.ajax({
+            type:'POST',
+            url:'task/addExpense',
+            data: params,
+            async: false,
+            timeout: 5000,
+            crossDomain: true,
+            beforeSend: function() {
+                KTApp.blockPage({
+                    overlayColor: '#000000',
+                    type: 'v2',
+                    state: 'warning',
+                    size: 'lg',
+                    opacity: 0.4,
+                });
+            },
+            complete: function(data) {
+                KTApp.unblockPage();
+            },
+            success:function(data) {
+                var result = $.parseJSON(data);
+                if (result["result"] == 1) {
+                    swal.fire(
+                        'Success!',
+                        '',
+                        'success'
+                    ).then(function () {
+                        window.location.href = base_url + "/task/taskCard?task_id=" + task_id + "&show_type=regular" + "&detailTab=budget";
+                    });
+                }
+            }
+        });
+    });
 });
 
 function deleteTask(params, parentId)
@@ -378,6 +419,7 @@ function setColumnType()
         $("div.detail-edit div#edit_panel_tab_information").addClass("active");
         $("div.detail-edit div.kt-portlet__head a#tab_information").addClass("active");
     }
+    $("div.task-extand-add input#quick-subtask-title").focus();
 }
 
 function reCalcWidth() {
@@ -528,7 +570,7 @@ $("button.quick-add-task").on("click", function () {
     function addSubTask()
     {
         var ret = -1;
-        var params = "title=" + $("input#quick-title").val() + "&parentID=" + task_id + "&personID=" + $("select#quick-add-person").val() +
+        var params = "title=" + $("input#quick-subtask-title").val() + "&parentID=" + task_id + "&personID=" + $("select#quick-add-person").val() +
             "&_token=" + $("input#quick_token").val();
 
         $.ajax({

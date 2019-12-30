@@ -244,6 +244,13 @@ div.task-extand-add {
     margin-bottom: 20px;
     margin-left: 10px;
 }
+
+div.task-expense-add {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+}
+
 div#kt_final_sub_task {
     display: none;
 }

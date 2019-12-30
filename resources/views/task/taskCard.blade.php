@@ -191,22 +191,22 @@
                                                             </div>
                                                             @if($taskId == $taskItem['ID'])
                                                                 <input type="hidden" id="quick_token" name="_token" value="{{csrf_token()}}">
-                                                                <div class="row task-extand-add">
+                                                                <div class="row task-expense-add">
                                                                     <div class="col-lg-5">
-                                                                        <input type="text" class="form-control" placeholder="Add Expense">
+                                                                        <input type="text" class="form-control" id="quick-expense-title" placeholder="Add Expense">
                                                                     </div>
                                                                     <div class="row col-lg-4">
-                                                                        <input type="text" class="form-control" placeholder="0.00">
+                                                                        <input type="text" class="form-control" id="quick-expense-val" placeholder="0.00">
                                                                     </div>
                                                                     <div class="col-lg-3">
-                                                                        <button type="button" class="btn btn-outline-brand btn-elevate btn-pill" style="float: right;" onclick="quickAddExpense()">
+                                                                        <button type="button" class="btn btn-outline-brand btn-elevate btn-pill quick-add-expense" style="float: right;">
                                                                             <i class="flaticon-add"></i> Add
                                                                         </button>
                                                                     </div>
                                                                 </div>
                                                                 <div class="row task-extand-add">
                                                                     <div class="col-lg-5">
-                                                                        <input type="text" class="form-control" id="quick-title" placeholder="Add a Subtask">
+                                                                        <input type="text" class="form-control" id="quick-subtask-title" placeholder="Add a Subtask">
                                                                     </div>
                                                                     <div class="row col-lg-4">
                                                                         <div class="col-lg-4">

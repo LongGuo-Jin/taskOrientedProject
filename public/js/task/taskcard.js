@@ -53,19 +53,27 @@ $(document).ready(function () {
         var newID = updateTask();
         if (newID != -1)
         {
-            swal.fire(
-                'Updated!',
-                'You have updated task.',
-                'success'
-            ).then(function () {
-                window.location.href = base_url + "/task/taskCard?task_id=" + newID + "&show_type=regular";
-            });
+            window.location.href = base_url + "/task/taskCard?task_id=" + newID + "&show_type=regular&message=Success&messageType=success";
         } else {
-            swal.fire(
-                'Failed',
-                'You can not updated task.',
-                'error'
-            );
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+
+            toastr.error("failed");
         }
     });
 
@@ -181,6 +189,8 @@ $(document).ready(function () {
             processData: false, // high importance!
             success: function (data) {
                 $("input[name=fileInfo]").val(JSON.stringify(data));
+                var fileName = data["fileName"];
+                $(".custom-file-label").html(fileName);
             },
             timeout: 10000
         });
@@ -231,13 +241,7 @@ $(document).ready(function () {
             success:function(data) {
                 var result = $.parseJSON(data);
                 if (result["result"] == 1) {
-                    swal.fire(
-                        'Success!',
-                        '',
-                        'success'
-                    ).then(function () {
-                        window.location.href = base_url + "/task/taskCard?task_id=" + task_id + "&show_type=regular" + "&detailTab=budget";
-                    });
+                    window.location.href = base_url + "/task/taskCard?task_id=" + task_id + "&show_type=regular" + "&detailTab=budget&message=Success&messageType=success";
                 }
             }
         });
@@ -271,13 +275,7 @@ $(document).ready(function () {
             success:function(data) {
                 var result = $.parseJSON(data);
                 if (result["result"] == 1) {
-                    swal.fire(
-                        'Success!',
-                        '',
-                        'success'
-                    ).then(function () {
-                        window.location.href = base_url + "/task/taskCard?task_id=" + task_id + "&show_type=regular" + "&detailTab=budget";
-                    });
+                    window.location.href = base_url + "/task/taskCard?task_id=" + task_id + "&show_type=regular" + "&detailTab=budget&message=Success&messageType=success";
                 }
             }
         });
@@ -312,18 +310,39 @@ $(document).ready(function () {
             success:function(data) {
                 var result = $.parseJSON(data);
                 if (result["result"] == 1) {
-                    swal.fire(
-                        'Success!',
-                        '',
-                        'success'
-                    ).then(function () {
-                        window.location.href = base_url + "/task/taskCard?task_id=" + task_id + "&show_type=regular" + "&detailTab=budget";
-                    });
+                    window.location.href = base_url + "/task/taskCard?task_id=" + task_id + "&show_type=regular" + "&detailTab=budget&message=Success&messageType=success";
                 }
             }
         });
     });
+
+    if (message["flage"] == 1) {
+        showToast();
+    }
 });
+
+function showToast()
+{
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+
+    toastr.success(message["message"]);
+}
 
 function deleteTask(params, parentId)
 {
@@ -350,34 +369,34 @@ function deleteTask(params, parentId)
         success:function(data) {
             var result = $.parseJSON(data);
             if (result["result"] == 1) {
-                swal.fire(
-                    'Success!',
-                    '',
-                    'success'
-                ).then(function () {
-                    if (parentId != "")
-                        window.location.href = base_url + "/task/taskCard?task_id=" + parentId + "&show_type=regular";
-                    else
-                        window.location.href = base_url + "/task/taskCard";
-                });
+                if (parentId != "")
+                    window.location.href = base_url + "/task/taskCard?task_id=" + parentId + "&show_type=regular&message=Success&messageType=success";
+                else
+                    window.location.href = base_url + "/task/taskCard?message=Success&messageType=success";
             }
             else if (result["result"] > 1) {
-                swal.fire(
-                    'Success!',
-                    '',
-                    'success'
-                ).then(function () {
-                    window.location.href = base_url + "/task/taskCard";
-                });
+                window.location.href = base_url + "/task/taskCard?message=Success&messageType=success";
             }
             else {
-                swal.fire(
-                    'Failed!',
-                    '',
-                    'warning'
-                ).then(function () {
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
 
-                });
+                toastr.error("failed");
             }
         }
     });
@@ -460,19 +479,27 @@ function confirmAddTask()
     var newID = addTask();
     if (newID != -1)
     {
-        swal.fire(
-            'Added!',
-            'You have add new task.',
-            'success'
-        ).then(function () {
-            window.location.href = base_url + "/task/taskCard?task_id=" + newID + "&show_type=regular";
-        });
+        window.location.href = base_url + "/task/taskCard?task_id=" + newID + "&show_type=regular&message=Success&messageType=success";
     } else {
-        swal.fire(
-            'Failed',
-            'You can not add new task.',
-            'error'
-        );
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+        toastr.error("failed");
     }
 }
 
@@ -552,19 +579,27 @@ $("button.quick-add-task").on("click", function () {
     var newID = addSubTask();
     if (newID != -1)
     {
-        swal.fire(
-            'Added!',
-            'You have add new sub task.',
-            'success'
-        ).then(function () {
-            window.location.href = base_url + "/task/taskCard?task_id=" + task_id + "&show_type=regular";
-        });
+        window.location.href = base_url + "/task/taskCard?task_id=" + task_id + "&show_type=regular&message=Success&messageType=success";
     } else {
-        swal.fire(
-            'Failed',
-            'You can not add new sub task.',
-            'error'
-        );
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+        toastr.error("failed");
     }
 
     function addSubTask()

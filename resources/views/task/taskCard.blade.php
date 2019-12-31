@@ -26,7 +26,7 @@
                                             <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-2x nav-tabs-line-primary" role="tablist">
                                                 <li class="nav-item dropdown">
                                                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="la la-cog"></i>
+                                                        <i class="la flaticon-background"></i>
                                                     </a>
                                                     <div class="dropdown-menu">
                                                         <a class="dropdown-item" data-toggle="tab" data-type="col-task-simple" href="#kt_simple_tab_{{$columnClass}}">
@@ -286,6 +286,7 @@
         var showType = "{{$showType}}";
         var userRoleId = "<?php print_r(Session::get('login_role_id'));?>";
         var detailTab = "{{$detailTab}}";
+        var message = $.parseJSON('<?php echo(json_encode($message));?>');
 
         $(document).ready(function () {
             var arrows;

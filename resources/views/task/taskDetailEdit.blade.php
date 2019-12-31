@@ -32,7 +32,7 @@
                         <div class="tab-pane active" id="edit_panel_tab_information">
                             <div class="detail-infomation-content">
                                 <div class="row detail-information-title">
-
+                                    <h5><u>{{implode(" > " , $pathArr["title"])}}</u></h5>
                                 </div>
                                 <div class="row detail-information-task-name">
                                     <p>{{$taskDetails["title"]}}</p>

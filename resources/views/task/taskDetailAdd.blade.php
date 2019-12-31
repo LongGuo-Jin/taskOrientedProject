@@ -57,11 +57,10 @@
                                                         Status
                                                     </div>
                                                     <div class="detail-information-staus-content">
-                                                        <select class="form-control kt-selectpicker"  id="detail-information-staus" name="statusID">
-                                                            @foreach($TaskStatusList as $taskStatusItem)
-                                                                <option data-content="{{$taskStatusItem['note']}}" value="{{$taskStatusItem['ID']}}">{{$taskStatusItem['title']}}</option>
-                                                            @endforeach
-                                                        </select>
+                                                        <p>
+                                                            <?php print_r($TaskStatusList[0]['note']);?>
+                                                        </p>
+                                                        <input type="hidden" name="statusID" id="detail-information-staus" value="{{$TaskStatusList[0]['ID']}}">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4">
@@ -72,7 +71,7 @@
                                                         <div class="detail-information-staus-content">
                                                             <select class="form-control kt-selectpicker"  id="detail-information-priority" name="priorityID">
                                                                 @foreach($TaskPriorityList as $taskPriorityItem)
-                                                                    <option value="{{$taskPriorityItem['ID']}}">{{$taskPriorityItem['title']}}</option>
+                                                                    <option value="{{$taskPriorityItem['ID']}}" @if ($taskPriorityItem['ID'] == "2") selected="selected" @endif>{{$taskPriorityItem['title']}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -147,17 +146,6 @@
                                         <h5>Memos</h5><br>
                                         <div class="row">
                                             <input type="text"  class="form-control" name="memo">
-                                        </div>
-                                    </div>
-                                    <div class="detail-information-task-attachments">
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <h5>Attachmets</h5>
-                                            </div>
-                                            <div class="custom-file col-lg-6">
-                                                <input type="file" class="custom-file-input" id="customFile">
-                                                <label class="custom-file-label" for="customFile">Choose file</label>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>

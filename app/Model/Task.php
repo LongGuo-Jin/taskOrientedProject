@@ -281,8 +281,8 @@ class Task extends Model
             $datetime1 = strtotime(str_replace(".", "-", $retItem['datePlanStart']));
             $datetime2 = strtotime(str_replace(".", "-", $retItem['datePlanEnd']));
             $nowtime = strtotime("today");
-            $totalDays = ($datetime2 - $datetime1) / 86400;
-            $spentDays = ($nowtime - $datetime1) / 86400;
+            $totalDays = ($datetime2 - $datetime1) / 86400 + 1;
+            $spentDays = ($nowtime - $datetime1) / 86400 + 1;
             $retArr[$key]['spentProgress'] = $totalDays == 0 ? 0 :round(($spentDays/$totalDays)*100);
 
             $tmpTlweight = isset($totalTaskWieght[$retItem["ID"]]) ? $totalTaskWieght[$retItem["ID"]]: 0;
@@ -353,6 +353,30 @@ class Task extends Model
         return $currId;
     }
 
+    function getPathName($taskId) {
+        $ret = Common::stdClass2Array(DB::table($this->table)
+            ->where("ID", "=" , $taskId)
+            ->select("parentID", "title")->get()->toArray());
+
+        $parentId = isset($ret[0]["parentID"]) ? $ret[0]["parentID"]: "";
+        $parentName = isset($ret[0]["title"]) ? $ret[0]["title"]: "";
+        $result["ID"] = $result["title"] = array();
+
+        while($parentId != "") {
+            $tmp = array();
+            $tmp = Common::stdClass2Array(DB::table($this->table)
+                ->where("ID", "=" , $parentId)
+                ->where("deleteFlag", "=", 0)
+                ->select("parentID", "title")->get()->toArray());
+            $parentId = isset($tmp[0]["parentID"]) ? $tmp[0]["parentID"]: "";
+            $parentName = isset($tmp[0]["title"]) ? $tmp[0]["title"]: "";
+            array_push($result["ID"] ,$parentId);
+            array_push($result["title"] ,$parentName);
+        }
+
+        return $result;
+    }
+
     function getEntirTreeIds($taskId) {
         $rootTaskId = $this->getRootTaskId($taskId);
         $this->tmpArr = array();
@@ -366,7 +390,7 @@ class Task extends Model
         $datetime1 = strtotime(str_replace(".", "-", $taskDetail['datePlanStart']));
         $datetime2 = strtotime(str_replace(".", "-", $taskDetail['datePlanEnd']));
         $nowtime = strtotime("today");
-        $totalDay = ($datetime2 - $datetime1) / 86400;
+        $totalDay = ($datetime2 - $datetime1) / 86400 + 1;
         $timeLeft = ($datetime2 - $nowtime) / 86400;
         $statisticsData['timeLeft'] = $timeLeft;
         $statisticsData['timeLeftPercent'] = $totalDay == 0 ? 100 : round(($timeLeft/$totalDay)*100, 2);

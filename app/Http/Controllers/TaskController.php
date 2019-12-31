@@ -62,11 +62,19 @@ class TaskController extends Controller
         $attachs = array();
         $statisticsData = array();
         $history = array();
+        $pathArr = array();
         $expenseSum = $budgetSum = $expenseTotalSum = $budgetTotalSum =0;
         $showType = $request->input('show_type') == "" ? "regular": $request->input('show_type');
         $taskId = $request->input('task_id') == "" ? "": $request->input('task_id');
         $detailTab = "information";
         $entireTree = $Task->getEntirTreeIds($taskId);
+        $message = array("flage" => 0);
+        if ($request->input('message') != "") {
+            $message["flage"] = 1;
+            $message["message"] = $request->input('message');
+            $message["messageType"] = $request->input('messageType');
+        }
+
 
         if ($taskId == "") {
             $taskList = $Task->getTaskListInit();
@@ -79,6 +87,7 @@ class TaskController extends Controller
             $budgetSum = $Budget->getSumBudget(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
             $expenseTotalSum = $Expense->getSumExpense(array("entireTree" => $entireTree));
             $budgetTotalSum = $Budget->getSumBudget(array("entireTree" => $entireTree));
+            $pathArr = $Task->getPathName($taskId);
 
             $attachs = $Attachment->getAttachmentByCond(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
             $history = $History->getHistoryByCond(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
@@ -111,7 +120,9 @@ class TaskController extends Controller
                 'statisticsData' => $statisticsData,
                 'history' => $history,
                 'expenseTotalSum' => $expenseTotalSum,
-                'budgetTotalSum' => $budgetTotalSum
+                'budgetTotalSum' => $budgetTotalSum,
+                'pathArr'   => $pathArr,
+                'message'   => $message
             ]
         );
     }

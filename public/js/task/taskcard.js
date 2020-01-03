@@ -210,7 +210,12 @@ $(document).ready(function () {
         $(this).parents("div.column-body").removeClass("col-task-extended");
         $(this).parents("div.column-body").addClass($(this).data("type"));
 
-        $(this).parents("div.content-task").children("div.column-body");
+        if ($(this).data("type") == "col-task-extended")
+            $(this).parents("div.kt-portlet__head-toolbar").find("a[data-toggle=dropdown]").html("<i class=\"la flaticon-background\"></i>");
+        else if ($(this).data("type") == "col-task-regular")
+            $(this).parents("div.kt-portlet__head-toolbar").find("a[data-toggle=dropdown]").html("<i class=\"flaticon-laptop\"></i>");
+        else if ($(this).data("type") == "col-task-simple")
+            $(this).parents("div.kt-portlet__head-toolbar").find("a[data-toggle=dropdown]").html("<i class=\"fa fa-align-justify\"></i>");
     });
 
     $("button#budgetAdd").on("click", function () {
@@ -418,10 +423,13 @@ function setColumnType()
 
     $("div.col-task-regular").find("div.tab-pane").removeClass("active");
     $("div.col-task-regular").find("div#kt_regular_tab_" + regColumId).addClass("active");
+    $("div.col-task-regular div.kt-portlet__head-toolbar a[data-toggle=dropdown]").html("<i class=\"flaticon-laptop\"></i>");
     $("div.col-task-extended").find("div.tab-pane").removeClass("active");
     $("div.col-task-extended").find("div#kt_extended_tab_" + extendedColumId).addClass("active");
+    $("div.col-task-extended div.kt-portlet__head-toolbar a[data-toggle=dropdown]").html("<i class=\"la flaticon-background\"></i>");
     $("div.col-task-simple").find("div.tab-pane").removeClass("active");
     $("div.col-task-simple").find("div#kt_simple_tab_" + simpleColumId).addClass("active");
+    $("div.col-task-simple div.kt-portlet__head-toolbar a[data-toggle=dropdown]").html("<i class=\"fa fa-align-justify\"></i>");
 
     //set Tab for task detail
     $("div.detail-edit div.tab-pane").removeClass("active");

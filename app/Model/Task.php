@@ -363,18 +363,18 @@ class Task extends Model
 
         $parentId = isset($ret[0]["parentID"]) ? $ret[0]["parentID"]: "";
         $parentName = isset($ret[0]["title"]) ? $ret[0]["title"]: "";
-        $result["ID"] = $result["title"] = array();
+        $result = array();
 
         while($parentId != "") {
             $tmp = array();
             $tmp = Common::stdClass2Array(DB::table($this->table)
                 ->where("ID", "=" , $parentId)
                 ->where("deleteFlag", "=", 0)
-                ->select("parentID", "title")->get()->toArray());
+                ->select("parentID", "title", "ID")->get()->toArray());
             $parentId = isset($tmp[0]["parentID"]) ? $tmp[0]["parentID"]: "";
+            $id = isset($tmp[0]["ID"]) ? $tmp[0]["ID"]: "";
             $parentName = isset($tmp[0]["title"]) ? $tmp[0]["title"]: "";
-            array_push($result["ID"] ,$parentId);
-            array_push($result["title"] ,$parentName);
+            array_push($result, array("ID" => $id, "title" => $parentName));
         }
 
         return $result;

@@ -18,5 +18,10 @@ return [
         'organization' => 2,
         'task' => 3,
         'person' => 4
+    ],
+    'defaultId' => [
+        'Weight' => 1,
+        'Status' => 1,
+        'Priority' => 2
     ]
 ];

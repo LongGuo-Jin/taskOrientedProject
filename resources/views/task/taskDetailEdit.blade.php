@@ -32,7 +32,16 @@
                         <div class="tab-pane active" id="edit_panel_tab_information">
                             <div class="detail-infomation-content">
                                 <div class="row detail-information-title">
-                                    <h5><u>{{implode(" > " , $pathArr["title"])}}</u></h5>
+                                    @for($i=count($pathArr)-1; $i>=0; $i--)
+                                        <a href="{{url('/task/taskCard?task_id=')}}{{$pathArr[$i]['ID']}}">
+                                            <h5>
+                                                {{$pathArr[$i]["title"]}}
+                                            </h5>
+                                        </a>
+                                        @if($i != 0)
+                                            <h5>&nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;</h5>
+                                        @endif
+                                    @endfor
                                 </div>
                                 <div class="row detail-information-task-name">
                                     <p>{{$taskDetails["title"]}}</p>
@@ -184,13 +193,15 @@
                                     <h5>Memos</h5>
                                     @foreach($memos as $memoitem)
                                         <div class="row">
-                                            <div class="col-lg-4 detail-content">
+                                            <div class="col-lg-6 detail-content">
                                                 {{$memoitem["timeStamp"]}}
                                             </div>
-                                            <div class="col-lg-3 detail-label">
+                                            <div class="col-lg-6 detail-label">
                                                 {{$memoitem["fullName"]}}
                                             </div>
-                                            <div class="col-lg-5 detail-content" style="display: block; text-overflow: ellipsis;  white-space: nowrap; overflow: hidden;">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12 detail-content" style="display: block; text-overflow: ellipsis;  white-space: nowrap; overflow: hidden;">
                                                 {{$memoitem["Message"]}}
                                             </div>
                                         </div>

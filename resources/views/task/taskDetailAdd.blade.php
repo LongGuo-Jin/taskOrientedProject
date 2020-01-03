@@ -57,10 +57,11 @@
                                                         Status
                                                     </div>
                                                     <div class="detail-information-staus-content">
-                                                        <p>
-                                                            <?php print_r($TaskStatusList[0]['note']);?>
-                                                        </p>
-                                                        <input type="hidden" name="statusID" id="detail-information-staus" value="{{$TaskStatusList[0]['ID']}}">
+                                                        <select class="form-control kt-selectpicker"  id="detail-information-staus" name="statusID">
+                                                            @foreach($TaskStatusList as $taskStatusItem)
+                                                                <option data-content="{{$taskStatusItem['note']}}" value="{{$taskStatusItem['ID']}}">{{$taskStatusItem['title']}}</option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4">

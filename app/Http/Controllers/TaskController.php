@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Psy\Command\HistoryCommand;
+use App\Helper\Common;
 
 class TaskController extends Controller
 {
@@ -132,9 +133,9 @@ class TaskController extends Controller
             'title' =>  $request->input('title'),
             'datePlanStart' =>  $request->input('datePlanStart') == "" ? date("d.m.Y") : $request->input('datePlanStart'),
             'datePlanEnd' =>  $request->input('datePlanEnd') == "" ? date("d.m.Y") : $request->input('datePlanEnd'),
-            'statusID' =>  $request->input('statusID'),
-            'priorityID' =>  $request->input('priorityID'),
-            'weightID' =>  $request->input('weightID'),
+            'statusID' =>  $request->input('statusID') == "" ? Common::constant("defaultId.Status"): $request->input('statusID'),
+            'priorityID' =>  $request->input('priorityID') == "" ? Common::constant("defaultId.Priority"): $request->input('priorityID'),
+            'weightID' =>  $request->input('weightID') == "" ? Common::constant("defaultId.Weight"): $request->input('weightID'),
             'personID' =>  $request->input('personID'),
             'parentID' =>  $request->input('parentID') == 0 ? null: $request->input('parentID'),
             'description' =>  $request->input('description'),

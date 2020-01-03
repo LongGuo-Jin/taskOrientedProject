@@ -78,9 +78,10 @@
                                                             </div>
                                                             <div class="kt-space-10"></div>
                                                             <div class="progress" style="height: 6px;">
-                                                                @if($taskItem['spentProgress'] <= $taskItem['finishProgress'])
-                                                                    <div class="progress-bar bg-dark" role="progressbar" style="width: {{$taskItem['spentProgress']}}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                    <div class="progress-bar bg-success" role="progressbar" style="width: {{$taskItem['finishProgress'] - $taskItem['spentProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                @if($taskItem["statusID"] == 4)
+                                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                @elseif($taskItem['spentProgress'] <= $taskItem['finishProgress'])
+                                                                    <div class="progress-bar bg-success" role="progressbar" style="width: {{$taskItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
                                                                 @else
                                                                     <div class="progress-bar bg-danger" role="progressbar" style="width: {{$taskItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
                                                                     <div class="progress-bar bg-dark" role="progressbar" style="width: {{$taskItem['spentProgress'] - $taskItem['finishProgress']}}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
@@ -123,7 +124,9 @@
                                                                     </div>
                                                                     <div class="kt-space-10"></div>
                                                                     <div class="progress" style="height: 6px;">
-                                                                        @if($taskItem['spentProgress'] <= $taskItem['finishProgress'])
+                                                                        @if($taskItem["statusID"] == 4)
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        @elseif($taskItem['spentProgress'] <= $taskItem['finishProgress'])
                                                                             <div class="progress-bar bg-success" role="progressbar" style="width: {{$taskItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
                                                                         @else
                                                                             <div class="progress-bar bg-danger" role="progressbar" style="width: {{$taskItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>

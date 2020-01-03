@@ -283,7 +283,10 @@ class Task extends Model
             $nowtime = strtotime("today");
             $totalDays = ($datetime2 - $datetime1) / 86400 + 1;
             $spentDays = ($nowtime - $datetime1) / 86400 + 1;
-            $retArr[$key]['spentProgress'] = $totalDays == 0 ? 0 :round(($spentDays/$totalDays)*100);
+            if ($spentDays >= $totalDays)
+                $retArr[$key]['spentProgress'] = 100;
+            else
+                $retArr[$key]['spentProgress'] = $totalDays == 0 ? 0 :round(($spentDays/$totalDays)*100);
 
             $tmpTlweight = isset($totalTaskWieght[$retItem["ID"]]) ? $totalTaskWieght[$retItem["ID"]]: 0;
             $tmpFiweight = isset($finishTaskWieght[$retItem["ID"]]) ? $finishTaskWieght[$retItem["ID"]]: 0;
@@ -391,9 +394,13 @@ class Task extends Model
         $datetime2 = strtotime(str_replace(".", "-", $taskDetail['datePlanEnd']));
         $nowtime = strtotime("today");
         $totalDay = ($datetime2 - $datetime1) / 86400 + 1;
-        $timeLeft = ($datetime2 - $nowtime) / 86400;
+        $spentDay = ($nowtime - $datetime1) / 86400 + 1;
+        if ($totalDay <= $spentDay)
+            $timeLeft = 0;
+        else
+            $timeLeft = $totalDay - $spentDay;
         $statisticsData['timeLeft'] = $timeLeft;
-        $statisticsData['timeLeftPercent'] = $totalDay == 0 ? 100 : round(($timeLeft/$totalDay)*100, 2);
+        $statisticsData['timeLeftPercent'] = $totalDay == 0 ? 0 : round(($timeLeft/$totalDay)*100, 2);
 
         $retArr = Common::stdClass2Array(
             DB::table($this->table)->select(DB::raw("count(*) as totalCount"), DB::raw("count(case when statusID = 4 then 1 end) AS finishCount"))

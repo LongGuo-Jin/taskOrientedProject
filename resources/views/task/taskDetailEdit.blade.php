@@ -201,7 +201,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-lg-12 detail-content" style="display: block; text-overflow: ellipsis;  white-space: nowrap; overflow: hidden;">
+                                            <div class="col-lg-12 detail-content" style="word-wrap: break-word;">
                                                 {{$memoitem["Message"]}}
                                             </div>
                                         </div>

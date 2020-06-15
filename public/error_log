@@ -1,0 +1,6 @@
+[30-Mar-2020 14:55:09] PHP Warning:  Unexpected character in input:  '\' (ASCII=92) state=1 in /home/toprojects/public_html/public/index.php on line 52
+[30-Mar-2020 14:55:09] PHP Parse error:  syntax error, unexpected T_STRING in /home/toprojects/public_html/public/index.php on line 52
+[30-Mar-2020 15:14:52] PHP Warning:  Unexpected character in input:  '\' (ASCII=92) state=1 in /home/toprojects/public_html/public/index.php on line 52
+[30-Mar-2020 15:14:52] PHP Parse error:  syntax error, unexpected T_STRING in /home/toprojects/public_html/public/index.php on line 52
+[30-Mar-2020 15:15:14] PHP Warning:  Unexpected character in input:  '\' (ASCII=92) state=1 in /home/toprojects/public_html/public/index.php on line 52
+[30-Mar-2020 15:15:14] PHP Parse error:  syntax error, unexpected T_STRING in /home/toprojects/public_html/public/index.php on line 52

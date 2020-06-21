@@ -110,7 +110,7 @@
         <div class="kt-header__topbar-item kt-header__topbar-item--user">
             <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="0px,0px">
                 <div class="kt-header__topbar-user">
-                    <img class="kt-hidden" alt="Pic" src="./assets/media/users/300_25.jpg" />
+                    <img class="kt-hidden" alt="Pic" src="{{asset('public/assets/media/users/300_25.jpg')}}" />
 
                     <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
                     <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold">AV</span>

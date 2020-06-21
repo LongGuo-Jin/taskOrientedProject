@@ -1,0 +1,15 @@
+.aje-testimonial {
+  color: $aje-color;
+  font-size: 28px;
+  font-style: italic;
+  .aje-name-text {
+    font-size: 18px
+  }
+}
+.aje-avatar {
+  margin-top: 20px;
+  border-radius: 50%;
+  border: 2px solid $aje-color;
+  width: 90px;
+  height: 90px;
+}

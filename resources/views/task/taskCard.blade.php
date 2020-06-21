@@ -4,7 +4,7 @@
 @endsection
 
 @section('style')
-    <link rel="stylesheet" href="{{asset('/css/task/taskcard.css')}}">
+    <link rel="stylesheet" href="{{asset('public/assets/css/task/taskcard.css')}}">
 @endsection
 
 @section('content')
@@ -277,10 +277,10 @@
 @endsection
 
 @section('script')
-    <script src="{{asset('/assets/js/demo1/pages/crud/forms/widgets/bootstrap-select.js')}}" type="text/javascript"></script>
-    <script src="{{asset('/assets/js/demo1/pages/crud/forms/widgets/bootstrap-datepicker.js')}}" type="text/javascript"></script>
-    <script src="{{asset('/assets/js/demo1/pages/components/extended/blockui.js')}}" type="text/javascript"></script>
-    <script src="{{asset('/assets/js/demo1/pages/components/extended/sweetalert2.js')}}" type="text/javascript"></script>
+    <script src="{{asset('public/assets/js/demo1/pages/crud/forms/widgets/bootstrap-select.js')}}" type="text/javascript"></script>
+    <script src="{{asset('public/assets/js/demo1/pages/crud/forms/widgets/bootstrap-datepicker.js')}}" type="text/javascript"></script>
+    <script src="{{asset('public/assets/js/demo1/pages/components/extended/blockui.js')}}" type="text/javascript"></script>
+    <script src="{{asset('public/assets/js/demo1/pages/components/extended/sweetalert2.js')}}" type="text/javascript"></script>
 
     <script type="text/javascript">
         var personTagList = $.parseJSON('<?php echo(json_encode($PersonTagNameList));?>');
@@ -327,5 +327,5 @@
         });
     </script>
 
-    <script type="text/javascript" charset="utf-8" src="{{asset('/js/task/taskcard.js')}}"></script>
+    <script type="text/javascript" charset="utf-8" src="{{asset('public/assets/js/task/taskcard.js')}}"></script>
 @endsection

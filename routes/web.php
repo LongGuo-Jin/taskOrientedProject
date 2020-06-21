@@ -12,17 +12,26 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if (Route::has('login')) {
+        return redirect('/task/taskCard');
+    } else
+    return redirect('/login');
 });
 
-Route::any('task', ['middleware' => 'task', 'uses' => 'TaskController@index']);
-Route::any('task/taskCard', ['middleware' => 'task', 'uses' => 'TaskController@taskCard']);
-Route::any('task/taskCardAdd', ['middleware' => 'task', 'uses' => 'TaskController@taskCardAdd']);
-Route::any('task/taskCardUpdate', ['middleware' => 'task', 'uses' => 'TaskController@taskCardUpdate']);
-Route::any('task/fileUpload', ['middleware' => 'task', 'uses' => 'TaskController@fileUpload']);
-Route::any('task/taskCardDelete', ['middleware' => 'task', 'uses' => 'TaskController@taskCardDelete']);
-Route::any('task/isFinalTask', ['middleware' => 'task', 'uses' => 'TaskController@isFinalTask']);
-Route::any('task/setLoginUser', ['middleware' => 'task', 'uses' => 'TaskController@setLoginUser']);
-Route::any('task/addBudget', ['middleware' => 'task', 'uses' => 'TaskController@addBudget']);
-Route::any('task/addExpense', ['middleware' => 'task', 'uses' => 'TaskController@addExpense']);
-Route::any('task/taskList', ['middleware' => 'task', 'uses' => 'TaskController@taskList']);
+Auth::routes();
+
+Route::group(['middleware'=>['auth','task'] , "prefix"=>"task" ],function() {
+
+    Route::any('','TaskController@index');
+    Route::any('/taskCard', 'TaskController@taskCard');
+    Route::any('/taskCardAdd', 'TaskController@taskCardAdd');
+    Route::any('/taskCardUpdate', 'TaskController@taskCardUpdate');
+    Route::any('/fileUpload', 'TaskController@fileUpload');
+    Route::any('/taskCardDelete', 'TaskController@taskCardDelete');
+    Route::any('/isFinalTask', 'TaskController@isFinalTask');
+    Route::any('/setLoginUser', 'TaskController@setLoginUser');
+    Route::any('/addBudget', 'TaskController@addBudget');
+    Route::any('/addExpense', 'TaskController@addExpense');
+    Route::any('/taskList', 'TaskController@taskList');
+    
+});

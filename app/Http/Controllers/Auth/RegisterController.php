@@ -4,6 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Model\Person;
+use App\Model\TagPerson;
+use App\Helper\Common;
+use DB;
+
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -49,7 +54,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'nameFirst' => ['required', 'string', 'max:255'],
+            'nameFamily' => ['required', 'string', 'max:255'],
+            'organization' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -63,10 +70,60 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
+        // User::create([
+        //     'name' => "john",
+        //     'email' => "test@test.com",
+        //     'password' => Hash::make("12345678"),
+        // ]);
+        // User::create([
+        //     'name' => "john",
+        //     'email' => "test1@test.com",
+        //     'password' => Hash::make("12345678"),
+        // ]);
+        // User::create([
+        //     'name' => "john",
+        //     'email' => "test2@test.com",
+        //     'password' => Hash::make("12345678"),
+        // ]);
+        // User::create([
+        //     'name' => "john",
+        //     'email' => "test3@test.com",
+        //     'password' => Hash::make("12345678"),
+        // ]);
+        // User::create([
+        //     'name' => "john",
+        //     'email' => "test4@test.com",
+        //     'password' => Hash::make("12345678"),
+        // ]);
+        // User::create([
+        //     'name' => "john",
+        //     'email' => "test5@test.com",
+        //     'password' => Hash::make("12345678"),
+        // ]);
+        // $user = User::create([
+        //     'name' => "john",
+        //     'email' => "test6@test.com",
+        //     'password' => Hash::make("12345678"),
+        // ]);
+
+        $user = User::create([
+            'nameFirst' => $data['nameFirst'],
+            'nameFamily' => $data['nameFamily'],
+            'organization' => $data['organization'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        $person = Person::create([
+            'nameFirst' => $data['nameFirst'],
+            'nameFamily' => $data['nameFamily'],
+            'roleID' => 1,
+            'userID' => $user->id,
+        ]);
+        
+        // DB::table('tagperson')->create(['tagID'=>1 , 'personID'=>$person->ID]);
+        TagPerson::create(['tagID'=>10 , 'personID'=>$person->id]);
+        
+        return $user;
     }
 }

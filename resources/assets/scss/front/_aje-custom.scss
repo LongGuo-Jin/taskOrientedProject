@@ -1,5 +1,5 @@
 .aje-testimonial {
-  color: $aje-color;
+  color: $aje-secondary-color;
   font-size: 28px;
   font-style: italic;
   .aje-name-text {
@@ -9,7 +9,7 @@
 .aje-avatar {
   margin-top: 20px;
   border-radius: 50%;
-  border: 2px solid $aje-color;
+  border: 2px solid $aje-secondary-color;
   width: 90px;
   height: 90px;
 }

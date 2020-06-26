@@ -1,0 +1,19 @@
+.user-input {
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.user-input input {
+  padding-bottom: 5px;
+  padding-top: 5px;
+  padding-left: 30px;
+  height: 40px;
+}
+
+.user-input i {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translate(0, -50%);
+}

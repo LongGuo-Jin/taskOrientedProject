@@ -11,7 +11,7 @@ class Person extends Model
     protected $table = "person";
 
     protected $fillable = [
-        'ID', 'nameFirst', 'nameMiddle', 'nameFamily', 'roleID', 'addressID', 'administrativeID'
+        'ID', 'nameFirst', 'nameMiddle', 'nameFamily','userID' , 'roleID', 'addressID', 'administrativeID'
     ];
 
     public function getPersonList()
@@ -31,7 +31,9 @@ class Person extends Model
     public function getrolePersonList()
     {
         $Person = new Person();
-        $personInfo = $Person->getPerson(Session::get('login_person_id'));
+        $user_id = auth()->user()->id;
+        $personID =  Person::where('userID',$user_id)->get()->first()->ID;
+        $personInfo = $Person->getPerson($personID);
         $roleId = $personInfo[0]["roleID"];
         if ($roleId == Common::constant("role.proManager") || $roleId == Common::constant("role.foreman"))
             $roleId = Common::constant("role.foreman") + 1;

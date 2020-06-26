@@ -17,7 +17,7 @@ class TagPerson extends Model
     public function getPersonTagName()
     {
         $ret = DB::table('tag')
-                    ->join($this->table, 'personID', '=', 'ID')
+                    ->join($this->table, 'tagID', '=', 'ID')
                     ->select('tag.name', "{$this->table}.personID")
                     ->get()
                     ->toArray();

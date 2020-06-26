@@ -9,7 +9,7 @@
 
 @section('content')
     <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
-        @include('task.layout.header')
+        @include('layouts.header')
         <!-- end:: Header -->
         <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
 
@@ -215,14 +215,14 @@
                                                                     <div class="row col-lg-4">
                                                                         <div class="col-lg-4">
                                                                             <span class="kt-badge kt-badge--brand kt-badge--lg" id="quick-add-personTag">
-                                                                                {{$PersonTagNameList[Session::get('login_person_id')]}}
+                                                                                {{$PersonTagNameList[$personalID]}}
                                                                             </span>
                                                                         </div>
                                                                         <div class="col-lg-8">
                                                                             <select class="form-control" id="quick-add-person" name="personID">
                                                                                 <option value=""></option>
                                                                                 @foreach($rolePersonList as $personItem)
-                                                                                    <option value="{{$personItem['ID']}}" <?php if($personItem['ID'] == Session::get('login_person_id')) print_r("selected=selected");?>>{{$personItem['nameFamily'] . " " . $personItem['nameFirst']}}</option>
+                                                                                    <option value="{{$personItem['ID']}}" <?php if($personItem['ID'] == $personalID) print_r("selected=selected");?>>{{$personItem['nameFamily'] . " " . $personItem['nameFirst']}}</option>
                                                                                 @endforeach
                                                                             </select>
                                                                         </div>
@@ -287,7 +287,7 @@
         var base_url = "{{URL::to('')}}";
         var task_id = "{{$taskId}}";
         var showType = "{{$showType}}";
-        var userRoleId = "<?php print_r(Session::get('login_role_id'));?>";
+        var userRoleId = "{{$login_role_id}}";;
         var detailTab = "{{$detailTab}}";
         var message = $.parseJSON('<?php echo(json_encode($message));?>');
 

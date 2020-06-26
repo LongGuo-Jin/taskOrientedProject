@@ -30,7 +30,7 @@
                                             <div class="row">
                                                 <div class="col-lg-3" style="margin: auto 0px auto 0px;">
                                                     <span class="kt-badge kt-badge--brand kt-badge--lg" id="detail-add-personTag">
-                                                        {{$PersonTagNameList[Session::get('login_person_id')]}}
+                                                        {{$PersonTagNameList[$personalID]}}
                                                     </span>
                                                 </div>
                                                 <div class="col-lg-9">
@@ -41,7 +41,7 @@
                                                         <select class="form-control" id="detail-add-person" name="personID">
                                                             <option value=""></option>
                                                             @foreach($rolePersonList as $personItem)
-                                                                <option value="{{$personItem['ID']}}" <?php if($personItem['ID'] == Session::get('login_person_id')) print_r("selected=selected");?>>
+                                                                <option value="{{$personItem['ID']}}" <?php if($personItem['ID'] == $personalID) print_r("selected=selected");?>>
                                                                     {{$personItem['nameFamily'] . " " . $personItem['nameFirst']}}
                                                                 </option>
                                                             @endforeach

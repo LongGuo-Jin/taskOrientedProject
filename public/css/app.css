@@ -8255,8 +8255,8 @@ button.close {
 
 .aje-nav-link:hover {
   background-color: white;
-  color: #253356;
-  border-radius: 4px;
+  color: #442B6D;
+  border-radius: 2px;
   margin: 8px;
   padding: 7px;
 }
@@ -8276,7 +8276,7 @@ button.close {
   padding: 20px;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.125), 0 1px 3px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-  color: #253356;
+  color: #442B6D;
 }
 
 .aje-card .header-title {
@@ -8311,14 +8311,14 @@ button.close {
 }
 
 .aje-card .aje-card-footer button {
-  background-color: #253356;
+  background-color: #442B6D;
   margin-bottom: 20px;
   padding-top: 10px;
   padding-bottom: 10px;
 }
 
 .aje-card .aje-card-footer a {
-  color: #253356;
+  color: #442B6D;
   font-size: 14px;
 }
 
@@ -8327,13 +8327,24 @@ button.close {
   justify-content: space-between;
 }
 
+.aje-login-card-align {
+  margin-top: 50px;
+}
+
+@media screen and (min-width: 991px) {
+  .aje-login-card-align {
+    float: right;
+    transform: translate(0px, -25vh);
+  }
+}
+
 .brand-text-lg {
   color: white;
-  font-size: 36px;
+  font-size: 40px;
 }
 
 .aje-testimonial {
-  color: #253356;
+  color: #442B6D;
   font-size: 28px;
   font-style: italic;
 }
@@ -8345,7 +8356,7 @@ button.close {
 .aje-avatar {
   margin-top: 20px;
   border-radius: 50%;
-  border: 2px solid #253356;
+  border: 2px solid #442B6D;
   width: 90px;
   height: 90px;
 }

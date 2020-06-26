@@ -3,7 +3,7 @@
   padding: 20px;
   box-shadow: 0 0 1px rgba(0, 0, 0, .125), 0 1px 3px rgba(0, 0, 0, .2);
   border-radius: 5px;
-  color: $aje-color;
+  color: $aje-secondary-color;
 
   .header-title {
     font-size: 30px;
@@ -32,14 +32,14 @@
   .aje-card-footer {
     margin-top: 40px;
     button {
-      background-color: $aje-color;
+      background-color: $aje-secondary-color;
       margin-bottom: 20px;
       padding-top: 10px;
       padding-bottom: 10px;
     }
 
     a {
-      color: $aje-color;
+      color: $aje-secondary-color;
       font-size: 14px;
     }
     .aje-footer-link {
@@ -49,4 +49,11 @@
 
   }
 
+}
+
+.aje-login-card-align {
+  margin-top: 50px;
+  @media screen and (min-width: 991px) {
+    float:right; transform: translate(0px,-25vh);    
+  }
 }

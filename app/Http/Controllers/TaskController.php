@@ -24,10 +24,10 @@ class TaskController extends Controller
 {
     public function __construct()
     {
-        if (Session::get('login_person_id') == "")
-            Session::put('login_person_id', 1);
-        if (Session::get('login_role_id') == "")
-            Session::put('login_role_id', 1);
+        // if (Session::get('login_person_id') == "")
+        //     Session::put('login_person_id', 1);
+        // if (Session::get('login_role_id') == "")
+        //     Session::put('login_role_id', 1);
     }
 
     public function index() {
@@ -75,23 +75,26 @@ class TaskController extends Controller
             $message["message"] = $request->input('message');
             $message["messageType"] = $request->input('messageType');
         }
-
-
+     
+        $user_id = auth()->user()->id;
+        $person =  Person::where('userID',$user_id)->get()->first();
+        $personID = $person->ID;
+        $login_role_id = $person->roleID;
         if ($taskId == "") {
             $taskList = $Task->getTaskListInit();
         } else {
             $taskDetails = $Task->adtResult($Task->getTaskListbyCond(array("taskID" => $taskId)));
-            $memos = $Memo->getMemoByCond(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
-            $budget = $Budget->getBudgetByCond(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
-            $expense = $Expense->getExpenseByCond(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
-            $expenseSum = $Expense->getSumExpense(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
-            $budgetSum = $Budget->getSumBudget(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
+            $memos = $Memo->getMemoByCond(array("taskID" => $taskId, "personID" => $personID));
+            $budget = $Budget->getBudgetByCond(array("taskID" => $taskId, "personID" => $personID));
+            $expense = $Expense->getExpenseByCond(array("taskID" => $taskId, "personID" => $personID));
+            $expenseSum = $Expense->getSumExpense(array("taskID" => $taskId, "personID" => $personID));
+            $budgetSum = $Budget->getSumBudget(array("taskID" => $taskId, "personID" => $personID));
             $expenseTotalSum = $Expense->getSumExpense(array("entireTree" => $entireTree));
             $budgetTotalSum = $Budget->getSumBudget(array("entireTree" => $entireTree));
             $pathArr = $Task->getPathName($taskId);
 
-            $attachs = $Attachment->getAttachmentByCond(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
-            $history = $History->getHistoryByCond(array("taskID" => $taskId, "personID" => Session::get('login_person_id')));
+            $attachs = $Attachment->getAttachmentByCond(array("taskID" => $taskId, "personID" => $personID));
+            $history = $History->getHistoryByCond(array("taskID" => $taskId, "personID" => $personID));
             $statisticsData = $Task->getStatisticsData($taskDetails[0]);
             $taskList = $Task->getTaskList($taskDetails[0]);
             $detailTab = $request->input("detailTab");
@@ -107,6 +110,8 @@ class TaskController extends Controller
                 'PersonTagNameList' => $PersonTagNameList,
                 'taskList' => $taskList['list'],
                 'parents' => $taskList['parents'],
+                'personalID' => $personID,
+                'login_role_id' => $login_role_id,
                 'systemTagList' => $systemTagList,
                 'showType' => $showType,
                 'taskId' => $taskId,
@@ -129,6 +134,9 @@ class TaskController extends Controller
     }
 
     public function taskCardAdd(Request $request) {
+        $user_id = auth()->user()->id;
+        $personID =  Person::where('userID',$user_id)->get()->first()->ID;
+
         $taskData = array(
             'title' =>  $request->input('title'),
             'datePlanStart' =>  $request->input('datePlanStart') == "" ? date("d.m.Y") : $request->input('datePlanStart'),
@@ -140,7 +148,7 @@ class TaskController extends Controller
             'parentID' =>  $request->input('parentID') == 0 ? null: $request->input('parentID'),
             'description' =>  $request->input('description'),
             'tags' =>  $request->input('tagList'),
-            'taskCreatorID' => Session::get('login_person_id'),
+            'taskCreatorID' => $personID,
             'deleteFlag'    => 0,
             'creatAt'   =>  date('Y-m-d h:i:s'),
             'updateAt'   =>  date('Y-m-d h:i:s')
@@ -152,6 +160,10 @@ class TaskController extends Controller
             $taskData["dateActualEnd"] = date('Y-m-d h:i:s');
 
         $Task = new Task();
+        $user_id = auth()->user()->id;
+        $person =  Person::where('userID',$user_id)->get()->first();
+        $personID = $person->ID;
+        $login_role_id = $person->roleID;
 
         try {
             DB::beginTransaction();
@@ -163,7 +175,7 @@ class TaskController extends Controller
                 $Memo = new Memo();
                 $memo = array(
                     'timeStamp' => date("d.m.Y h:i"),
-                    'personID' => Session::get('login_person_id'),
+                    'personID' => $personID,
                     'taskID' => $taskID,
                     'Message' => $request->input('memo')
                 );
@@ -174,7 +186,7 @@ class TaskController extends Controller
             $History = new History();
             $historyData = array(
                 'eventDate' => date("d.m.Y h:i"),
-                'personID' => Session::get('login_person_id'),
+                'personID' => $personID,
                 'taskID' => $taskID,
                 'event' => "Created."
             );
@@ -190,7 +202,6 @@ class TaskController extends Controller
             DB::rollBack();
         }
 
-
         $data = array();
         $data["ID"] = $taskID;
         $data["result"] = $ret;
@@ -202,7 +213,8 @@ class TaskController extends Controller
         $data = array();
         $data["result"] = -1;
         $taskID = "";
-
+        $user_id = auth()->user()->id;
+        $personID =  Person::where('userID',$user_id)->get()->first()->ID;
         $taskData = array(
             'title' =>  $request->input('title'),
             'datePlanStart' =>  $request->input('datePlanStart') == "" ? date("d.m.Y") : $request->input('datePlanStart'),
@@ -243,7 +255,7 @@ class TaskController extends Controller
 
                 $attach = array(
                     'timeStamp' => date("d.m.Y h:i"),
-                    'personID' => Session::get('login_person_id'),
+                    'personID' => $personID,
                     'taskID' => $taskID,
                     'tmpFileName' => $fileInfoArr["tmpFileName"],
                     'fileName' => $fileInfoArr["fileName"],
@@ -254,7 +266,7 @@ class TaskController extends Controller
 
                 $historyData = array(
                     'eventDate' => date("d.m.Y h:i"),
-                    'personID' => Session::get('login_person_id'),
+                    'personID' => $personID,
                     'taskID' => $taskID,
                     'event' => "Attachment added: {$attach['fileName']}"
                 );
@@ -265,7 +277,7 @@ class TaskController extends Controller
                 $Memo = new Memo();
                 $memo = array(
                     'timeStamp' => date("d.m.Y h:i"),
-                    'personID' => Session::get('login_person_id'),
+                    'personID' => $personID,
                     'taskID' => $taskID,
                     'Message' => $request->input('memo')
                 );
@@ -278,7 +290,7 @@ class TaskController extends Controller
             if ($taskData["statusID"] != $oldStatusId) {
                 $historyData = array(
                     'eventDate' => date("d.m.Y h:i"),
-                    'personID' => Session::get('login_person_id'),
+                    'personID' => $personID,
                     'taskID' => $taskID,
                     'event' => "Status change: ".$taskStatus->getStatusName($taskData["statusID"])
                 );
@@ -380,7 +392,7 @@ class TaskController extends Controller
     public function addBudget(Request $request) {
         $budgetData = array(
             "taskID" => $request->input("taskID"),
-            "personID" => Session::get('login_person_id'),
+            "personID" => $personID,
             "description" => $request->input("description"),
             "income" => $request->input("income"),
             "timestamp" => date("d.m.Y")
@@ -397,7 +409,7 @@ class TaskController extends Controller
     public function addExpense(Request $request) {
         $expenseData = array(
             "taskID" => $request->input("taskID"),
-            "personID" => Session::get('login_person_id'),
+            "personID" => $personID,
             "description" => $request->input("description"),
             "expense" => $request->input("expense"),
             "timestamp" => date("d.m.Y")

@@ -22,9 +22,15 @@ class Task extends Model
     public function __construct()
     {
         $Person = new Person();
-        $personInfo = $Person->getPerson(Session::get('login_person_id'));
-        $this->roleId = Session::get('login_role_id');
-        $this->login_id = Session::get('login_person_id');
+        
+        $user_id = auth()->user()->id;
+        $person =  Person::where('userID',$user_id)->get()->first();
+        $personID = $person->ID;
+        $login_role_id = $person->roleID;
+
+        $personInfo = $Person->getPerson($personID);
+        $this->roleId = $login_role_id;
+        $this->login_id = $personID;
     }
 
     public function addTask($taskData)

@@ -23,7 +23,7 @@
                                 <i class="kt-font-brand flaticon2-line-chart"></i>
                             </span>
                             <h3 class="kt-portlet__head-title">
-                                Add User
+                                {{auth()->user()->organization}} >> Add User
                             </h3>
                         </div>
                         <div class="kt-portlet__head-toolbar">
@@ -40,10 +40,12 @@
                     <div class="kt-portlet__body kt-portlet__body--fit" style="display: block; min-height: 500px;">
                         <!--begin: Datatable -->
                         <div> 
-                            <div class="col-md-4  ml-auto mr-auto">
+                            <div class="col-md-4  ml-auto mr-auto mt-5">
                                 <form role="form" method="POST" action="{{ route('user.save') }}">
-                                    @csrf                                     
+                                    @csrf
+
                                     <div class="user-input {{ $errors->has('nameFirst') ? ' has-danger' : '' }}">
+
                                         <input type="text" class="form-control {{ $errors->has('nameFirst') ? ' is-invalid' : '' }}" placeholder="{{ __('First Name') }}" type="text" name="nameFirst" value="{{ old('nameFirst', '') }}" required autofocus>
                                         <i class="fa fa-user"></i>
                                     </div>
@@ -80,11 +82,6 @@
                                             <strong>{{ $errors->first('password') }}</strong>
                                         </span>
                                     @endif
-                                    
-                                    <div class="user-input">
-                                        <input type="password" class="form-control" placeholder="{{ __('Retype Password') }}" name="password_confirmation" placeholder="{{ __('Retype Password') }}" type="password" value="" required>
-                                        <i class="fa fa-key"></i>
-                                    </div>
 
                                     <select class = "form-control" style="margin-bottom: 20px;" name="roleID">
                                         <option value="1" selected> Administrator </option>
@@ -103,6 +100,18 @@
 
         </div>
     </div>
+
+    <div class="passwordrequestbackground" style="display: none">
+        <div class="PasswordRequestCard">
+            <p class="user-input-para text-center"> Admin Password </p>
+            <div class="user-input {{ $errors->has('nameFirst') ? ' has-danger' : '' }}">
+                <input type="password" class="form-control" placeholder="{{ __('Admin Password') }}"  id="AdminPassword" name="AdminPassword"  required autofocus>
+                <i class="fa fa-key"></i>
+            </div>
+            <button class="form-control btn btn-primary" onclick="AskPassword()">OK</button>
+        </div>
+    </div>
+
 @endsection
 
 @section('script')
@@ -112,7 +121,40 @@
     <script src="{{asset('public/assets/js/demo1/pages/components/extended/sweetalert2.js')}}" type="text/javascript"></script>
 
     <script type="text/javascript">
-      
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+
+        $("form").submit(function(e) {
+            e.preventDefault();
+            $('.passwordrequestbackground').show();
+        })
+
+        function AskPassword() {
+           let pwd = $("#AdminPassword").val();
+           console.log(pwd);
+           $.ajax({
+               type: 'POST',
+               url: 'admin-password',
+               data: {password: pwd},
+               success: function(data) {
+                    if (data.success == true) {
+                        $('.passwordrequestbackground').hide();
+                        $("form").submit();
+                    } else {
+                        $('.passwordrequestbackground').hide();
+                        alert("Wrong Password!");
+                    }
+               },
+               error: function(error) {
+                   $('.passwordrequestbackground').hide();
+                   alert("Something went Wrong!");
+               }
+           });
+        }
     </script>
 
 @endsection

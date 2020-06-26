@@ -18,7 +18,7 @@
                                 <i class="kt-font-brand flaticon2-line-chart"></i>
                             </span>
                             <h3 class="kt-portlet__head-title">
-                                User List
+                                {{auth()->user()->organization}} >> User List
                             </h3>
                         </div>
                         <div class="kt-portlet__head-toolbar">

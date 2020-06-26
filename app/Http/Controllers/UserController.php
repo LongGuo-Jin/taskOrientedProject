@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Helper\Common;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -18,8 +19,9 @@ class UserController extends Controller
     }
 
     public function index() {
-        $users = User::join('person','users.id','=','person.userID')
-                ->select('users.id','users.nameFirst', 'users.nameFamily','users.email' , 'person.roleID')->get();
+        $organization = auth()->user()->organization;
+        $users = User::where('users.organization',$organization)->join('person','users.id','=','person.userID')
+                ->select('users.id','users.nameFirst', 'users.nameFamily','users.organization' ,'users.email' , 'person.roleID')->get();
 
         return view('user.index',['users'=>$users]);
     }
@@ -29,15 +31,17 @@ class UserController extends Controller
     }
 
     public function SaveUser(Request $request) {
+        $organization = auth()->user()->orgnization;
         $fields = $this->validate($request, [
             'nameFirst' => ['required', 'string', 'max:255'],
             'nameFamily' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8'],
         ]);
         $user = User::create([
             'nameFirst' => $fields['nameFirst'],
             'nameFamily' => $fields['nameFamily'],
+            'organization' => $organization,
             'email' => $fields['email'],
             'password' => Hash::make($fields['password']),
         ]);
@@ -45,6 +49,7 @@ class UserController extends Controller
         $person = Person::create([
             'nameFirst' => $fields['nameFirst'],
             'nameFamily' => $fields['nameFamily'],
+            'organization' => $fields['organization'],
             'roleID' => $request->roleID,
             'userID' => $user->id,
         ]);        
@@ -67,7 +72,6 @@ class UserController extends Controller
             'nameFirst' => ['required', 'string', 'max:255'],
             'nameFamily' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
         
         $user = User::findOrFail($request->id);
@@ -75,8 +79,7 @@ class UserController extends Controller
             'nameFirst' => $fields['nameFirst'],
             'nameFamily' => $fields['nameFamily'],
             'email' => $fields['email'],
-            'password' => Hash::make($fields['password'])]
-        );
+        ]);
 
         $person = Person::where('userID' , $user->id)->update([
             'nameFirst' => $fields['nameFirst'],
@@ -101,5 +104,18 @@ class UserController extends Controller
         Person::where('userID' , $id)->firstOrFail()->delete();
         TagPerson::where('personID',$person->id)->delete();
         return redirect('user');
+    }
+
+    public function AskPassword(Request $request) {
+        $pwd = $request->password;
+        $password = auth()->user()->password;
+        Log::debug("ask password".$pwd);
+        Log::debug("password".$password);
+        Log::debug("hash password".Hash::make($pwd));
+        if (Hash::check($pwd, $password)) {
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
     }
 }

@@ -61,7 +61,7 @@
                             </div>
                             <div class="card-body ">
                                 <div class="aje-card-input {{ $errors->has('nameFirst') ? ' has-danger' : '' }}">
-                                    <input type="text" class="form-control {{ $errors->has('nameFirst') ? ' is-invalid' : '' }}" placeholder="{{ __('First Name') }}" type="text" name="nameFirst" value="{{ old('nameFirst', 'John') }}" required autofocus>
+                                    <input type="text" class="form-control {{ $errors->has('nameFirst') ? ' is-invalid' : '' }}" placeholder="{{ __('First Name') }}" type="text" name="nameFirst" value="{{ old('nameFirst', '') }}" required autofocus>
                                     <i class="fa fa-user"></i>
                                 </div>
                                 @if ($errors->has('nameFirst'))
@@ -70,7 +70,7 @@
                                     </span>
                                 @endif
                                 <div class="aje-card-input {{ $errors->has('nameFamily') ? ' has-danger' : '' }}">
-                                    <input type="text" class="form-control {{ $errors->has('nameFamily') ? ' is-invalid' : '' }}" placeholder="{{ __('Family Name') }}" type="text" name="nameFamily" value="{{ old('nameFamily', 'Doe') }}" required autofocus>
+                                    <input type="text" class="form-control {{ $errors->has('nameFamily') ? ' is-invalid' : '' }}" placeholder="{{ __('Family Name') }}" type="text" name="nameFamily" value="{{ old('nameFamily', '') }}" required autofocus>
                                     <i class="fa fa-user"></i>
                                 </div>
                                 @if ($errors->has('nameFamily'))
@@ -79,8 +79,8 @@
                                     </span>
                                 @endif
                                 <div class="aje-card-input {{ $errors->has('organization') ? ' has-danger' : '' }}">
-                                    <input type="text" class="form-control {{ $errors->has('organization') ? ' is-invalid' : '' }}" placeholder="{{ __('Organization Name') }}" type="text" name="organization" value="{{ old('organization', 'AteLje') }}" required autofocus>
-                                    <i class="fa fa-user"></i>
+                                    <input type="text" class="form-control {{ $errors->has('organization') ? ' is-invalid' : '' }}" placeholder="{{ __('Organization Name') }}" type="text" name="organization" value="{{ old('organization', '') }}" required autofocus>
+                                    <i class="fa fa-group"></i>
                                 </div>
                                 @if ($errors->has('organization'))
                                     <span class="invalid-feedback" style="display: block;" role="alert">
@@ -89,7 +89,7 @@
                                 @endif
 
                                 <div class="aje-card-input {{ $errors->has('email') ? ' has-danger' : '' }}">
-                                    <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" type="email" name="email" value="{{ old('email', 'test@test.com') }}" required autofocus>
+                                    <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" type="email" name="email" value="{{ old('email', '') }}" required autofocus>
                                     <i class="fa fa-envelope"></i>
                                 </div>
                                 @if ($errors->has('email'))
@@ -99,7 +99,7 @@
                                 @endif
 
                                 <div class="aje-card-input {{ $errors->has('password') ? ' has-danger' : '' }}">
-                                    <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Password') }}" name="password" placeholder="{{ __('Password') }}" type="password" value="12345678" required>
+                                    <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Password') }}" name="password" placeholder="{{ __('Password') }}" type="password" value="" required>
                                     <i class="fa fa-key"></i>
                                 </div>
                                 @if ($errors->has('password'))
@@ -109,7 +109,7 @@
                                 @endif
 
                                 <div class="aje-card-input">
-                                    <input type="password" class="form-control" placeholder="{{ __('Retype Password') }}" name="password_confirmation" placeholder="{{ __('Retype Password') }}" type="password" value="12345678" required>
+                                    <input type="password" class="form-control" placeholder="{{ __('Retype Password') }}" name="password_confirmation" placeholder="{{ __('Retype Password') }}" type="password" value="" required>
                                     <i class="fa fa-key"></i>
                                 </div>
                             </div>

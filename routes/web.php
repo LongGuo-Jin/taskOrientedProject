@@ -42,6 +42,7 @@ Route::group(['middleware'=>['auth']] , function() {
         Route::get('edit' , 'UserController@EditUser')->name('user.edit');
         Route::post('update' , 'UserController@UpdateUser')->name('user.update');
         Route::get('delete' , 'UserController@DeleteUser')->name('user.delete');
+        Route::post('admin-password','UserController@AskPassword');
     });
     
 });

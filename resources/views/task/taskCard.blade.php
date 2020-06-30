@@ -222,7 +222,7 @@
                                                                             <select class="form-control" id="quick-add-person" name="personID">
                                                                                 <option value=""></option>
                                                                                 @foreach($rolePersonList as $personItem)
-                                                                                    <option value="{{$personItem['ID']}}" <?php if($personItem['ID'] == $personalID) print_r("selected=selected");?>>{{$personItem['nameFamily'] . " " . $personItem['nameFirst']}}</option>
+                                                                                    <option value="{{$personItem['id']}}" <?php if($personItem['id'] == $personalID) print_r("selected=selected");?>>{{$personItem['nameFamily'] . " " . $personItem['nameFirst']}}</option>
                                                                                 @endforeach
                                                                             </select>
                                                                         </div>

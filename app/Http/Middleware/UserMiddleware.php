@@ -15,11 +15,9 @@ class UserMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $user_id = auth()->user()->id;
-        $person =  Person::where('userID',$user_id)->get()->first();
-        $personID = $person->ID;
-        $login_role_id = $person->roleID;
-        if ($login_role_id != 1) {
+        $user_id = auth()->user()->roleID;
+
+        if ($user_id != 1) {
             abort(403, "Whoops , you must be an admin to view this page");
         }
         return $next($request);

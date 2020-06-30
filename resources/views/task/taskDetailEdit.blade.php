@@ -64,7 +64,7 @@
                                                     <select class="form-control"  @if($taskDetails["fullName"] != "") style="display: none" @endif id="detail-add-person" name="personID" >
                                                         <option value=""></option>
                                                         @foreach($rolePersonList as $personItem)
-                                                            <option value="{{$personItem['ID']}}" <?php if($personItem['ID'] == $taskDetails["personID"]) echo 'selected=selected';?>>
+                                                            <option value="{{$personItem['id']}}" <?php if($personItem['id'] == $taskDetails["personID"]) echo 'selected=selected';?>>
                                                                 {{$personItem['nameFamily'] . " " . $personItem['nameFirst']}}
                                                             </option>
                                                         @endforeach
@@ -194,7 +194,7 @@
                                     @foreach($memos as $memoitem)
                                         <div class="row">
                                             <div class="col-lg-6 detail-content">
-                                                {{$memoitem["timeStamp"]}}
+                                                {{$memoitem["timestamp"]}}
                                             </div>
                                             <div class="col-lg-6 detail-label">
                                                 {{$memoitem["fullName"]}}

@@ -78,7 +78,6 @@ $(document).ready(function () {
     });
 
     $("button#taskDetailDelete").on("click", function () {
-
         if (userRoleId != 1) {
             swal.fire(
                 'Warning!',
@@ -98,7 +97,7 @@ $(document).ready(function () {
         //confirm what is final subtask.
         $.ajax({
             type:'POST',
-            url:'task/isFinalTask',
+            url:'isFinalTask',
             data: params,
             async: false,
             timeout: 5000,
@@ -184,7 +183,7 @@ $(document).ready(function () {
             type: "POST",
             dataType: "json", // or html if you want...
             contentType: false, // high importance!
-            url: 'task/fileUpload', // you need change it.
+            url: 'fileUpload', // you need change it.
             data: formdata, // high importance!
             processData: false, // high importance!
             success: function (data) {
@@ -226,7 +225,7 @@ $(document).ready(function () {
 
         $.ajax({
             type:'POST',
-            url:'task/addBudget',
+            url:'addBudget',
             data: params,
             async: false,
             timeout: 5000,
@@ -260,7 +259,7 @@ $(document).ready(function () {
 
         $.ajax({
             type:'POST',
-            url:'task/addExpense',
+            url:'addExpense',
             data: params,
             async: false,
             timeout: 5000,
@@ -295,7 +294,7 @@ $(document).ready(function () {
 
         $.ajax({
             type:'POST',
-            url:'task/addExpense',
+            url:'addExpense',
             data: params,
             async: false,
             timeout: 5000,
@@ -354,7 +353,7 @@ function deleteTask(params, parentId)
     var ret = -1;
     $.ajax({
         type:'POST',
-        url:'task/taskCardDelete',
+        url:'taskCardDelete',
         data: params,
         async: false,
         timeout: 5000,
@@ -519,7 +518,7 @@ function addTask()
 
     $.ajax({
         type:'POST',
-        url:'task/taskCardAdd',
+        url:'taskCardAdd',
         data: params,
         async: false,
         timeout: 5000,
@@ -554,7 +553,7 @@ function updateTask()
 
     $.ajax({
         type:'POST',
-        url:'task/taskCardUpdate',
+        url:'taskCardUpdate',
         data: params,
         async: false,
         timeout: 5000,
@@ -618,7 +617,7 @@ $("button.quick-add-task").on("click", function () {
 
         $.ajax({
             type:'POST',
-            url:'task/taskCardAdd',
+            url:'taskCardAdd',
             data: params,
             async: false,
             timeout: 5000,

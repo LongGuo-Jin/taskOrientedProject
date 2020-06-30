@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Model\Person;
+use App\Model\Tag;
 use App\Model\TagPerson;
+use App\Organization;
 use App\User;
 use Illuminate\Http\Request;
 use App\Helper\Common;
@@ -19,52 +21,67 @@ class UserController extends Controller
     }
 
     public function index() {
-        $organization = auth()->user()->organization;
-        $users = User::where('users.organization',$organization)->join('person','users.id','=','person.userID')
-                ->select('users.id','users.nameFirst', 'users.nameFamily','users.organization' ,'users.email' , 'person.roleID')->get();
-
-        return view('user.index',['users'=>$users]);
+        $organization_id = auth()->user()->Organization()->first()->id;
+        $organization = Organization::findOrFail($organization_id);
+        $users = $organization->Users()->get();
+//        dd($users);
+        return view('user.index',['users'=>$users , 'organization' => $organization->organization]);
     }
 
     public function AddUser() {
-        return view('user.create');
+        $organization_id = auth()->user()->Organization()->first()->id;
+        $organization = Organization::findOrFail($organization_id);
+        return view('user.create' , ['organization' => $organization->organization]);
     }
 
     public function SaveUser(Request $request) {
-        $organization = auth()->user()->orgnization;
+//        $organization = auth()->user()->organization;
+        $organization_id = auth()->user()->Organization()->first()->id;
+        $organization = Organization::findOrFail($organization_id);
+
         $fields = $this->validate($request, [
             'nameFirst' => ['required', 'string', 'max:255'],
             'nameFamily' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8'],
         ]);
-        $user = User::create([
+        $user = $organization->Users()->create([
             'nameFirst' => $fields['nameFirst'],
             'nameFamily' => $fields['nameFamily'],
             'organization' => $organization,
             'email' => $fields['email'],
             'password' => Hash::make($fields['password']),
+            'roleID' => $request->roleID,
         ]);
 
-        $person = Person::create([
-            'nameFirst' => $fields['nameFirst'],
-            'nameFamily' => $fields['nameFamily'],
-            'organization' => $fields['organization'],
-            'roleID' => $request->roleID,
-            'userID' => $user->id,
-        ]);        
+//        dd($user);
+//        $person = Person::create([
+//            'nameFirst' => $fields['nameFirst'],
+//            'nameFamily' => $fields['nameFamily'],
+//            'organization' => $organization,
+//            'roleID' => $request->roleID,
+//            'userID' => $user->id,
+//        ]);
+        $tag = Tag::create([
+            'name' => $user->nameFirst[0].$user->nameFamily[0],
+            'tagtype' => 4,
+            'color' => 1,
+            'note' => 1,
+        ]);
 
-        TagPerson::create(['tagID'=>10 , 'personID'=>$person->id]);
+        TagPerson::create(['tagID'=>$tag->id , 'personID'=>$user->id]);
+
         return redirect('user');
     }
 
     public function EditUser(Request $request) {
+        $organization_id = auth()->user()->Organization()->first()->id;
+        $organization = Organization::findOrFail($organization_id);
+
         $id = $request->id;
-        $users = User::where('users.id',$id)->join('person','users.id','=','person.userID')
-                ->select('users.id','users.nameFirst', 'users.nameFamily','users.email' , 'person.roleID')
-                ->firstOrFail();
+        $users = User::where('id',$id)->firstOrFail();
         
-        return view('user.edit',['user'=>$users]);
+        return view('user.edit',['user'=>$users,'organization' => $organization->organization]);
     }
 
     public function UpdateUser(Request $request) {
@@ -79,39 +96,26 @@ class UserController extends Controller
             'nameFirst' => $fields['nameFirst'],
             'nameFamily' => $fields['nameFamily'],
             'email' => $fields['email'],
-        ]);
-
-        $person = Person::where('userID' , $user->id)->update([
-            'nameFirst' => $fields['nameFirst'],
-            'nameFamily' => $fields['nameFamily'],
             'roleID' => $request->roleID,
         ]);
-        // $person1 = Person::findOrFail($person->ID);
-        //  dd($person1);
-        // $person1->update([
-        //     'nameFirst' => $fields['nameFirst'],
-        //     'nameFamily' => $fields['nameFamily'],
-        //     'roleID' => $request->roleID,
-        // ]);
-        //  dd($person);
+
+
         return redirect('user');
     }
 
     public function DeleteUser(Request $request) {
         $id = $request->id;
         User::where('id',$id)->firstOrFail()->delete();
-        $person = Person::where('userID' , $id)->firstOrFail();
-        Person::where('userID' , $id)->firstOrFail()->delete();
-        TagPerson::where('personID',$person->id)->delete();
+        TagPerson::where('personID',$id)->delete();
         return redirect('user');
     }
 
     public function AskPassword(Request $request) {
         $pwd = $request->password;
         $password = auth()->user()->password;
-        Log::debug("ask password".$pwd);
-        Log::debug("password".$password);
-        Log::debug("hash password".Hash::make($pwd));
+//        Log::debug("ask password".$pwd);
+//        Log::debug("password".$password);
+//        Log::debug("hash password".Hash::make($pwd));
         if (Hash::check($pwd, $password)) {
             return response()->json(['success' => true]);
         } else {

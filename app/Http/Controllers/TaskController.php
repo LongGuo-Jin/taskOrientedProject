@@ -7,35 +7,46 @@ use App\Model\Budget;
 use App\Model\Expense;
 use App\Model\History;
 use App\Model\Memo;
-use App\Model\Person;
 use App\Model\Tag;
 use App\Model\TagPerson;
 use App\Model\Task;
 use App\Model\TaskPriority;
 use App\Model\TaskStatus;
 use App\Model\TaskWeight;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Psy\Command\HistoryCommand;
 use App\Helper\Common;
+use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
 {
     public function __construct()
     {
-        // if (Session::get('login_person_id') == "")
-        //     Session::put('login_person_id', 1);
-        // if (Session::get('login_role_id') == "")
-        //     Session::put('login_role_id', 1);
     }
 
     public function index() {
-        echo "index";
+        $Task = new Task();
+        $TagPerson = new TagPerson();
+        $taskList = $Task->getTaskListForDashboard();
+        $PersonTagNameList = $TagPerson->getPersonTagName();
+        $user = auth()->user();
+        $personID = $user->id;
+
+        return view('dashboard',
+            [
+                'taskList' => $taskList,
+                'dashboard' => true,
+                'PersonTagNameList' => $PersonTagNameList,
+                'personalID' => $personID,
+            ]
+        );
     }
 
     public function taskCard(Request $request) {
-        $Person = new Person();
+        $Person = new User();
         $TaskPriority = new TaskPriority();
         $TaskStatus = new TaskStatus();
         $TaskWeight = new TaskWeight();
@@ -76,10 +87,9 @@ class TaskController extends Controller
             $message["messageType"] = $request->input('messageType');
         }
      
-        $user_id = auth()->user()->id;
-        $person =  Person::where('userID',$user_id)->get()->first();
-        $personID = $person->ID;
-        $login_role_id = $person->roleID;
+        $user = auth()->user();
+        $personID = $user->id;
+        $login_role_id = $user->roleID;
         if ($taskId == "") {
             $taskList = $Task->getTaskListInit();
         } else {
@@ -128,14 +138,17 @@ class TaskController extends Controller
                 'expenseTotalSum' => $expenseTotalSum,
                 'budgetTotalSum' => $budgetTotalSum,
                 'pathArr'   => $pathArr,
-                'message'   => $message
+                'message'   => $message,
+                'taskCard'  => true,
             ]
         );
     }
 
     public function taskCardAdd(Request $request) {
-        $user_id = auth()->user()->id;
-        $personID =  Person::where('userID',$user_id)->get()->first()->ID;
+
+        $user = auth()->user();
+        $personID = $user->id;
+        $login_role_id = $user->roleID;
 
         $taskData = array(
             'title' =>  $request->input('title'),
@@ -160,10 +173,7 @@ class TaskController extends Controller
             $taskData["dateActualEnd"] = date('Y-m-d h:i:s');
 
         $Task = new Task();
-        $user_id = auth()->user()->id;
-        $person =  Person::where('userID',$user_id)->get()->first();
-        $personID = $person->ID;
-        $login_role_id = $person->roleID;
+
 
         try {
             DB::beginTransaction();
@@ -213,8 +223,10 @@ class TaskController extends Controller
         $data = array();
         $data["result"] = -1;
         $taskID = "";
-        $user_id = auth()->user()->id;
-        $personID =  Person::where('userID',$user_id)->get()->first()->ID;
+        $user = auth()->user();
+        $personID = $user->id;
+        $login_role_id = $user->roleID;
+
         $taskData = array(
             'title' =>  $request->input('title'),
             'datePlanStart' =>  $request->input('datePlanStart') == "" ? date("d.m.Y") : $request->input('datePlanStart'),
@@ -390,6 +402,9 @@ class TaskController extends Controller
     }
 
     public function addBudget(Request $request) {
+        $user = auth()->user();
+        $personID = $user->id;
+
         $budgetData = array(
             "taskID" => $request->input("taskID"),
             "personID" => $personID,
@@ -407,6 +422,9 @@ class TaskController extends Controller
     }
 
     public function addExpense(Request $request) {
+        $user = auth()->user();
+        $personID = $user->id;
+
         $expenseData = array(
             "taskID" => $request->input("taskID"),
             "personID" => $personID,

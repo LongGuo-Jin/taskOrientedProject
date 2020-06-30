@@ -21,7 +21,6 @@ class TagPerson extends Model
                     ->select('tag.name', "{$this->table}.personID")
                     ->get()
                     ->toArray();
-
         $keyArr = array();
 
         foreach (Common::stdClass2Array($ret) as $item) {

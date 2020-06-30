@@ -41,7 +41,7 @@
                                                         <select class="form-control" id="detail-add-person" name="personID">
                                                             <option value=""></option>
                                                             @foreach($rolePersonList as $personItem)
-                                                                <option value="{{$personItem['ID']}}" <?php if($personItem['ID'] == $personalID) print_r("selected=selected");?>>
+                                                                <option value="{{$personItem['id']}}" <?php if($personItem['id'] == $personalID) print_r("selected=selected");?>>
                                                                     {{$personItem['nameFamily'] . " " . $personItem['nameFirst']}}
                                                                 </option>
                                                             @endforeach

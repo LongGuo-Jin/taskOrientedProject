@@ -23,7 +23,7 @@
                                 <i class="kt-font-brand flaticon2-line-chart"></i>
                             </span>
                             <h3 class="kt-portlet__head-title">
-                                {{auth()->user()->organization}} >> Add User
+                                {{$organization}} >> Add User
                             </h3>
                         </div>
                         <div class="kt-portlet__head-toolbar">
@@ -41,7 +41,7 @@
                         <!--begin: Datatable -->
                         <div> 
                             <div class="col-md-4  ml-auto mr-auto mt-5">
-                                <form role="form" method="POST" action="{{ route('user.save') }}">
+                                <form role="form" method="POST" id="UserCreate" action="{{ route('user.save') }}">
                                     @csrf
 
                                     <div class="user-input {{ $errors->has('nameFirst') ? ' has-danger' : '' }}">
@@ -133,23 +133,28 @@
             $('.passwordrequestbackground').show();
         })
 
+
         function AskPassword() {
            let pwd = $("#AdminPassword").val();
-           console.log(pwd);
+           let passwordForm = $('.passwordrequestbackground');
+           let form = $('#UserCreate');
+
+            console.log(pwd);
            $.ajax({
                type: 'POST',
                url: 'admin-password',
                data: {password: pwd},
-               success: function(data) {
+               success : (data) => {
                     if (data.success == true) {
-                        $('.passwordrequestbackground').hide();
-                        $("form").submit();
+                        passwordForm.hide();
+                        form[0].submit();
+                        console.log(form)
                     } else {
-                        $('.passwordrequestbackground').hide();
+                        passwordForm.hide();
                         alert("Wrong Password!");
                     }
                },
-               error: function(error) {
+               error: (error) =>  {
                    $('.passwordrequestbackground').hide();
                    alert("Something went Wrong!");
                }

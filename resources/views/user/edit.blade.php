@@ -23,7 +23,7 @@
                                 <i class="kt-font-brand flaticon2-line-chart"></i>
                             </span>
                             <h3 class="kt-portlet__head-title">
-                                {{auth()->user()->organization}} >> Edit User
+                                {{$organization}} >> Edit User
                             </h3>
                         </div>
                         <div class="kt-portlet__head-toolbar">
@@ -41,7 +41,7 @@
                         <!--begin: Datatable -->
                         <div> 
                             <div class="col-md-4  mt-5 ml-auto mr-auto">
-                                <form role="form" method="POST" action="{{ route('user.update') }}">
+                                <form role="form" method="POST" id="UserEdit" action="{{ route('user.update') }}">
                                     @csrf                                     
                                     <input type="hidden" name="id" value="{{$user->id}}">
                                     <p class="user-input-para"> First Name:</p>
@@ -125,17 +125,20 @@
 
         function AskPassword() {
             let pwd = $("#AdminPassword").val();
-            console.log(pwd);
+            let passwordForm = $('.passwordrequestbackground');
+            let form = $('#UserEdit');
+
             $.ajax({
                 type: 'POST',
                 url: 'admin-password',
                 data: {password: pwd},
                 success: function(data) {
                     if (data.success == true) {
-                        $('.passwordrequestbackground').hide();
-                        $("form").submit();
+                        passwordForm.hide();
+                        form[0].submit();
+                        console.log(form)
                     } else {
-                        $('.passwordrequestbackground').hide();
+                        passwordForm.hide();
                         alert("Wrong Password!");
                     }
                 },

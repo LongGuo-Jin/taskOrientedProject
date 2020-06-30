@@ -16,9 +16,9 @@ class Budget extends Model
     public function getBudgetByCond($cond)
     {
         $qrBuilder = DB::table($this->table)
-            ->leftjoin("person", "budget.personID", "=", "person.ID")
+            ->leftjoin("users", "budget.personID", "=", "users.id")
             ->leftjoin("task", "budget.taskID", "=", "task.ID")
-            ->select("{$this->table}.*", DB::raw("concat(person.nameFamily, ' ', person.nameFirst) as fullName"));
+            ->select("{$this->table}.*", DB::raw("concat(users.nameFamily, ' ', users.nameFirst) as fullName"));
 
         if (isset($cond["taskID"]) && $cond["taskID"])
             $qrBuilder = $qrBuilder->where("budget.taskID", "=", $cond["taskID"]);

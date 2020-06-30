@@ -17,9 +17,9 @@ class attachment extends Model
     public function getAttachmentByCond($cond)
     {
         $qrBuilder = DB::table($this->table)
-            ->leftjoin("person", "attachment.personID", "=", "person.ID")
+            ->leftjoin("users", "attachment.personID", "=", "users.id")
             ->leftjoin("task", "attachment.taskID", "=", "task.ID")
-            ->select("{$this->table}.*", DB::raw("concat(person.nameFamily, ' ', person.nameFirst) as fullName"));
+            ->select("{$this->table}.*", DB::raw("concat(users.nameFamily, ' ', users.nameFirst) as fullName"));
 
         if (isset($cond["taskID"]) && $cond["taskID"])
             $qrBuilder = $qrBuilder->where("attachment.taskID", "=", $cond["taskID"]);

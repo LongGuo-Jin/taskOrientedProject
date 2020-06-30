@@ -17,9 +17,9 @@ class Memo extends Model
     public function getMemoByCond($cond)
     {
         $qrBuilder = DB::table($this->table)
-            ->leftjoin("person", "memo.personID", "=", "person.ID")
+            ->leftjoin("users", "memo.personID", "=", "users.id")
             ->leftjoin("task", "memo.taskID", "=", "task.ID")
-            ->select("{$this->table}.*", DB::raw("concat(person.nameFamily, ' ', person.nameFirst) as fullName"));
+            ->select("{$this->table}.*", DB::raw("concat(users.nameFamily, ' ', users.nameFirst) as fullName"));
 
         if (isset($cond["taskID"]) && $cond["taskID"])
             $qrBuilder = $qrBuilder->where("memo.taskID", "=", $cond["taskID"]);

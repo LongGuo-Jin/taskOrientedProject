@@ -14,16 +14,73 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('organization_id');
+            $table->integer('roleID')->unsigned();
+            $table->integer('addressID')->nullable();
+            $table->integer('administrativeID')->nullable();
             $table->string('nameFirst');
             $table->string('nameFamily');
-            $table->string('organization')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->foreign('organization_id')
+                ->references('id')->on('organizations')
+                ->onDelete('cascade');
         });
+
+        \App\User::forceCreate([
+            'nameFirst' => 'Afred',
+            'nameFamily' => 'Antonijević',
+            'organization_id' => 1,
+            'email' => 'test@test.com',
+            'password' => bcrypt('12345678'),
+            'roleID' => 1
+        ]);
+
+        \App\User::forceCreate([
+            'nameFirst' => 'Ivan',
+            'nameFamily' => 'Balan',
+            'organization_id' => 1,
+            'email' => 'test1@test.com',
+            'password' => bcrypt('12345678'),
+            'roleID' => 2
+        ]);
+        \App\User::forceCreate([
+            'nameFirst' => 'Bitenc',
+            'nameFamily' => 'Bitenc',
+            'organization_id' => 1,
+            'email' => 'test2@test.com',
+            'password' => bcrypt('12345678'),
+            'roleID' => 2
+        ]);
+        \App\User::forceCreate([
+            'nameFirst' => 'Bojanovic',
+            'nameFamily' => 'Bojanovic',
+            'organization_id' => 1,
+            'email' => 'test3@test.com',
+            'password' => bcrypt('12345678'),
+            'roleID' => 4
+        ]);
+        \App\User::forceCreate([
+            'nameFirst' => 'Yang',
+            'nameFamily' => 'Zhen',
+            'organization_id' => 1,
+            'email' => 'test4@test.com',
+            'password' => bcrypt('12345678'),
+            'roleID' => 2
+        ]);
+        \App\User::forceCreate([
+            'nameFirst' => 'Jin',
+            'nameFamily' => 'Longguo',
+            'organization_id' => 1,
+            'email' => 'test5@test.com',
+            'password' => bcrypt('12345678'),
+            'roleID' => 4
+        ]);
+
     }
 
     /**

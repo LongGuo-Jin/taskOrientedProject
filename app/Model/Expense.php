@@ -16,9 +16,9 @@ class Expense extends Model
     public function getExpenseByCond($cond)
     {
         $qrBuilder = DB::table($this->table)
-            ->leftjoin("person", "expense.personID", "=", "person.ID")
+            ->leftjoin("users", "expense.personID", "=", "users.id")
             ->leftjoin("task", "expense.taskID", "=", "task.ID")
-            ->select("{$this->table}.*", DB::raw("concat(person.nameFamily, ' ', person.nameFirst) as fullName"));
+            ->select("{$this->table}.*", DB::raw("concat(users.nameFamily, ' ', users.nameFirst) as fullName"));
 
         if (isset($cond["taskID"]) && $cond["taskID"])
             $qrBuilder = $qrBuilder->where("expense.taskID", "=", $cond["taskID"]);

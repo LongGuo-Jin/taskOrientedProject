@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Organization;
 use App\User;
 use App\Model\Person;
+use App\Model\Tag;
 use App\Model\TagPerson;
 use App\Helper\Common;
 use DB;
@@ -106,23 +108,25 @@ class RegisterController extends Controller
         //     'password' => Hash::make("12345678"),
         // ]);
 
-        $user = User::create([
+        $organization = Organization::create([
+            'organization'=> $data["organization"]
+        ]);
+        $user = $organization->Users()->create([
             'nameFirst' => $data['nameFirst'],
             'nameFamily' => $data['nameFamily'],
-            'organization' => $data['organization'],
             'email' => $data['email'],
+            'roleID' => 1,
             'password' => Hash::make($data['password']),
         ]);
 
-        $person = Person::create([
-            'nameFirst' => $data['nameFirst'],
-            'nameFamily' => $data['nameFamily'],
-            'roleID' => 1,
-            'userID' => $user->id,
+        $tag = Tag::create([
+            'name' => $user->nameFirst[0].$user->nameFamily[0],
+            'tagtype' => 4,
+            'color' => 1,
+            'note' => 1,
         ]);
-        
-        // DB::table('tagperson')->create(['tagID'=>1 , 'personID'=>$person->ID]);
-        TagPerson::create(['tagID'=>10 , 'personID'=>$person->id]);
+
+        TagPerson::create(['tagID'=>$tag->id , 'personID'=>$user->id]);
         
         return $user;
     }

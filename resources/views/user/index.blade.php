@@ -3,6 +3,10 @@
     User
 @endsection
 
+@section('style')
+    <link rel="stylesheet" href="{{asset('public/assets/css/user/user.css')}}">
+@endsection
+
 @section('content')
     <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
         @include('layouts.header')
@@ -18,7 +22,7 @@
                                 <i class="kt-font-brand flaticon2-line-chart"></i>
                             </span>
                             <h3 class="kt-portlet__head-title">
-                                {{auth()->user()->organization}} >> User List
+                                {{$organization}} >> User List
                             </h3>
                         </div>
                         <div class="kt-portlet__head-toolbar">
@@ -96,7 +100,7 @@
                                                 <a title="Edit details" class="btn btn-sm btn-clean btn-icon btn-icon-md" href="{{route('user.edit' , ['id'=>$user->id])}}">
                                                         <i class="la la-edit"></i>
                                                     </a>
-                                                    <a title="Delete" class="btn btn-sm btn-clean btn-icon btn-icon-md"  href="{{route('user.delete' , ['id'=>$user->id])}}">
+                                                    <a title="Delete" class="btn btn-sm btn-clean btn-icon btn-icon-md"  onclick="OnDelete({{$user->id}})">
                                                         <i class="la la-trash"></i>
                                                     </a>
                                                 </span>
@@ -114,6 +118,20 @@
 
         </div>
     </div>
+    <form id="deleteForm" method="get" action="{{ route('user.delete') }}" hidden>
+        @csrf
+        <input type="text" id="deleteID" name="id" value="" />
+    </form>
+    <div class="passwordrequestbackground" style="display: none">
+        <div class="PasswordRequestCard">
+            <p class="user-input-para text-center"> Admin Password </p>
+            <div class="user-input">
+                <input type="password" class="form-control" placeholder="{{ __('Admin Password') }}"  id="AdminPassword" name="AdminPassword"  required autofocus>
+                <i class="fa fa-key"></i>
+            </div>
+            <button class="form-control btn btn-primary" onclick="AskPassword()">OK</button>
+        </div>
+    </div>
 @endsection
 
 @section('script')
@@ -123,7 +141,44 @@
     <script src="{{asset('public/assets/js/demo1/pages/components/extended/sweetalert2.js')}}" type="text/javascript"></script>
 
     <script type="text/javascript">
-      
+        function OnDelete(id) {
+            $('#deleteID').val(id);
+            $('.passwordrequestbackground').show();
+        }
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+
+        function AskPassword() {
+            let pwd = $("#AdminPassword").val();
+            let passwordForm = $('.passwordrequestbackground');
+            let form = $('#deleteForm');
+
+            console.log(pwd);
+            $.ajax({
+                type: 'POST',
+                url: 'user/admin-password',
+                data: {password: pwd},
+                success : (data) => {
+                    if (data.success == true) {
+                        passwordForm.hide();
+                        form[0].submit();
+                        console.log(form)
+                    } else {
+                        passwordForm.hide();
+                        alert("Wrong Password!");
+                    }
+                },
+                error: (error) =>  {
+                    passwordForm.hide();
+                    alert("Something went Wrong!");
+                }
+            });
+        }
     </script>
 
 @endsection

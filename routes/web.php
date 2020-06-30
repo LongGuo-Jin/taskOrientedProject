@@ -14,7 +14,7 @@
 
 Route::get('/', function () {
     if (Route::has('login')) {
-        return redirect('/task/taskCard');
+        return redirect('/dashboard');
     } else
     return redirect('/login');
 });
@@ -22,9 +22,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::group(['middleware'=>['auth']] , function() {
+
+    Route::get('dashboard', 'TaskController@index')->name('dashboard');
     Route::group(['middleware'=>['task'] , "prefix"=>"task"] , function() {
-        Route::any('','TaskController@index');
-        Route::any('/taskCard', 'TaskController@taskCard');
+
+        Route::any('/taskCard', 'TaskController@taskCard')->name('task.taskCard');
         Route::any('/taskCardAdd', 'TaskController@taskCardAdd');
         Route::any('/taskCardUpdate', 'TaskController@taskCardUpdate');
         Route::any('/fileUpload', 'TaskController@fileUpload');

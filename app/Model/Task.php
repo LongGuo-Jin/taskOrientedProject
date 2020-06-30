@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Model;
+use Carbon\Carbon;
 use DB;
 use App\Helper\Common;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Session;
 use DateTime;
-
+use Illuminate\Support\Facades\Log;
 class Task extends Model
 {
     protected $table = "task";
@@ -16,19 +18,20 @@ class Task extends Model
 
     protected $fillable = [
         'ID', 'title', 'datePlanStart', 'datePlanEnd', 'dateActualStart', 'dateActualEnd', 'statusID', 'priorityID', 'weightID', 'personID'
-        , 'budgetAllocated', 'hoursAllocated', 'hourSpent', 'hourCost', 'organizationID', 'locationID', 'taskCreatorID', 'deleteFlag'
+        , 'budgetAllocated', 'hoursAllocated', 'hourSpent', 'hourCost','taskCreatorID', 'deleteFlag'
     ];
+//    protected $fillable = [
+//        'ID', 'title', 'datePlanStart', 'datePlanEnd', 'dateActualStart', 'dateActualEnd', 'statusID', 'priorityID', 'weightID', 'personID'
+//        , 'budgetAllocated', 'hoursAllocated', 'hourSpent', 'hourCost', 'organizationID', 'locationID', 'taskCreatorID', 'deleteFlag'
+//    ];
 
     public function __construct()
     {
-        $Person = new Person();
-        
-        $user_id = auth()->user()->id;
-        $person =  Person::where('userID',$user_id)->get()->first();
-        $personID = $person->ID;
-        $login_role_id = $person->roleID;
+        $Person = auth()->user();
 
-        $personInfo = $Person->getPerson($personID);
+        $personID = $Person->id;
+        $login_role_id = $Person->roleID;
+
         $this->roleId = $login_role_id;
         $this->login_id = $personID;
     }
@@ -37,7 +40,7 @@ class Task extends Model
     {
         $ret = DB::table($this->table)
             ->insert($taskData);
-
+        Log::debug("insert task data".$ret);
         return $ret;
     }
 
@@ -57,6 +60,7 @@ class Task extends Model
 
     public function getTaskListInit()
     {
+        $organization_id = auth()->user()->organization_id;
         $retArr = array();
         $qrBuilder = DB::table($this->table)
             ->leftJoin("tagperson", "task.personID", "=", "tagperson.tagID")
@@ -64,20 +68,24 @@ class Task extends Model
             ->leftJoin("taskstatus", "task.statusID", "=", "taskstatus.ID")
             ->leftJoin("taskpriority", "task.priorityID", "=", "taskpriority.ID")
             ->leftJoin("taskweight", "task.weightID", "=", "taskweight.ID")
-            ->leftJoin("person", "task.personID", "=", "person.ID")
-            ->where('deleteFlag', "!=", 1)
+            ->leftJoin("users", "task.personID", "=", "users.id")
+            ->where('deleteFlag', 0)
+            ->where('users.organization_id',$organization_id)
             ->select("{$this->table}.*", "tag.name as psntagName", "taskstatus.note as status_icon"
-                , "taskpriority.title as priority_title", "taskweight.title as weight"
-                , DB::raw("concat(person.nameFamily, ' ', person.nameFirst) as fullName"));
+                , "taskpriority.title as priority_title","taskpriority.order as order" , "taskweight.title as weight"
+                , DB::raw("concat(users.nameFamily, ' ', users.nameFirst) as fullName"));
 
         switch ($this->roleId) {
             case Common::constant("role.proManager"):
             case Common::constant("role.foreman"):
+
                 $qrBuilder = $qrBuilder->whereNull("task.parentID");
                 $qrBuilder = $qrBuilder->where("task.personID", "=", $this->login_id);
                 $qrBuilder = $qrBuilder->orwhere(function ($query) {
+
                     $query->where("task.personID", "=", $this->login_id)
-                        ->where("taskCreatorID", "!=", $this->login_id);
+                        ->where("taskCreatorID", "!=", $this->login_id)
+                        ->where("deleteFlag" , 0);
                 });
                 break;
             case Common::constant("role.admin"):
@@ -89,15 +97,89 @@ class Task extends Model
                 break;
         }
 
-        $ret = $qrBuilder->orderBy('id', 'asc')->get()->toArray();
+        $ret = $qrBuilder->orderBy('order', 'asc')->orderBy('id','asc')->get()->toArray();
+
         $result = $this->adtResult(Common::stdClass2Array($ret));
-
+//        dd($result);
         $retArr[0] = $result;
-
         $result['list'] = $retArr;
         $result['parents'][0] = "";
 
         return $result;
+    }
+
+    public function getTaskListForDashboard() {
+        $organization_id = auth()->user()->organization_id;
+        $qrBuilder = DB::table($this->table)
+            ->leftJoin("tagperson", "task.personID", "=", "tagperson.tagID")
+            ->leftJoin("tag", "tagperson.tagID", "=", "tag.ID")
+            ->leftJoin("taskstatus", "task.statusID", "=", "taskstatus.ID")
+            ->leftJoin("taskpriority", "task.priorityID", "=", "taskpriority.ID")
+            ->leftJoin("taskweight", "task.weightID", "=", "taskweight.ID")
+            ->leftJoin("users", "task.personID", "=", "users.id")
+            ->where('deleteFlag', 0)
+            ->where('users.organization_id',$organization_id)
+            ->select("{$this->table}.*", "tag.name as psntagName", "taskstatus.note as status_icon"
+                , "taskpriority.title as priority_title", "taskpriority.order as order" ,  "taskweight.title as weight"
+                , DB::raw("concat(users.nameFamily, ' ', users.nameFirst) as fullName"));
+
+        switch ($this->roleId) {
+            case Common::constant("role.proManager"):
+            case Common::constant("role.foreman"):
+
+                $qrBuilder = $qrBuilder->whereNull("task.parentID");
+                $qrBuilder = $qrBuilder->where("task.personID", "=", $this->login_id);
+                $qrBuilder = $qrBuilder->orwhere(function ($query) {
+
+                    $query->where("task.personID", "=", $this->login_id)
+                        ->where("taskCreatorID", "!=", $this->login_id)
+                        ->where("deleteFlag" , 0);
+                });
+                break;
+            case Common::constant("role.admin"):
+                $qrBuilder = $qrBuilder->whereNull("task.parentID");
+                break;
+            case Common::constant("role.worker"):
+                $qrBuilder = $qrBuilder->where("taskCreatorID", "!=", $this->login_id);
+                $qrBuilder = $qrBuilder->where("task.personID", "=", $this->login_id);
+                break;
+        }
+
+        $ret = $qrBuilder->orderBy('order', 'asc')->orderBy('id','asc')->get()->toArray();
+
+        $result = $this->adtResult(Common::stdClass2Array($ret));
+
+        $active_tasks = [];
+        $overdue_tasks = [];
+        $new_tasks = [];
+        $retArr = [];
+
+        $now = time();
+        foreach ($result as $taskItem) {
+            $dateEnd = $taskItem["datePlanEnd"];
+            $arrEnd = (explode(".",$dateEnd));
+            $datePlanEnd = strtotime($arrEnd[1].'/'.$arrEnd[0].'/'.$arrEnd[2]);
+            $dateStart = $taskItem["datePlanStart"];
+
+            $arrStart = (explode(".",$dateStart));
+            $datePlanStart = strtotime($arrStart[1].'/'.$arrStart[0].'/'.$arrStart[2]);
+
+            if ($now <   $datePlanEnd) {
+                array_push($active_tasks , $taskItem);
+            } else {
+                array_push($overdue_tasks , $taskItem);
+            }
+            $datediff = $now - $datePlanStart;
+            if (abs(round($datediff / (60 * 60 * 24))) < 5.0 && $now < $datePlanEnd) {
+                array_push($new_tasks , $taskItem);
+            }
+        }
+        $retArr['active'] = $active_tasks;
+        $retArr['overdue'] = $overdue_tasks;
+        $retArr['new'] = $new_tasks;
+
+        return $retArr;
+
     }
 
     public function getTaskList($taskDetails)
@@ -187,17 +269,19 @@ class Task extends Model
 
     public function getTaskListbyCond($cond)
     {
+        $organization_id = auth()->user()->organization_id;
         $qrBuilder = DB::table($this->table)
             ->leftJoin("tagperson", "task.personID", "=", "tagperson.tagID")
             ->leftJoin("tag", "tagperson.tagID", "=", "tag.ID")
             ->leftJoin("taskstatus", "task.statusID", "=", "taskstatus.ID")
             ->leftJoin("taskpriority", "task.priorityID", "=", "taskpriority.ID")
             ->leftJoin("taskweight", "task.weightID", "=", "taskweight.ID")
-            ->leftJoin("person", "task.personID", "=", "person.ID")
-            ->where('deleteFlag', "!=", 1)
+            ->leftJoin("users", "task.personID", "=", "users.id")
+            ->where('users.organization_id',$organization_id)
+            ->where('deleteFlag', "=", 0)
             ->select("{$this->table}.*", "tag.name as psntagName", "taskstatus.note as status_icon"
                 , "taskpriority.title as priority_title", "taskweight.title as weight"
-                , DB::raw("concat(person.nameFamily, ' ', person.nameFirst) as fullName"));
+                , DB::raw("concat(users.nameFamily, ' ', users.nameFirst) as fullName"));
 
         if (isset($cond['taskID'])){
             if ($cond['taskID'] == "") {

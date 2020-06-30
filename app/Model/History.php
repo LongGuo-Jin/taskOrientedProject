@@ -22,9 +22,9 @@ class History extends Model
 
 	public function getHistoryByCond($cond) {
         $qrBuilder = DB::table($this->table)
-            ->leftjoin("person", "history.personID", "=", "person.ID")
+            ->leftjoin("users", "history.personID", "=", "users.id")
             ->leftjoin("task", "history.taskID", "=", "task.ID")
-            ->select("{$this->table}.*", DB::raw("concat(person.nameFamily, ' ', person.nameFirst) as fullName"));
+            ->select("{$this->table}.*", DB::raw("concat(users.nameFamily, ' ', users.nameFirst) as fullName"));
 
         if (isset($cond["taskID"]) && $cond["taskID"])
             $qrBuilder = $qrBuilder->where("history.taskID", "=", $cond["taskID"]);

@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Psy\Command\HistoryCommand;
 use App\Helper\Common;
+use Illuminate\Support\Facades\Hash;
+
 use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
@@ -440,4 +442,29 @@ class TaskController extends Controller
 
         print_r(json_encode($data));die;
     }
+
+    public function Settings() {
+        $user = auth()->user();
+        $TagPerson = new TagPerson();
+        $PersonTagNameList = $TagPerson->getPersonTagName();
+
+        return view('user.settings',['user'=>$user,'PersonTagNameList'=>$PersonTagNameList]);
+    }
+
+    public function SaveSettings(Request $request) {
+        $user = auth()->user();
+        $fields = $this->validate($request, [
+            'nameFirst' => ['required', 'string', 'max:255'],
+            'nameFamily' => ['required', 'string', 'max:255'],
+            'password' => ['required', 'string', 'min:8'],
+        ]);
+        $user->update([
+            'nameFirst' => $fields['nameFirst'],
+            'nameFamily' => $fields['nameFamily'],
+            'password' => Hash::make($fields['password']),
+        ]);
+
+        return redirect('dashboard');
+    }
+
 }

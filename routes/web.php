@@ -43,6 +43,8 @@ Route::group(['middleware'=>['auth']] , function() {
         Route::post('save' , 'UserController@SaveUser')->name('user.save');
         Route::get('edit' , 'UserController@EditUser')->name('user.edit');
         Route::post('update' , 'UserController@UpdateUser')->name('user.update');
+        Route::get('setting' , 'TaskController@Settings')->name('user.setting');
+        Route::post('SaveSetting' , 'TaskController@SaveSettings')->name('user.saveSetting');
         Route::get('delete' , 'UserController@DeleteUser')->name('user.delete');
         Route::post('admin-password','UserController@AskPassword');
     });

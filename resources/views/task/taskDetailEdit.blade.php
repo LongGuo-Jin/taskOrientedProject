@@ -159,14 +159,14 @@
                                         <div class="col-lg-3 detail-content detail-start-date">
                                             <p>{{$taskDetails["datePlanStart"]}}</p>
                                             <input type="text" class="form-control date-picker" @if ($taskDetails["datePlanStart"] != "") style="display: none" @endif
-                                                   name="datePlanStart" autocomplete="off" value="{{$taskDetails["datePlanStart"]}}" >
+                                                   name="datePlanStart" id="datePlanStartEdit" autocomplete="off" value="{{$taskDetails["datePlanStart"]}}" >
                                         </div>
                                         <div class="col-lg-3 detail-label">
                                             End Date
                                         </div>
                                         <div class="col-lg-3 detail-content detail-end-date">
                                             <p>{{$taskDetails["datePlanEnd"]}}</p>
-                                            <input type="text" class="form-control date-picker" @if ($taskDetails["datePlanEnd"] != "")) style="display: none" @endif name="datePlanEnd" autocomplete="off" value="{{$taskDetails["datePlanEnd"]}}" >
+                                            <input type="text" class="form-control date-picker" @if ($taskDetails["datePlanEnd"] != "")) style="display: none" @endif name="datePlanEnd" id="datePlanEndEdit" autocomplete="off" value="{{$taskDetails["datePlanEnd"]}}" >
                                         </div>
                                     </div>
                                     <div class="row" style="margin-top: 15px">

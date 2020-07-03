@@ -99,7 +99,7 @@
                 <div class="kt-header__topbar-user header_menu_item">
                     <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
                     <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold">
-                        {{$PersonTagNameList[$personalID]}}
+                        {{$PersonTagNameList[auth()->user()->id]}}
                     </span>
                 </div>
             </div>
@@ -108,10 +108,8 @@
                 <!--begin: Head -->
                 <div class="kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x" style="background-color: #0a6aa1">
                     <div class="kt-user-card__avatar">
-
-
                         <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
-                        <span class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success">{{$PersonTagNameList[$personalID]}}</span>
+                        <span class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success">{{$PersonTagNameList[auth()->user()->id]}}</span>
                     </div>
                     <div class="kt-user-card__name">
                         {{ auth()->user()->nameFamily }} &nbsp; {{auth()->user()->nameFirst}}
@@ -123,11 +121,11 @@
 
                 <!--begin: Navigation -->
                 <div class="kt-notification">
-                    <a href="javascript:;" class="kt-notification__item">
+                    <a href="{{route('user.setting')}}" class="kt-notification__item">
                         <div class="kt-notification__item-icon">
                             <i class="flaticon2-calendar-3 kt-font-success"></i>
                         </div>
-                        <div class="kt-notification__item-details">
+                        <div class="kt-notification__item-details" >
                             <div class="kt-notification__item-title kt-font-bold">
                                 My Profile
                             </div>

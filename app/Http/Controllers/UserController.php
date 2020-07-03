@@ -25,13 +25,17 @@ class UserController extends Controller
         $organization = Organization::findOrFail($organization_id);
         $users = $organization->Users()->get();
 //        dd($users);
-        return view('user.index',['users'=>$users , 'organization' => $organization->organization]);
+        $TagPerson = new TagPerson();
+        $PersonTagNameList = $TagPerson->getPersonTagName();
+        return view('user.index',['users'=>$users , 'organization' => $organization->organization,'PersonTagNameList' => $PersonTagNameList,]);
     }
 
     public function AddUser() {
         $organization_id = auth()->user()->Organization()->first()->id;
         $organization = Organization::findOrFail($organization_id);
-        return view('user.create' , ['organization' => $organization->organization]);
+        $TagPerson = new TagPerson();
+        $PersonTagNameList = $TagPerson->getPersonTagName();
+        return view('user.create' , ['organization' => $organization->organization,'PersonTagNameList' => $PersonTagNameList]);
     }
 
     public function SaveUser(Request $request) {
@@ -80,8 +84,9 @@ class UserController extends Controller
 
         $id = $request->id;
         $users = User::where('id',$id)->firstOrFail();
-        
-        return view('user.edit',['user'=>$users,'organization' => $organization->organization]);
+        $TagPerson = new TagPerson();
+        $PersonTagNameList = $TagPerson->getPersonTagName();
+        return view('user.edit',['user'=>$users,'organization' => $organization->organization,'PersonTagNameList' => $PersonTagNameList]);
     }
 
     public function UpdateUser(Request $request) {
@@ -98,7 +103,6 @@ class UserController extends Controller
             'email' => $fields['email'],
             'roleID' => $request->roleID,
         ]);
-
 
         return redirect('user');
     }

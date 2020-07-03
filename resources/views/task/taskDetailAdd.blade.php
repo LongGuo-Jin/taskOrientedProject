@@ -115,13 +115,13 @@
                                                 Start Date
                                             </div>
                                             <div class="col-lg-3 detail-content">
-                                                <input type="text" class="form-control date-picker" name="datePlanStart" autocomplete="off"/>
+                                                <input type="text" class="form-control date-picker" name="datePlanStart" id="datePlanStart" autocomplete="off"/>
                                             </div>
                                             <div class="col-lg-3 detail-label">
                                                 End Date
                                             </div>
                                             <div class="col-lg-3 detail-content">
-                                                <input type="text" class="form-control date-picker" name="datePlanEnd" autocomplete="off"/>
+                                                <input type="text" class="form-control date-picker" name="datePlanEnd"  id="datePlanEnd" autocomplete="off"/>
                                             </div>
                                         </div>
                                         <div class="row" style="margin-top: 15px">

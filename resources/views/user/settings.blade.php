@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 @section('title')
-    Add User 
+    Add User
 @endsection
 
 @section('style')
@@ -10,8 +10,8 @@
 
 @section('content')
     <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
-        @include('layouts.header')
-        <!-- end:: Header -->
+    @include('layouts.header')
+    <!-- end:: Header -->
         <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
 
             <!-- begin:: Content -->
@@ -23,26 +23,26 @@
                                 <i class="kt-font-brand flaticon2-line-chart"></i>
                             </span>
                             <h3 class="kt-portlet__head-title">
-                                {{$organization}} >> Edit User
+                                User Settings
                             </h3>
                         </div>
                         <div class="kt-portlet__head-toolbar">
-                            <div class="kt-portlet__head-wrapper">                           
+                            <div class="kt-portlet__head-wrapper">
                                 <div class="dropdown dropdown-inline">
-                                    <a class="btn btn-brand btn-icon-sm" aria-expanded="false"  href="{{route('user')}}">
+                                    <a class="btn btn-brand btn-icon-sm" aria-expanded="false"  href="{{route('dashboard')}}">
                                         <i class="flaticon2-back"></i> Back
                                     </a>
                                 </div>
                             </div>
                         </div>
                     </div>
- 
+
                     <div class="kt-portlet__body kt-portlet__body--fit" style="display: block; min-height: 500px;">
                         <!--begin: Datatable -->
-                        <div> 
+                        <div>
                             <div class="col-md-4  mt-5 ml-auto mr-auto">
-                                <form role="form" method="POST" id="UserEdit" action="{{ route('user.update') }}">
-                                    @csrf                                     
+                                <form role="form" method="POST" id="UserEdit" action="{{ route('user.saveSetting') }}">
+                                    @csrf
                                     <input type="hidden" name="id" value="{{$user->id}}">
                                     <p class="user-input-para"> First Name:</p>
                                     <div class="user-input {{ $errors->has('nameFirst') ? ' has-danger' : '' }}">
@@ -64,24 +64,18 @@
                                             <strong>{{ $errors->first('nameFamily') }}</strong>
                                         </span>
                                     @endif
-                                    <p class="user-input-para"> Email:</p>
-                                    <div class="user-input {{ $errors->has('email') ? ' has-danger' : '' }}">
-                                        <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" type="email" name="email" value="{{ old('email', $user->email) }}" required autofocus>
-                                        <i class="fa fa-envelope"></i>
-                                    </div>
-                                    @if ($errors->has('email'))
-                                        <span class="invalid-feedback" style="display: block;" role="alert">
-                                            <strong>{{ $errors->first('email') }}</strong>
-                                        </span>
-                                    @endif
+                                    <p class="user-input-para"> New Password:</p>
 
-                                    <p class="user-input-para"> User Role:</p>
-                                    <select class = "form-control" style="margin-bottom: 20px;" name="roleID">
-                                        <option value="1" <?php $user->roleID==1? print_r("selected"): print_r(""); ?> > Administrator </option>
-                                        <option value="2" <?php $user->roleID==2? print_r("selected"): print_r(""); ?> > Project Manager </option>
-                                        <option value="4" <?php $user->roleID==4? print_r("selected"): print_r(""); ?> > Memeber </option>
-                                    </select>
-                                    <button type="submit" class="btn btn-primary btn-block mb-3">{{ __('Update') }}</button>                                    
+                                    <div class="user-input {{ $errors->has('password') ? ' has-danger' : '' }}">
+                                        <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('New Password') }}" name="password" placeholder="{{ __('Password') }}" type="password" value="" required>
+                                        <i class="fa fa-key"></i>
+                                    </div>
+                                    @if ($errors->has('password'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                    @endif
+                                    <button type="submit" class="btn btn-primary btn-block mb-3">{{ __('Update') }}</button>
                                 </form>
                             </div>
                         </div>
@@ -92,16 +86,7 @@
 
         </div>
     </div>
-    <div class="passwordrequestbackground" style="display: none">
-        <div class="PasswordRequestCard">
-            <p class="user-input-para text-center"> Admin Password </p>
-            <div class="user-input {{ $errors->has('nameFirst') ? ' has-danger' : '' }}">
-                <input type="password" class="form-control" placeholder="{{ __('Admin Password') }}"  id="AdminPassword" name="AdminPassword"  required autofocus>
-                <i class="fa fa-key"></i>
-            </div>
-            <button class="form-control btn btn-primary" onclick="AskPassword()">OK</button>
-        </div>
-    </div>
+
 @endsection
 
 @section('script')
@@ -117,37 +102,6 @@
             }
         });
 
-
-        $("form").submit(function(e) {
-            e.preventDefault();
-            $('.passwordrequestbackground').show();
-        })
-
-        function AskPassword() {
-            let pwd = $("#AdminPassword").val();
-            let passwordForm = $('.passwordrequestbackground');
-            let form = $('#UserEdit');
-
-            $.ajax({
-                type: 'POST',
-                url: 'admin-password',
-                data: {password: pwd},
-                success: function(data) {
-                    if (data.success == true) {
-                        passwordForm.hide();
-                        form[0].submit();
-                        console.log(form)
-                    } else {
-                        passwordForm.hide();
-                        alert("Wrong Password!");
-                    }
-                },
-                error: function(error) {
-                    $('.passwordrequestbackground').hide();
-                    alert("Something went Wrong!");
-                }
-            });
-        }
     </script>
 
 @endsection

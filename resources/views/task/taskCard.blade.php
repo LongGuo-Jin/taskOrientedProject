@@ -302,6 +302,51 @@
                 autoclose: true
             });
 
+            $('input.date-picker').change(function(e){
+                let targetId= e.target.id;
+                let val = e.target.value;
+                let arrVal = val.split('.');
+                let date = new Date(arrVal[1]+"/"+arrVal[0]+"/"+arrVal[2]);
+
+                if (targetId == "datePlanStartAdd") {
+                    let oVal = $('#datePlanEndAdd').val();
+
+                    let oArrVal = oVal.split('.');
+                    let oDate = new Date(oArrVal[1]+"/"+oArrVal[0]+"/"+oArrVal[2]);
+                    if (oDate < date) {
+                        $('#datePlanEndAdd').closest('div').find('p')[0].innerText = val;
+                        $('#datePlanEndAdd').val(val);
+                    }
+                } else if (targetId == "datePlanEndAdd") {
+                    let oVal = $('#datePlanStartAdd').val();
+
+                    let oArrVal = oVal.split('.');
+                    let oDate = new Date(oArrVal[1]+"/"+oArrVal[0]+"/"+oArrVal[2]);
+                    if (oDate > date) {
+                        $('#datePlanStartAdd').closest('div').find('p')[0].innerText = val;
+                        $('#datePlanStartAdd').val(val);
+                    }
+                } else if (targetId == "datePlanStartEdit") {
+                    let oVal = $('#datePlanEndEdit').val();
+                    console.log(oVal);
+                    let oArrVal = oVal.split('.');
+                    let oDate = new Date(oArrVal[1]+"/"+oArrVal[0]+"/"+oArrVal[2]);
+                    if (oDate < date) {
+                        $('#datePlanEndEdit').closest('div').find('p')[0].innerText = val;
+                        $('#datePlanEndEdit').val(val);
+                    }
+                } else if (targetId == "datePlanEndEdit") {
+                    let oVal = $('#datePlanStartEdit').val();
+                    console.log(oVal);
+                    let oArrVal = oVal.split('.');
+                    let oDate = new Date(oArrVal[1]+"/"+oArrVal[0]+"/"+oArrVal[2]);
+                    if (oDate > date) {
+                        $('#datePlanStartEdit').closest('div').find('p')[0].innerText = val;
+                        $('#datePlanStartEdit').val(val);
+                    }
+                }
+            })
+
             $( "#task_add_form" ).validate({
                 // define validation rules
                 rules: {

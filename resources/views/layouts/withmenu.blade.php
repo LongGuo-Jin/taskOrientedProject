@@ -5,7 +5,7 @@
     <!-- begin:: Aside -->
     <div class="kt-aside__brand kt-grid__item " id="kt_aside_brand">
         <div class="kt-aside__brand-logo">
-            <a href="demo1/dashboard.html">
+            <a href="{{route('dashboard')}}">
                 Task Oriented Project
             </a>
         </div>
@@ -39,7 +39,7 @@
         <div id="kt_aside_menu" class="kt-aside-menu " data-ktmenu-vertical="1" data-ktmenu-scroll="1" data-ktmenu-dropdown-timeout="500">
             <ul class="kt-menu__nav ">
                 <li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true">
-                    <a href="demo1/index.html" class="kt-menu__link ">
+                    <a href="{{route('dashboard')}}" class="kt-menu__link ">
                        <span class="kt-menu__link-text"> <i class="fa fa-dot-circle side_menu_item"></i>Dashboard</span>
                     </a>
                 </li>

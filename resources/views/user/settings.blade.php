@@ -23,14 +23,14 @@
                                 <i class="kt-font-brand flaticon2-line-chart"></i>
                             </span>
                             <h3 class="kt-portlet__head-title">
-                                User Settings
+                                {{__('user.userSettings')}}
                             </h3>
                         </div>
                         <div class="kt-portlet__head-toolbar">
                             <div class="kt-portlet__head-wrapper">
                                 <div class="dropdown dropdown-inline">
                                     <a class="btn btn-brand btn-icon-sm" aria-expanded="false"  href="{{route('dashboard')}}">
-                                        <i class="flaticon2-back"></i> Back
+                                        <i class="flaticon2-back"></i> {{__('user.back')}}
                                     </a>
                                 </div>
                             </div>
@@ -44,9 +44,9 @@
                                 <form role="form" method="POST" id="UserEdit" action="{{ route('user.saveSetting') }}">
                                     @csrf
                                     <input type="hidden" name="id" value="{{$user->id}}">
-                                    <p class="user-input-para"> First Name:</p>
+                                    <p class="user-input-para"> {{__('user.firstName')}}:</p>
                                     <div class="user-input {{ $errors->has('nameFirst') ? ' has-danger' : '' }}">
-                                        <input type="text" class="form-control {{ $errors->has('nameFirst') ? ' is-invalid' : '' }}" placeholder="{{ __('First Name') }}" type="text" name="nameFirst" value="{{ old('nameFirst', $user->nameFirst) }}" required autofocus>
+                                        <input type="text" class="form-control {{ $errors->has('nameFirst') ? ' is-invalid' : '' }}" placeholder="{{__('user.firstName')}}" type="text" name="nameFirst" value="{{ old('nameFirst', $user->nameFirst) }}" required autofocus>
                                         <i class="fa fa-user"></i>
                                     </div>
                                     @if ($errors->has('nameFirst'))
@@ -54,9 +54,9 @@
                                             <strong>{{ $errors->first('nameFirst') }}</strong>
                                         </span>
                                     @endif
-                                    <p class="user-input-para"> Family Name:</p>
+                                    <p class="user-input-para"> {{__('user.familyName')}}:</p>
                                     <div class="user-input {{ $errors->has('nameFamily') ? ' has-danger' : '' }}">
-                                        <input type="text" class="form-control {{ $errors->has('nameFamily') ? ' is-invalid' : '' }}" placeholder="{{ __('Family Name') }}" type="text" name="nameFamily" value="{{ old('nameFamily', $user->nameFamily) }}" required autofocus>
+                                        <input type="text" class="form-control {{ $errors->has('nameFamily') ? ' is-invalid' : '' }}" placeholder="{{__('user.familyName')}}" type="text" name="nameFamily" value="{{ old('nameFamily', $user->nameFamily) }}" required autofocus>
                                         <i class="fa fa-user"></i>
                                     </div>
                                     @if ($errors->has('nameFamily'))
@@ -64,10 +64,10 @@
                                             <strong>{{ $errors->first('nameFamily') }}</strong>
                                         </span>
                                     @endif
-                                    <p class="user-input-para"> New Password:</p>
+                                    <p class="user-input-para"> {{__('user.newPassword')}}:</p>
 
                                     <div class="user-input {{ $errors->has('password') ? ' has-danger' : '' }}">
-                                        <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('New Password') }}" name="password" placeholder="{{ __('Password') }}" type="password" value="" required>
+                                        <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{__('user.newPassword')}}" name="password"  value="" required>
                                         <i class="fa fa-key"></i>
                                     </div>
                                     @if ($errors->has('password'))
@@ -75,7 +75,7 @@
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
                                     @endif
-                                    <button type="submit" class="btn btn-primary btn-block mb-3">{{ __('Update') }}</button>
+                                    <button type="submit" class="btn btn-primary btn-block mb-3">{{__('user.update')}}</button>
                                 </form>
                             </div>
                         </div>

@@ -30,13 +30,13 @@
                                                     </a>
                                                     <div class="dropdown-menu">
                                                         <a class="dropdown-item" data-toggle="tab" data-type="col-task-simple" href="#kt_simple_tab_{{$columnClass}}">
-                                                            <i class="fa fa-align-justify"></i>Simple
+                                                            <i class="fa fa-align-justify"></i>{{__('task.sample')}}
                                                         </a>
                                                         <a class="dropdown-item" data-toggle="tab" data-type="col-task-regular" href="#kt_regular_tab_{{$columnClass}}">
-                                                            <i class="flaticon-laptop"></i>Regular
+                                                            <i class="flaticon-laptop"></i>{{__('task.regular')}}
                                                         </a>
                                                         <a class="dropdown-item" data-toggle="tab" data-type="col-task-extended" href="#kt_extended_tab_{{$columnClass}}">
-                                                            <i class="flaticon-background"></i>Extended
+                                                            <i class="flaticon-background"></i>{{__('task.extended')}}
                                                         </a>
                                                     </div>
                                                 </li>
@@ -44,7 +44,7 @@
                                         </div>
                                         <div class="kt-portlet__head-actions">
                                             <button type="button" class="btn btn-outline-brand btn-elevate btn-pill addTask" data-parent_id="{{$parents[$columnClass]}}">
-                                                <i class="flaticon-add"></i> Add Task
+                                                <i class="flaticon-add"></i> {{__('task.addTask')}}
                                             </button>
                                         </div>
                                     </div>
@@ -162,7 +162,7 @@
                                                                 </div>
                                                                 <div class="row task-extand-description">
                                                                     <div class="col-lg-6 task-extand-description-left">
-                                                                        Finished
+                                                                        {{__('task.finished')}}
                                                                     </div>
                                                                     <div class="col-lg-6 task-extand-description-right kt-font-success">
                                                                         100%
@@ -170,7 +170,7 @@
                                                                 </div>
                                                                 <div class="row task-extand-description">
                                                                     <div class="col-lg-6 task-extand-description-left">
-                                                                        Hours
+                                                                        {{__('task.hours')}}
                                                                     </div>
                                                                     <div class="col-lg-6 task-extand-description-right kt-font-warning">
                                                                         22,52
@@ -178,7 +178,7 @@
                                                                 </div>
                                                                 <div class="row task-extand-description">
                                                                     <div class="col-lg-6 task-extand-description-left">
-                                                                        Budget
+                                                                        {{__('task.budget')}}
                                                                     </div>
                                                                     <div class="col-lg-6 task-extand-description-right kt-font-success">
                                                                         2.427,662
@@ -186,7 +186,7 @@
                                                                 </div>
                                                                 <div class="row task-extand-description">
                                                                     <div class="col-lg-6 task-extand-description-left">
-                                                                        Time
+                                                                        {{__('task.time')}}
                                                                     </div>
                                                                     <div class="col-lg-6 task-extand-description-right kt-font-danger">
                                                                         42D
@@ -197,20 +197,20 @@
                                                                 <input type="hidden" id="quick_token" name="_token" value="{{csrf_token()}}">
                                                                 <div class="row task-expense-add">
                                                                     <div class="col-lg-5">
-                                                                        <input type="text" class="form-control" id="quick-expense-title" placeholder="Add Expense">
+                                                                        <input type="text" class="form-control" id="quick-expense-title" placeholder="{{__('task.addExpense')}}">
                                                                     </div>
                                                                     <div class="row col-lg-4">
                                                                         <input type="text" class="form-control" id="quick-expense-val" placeholder="0.00">
                                                                     </div>
                                                                     <div class="col-lg-3">
                                                                         <button type="button" class="btn btn-outline-brand btn-elevate btn-pill quick-add-expense" style="float: right;">
-                                                                            <i class="flaticon-add"></i> Add
+                                                                            <i class="flaticon-add"></i> {{__('task.add')}}
                                                                         </button>
                                                                     </div>
                                                                 </div>
                                                                 <div class="row task-extand-add">
                                                                     <div class="col-lg-5">
-                                                                        <input type="text" class="form-control" id="quick-subtask-title" placeholder="Add a Subtask">
+                                                                        <input type="text" class="form-control" id="quick-subtask-title" placeholder="{{__('task.addSubTask')}}">
                                                                     </div>
                                                                     <div class="row col-lg-4">
                                                                         <div class="col-lg-4">
@@ -229,7 +229,7 @@
                                                                     </div>
                                                                     <div class="col-lg-3">
                                                                         <button type="button" class="btn btn-outline-brand btn-elevate btn-pill quick-add-task" data-parent_id="{{$parents[$columnClass]}}" style="float: right;">
-                                                                            <i class="flaticon-add"></i> Add
+                                                                            <i class="flaticon-add"></i> {{__('task.add')}}
                                                                         </button>
                                                                     </div>
                                                                 </div>

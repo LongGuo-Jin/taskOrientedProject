@@ -22,7 +22,7 @@
                                 <i class="kt-font-brand flaticon2-line-chart"></i>
                             </span>
                             <h3 class="kt-portlet__head-title">
-                                {{$organization}} >> User List
+                                {{$organization}} >> {{__('user.userList')}}
                             </h3>
                         </div>
                         <div class="kt-portlet__head-toolbar">
@@ -30,7 +30,7 @@
                                
                                 <div class="dropdown dropdown-inline">
                                     <a class="btn btn-brand btn-icon-sm" aria-expanded="false"  href="{{route('user.add')}}">
-                                        <i class="flaticon2-plus"></i> Add New
+                                        <i class="flaticon2-plus"></i> {{__('user.addNew')}}
                                     </a>
                                 </div>
                             </div>
@@ -44,22 +44,22 @@
                                 <thead class="table table-bordered table-striped table-hover data-table">
                                     <tr >
                                         <th data-field="ID" >
-                                            <span >ID</span>
+                                            <span >{{__('user.id')}}</span>
                                         </th>
                                         <th data-field="nameFirst">
-                                            <span>First Name</span>
+                                            <span>{{__('user.firstName')}}</span>
                                         </th>
                                         <th data-field="nameFamily">
-                                            <span>Family Name</span>
+                                            <span>{{__('user.familyName')}}</span>
                                         </th>
                                         <th data-field="Email">
-                                            <span>Email</span>
+                                            <span>{{__('user.email')}}</span>
                                         </th>
                                         <th data-field="Role">
-                                            <span>Role</span>
+                                            <span>{{__('user.role')}}</span>
                                         </th>
                                         <th data-field="Actions" data-autohide-disabled="false">
-                                            <span>Actions</span>
+                                            <span>{{__('user.actions')}}</span>
                                         </th>
                                     </tr>
                                 </thead>
@@ -82,13 +82,13 @@
                                                 <span> 
                                                     @switch($user->roleID )
                                                         @case(1)
-                                                            Administrator
+                                                        {{__('user.administrator')}}
                                                             @break
                                                         @case(2)
-                                                            Project Manager
+                                                        {{__('user.projectManager')}}
                                                             @break
                                                         @case(4)
-                                                            Member
+                                                        {{__('user.member')}}
                                                             @break
                                                         @default                                                            
                                                     @endswitch
@@ -124,12 +124,12 @@
     </form>
     <div class="passwordrequestbackground" style="display: none">
         <div class="PasswordRequestCard">
-            <p class="user-input-para text-center"> Admin Password </p>
+            <p class="user-input-para text-center"> {{__('user.adminPassword')}} </p>
             <div class="user-input">
-                <input type="password" class="form-control" placeholder="{{ __('Admin Password') }}"  id="AdminPassword" name="AdminPassword"  required autofocus>
+                <input type="password" class="form-control" placeholder="{{__('user.adminPassword')}}"  id="AdminPassword" name="AdminPassword"  required autofocus>
                 <i class="fa fa-key"></i>
             </div>
-            <button class="form-control btn btn-primary" onclick="AskPassword()">OK</button>
+            <button class="form-control btn btn-primary" onclick="AskPassword()">{{__('user.ok')}}</button>
         </div>
     </div>
 @endsection

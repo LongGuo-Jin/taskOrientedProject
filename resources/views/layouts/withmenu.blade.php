@@ -6,7 +6,7 @@
     <div class="kt-aside__brand kt-grid__item " id="kt_aside_brand">
         <div class="kt-aside__brand-logo">
             <a href="{{route('dashboard')}}">
-                Task Oriented Project
+                @lang('main.site_title')
             </a>
         </div>
         <div class="kt-aside__brand-tools">
@@ -40,59 +40,59 @@
             <ul class="kt-menu__nav ">
                 <li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true">
                     <a href="{{route('dashboard')}}" class="kt-menu__link ">
-                       <span class="kt-menu__link-text"> <i class="fa fa-dot-circle side_menu_item"></i>Dashboard</span>
+                       <span class="kt-menu__link-text"> <i class="fa fa-dot-circle side_menu_item"></i>{{__('main.dashboard')}}</span>
                     </a>
                 </li>
                 <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
                     <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
-                        <span class="kt-menu__link-text"><i class="fa fa-check-square side_menu_item"></i>My Task</span>
+                        <span class="kt-menu__link-text"><i class="fa fa-check-square side_menu_item"></i>{{__('main.myTask')}}</span>
                     </a>
                 </li>
                 <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
                     <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
-                        <span class="kt-menu__link-text"><i class="la la-signal side_menu_item"></i>Task Doctor</span>
+                        <span class="kt-menu__link-text"><i class="la la-signal side_menu_item"></i>{{__('main.taskDoctor')}}</span>
                     </a>
                 </li>
                 <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
                     <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
-                        <span class="kt-menu__link-text"><i class="la la-file-text side_menu_item"></i> Reports</span>
+                        <span class="kt-menu__link-text"><i class="la la-file-text side_menu_item"></i> {{__('main.reports')}}</span>
                     </a>
                 </li>
                 
                 <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
                     <a href="{{url('/user')}}" class="kt-menu__link kt-menu__toggle">
-                        <span class="kt-menu__link-text"><i class="fa fa-user side_menu_item"></i>User Management</span>
+                        <span class="kt-menu__link-text"><i class="fa fa-user side_menu_item"></i>{{__('main.userManagement')}}</span>
                     </a>
                 </li>
                 
                 <li class="kt-menu__section ">
-                    <h2 class="kt-menu__section-text">MY FAVORITES</h2>
+                    <h2 class="kt-menu__section-text">{{__('main.myFavourite')}}</h2>
                 </li>
                 <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
                     <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
                         <span class="side-menu__link-icon">
                         </span>
-                        <span class="kt-menu__link-text">New Website</span>
+                        <span class="kt-menu__link-text">{{__('main.newWebsite')}}</span>
                     </a>
                 </li>
                 <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
                     <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
                         <span class="side-menu__link-icon">
                         </span>
-                        <span class="kt-menu__link-text">Metalfabrike Duseldordf</span>
+                        <span class="kt-menu__link-text">{{__('main.takeWithExtremelyLong')}}</span>
                     </a>
                 </li>
                 <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
                     <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
                         <span class="side-menu__link-icon">
                         </span>
-                        <span class="kt-menu__link-text">Take with Extremely Long</span>
+                        <span class="kt-menu__link-text">{{__('main.metalFactory')}}</span>
                     </a>
                 </li>
 
                 <li class="kt-menu__section ">
                     <div class="kt-menu__section-text" style="width: 90%; justify-content: space-between">
-                        TAGS
+                        {{__('main.tags')}}
                         <i class="flaticon-add-label-button" style="color: white; font-size: 22px"></i>
                     </div>
                 </li>
@@ -102,7 +102,7 @@
 
                         <span class="kt-menu__link-text">
                             <i class="flaticon-add-label-button" style="color: red; font-size: 18px; margin-right: 10px"></i>
-                            Project
+                            {{__('main.project')}}
                         </span>
                     </a>
                 </li>
@@ -110,7 +110,7 @@
                     <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
                         <span class="kt-menu__link-text">
                             <i class="flaticon-add-label-button" style="color: dodgerblue; font-size: 18px; margin-right: 10px"></i>
-                            Milestone
+                            {{__('main.milestone')}}
                         </span>
                     </a>
                 </li>
@@ -118,7 +118,7 @@
                     <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
                         <span class="kt-menu__link-text">
                             <i class="flaticon-add-label-button" style="color: yellow; font-size: 18px; margin-right: 10px"></i>
-                            To Do
+                            {{__('main.todo')}}
                         </span>
                     </a>
                 </li>
@@ -126,7 +126,7 @@
                     <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
                         <span class="kt-menu__link-text">
                             <i class="flaticon-add-label-button" style="color: grey; font-size: 18px; margin-right: 10px"></i>
-                            Customer 1
+                            {{__('main.customer')}}
                         </span>
                     </a>
                 </li>
@@ -134,7 +134,7 @@
                     <a href="demo1/index.html" class="kt-menu__link ">
                         <span class="kt-menu__link-text">
                             <i class="flaticon-add-label-button" style="color: deeppink; font-size: 18px; margin-right: 10px"></i>
-                            Overdue
+                            {{__('main.overdue')}}
                         </span>
                     </a>
                 </li>
@@ -142,7 +142,7 @@
                     <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
                         <span class="kt-menu__link-text">
                             <i class="flaticon-add-label-button" style="color: yellow; font-size: 18px; margin-right: 10px"></i>
-                            New
+                            {{__('main.new')}}
                         </span>
                     </a>
                 </li>

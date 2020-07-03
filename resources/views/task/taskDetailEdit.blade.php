@@ -9,19 +9,19 @@
             <div class="kt-portlet__head">
                 <div class="kt-portlet__head-label">
                     <h3 class="kt-portlet__head-title">
-                        Details
+                        {{__('task.details')}}
                     </h3>
                 </div>
                 <div class="kt-portlet__head-toolbar">
                     <ul class="nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-brand" role="tablist">
                         <li class="nav-item active">
-                            <a class="nav-link active" data-toggle="tab" id="tab_information" href="#edit_panel_tab_information" role="tab">INFORMATION</a>
+                            <a class="nav-link active" data-toggle="tab" id="tab_information" href="#edit_panel_tab_information" role="tab">{{__('task.information')}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" id="tab_budget" href="#edit_panel_tab_budget" role="tab">BUDGET</a>
+                            <a class="nav-link" data-toggle="tab" id="tab_budget" href="#edit_panel_tab_budget" role="tab">{{__('task.budget')}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab"  id="tab_statistics" href="#edit_panel_tab_statistics" role="tab">STATISTICS</a>
+                            <a class="nav-link" data-toggle="tab"  id="tab_statistics" href="#edit_panel_tab_statistics" role="tab">{{__('task.statistics')}}</a>
                         </li>
                     </ul>
                 </div>
@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="row detail-information-task-name">
                                     <p>{{$taskDetails["title"]}}</p>
-                                    <input type="text" class="form-control" style="display: none" placeholder="Title" name="title" value="{{$taskDetails["title"]}}" >
+                                    <input type="text" class="form-control" style="display: none" placeholder="{{__('task.title')}}" name="title" value="{{$taskDetails["title"]}}" >
                                 </div>
                                 <div class="row detail-information-staus">
                                     <div class="col-lg-6">
@@ -57,7 +57,7 @@
                                             </div>
                                             <div class="col-lg-9">
                                                 <div class="detail-information-staus-title">
-                                                    In Charge
+                                                    {{__('task.inCharge')}}
                                                 </div>
                                                 <div class="detail-information-person-content">
                                                     <p>{{$taskDetails["fullName"]}}</p>
@@ -77,7 +77,7 @@
                                         <div class="row">
                                             <div class="col-lg-4">
                                                 <div class="detail-information-staus-title">
-                                                    Status
+                                                    {{__('task.status')}}
                                                 </div>
                                                 <div class="detail-information-staus-content">
                                                     <p><?php print_r($taskDetails["status_icon"]);?></p>
@@ -94,7 +94,7 @@
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="detail-information-staus-title">
-                                                    Priority
+                                                    {{__('task.priority')}}
                                                 </div>
                                                 <div class="detail-information-priority-content">
                                                     <p>{{$taskDetails["priority_title"]}}</p>
@@ -109,7 +109,7 @@
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="detail-information-staus-title">
-                                                    Weight
+                                                    {{__('task.weight')}}
                                                 </div>
                                                 <div class="detail-information-weight-content">
                                                     <p>{{$taskDetails["weight"]}}</p>
@@ -127,7 +127,7 @@
                                 </div>
                                 <div class="row detail-information-tags">
                                     <div class="col-lg-2">
-                                        Tags
+                                        {{__('task.tags')}}
                                     </div>
                                     <div class="col-lg-10 detail-edit-tags">
                                         <p><?php
@@ -154,7 +154,7 @@
                                 <div class="detail-information-task-date">
                                     <div class="row">
                                         <div class="col-lg-3 detail-label">
-                                            Start Date
+                                            {{__('task.startDate')}}
                                         </div>
                                         <div class="col-lg-3 detail-content detail-start-date">
                                             <p>{{$taskDetails["datePlanStart"]}}</p>
@@ -162,7 +162,7 @@
                                                    name="datePlanStart" id="datePlanStartEdit" autocomplete="off" value="{{$taskDetails["datePlanStart"]}}" >
                                         </div>
                                         <div class="col-lg-3 detail-label">
-                                            End Date
+                                            {{__('task.endDate')}}
                                         </div>
                                         <div class="col-lg-3 detail-content detail-end-date">
                                             <p>{{$taskDetails["datePlanEnd"]}}</p>
@@ -171,13 +171,13 @@
                                     </div>
                                     <div class="row" style="margin-top: 15px">
                                         <div class="col-lg-3 detail-label">
-                                            Actual Start Date
+                                            {{__('task.actualStartDate')}}
                                         </div>
                                         <div class="col-lg-3 detail-content detail-actual-start-date">
                                             <p>{{$taskDetails["dateActualStart"]}}</p>
                                         </div>
                                         <div class="col-lg-3 detail-label">
-                                            Actual End Date
+                                            {{__('task.actualEndDate')}}
                                         </div>
                                         <div class="col-lg-3 detail-content  detail-actual-end-date">
                                             <p>{{$taskDetails["dateActualEnd"]}}</p>
@@ -185,12 +185,12 @@
                                     </div>
                                 </div>
                                 <div class="detail-information-description">
-                                    <h5>Description</h5>
+                                    <h5>{{__('task.description')}}</h5>
                                     <p>{{$taskDetails["description"]}}</p>
                                     <textarea class="form-control" id="edit_description" @if ($taskDetails["description"] != "") style="display: none" @endif rows="5" name="info_description">{{$taskDetails["description"]}}</textarea>
                                 </div>
                                 <div class="detail-information-task-memos">
-                                    <h5>Memos</h5>
+                                    <h5>{{__('task.memos')}}</h5>
                                     @foreach($memos as $memoitem)
                                         <div class="row">
                                             <div class="col-lg-6 detail-content">
@@ -213,7 +213,7 @@
                                 <div class="detail-information-task-attachments">
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <h5>Attachmets</h5><br>
+                                            <h5>{{__('task.attachments')}}</h5><br>
                                         </div>
                                     </div>
                                     @foreach($attachs as $attchItem)
@@ -256,12 +256,12 @@
                                         <div class="custom-file col-lg-10">
                                             <input type="file" class="custom-file-input" id="customFile" name="fileName">
                                             <input type="hidden" name="fileInfo">
-                                            <label class="custom-file-label" for="customFile">Choose file</label>
+                                            <label class="custom-file-label" for="customFile">{{__('task.chooseFile')}}</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="detail-information-task-memos">
-                                    <h5>History</h5><br>
+                                    <h5>{{__('task.history')}}</h5><br>
                                     @foreach($history as $historyItem)
                                         <div class="row">
                                             <div class="col-lg-4 detail-content">
@@ -287,7 +287,7 @@
                                     <div class="col-lg-6">
                                         <div class="row">
                                             <div class="col-lg-6">
-                                                Budget
+                                                {{__('task.budget')}}
                                             </div>
                                             <div class="col-lg-6" style="text-align: right">
                                                 {{number_format($budgetTotalSum, 2, ',', '.')}}
@@ -295,7 +295,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-6">
-                                                Expense
+                                                {{__('task.expense')}}
                                             </div>
                                             <div class="col-lg-6" style="text-align: right">
                                                 {{number_format($expenseTotalSum, 2, ',', '.')}}
@@ -303,7 +303,7 @@
                                         </div>
                                         <div class="row balance">
                                             <div class="col-lg-6">
-                                                Balance
+                                                {{__('task.balance')}}
                                             </div>
                                             <div class="col-lg-6" style="text-align: right">
                                                 {{number_format($budgetTotalSum - $expenseTotalSum, 2, ',', '.')}}
@@ -317,7 +317,7 @@
                                 <div class="detail-income-content">
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <h5>Budget</h5>
+                                            <h5>{{__('task.budget')}}</h5>
                                         </div>
                                         <div class="col-lg-6" style="text-align: right">
                                             <h3>{{number_format($budgetSum, 2, ',', '.')}}</h3>
@@ -341,7 +341,7 @@
                                     @endforeach
                                     <div class="row" style="margin-top: 10px">
                                         <div class="col-lg-7">
-                                            <input type="text"  class="form-control" id="income_description" name="description" placeholder="income description">
+                                            <input type="text"  class="form-control" id="income_description" name="description" placeholder=" {{__('task.incomeDescription')}}">
                                         </div>
                                         <div class="col-lg-5">
                                             <input type="text"  class="form-control" id="income" name="income" placeholder="0,00">
@@ -353,7 +353,7 @@
                                         <div class="col-lg-9" style="text-align: right;">
                                             <button type="button" class="btn btn-outline-brand btn-elevate btn-pill" id="budgetAdd">
                                                 <i class="flaticon-add"></i>
-                                                Add Budget
+                                                {{__('task.addBudget')}}
                                             </button>
                                         </div>
                                     </div>
@@ -361,7 +361,7 @@
                                 <div class="detail-expense-content">
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <h5>Expense</h5>
+                                            <h5>{{__('task.expense')}}</h5>
                                         </div>
                                         <div class="col-lg-6" style="text-align: right">
                                             <h3>{{number_format($expenseSum, 2, ',', '.')}}</h3>
@@ -385,7 +385,7 @@
                                     @endforeach
                                     <div class="row" style="margin-top: 10px">
                                         <div class="col-lg-7">
-                                            <input type="text"  class="form-control" id="expense_description" name="description" placeholder="expense description">
+                                            <input type="text"  class="form-control" id="expense_description" name="description" placeholder=" {{__('task.expenseDescription')}}">
                                         </div>
                                         <div class="col-lg-5">
                                             <input type="text"  class="form-control" id="expense" name="expense" placeholder="0,00">
@@ -397,7 +397,7 @@
                                         <div class="col-lg-9" style="text-align: right;">
                                             <button type="button" class="btn btn-outline-brand btn-elevate btn-pill" id="expensetAdd">
                                                 <i class="flaticon-add"></i>
-                                                Add Expense
+                                                {{__('task.addExpense')}}
                                             </button>
                                         </div>
                                     </div>
@@ -413,7 +413,7 @@
                                     <div class="col-lg-6">
                                         <div class="row statistics-row">
                                             <div class="col-lg-6 statistics-label">
-                                                Start date
+                                                {{__('task.startDate')}}
                                             </div>
                                             <div class="col-lg-6 statistics-content" style="text-align: right">
                                                 {{$taskDetails['datePlanStart']}}
@@ -421,7 +421,7 @@
                                         </div>
                                         <div class="row statistics-row">
                                             <div class="col-lg-6 statistics-label">
-                                                End date
+                                                {{__('task.endDate')}}
                                             </div>
                                             <div class="col-lg-6 statistics-content" style="text-align: right">
                                                 {{$taskDetails['datePlanEnd']}}
@@ -429,7 +429,7 @@
                                         </div>
                                         <div class="row statistics-row">
                                             <div class="col-lg-6 statistics-label">
-                                                Time Left
+                                                {{__('task.timeLeft')}}
                                             </div>
                                             <div class="col-lg-6 statistics-content" style="text-align: right">
                                                 {{$statisticsData['timeLeft']}}
@@ -437,7 +437,7 @@
                                         </div>
                                         <div class="row statistics-row">
                                             <div class="col-lg-6 statistics-label">
-                                                Time Left%
+                                                {{__('task.timeLeft')}}%
                                             </div>
                                             <div class="col-lg-6 statistics-content" style="text-align: right">
                                                 {{$statisticsData['timeLeftPercent']}} %
@@ -452,7 +452,7 @@
                                     <div class="col-lg-6">
                                         <div class="row statistics-row">
                                             <div class="col-lg-6 statistics-label">
-                                                Progress
+                                                {{__('task.progress')}}
                                             </div>
                                             <div class="col-lg-6 statistics-content" style="text-align: right">
                                                 {{$taskDetails['finishProgress']}}%
@@ -460,7 +460,7 @@
                                         </div>
                                         <div class="row statistics-row">
                                             <div class="col-lg-8 statistics-label">
-                                                Progress Left
+                                                {{__('task.progressLeft')}}
                                             </div>
                                             <div class="col-lg-4 statistics-content" style="text-align: right">
                                                 {{100 - $taskDetails['finishProgress']}}%
@@ -471,7 +471,7 @@
                                     </div>
                                     <div class="col-lg-5">
                                         <div class="row statistics-row" style="text-align: right;">
-                                            Progress
+                                            {{__('task.progress')}}
                                         </div>
                                         <div class="row statistics-row progress" style="height: 14px;">
                                             @if($taskDetails['spentProgress'] <= $taskDetails['finishProgress'])
@@ -487,7 +487,7 @@
                                     <div class="col-lg-6">
                                         <div class="row statistics-row">
                                             <div class="col-lg-6 statistics-label">
-                                                Sub Tasks
+                                                {{__('task.subTasks')}}
                                             </div>
                                             <div class="col-lg-6 statistics-content" style="text-align: right">
                                                 {{$statisticsData['totalCount']}}
@@ -495,7 +495,7 @@
                                         </div>
                                         <div class="row statistics-row">
                                             <div class="col-lg-6 statistics-label">
-                                                Sub Tasks finished
+                                                {{__('task.subTasksFinished')}}
                                             </div>
                                             <div class="col-lg-6 statistics-content" style="text-align: right">
                                                 {{$statisticsData['finishCount']}}
@@ -503,7 +503,7 @@
                                         </div>
                                         <div class="row statistics-row">
                                             <div class="col-lg-6 statistics-label">
-                                                Sub Tasks Left
+                                                {{__('task.subTasksLeft')}}
                                             </div>
                                             <div class="col-lg-6 statistics-content" style="text-align: right">
                                                 {{$statisticsData['leftCount']}}
@@ -511,7 +511,7 @@
                                         </div>
                                         <div class="row statistics-row">
                                             <div class="col-lg-6 statistics-label">
-                                                Sub Tasks finished
+                                                {{__('task.subTasksFinished')}}
                                             </div>
                                             <div class="col-lg-6 statistics-content" style="text-align: right">
                                                 {{$statisticsData['subFinishPercent']}}%
@@ -522,7 +522,7 @@
                                     </div>
                                     <div class="col-lg-5">
                                         <div class="row statistics-row" style="text-align: right;">
-                                            Subtasks finished
+                                            {{__('task.subTasksFinished')}}
                                         </div>
                                         <div class="row statistics-row progress" style="height: 14px;">
                                             <div class="progress-bar bg-dark" role="progressbar" style="width: {{$statisticsData['subFinishPercent']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
@@ -535,8 +535,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-taskid="{{$taskId}}" data-parentid="{{$taskDetails["parentID"]}}" id="taskDetailDelete">Delete</button>
-                <button type="button" class="btn btn-primary disabled" id="taskDetailUpdate">Update</button>
+                <button type="button" class="btn btn-primary" data-taskid="{{$taskId}}" data-parentid="{{$taskDetails["parentID"]}}" id="taskDetailDelete"> {{__('task.delete')}}</button>
+                <button type="button" class="btn btn-primary disabled" id="taskDetailUpdate"> {{__('task.update')}}</button>
             </div>
         </form>
     </div>

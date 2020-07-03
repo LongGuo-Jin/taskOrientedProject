@@ -16,10 +16,12 @@ use App\Model\TaskWeight;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Psy\Command\HistoryCommand;
 use App\Helper\Common;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\App;
 
 use Illuminate\Support\Facades\Log;
 
@@ -30,6 +32,7 @@ class TaskController extends Controller
     }
 
     public function index() {
+        $locale = App::getLocale();
         $Task = new Task();
         $TagPerson = new TagPerson();
         $taskList = $Task->getTaskListForDashboard();
@@ -43,6 +46,7 @@ class TaskController extends Controller
                 'dashboard' => true,
                 'PersonTagNameList' => $PersonTagNameList,
                 'personalID' => $personID,
+                'locale' => $locale,
             ]
         );
     }
@@ -228,6 +232,7 @@ class TaskController extends Controller
         $user = auth()->user();
         $personID = $user->id;
         $login_role_id = $user->roleID;
+        Log::debug($request."----------request-------");
 
         $taskData = array(
             'title' =>  $request->input('title'),
@@ -467,4 +472,13 @@ class TaskController extends Controller
         return redirect('dashboard');
     }
 
+    public function language($locale) {
+        if (! in_array($locale, ['en', 'es', 'de'])) {
+            abort(400);
+        }
+        app()->setLocale($locale);
+        return redirect('dashboard');
+    }
+
 }
+

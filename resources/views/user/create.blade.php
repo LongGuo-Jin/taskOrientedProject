@@ -23,14 +23,14 @@
                                 <i class="kt-font-brand flaticon2-line-chart"></i>
                             </span>
                             <h3 class="kt-portlet__head-title">
-                                {{$organization}} >> Add User
+                                {{$organization}} >> {{__('user.addUser')}}
                             </h3>
                         </div>
                         <div class="kt-portlet__head-toolbar">
                             <div class="kt-portlet__head-wrapper">                           
                                 <div class="dropdown dropdown-inline">
                                     <a class="btn btn-brand btn-icon-sm" aria-expanded="false"  href="{{route('user')}}">
-                                        <i class="flaticon2-back"></i> Back
+                                        <i class="flaticon2-back"></i> {{__('user.back')}}
                                     </a>
                                 </div>
                             </div>
@@ -46,7 +46,7 @@
 
                                     <div class="user-input {{ $errors->has('nameFirst') ? ' has-danger' : '' }}">
 
-                                        <input type="text" class="form-control {{ $errors->has('nameFirst') ? ' is-invalid' : '' }}" placeholder="{{ __('First Name') }}" type="text" name="nameFirst" value="{{ old('nameFirst', '') }}" required autofocus>
+                                        <input type="text" class="form-control {{ $errors->has('nameFirst') ? ' is-invalid' : '' }}" placeholder="{{__('user.firstName')}}" type="text" name="nameFirst" value="{{ old('nameFirst', '') }}" required autofocus>
                                         <i class="fa fa-user"></i>
                                     </div>
                                     @if ($errors->has('name'))
@@ -55,7 +55,7 @@
                                         </span>
                                     @endif
                                     <div class="user-input {{ $errors->has('nameFamily') ? ' has-danger' : '' }}">
-                                        <input type="text" class="form-control {{ $errors->has('nameFamily') ? ' is-invalid' : '' }}" placeholder="{{ __('Family Name') }}" type="text" name="nameFamily" value="{{ old('nameFamily', '') }}" required autofocus>
+                                        <input type="text" class="form-control {{ $errors->has('nameFamily') ? ' is-invalid' : '' }}" placeholder="{{__('user.familyName')}}" type="text" name="nameFamily" value="{{ old('nameFamily', '') }}" required autofocus>
                                         <i class="fa fa-user"></i>
                                     </div>
                                     @if ($errors->has('name'))
@@ -64,7 +64,7 @@
                                         </span>
                                     @endif
                                     <div class="user-input {{ $errors->has('email') ? ' has-danger' : '' }}">
-                                        <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" type="email" name="email" value="{{ old('email', '') }}" required autofocus>
+                                        <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{__('user.email')}}" type="email" name="email" value="{{ old('email', '') }}" required autofocus>
                                         <i class="fa fa-envelope"></i>
                                     </div>
                                     @if ($errors->has('email'))
@@ -74,7 +74,7 @@
                                     @endif
     
                                     <div class="user-input {{ $errors->has('password') ? ' has-danger' : '' }}">
-                                        <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Password') }}" name="password" placeholder="{{ __('Password') }}" type="password" value="" required>
+                                        <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{__('user.password')}}" name="password" placeholder="{{ __('Password') }}" type="password" value="" required>
                                         <i class="fa fa-key"></i>
                                     </div>
                                     @if ($errors->has('password'))
@@ -84,12 +84,12 @@
                                     @endif
 
                                     <select class = "form-control" style="margin-bottom: 20px;" name="roleID">
-                                        <option value="1" selected> Administrator </option>
-                                        <option value="2"> Project Manager </option>
-                                        <option value="4"> Memeber </option>
+                                        <option value="1" selected> {{__('user.administrator')}} </option>
+                                        <option value="2"> {{__('user.projectManager')}} </option>
+                                        <option value="4"> {{__('user.member')}} </option>
                                     </select>
 
-                                    <button type="submit" class="btn btn-primary btn-block mb-3">{{ __('Save') }}</button>                                    
+                                    <button type="submit" class="btn btn-primary btn-block mb-3">{{__('user.save')}}</button>
                                 </form>
                             </div>
                         </div>
@@ -103,12 +103,12 @@
 
     <div class="passwordrequestbackground" style="display: none">
         <div class="PasswordRequestCard">
-            <p class="user-input-para text-center"> Admin Password </p>
+            <p class="user-input-para text-center"> {{__('user.adminPassword')}}</p>
             <div class="user-input {{ $errors->has('nameFirst') ? ' has-danger' : '' }}">
-                <input type="password" class="form-control" placeholder="{{ __('Admin Password') }}"  id="AdminPassword" name="AdminPassword"  required autofocus>
+                <input type="password" class="form-control" placeholder="{{__('user.adminPassword')}}"  id="AdminPassword" name="AdminPassword"  required autofocus>
                 <i class="fa fa-key"></i>
             </div>
-            <button class="form-control btn btn-primary" onclick="AskPassword()">OK</button>
+            <button class="form-control btn btn-primary" onclick="AskPassword()">{{__('user.ok')}}</button>
         </div>
     </div>
 

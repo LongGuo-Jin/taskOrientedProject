@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+use Illuminate\Support\Facades\Session;
 
 Route::get('/', function () {
     if (Route::has('login')) {
@@ -22,6 +22,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::group(['middleware'=>['auth']] , function() {
+
+    Route::get('locale/{locale}', function ($locale){
+        Session::put('locale', $locale);
+        return redirect()->back();
+    });
 
     Route::get('dashboard', 'TaskController@index')->name('dashboard');
     Route::group(['middleware'=>['task'] , "prefix"=>"task"] , function() {

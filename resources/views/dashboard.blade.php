@@ -30,7 +30,7 @@
                                     </ul>
                                 </div>
                                 <div class="kt-portlet__head-actions">
-                                    <h5>New Tasks</h5>
+                                    <h5>{{__('dashboard.newTasks')}}</h5>
                                 </div>
                             </div>
                          @foreach($taskList['new'] as $columnClass => $columnItem)
@@ -106,7 +106,7 @@
                                     </ul>
                                 </div>
                                 <div class="kt-portlet__head-actions">
-                                    <h5>Active Tasks</h5>
+                                    <h5>{{__('dashboard.activeTasks')}}</h5>
                                 </div>
                             </div>
                             @foreach($taskList['active'] as $columnClass => $columnItem)
@@ -182,7 +182,7 @@
                                     </ul>
                                 </div>
                                 <div class="kt-portlet__head-actions">
-                                    <h5>Overdue Tasks</h5>
+                                    <h5>{{__('dashboard.overdueTasks')}}</h5>
                                 </div>
                             </div>
                             @foreach($taskList['overdue'] as $columnClass => $columnItem)

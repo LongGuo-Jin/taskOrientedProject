@@ -8,37 +8,37 @@
 
                 <li class="kt-menu__item {{isset($dashboard)?"header_menu_item_active":""}}  header_menu_item " data-ktmenu-submenu-toggle="click" aria-haspopup="true">
                     <a href="{{route('dashboard')}}" class="header_menu_item_link">
-                        <span class="kt-menu__link-text top-menu "><i class="fa fa-dot-circle header_menu_item_icon"></i>Dashboard</span>
+                        <span class="kt-menu__link-text top-menu "><i class="fa fa-dot-circle header_menu_item_icon"></i>{{__('main.dashboard')}}</span>
                     </a>
                 </li>
                 <li class="kt-menu__item {{isset($taskCard)?"header_menu_item_active":""}} header_menu_item" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
                     <a href="{{route('task.taskCard')}}" class="header_menu_item_link">
-                        <span class="kt-menu__link-text top-menu"><i class="la la-credit-card header_menu_item_icon"></i>Task Cards</span>
+                        <span class="kt-menu__link-text top-menu"><i class="la la-credit-card header_menu_item_icon"></i>{{__('main.taskCard')}}</span>
                     </a>
                 </li>
                 <li class="kt-menu__item  header_menu_item" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
                     <a href="javascript:;" class="header_menu_item_link">
-                        <span class="kt-menu__link-text top-menu"><i class="fa fa-th-list header_menu_item_icon"></i>Task List</span>
+                        <span class="kt-menu__link-text top-menu"><i class="fa fa-th-list header_menu_item_icon"></i>{{__('main.taskList')}}</span>
                     </a>
                 </li>
                 <li class="kt-menu__item  header_menu_item" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
                     <a href="javascript:;" class="header_menu_item_link kt-menu__toggle">
-                        <span class="kt-menu__link-text top-menu"><i class="fa fa-users header_menu_item_icon"></i>People</span>
+                        <span class="kt-menu__link-text top-menu"><i class="fa fa-users header_menu_item_icon"></i>{{__('main.people')}}</span>
                     </a>
                 </li>
                 <li class="kt-menu__item header_menu_item" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
                     <a href="javascript:;" class="header_menu_item_link kt-menu__toggle">
-                        <span class="kt-menu__link-text top-menu"><i class="la la-building header_menu_item_icon"></i>Organizations</span>
+                        <span class="kt-menu__link-text top-menu"><i class="la la-building header_menu_item_icon"></i>{{__('main.organizations')}}</span>
                     </a>
                 </li>
                 <li class="kt-menu__item header_menu_item" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
                     <a href="javascript:;" class="header_menu_item_link ">
-                        <span class="kt-menu__link-text top-menu"><i class="fa fa-tag header_menu_item_icon"></i>Tags</span>
+                        <span class="kt-menu__link-text top-menu"><i class="fa fa-tag header_menu_item_icon"></i>{{__('main.tags')}}</span>
                     </a>
                 </li>
                 <li class="kt-menu__item header_menu_item" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
                     <a href="javascript:;" class="header_menu_item_link kt-menu__toggle">
-                        <span class="kt-menu__link-text top-menu"><i class="fa fa-map-marker-alt header_menu_item_icon"></i>Locations</span>
+                        <span class="kt-menu__link-text top-menu"><i class="fa fa-map-marker-alt header_menu_item_icon"></i>{{__('main.locations')}}</span>
                     </a>
                 </li>
             </ul>
@@ -60,7 +60,37 @@
         </div>
 
         <!--begin: Search -->
+        <!--begin: Language bar -->
+        <div class="kt-header__topbar-item kt-header__topbar-item--langs">
+            <div class="kt-header__topbar-wrapper header_menu_item" data-toggle="dropdown" data-offset="10px,0px">
+                <span class="kt-header__topbar-icon">
+                    @if (app()->getLocale() == "en")
+                        <img class="" src="{{asset('public/flags/020-flag.svg')}}" alt="" />
+                    @elseif(app()->getLocale() == "si")
+                        <img class="" src="{{asset('public/flags/021-slovenia.png')}}" alt="" />
+                    @endif
+                </span>
+            </div>
+            <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround">
+                <ul class="kt-nav kt-margin-t-10 kt-margin-b-10">
+                    <li class="kt-nav__item kt-nav__item--active">
+                        <a href="{{url('locale/en')}}" class="kt-nav__link">
+                            <span class="kt-nav__link-icon"><img src="{{asset('public/flags/020-flag.svg')}}" alt="" /></span>
+                            <span class="kt-nav__link-text">English</span>
+                        </a>
+                    </li>
+                    <li class="kt-nav__item">
+                        <a href="{{url('locale/si')}}" class="kt-nav__link">
+                            <span class="kt-nav__link-icon"><img src="{{asset('public/flags/021-slovenia.png')}}" alt="" /></span>
+                            <span class="kt-nav__link-text">Slovenia</span>
+                        </a>
+                    </li>
 
+                </ul>
+            </div>
+        </div>
+
+        <!--end: Language bar -->
         <!--begin: Search -->
         <div class="kt-header__topbar-item kt-header__topbar-item--search dropdown" id="kt_quick_search_toggle">
             <div class="kt-header__topbar-wrapper header_menu_item" data-toggle="dropdown" data-offset="10px,0px">
@@ -127,10 +157,10 @@
                         </div>
                         <div class="kt-notification__item-details" >
                             <div class="kt-notification__item-title kt-font-bold">
-                                My Profile
+                                {{__('main.myProfile')}}
                             </div>
                             <div class="kt-notification__item-time">
-                                Account settings and more
+                                {{__('main.myProfileText')}}
                             </div>
                         </div>
                     </a>
@@ -141,10 +171,10 @@
                         </div>
                         <div class="kt-notification__item-details">
                             <div class="kt-notification__item-title kt-font-bold">
-                                My Tasks
+                                {{__('main.myTasks')}}
                             </div>
                             <div class="kt-notification__item-time">
-                                latest tasks and projects
+                                {{__('main.myTasksText')}}
                             </div>
                         </div>
                     </a>
@@ -152,21 +182,18 @@
                     <div class="kt-notification__custom" style="justify-content: center">
                         <a href="{{ route('logout') }}" class="btn btn-label btn-label-brand btn-sm btn-bold" onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
-                           Sign Out
+                            {{__('main.signOut')}}
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             {{ csrf_field() }}
                         </form>
                     </div>
                 </div>
-
                 <!--end: Navigation -->
             </div>
         </div>
-
         <!--end: User Bar -->
     </div>
-
     <!-- end:: Header Topbar -->
 </div>
 

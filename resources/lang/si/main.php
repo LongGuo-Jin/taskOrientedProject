@@ -1,0 +1,32 @@
+<?php
+
+return [
+    'site_title' => 'Naloge UsmerjeniProjekti',
+    'dashboard' => 'Armaturna plošča',
+    'taskCard' => 'Kartica z nalogami',
+    'taskList' => 'Seznam opravil',
+    'people' => 'Ljudje',
+    'organizations' => 'Organizacije',
+    'tags' => 'Oznake',
+    'locations' => 'Lokacije',
+    'myTask' => 'Moja naloga',
+    'taskDoctor' => 'Naloga doktor',
+    'reports' => 'Poročila',
+    'userManagement' => 'Upravljanje uporabnikov',
+    'myFavorites' => 'Moji najljubši',
+    'project' => 'Projekt',
+    'milestone' => 'Mejnik',
+    'todo' => 'Narediti',
+    'customer' => 'Stranka 1',
+    'overdue' => 'Prepozno',
+    'new' => 'Novo',
+    'myProfile' => 'Moj profil',
+    'myProfileText' => 'Nastavitve računa in še več',
+    'myTasks' => 'Moje naloge',
+    'myTasksText' => 'najnovejše naloge in projekti',
+    'signOut' => 'Odjava',
+    'myFavourite' => 'Moje priljubljene',
+    'newWebsite'=>'Novo spletno mesto',
+    'takeWithExtremelyLong'=>'Vzemite z izjemno dolgimi',
+    'metalFactory' => 'Metalfabrike Duseldordf'
+];

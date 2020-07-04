@@ -115,13 +115,13 @@
                                                 {{__('task.startDate')}}
                                             </div>
                                             <div class="col-lg-3 detail-content">
-                                                <input type="text" class="form-control date-picker" name="datePlanStart" id="datePlanStart" autocomplete="off"/>
+                                                <input type="text" class="form-control date-picker" name="datePlanStart" id="datePlanStartAdd" autocomplete="off"/>
                                             </div>
                                             <div class="col-lg-3 detail-label">
                                                 {{__('task.endDate')}}
                                             </div>
                                             <div class="col-lg-3 detail-content">
-                                                <input type="text" class="form-control date-picker" name="datePlanEnd"  id="datePlanEnd" autocomplete="off"/>
+                                                <input type="text" class="form-control date-picker" name="datePlanEnd"  id="datePlanEndAdd" autocomplete="off"/>
                                             </div>
                                         </div>
                                         <div class="row" style="margin-top: 15px">
@@ -129,13 +129,13 @@
                                                 {{__('task.actualStartDate')}}
                                             </div>
                                             <div class="col-lg-3 detail-content">
-                                                <input type="text" class="form-control date-picker" name="dateActualStart" autocomplete="off"/>
+                                                <input type="text" class="form-control date-picker" name="dateActualStart" id="dateActualStartAdd" autocomplete="off"/>
                                             </div>
                                             <div class="col-lg-3 detail-label">
                                                 {{__('task.actualEndDate')}}
                                             </div>
                                             <div class="col-lg-3 detail-content disable">
-                                                <input type="text" class="form-control date-picker" name="dateActualEnd" autocomplete="off"/>
+                                                <input type="text" class="form-control date-picker" name="dateActualEnd" id="dateActualEndAdd" autocomplete="off"/>
                                             </div>
                                         </div>
                                     </div>

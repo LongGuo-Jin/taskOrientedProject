@@ -310,11 +310,10 @@
 
                 if (targetId == "datePlanStartAdd") {
                     let oVal = $('#datePlanEndAdd').val();
-
+                    console.log(oVal, "datePlanStartAdd");
                     let oArrVal = oVal.split('.');
                     let oDate = new Date(oArrVal[1]+"/"+oArrVal[0]+"/"+oArrVal[2]);
-                    if (oDate < date) {
-                        $('#datePlanEndAdd').closest('div').find('p')[0].innerText = val;
+                    if (oDate < date || oVal == "") {
                         $('#datePlanEndAdd').val(val);
                     }
                 } else if (targetId == "datePlanEndAdd") {
@@ -322,8 +321,7 @@
 
                     let oArrVal = oVal.split('.');
                     let oDate = new Date(oArrVal[1]+"/"+oArrVal[0]+"/"+oArrVal[2]);
-                    if (oDate > date) {
-                        $('#datePlanStartAdd').closest('div').find('p')[0].innerText = val;
+                    if (oDate > date || oVal == "") {
                         $('#datePlanStartAdd').val(val);
                     }
                 } else if (targetId == "datePlanStartEdit") {

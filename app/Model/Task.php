@@ -209,8 +209,13 @@ class Task extends Model
             $parentsArr[0] = $initList['parents'][0];
 
         } else {
-            $retArr[0] = $this->adtResult($this->getTaskListbyCond(array("taskID" => $taskDetails['parentID'])));
+            $tmp = $this->adtResult($this->getTaskListbyCond(array("taskID" => $taskDetails['parentID'])));
             $parentsArr[0] =  $parentId;
+            if (count($tmp)) {
+                $retArr[0] = $tmp;
+                $upParentId = empty($tmp[0]["parentID"]) ? "": $tmp[0]["parentID"];
+                $parentsArr[0] = $upParentId;
+            }
         }
 
         //get second column data.

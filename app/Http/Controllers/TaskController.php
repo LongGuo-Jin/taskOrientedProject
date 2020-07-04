@@ -232,7 +232,6 @@ class TaskController extends Controller
         $user = auth()->user();
         $personID = $user->id;
         $login_role_id = $user->roleID;
-        Log::debug($request."----------request-------");
 
         $taskData = array(
             'title' =>  $request->input('title'),
@@ -258,7 +257,6 @@ class TaskController extends Controller
         } else {
             print_r($data);die;
         }
-
 
         try{
             DB::beginTransaction();
@@ -305,6 +303,7 @@ class TaskController extends Controller
             }
 
             $ret = $Task->updateTask($taskID, $taskData);
+
             $oldStatusId = $request->input("oldstatusID");
             if ($taskData["statusID"] != $oldStatusId) {
                 $historyData = array(

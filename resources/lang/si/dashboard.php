@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'newTasks' => 'Nove naloge',
-    'activeTasks' => 'Aktivne naloge',
-    'overdueTasks' => 'Prepozne naloge',
+    'newTasks' => 'Nova opravila',
+    'activeTasks' => 'Aktivna opravila',
+    'overdueTasks' => 'Prekoračeni roki',
 ];

@@ -131,7 +131,19 @@ $(document).ready(function () {
                         }
                     });
                 } else {
-                    deleteTask(params, parentId);
+                    swal.fire({
+                        title: 'Are u sure to delete this task?',
+                        text: "",
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes',
+                        cancelButtonText: 'No',
+                        reverseButtons: true
+                    }).then(function(result){
+                        if (result.value) {
+                            deleteTask(params, parentId);
+                        }
+                    });
                 }
             }
         });

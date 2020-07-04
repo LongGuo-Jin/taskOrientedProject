@@ -68,13 +68,26 @@ class User extends Authenticatable
         $PersonInfo = auth()->user();
         $roleId = $PersonInfo->roleID;
 
-        if ($roleId == Common::constant("role.proManager") || $roleId == Common::constant("role.foreman")) {
-            $roleId = Common::constant("role.foreman") + 1;
+        if ($roleId == Common::constant("role.admin")){
+            $ret = DB::table($this->table)->where('organization_id',$PersonInfo->organization_id)
+                ->where("roleID", "=", 2)
+                ->orwhere("roleID", "=", 4)
+                ->orderBy('id', 'asc')->get()->toArray();
+        }
+        else if ($roleId == Common::constant("role.proManager") || $roleId == Common::constant("role.foreman")) {
+
+            $ret = DB::table($this->table)->where('organization_id',$PersonInfo->organization_id)
+                ->where("roleID", "=", 4)
+                ->orderBy('id', 'asc')->get()->toArray();
+
         } else {
-            $roleId = $roleId + 1;
+            $ret = DB::table($this->table)->where('organization_id',$PersonInfo->organization_id)
+                ->where("roleID", "=", 5)
+                ->orderBy('id', 'asc')->get()->toArray(); //none
+
         }
 
-        $ret = DB::table($this->table)->where('organization_id',$PersonInfo->organization_id)->where("roleID", "=", $roleId)->orderBy('id', 'asc')->get()->toArray();
+//        $ret = DB::table($this->table)->where('organization_id',$PersonInfo->organization_id)->where("roleID", "=", $roleId)->orderBy('id', 'asc')->get()->toArray();
         $result  = Common::stdClass2Array($ret);
         array_push($result , $PersonInfo->toArray());
         return $result;

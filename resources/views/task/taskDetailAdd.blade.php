@@ -30,7 +30,7 @@
                                             <div class="row">
                                                 <div class="col-lg-3" style="margin: auto 0px auto 0px;">
                                                     <span class="kt-badge kt-badge--brand kt-badge--lg" id="detail-add-personTag">
-                                                        {{$PersonTagNameList[$personalID]}}
+                                                        {{--{{$PersonTagNameList[$personalID]}}--}}
                                                     </span>
                                                 </div>
                                                 <div class="col-lg-9">

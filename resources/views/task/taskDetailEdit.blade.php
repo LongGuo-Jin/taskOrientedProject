@@ -226,8 +226,11 @@
                                             <div class="col-lg-9">
                                                 <div class="row">
                                                     <div class="col-lg-12 detail-label">
-                                                        <h5>
-                                                        {{$attchItem['fileName']}}
+                                                        <h5 style="cursor: pointer;">
+                                                            <span>
+                                                                <i class="fa fa-file-alt"></i>
+                                                                {{$attchItem['fileName']}}
+                                                            </span>
                                                         </h5>
                                                     </div>
                                                 </div>

@@ -96,56 +96,32 @@
                         <i class="flaticon-add-label-button" style="color: white; font-size: 22px"></i>
                     </div>
                 </li>
-
-                <li class="kt-menu__item " aria-haspopup="true">
-                    <a href="demo1/index.html" class="kt-menu__link ">
-
+                @foreach($pinnedTags as $tag)
+                    <li class="kt-menu__item " aria-haspopup="true">
+                        <a href="javascript:;" class="kt-menu__link ">
                         <span class="kt-menu__link-text">
-                            <i class="flaticon-add-label-button" style="color: red; font-size: 18px; margin-right: 10px"></i>
-                            {{__('main.project')}}
+                            <i class="flaticon-add-label-button" style="color: {{$tag['color']}}; font-size: 18px; margin-right: 10px"></i>
+                            {{$tag['name']}}
                         </span>
-                    </a>
+                        </a>
+                    </li>
+                @endforeach
+                <li class="kt-menu__section ">
+                    <div class="kt-menu__section-text" style="width: 90%; justify-content: space-between">
+                        {{__('main.myTags')}}
+                        <i class="flaticon-add-label-button" style="color: white; font-size: 22px"></i>
+                    </div>
                 </li>
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-                    <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+                @foreach($pinnedPersonTags as $tag)
+                    <li class="kt-menu__item " aria-haspopup="true">
+                        <a href="javascript:;" class="kt-menu__link ">
                         <span class="kt-menu__link-text">
-                            <i class="flaticon-add-label-button" style="color: dodgerblue; font-size: 18px; margin-right: 10px"></i>
-                            {{__('main.milestone')}}
+                            <i class="flaticon-add-label-button" style="color: {{$tag['color']}}; font-size: 18px; margin-right: 10px"></i>
+                            {{$tag['name']}}
                         </span>
-                    </a>
-                </li>
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-                    <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
-                        <span class="kt-menu__link-text">
-                            <i class="flaticon-add-label-button" style="color: yellow; font-size: 18px; margin-right: 10px"></i>
-                            {{__('main.todo')}}
-                        </span>
-                    </a>
-                </li>
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-                    <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
-                        <span class="kt-menu__link-text">
-                            <i class="flaticon-add-label-button" style="color: grey; font-size: 18px; margin-right: 10px"></i>
-                            {{__('main.customer')}}
-                        </span>
-                    </a>
-                </li>
-                <li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true">
-                    <a href="demo1/index.html" class="kt-menu__link ">
-                        <span class="kt-menu__link-text">
-                            <i class="flaticon-add-label-button" style="color: deeppink; font-size: 18px; margin-right: 10px"></i>
-                            {{__('main.overdue')}}
-                        </span>
-                    </a>
-                </li>
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-                    <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
-                        <span class="kt-menu__link-text">
-                            <i class="flaticon-add-label-button" style="color: yellow; font-size: 18px; margin-right: 10px"></i>
-                            {{__('main.new')}}
-                        </span>
-                    </a>
-                </li>
+                        </a>
+                    </li>
+                @endforeach
             </ul>
         </div>
     </div>

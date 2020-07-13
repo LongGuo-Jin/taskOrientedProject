@@ -27,7 +27,6 @@
                         </div>
                         <div class="kt-portlet__head-toolbar">
                             <div class="kt-portlet__head-wrapper">
-                               
                                 <div class="dropdown dropdown-inline">
                                     <a class="btn btn-brand btn-icon-sm" aria-expanded="false"  href="{{route('user.add')}}">
                                         <i class="flaticon2-plus"></i> {{__('user.addNew')}}
@@ -36,7 +35,7 @@
                             </div>
                         </div>
                     </div>
- 
+
                     <div class="kt-portlet__body kt-portlet__body--fit">
                         <!--begin: Datatable -->
                         <div class="table-responsive">

@@ -215,7 +215,7 @@
                                                                     <div class="row col-lg-4">
                                                                         <div class="col-lg-4">
                                                                             <span class="kt-badge kt-badge--brand kt-badge--lg" id="quick-add-personTag">
-                                                                                {{$PersonTagNameList[$personalID]}}
+                                                                                {{--{{$PersonTagNameList[$personalID]}}--}}
                                                                             </span>
                                                                         </div>
                                                                         <div class="col-lg-8">

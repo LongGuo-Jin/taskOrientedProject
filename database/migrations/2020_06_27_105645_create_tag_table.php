@@ -15,11 +15,15 @@ class CreateTagTable extends Migration
     {
         Schema::create('tag', function (Blueprint $table) {
             $table->bigIncrements('ID');
-            $table->string('name')->nullable();
+            $table->string('name');
             $table->integer('tagtype')->nullable();
-            $table->integer('color')->nullable();
+            $table->unsignedBigInteger('organization_id');
+            $table->unsignedBigInteger('person_id')->nullable();
+            $table->string('color')->nullable();
             $table->string('note')->nullable();
-
+            $table->longText('description')->nullable();
+            $table->integer('show')->default(1);
+            $table->integer('pinned')->default(0);
             $table->timestamps();
         });
     }

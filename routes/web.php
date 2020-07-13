@@ -21,7 +21,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::group(['middleware'=>['auth']] , function() {
+Route::group(['middleware'=>['auth' , 'tag']] , function() {
 
     Route::get('locale/{locale}', function ($locale){
         Session::put('locale', $locale);
@@ -29,6 +29,9 @@ Route::group(['middleware'=>['auth']] , function() {
     });
 
     Route::get('dashboard', 'TaskController@index')->name('dashboard');
+    Route::get('calendar', 'TaskController@CalendarView')->name('CalendarView');
+
+
     Route::group(['middleware'=>['task'] , "prefix"=>"task"] , function() {
 
         Route::any('/taskCard', 'TaskController@taskCard')->name('task.taskCard');
@@ -52,6 +55,15 @@ Route::group(['middleware'=>['auth']] , function() {
         Route::post('SaveSetting' , 'TaskController@SaveSettings')->name('user.saveSetting');
         Route::get('delete' , 'UserController@DeleteUser')->name('user.delete');
         Route::post('admin-password','UserController@AskPassword');
+    });
+
+    Route::group(["prefix"=>"tag"] , function() {
+
+        Route::get('', 'TagController@index')->name('tag');
+        Route::get('updatePin', 'TagController@UpdatePin')->name('tag.updatePin');
+        Route::post('add','TagController@Add')->name('tag.add');
+        Route::post('update','TagController@Update')->name('tag.update');
+        Route::get('delete','TagController@Delete')->name('tag.delete');
     });
     
 });

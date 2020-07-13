@@ -49,18 +49,18 @@
                                         <input type="text" class="form-control {{ $errors->has('nameFirst') ? ' is-invalid' : '' }}" placeholder="{{__('user.firstName')}}" type="text" name="nameFirst" value="{{ old('nameFirst', '') }}" required autofocus>
                                         <i class="fa fa-user"></i>
                                     </div>
-                                    @if ($errors->has('name'))
+                                    @if ($errors->has('nameFirst'))
                                         <span class="invalid-feedback" style="display: block;" role="alert">
-                                            <strong>{{ $errors->first('name') }}</strong>
+                                            <strong>{{ $errors->first('nameFirst') }}</strong>
                                         </span>
                                     @endif
                                     <div class="user-input {{ $errors->has('nameFamily') ? ' has-danger' : '' }}">
                                         <input type="text" class="form-control {{ $errors->has('nameFamily') ? ' is-invalid' : '' }}" placeholder="{{__('user.familyName')}}" type="text" name="nameFamily" value="{{ old('nameFamily', '') }}" required autofocus>
                                         <i class="fa fa-user"></i>
                                     </div>
-                                    @if ($errors->has('name'))
+                                    @if ($errors->has('nameFamily'))
                                         <span class="invalid-feedback" style="display: block;" role="alert">
-                                            <strong>{{ $errors->first('name') }}</strong>
+                                            <strong>{{ $errors->first('nameFamily') }}</strong>
                                         </span>
                                     @endif
                                     <div class="user-input {{ $errors->has('email') ? ' has-danger' : '' }}">

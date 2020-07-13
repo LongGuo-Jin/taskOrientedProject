@@ -8,6 +8,7 @@ return [
     'people' => 'Osebe',
     'organizations' => 'Organizacije',
     'tags' => 'Oznake',
+    'myTags' => 'My Tags',
     'locations' => 'Lokacije',
     'myTask' => 'Moja opravila',
     'taskDoctor' => 'Zdravje projektov',

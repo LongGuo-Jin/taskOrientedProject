@@ -51,6 +51,48 @@ class TaskController extends Controller
         );
     }
 
+    public function CalendarView(Request $request) {
+        $Task = new Task();
+        $TagPerson = new TagPerson();
+        $taskList = $Task->getTaskListForCalendar($request);
+        $PersonTagNameList = $TagPerson->getPersonTagName();
+        $user = auth()->user();
+        $personID = $user->id;
+        $status = $request->input('status') == "" ? "1": $request->input('status');
+        $priority_high= $request->input('H') == "" ? "": $request->input('H');
+        $priority_medium= $request->input('M') == "" ? "": $request->input('M');
+        $priority_low= $request->input('L') == "" ? "": $request->input('L');
+        $priority_ness= $request->input('O') == "" ? "": $request->input('O');
+
+        if ($priority_high == "" && $priority_medium == "" && $priority_low == "" && $priority_ness == "" ) {
+            $priority_high = 1;
+        }
+        if ($priority_high == '1') {
+            $priority_high = 1;
+        }
+        if ($priority_medium == '1') {
+            $priority_medium = 1;
+        }
+        if ($priority_low == '1') {
+            $priority_low = 1;
+        }
+        if ($priority_ness == '1') {
+            $priority_ness = 1;
+        }
+
+        return view('calendar', [
+            'taskList' => $taskList,
+            'calendar' => true,
+            'PersonTagNameList' => $PersonTagNameList,
+            'personalID' => $personID,
+            'status' => $status,
+            'H' => $priority_high,
+            'M' => $priority_medium,
+            'L' => $priority_low,
+            'O' => $priority_ness,
+        ]);
+    }
+
     public function taskCard(Request $request) {
         $Person = new User();
         $TaskPriority = new TaskPriority();

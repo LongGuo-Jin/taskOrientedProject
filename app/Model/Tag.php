@@ -10,7 +10,7 @@ class Tag extends Model
     protected $table = "tag";
 
     protected $fillable = [
-        'ID', 'name', 'tagtype', 'color', 'note'
+        'ID', 'name', 'tagtype', 'organization_id' , 'person_id' ,'color', 'note' , 'description' , 'show'
     ];
 
     public function getSystemTagList()

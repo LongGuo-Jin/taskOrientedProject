@@ -8,6 +8,7 @@ return [
     'people' => 'People',
     'organizations' => 'Organizations',
     'tags' => 'Tags',
+    'myTags' => 'My Tags',
     'locations' => 'Locations',
     'myTask' => 'My Task',
     'taskDoctor' => 'Task Doctor',

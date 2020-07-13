@@ -413,13 +413,42 @@ div.kt-quick-panel {
     padding-left: 5px;
 }
 
-.content-task {
+.content-calendar {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
 
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 80%;
+    flex: 0 0 80%;
+    max-width: 80%;
+    position: relative;
+    width: 100%;
+}
+
+.calendar-filter {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 20%;
+    flex: 0 0 20%;
+    max-width: 20%;
+    position: relative;
+    width: 100%;
+    padding-left: 5px;
+    height: 100vh;
+}
+
+.calendar-box {
+    padding: 30px 10px 10px 10px;
+}
+
+.content-task {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
     -webkit-box-flex: 0;
     -ms-flex: 0 0 70%;
     flex: 0 0 70%;
@@ -477,4 +506,70 @@ div.detail-statistics-content {
 
 .statistics-row {
     margin-top: 10px;
+}
+
+.list-card {
+    width: 100%;
+    min-height: 90vh;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 5px;
+
+    -webkit-box-shadow: 0px 0px 13px 0px rgba(82, 63, 105, 0.05);
+     box-shadow: 0px 0px 13px 0px rgba(82, 63, 105, 0.05);
+    background-color: #ffffff;
+}
+.list-card .list-head {
+    display: flex;
+    border-bottom: solid 2px #b3b1c2;
+    justify-content: space-between;
+}
+.list-card .list-header-title {
+    margin-top: auto;
+    margin-bottom: auto;
+    font-weight: bold;
+    font-size: 18px;
+    color: #464e74;
+}
+.list-card .list-nav-tab {
+    margin: 0 0 0 0;
+}
+
+.list-card .system-tag {
+    color:  black;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-size: 12px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.list-card .system-tag .selected{
+    background-color: lightblue;
+}
+.system-span {
+    padding: 5px;
+}
+
+.organization-span {
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.personal-span {
+    padding: 5px;
+    border-radius: 10px;
+    border: solid 2px;
+}
+
+.list-card .color-picker {
+    width: 80%;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.list-card .custom-span {
+    font-size: 16px;
+    color: lightskyblue;
 }

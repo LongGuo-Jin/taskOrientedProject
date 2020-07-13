@@ -21,6 +21,11 @@
                         <span class="kt-menu__link-text top-menu"><i class="fa fa-th-list header_menu_item_icon"></i>{{__('main.taskList')}}</span>
                     </a>
                 </li>
+                <li class="kt-menu__item {{isset($calendar)?"header_menu_item_active":""}} header_menu_item" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
+                    <a href="{{route('CalendarView')}}" class="header_menu_item_link">
+                        <span class="kt-menu__link-text top-menu"><i class="fa fa-calendar header_menu_item_icon"></i>{{__('calendar.calendar_title')}}</span>
+                    </a>
+                </li>
                 <li class="kt-menu__item  header_menu_item" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
                     <a href="javascript:;" class="header_menu_item_link kt-menu__toggle">
                         <span class="kt-menu__link-text top-menu"><i class="fa fa-users header_menu_item_icon"></i>{{__('main.people')}}</span>
@@ -31,8 +36,8 @@
                         <span class="kt-menu__link-text top-menu"><i class="la la-building header_menu_item_icon"></i>{{__('main.organizations')}}</span>
                     </a>
                 </li>
-                <li class="kt-menu__item header_menu_item" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
-                    <a href="javascript:;" class="header_menu_item_link ">
+                <li class="kt-menu__item header_menu_item {{isset($TagManager)?"header_menu_item_active":""}}" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
+                    <a href="{{route('tag')}}" class="header_menu_item_link ">
                         <span class="kt-menu__link-text top-menu"><i class="fa fa-tag header_menu_item_icon"></i>{{__('main.tags')}}</span>
                     </a>
                 </li>
@@ -129,7 +134,7 @@
                 <div class="kt-header__topbar-user header_menu_item">
                     <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
                     <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold">
-                        {{$PersonTagNameList[auth()->user()->id]}}
+                        {{--{{$PersonTagNameList[auth()->user()->id]}}--}}
                     </span>
                 </div>
             </div>
@@ -139,7 +144,9 @@
                 <div class="kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x" style="background-color: #0a6aa1">
                     <div class="kt-user-card__avatar">
                         <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
-                        <span class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success">{{$PersonTagNameList[auth()->user()->id]}}</span>
+                        <span class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success">
+                            {{--{{$PersonTagNameList[auth()->user()->id]}}--}}
+                        </span>
                     </div>
                     <div class="kt-user-card__name">
                         {{ auth()->user()->nameFamily }} &nbsp; {{auth()->user()->nameFirst}}

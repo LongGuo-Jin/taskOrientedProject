@@ -116,6 +116,106 @@ class Task extends Model
         return $result;
     }
 
+    public  function getTaskListForCalendar($data) {
+        $organization_id = auth()->user()->organization_id;
+        $qrBuilder = DB::table($this->table)
+            ->leftJoin("tagperson", "task.personID", "=", "tagperson.tagID")
+            ->leftJoin("tag", "tagperson.tagID", "=", "tag.ID")
+            ->leftJoin("taskstatus", "task.statusID", "=", "taskstatus.ID")
+            ->leftJoin("taskpriority", "task.priorityID", "=", "taskpriority.ID")
+            ->leftJoin("taskweight", "task.weightID", "=", "taskweight.ID")
+            ->leftJoin("users", "task.personID", "=", "users.id")
+            ->where('deleteFlag', 0)
+            ->where('users.organization_id',$organization_id)
+            ->select("{$this->table}.*", "tag.name as psntagName", "taskstatus.note as status_icon" , "taskpriority.title as priority_title", "taskpriority.order as order" ,  "taskweight.title as weight"
+                , DB::raw("concat(users.nameFamily, ' ', users.nameFirst) as fullName"));
+
+        $status = $data->input('status') == "" ? "1": $data->input('status');
+        $priority_high= $data->input('H') == "" ? "": $data->input('H');
+        $priority_medium= $data->input('M') == "" ? "": $data->input('M');
+        $priority_low= $data->input('L') == "" ? "": $data->input('L');
+        $priority_ness= $data->input('O') == "" ? "": $data->input('O');
+
+        if ($priority_high == "" && $priority_medium == "" && $priority_low == "" && $priority_ness == "" ) {
+            $priority_high = 1;
+        }
+        if ($priority_high == '1') {
+            $priority_high = 1;
+        }
+        if ($priority_medium == '1') {
+            $priority_medium = 2;
+        }
+        if ($priority_low == '1') {
+            $priority_low = 3;
+        }
+        if ($priority_ness == '1') {
+            $priority_ness = 4;
+        }
+
+        $qrBuilder = $qrBuilder->where("statusID",'=',$status);
+
+        switch ($this->roleId) {
+            case Common::constant("role.proManager"):
+            case Common::constant("role.foreman"):
+                $qrBuilder = $qrBuilder->where("task.personID", "=", $this->login_id);
+                $qrBuilder = $qrBuilder->orwhere("taskCreatorID", "=", $this->login_id);
+                break;
+            case Common::constant("role.admin"):
+                break;
+            case Common::constant("role.worker"):
+                $qrBuilder = $qrBuilder->where("taskCreatorID", "!=", $this->login_id);
+                $qrBuilder = $qrBuilder->where("task.personID", "=", $this->login_id);
+                break;
+        }
+
+        $ret = $qrBuilder->orderBy('order', 'asc')->orderBy('id','asc')->orderBy('statusID','asc')->get()->toArray();
+        $result = $this->adtResult(Common::stdClass2Array($ret));
+        $yesterday_tasks = [];
+        $today_tasks = [];
+        $tomorrow_tasks = [];
+        $theNextDay_tasks = [];
+        $retArr = [];
+
+        foreach ($result as $taskItem) {
+            if ($taskItem['priorityID'] != $priority_high && $taskItem['priorityID'] != $priority_medium && $taskItem['priorityID'] != $priority_low &&$taskItem['priorityID'] != $priority_ness) {
+                continue;
+            }
+
+            $today = date("Y-m-d");
+            $yesterday = date("Y-m-d",strtotime("yesterday"));
+            $tomorrow = date("Y-m-d",strtotime("tomorrow"));
+            $theNextDay = date("Y-m-d",strtotime("tomorrow")+60*60*24);
+            $dateStart = date("Y-m-d",strtotime($taskItem["creatAt"]));
+
+
+            switch ($dateStart) {
+                case $yesterday:
+                    array_push($yesterday_tasks,$taskItem);
+                    break;
+                case $today:
+                    array_push($today_tasks,$taskItem);
+                    break;
+                case $tomorrow:
+                    array_push($tomorrow_tasks,$taskItem);
+                    break;
+                case $theNextDay:
+                    array_push($theNextDay_tasks,$taskItem);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        $retArr['yesterday'] = $yesterday_tasks;
+        $retArr['today'] = $today_tasks;
+        $retArr['tomorrow'] = $tomorrow_tasks;
+        $retArr['theNextDay'] = $theNextDay_tasks;
+        $retArr['theNextDay'] = $theNextDay_tasks;
+
+        return $retArr;
+    }
+
+
     public function getTaskListForDashboard() {
         $organization_id = auth()->user()->organization_id;
         $qrBuilder = DB::table($this->table)
@@ -134,19 +234,10 @@ class Task extends Model
         switch ($this->roleId) {
             case Common::constant("role.proManager"):
             case Common::constant("role.foreman"):
-
-//                $qrBuilder = $qrBuilder->whereNull("task.parentID");
                 $qrBuilder = $qrBuilder->where("task.personID", "=", $this->login_id);
                 $qrBuilder = $qrBuilder->orwhere("taskCreatorID", "=", $this->login_id);
-//                $qrBuilder = $qrBuilder->orwhere(function ($query) {
-//
-//                    $query->where("task.personID", "=", $this->login_id)
-//                        ->where("taskCreatorID", "!=", $this->login_id)
-//                        ->where("deleteFlag" , 0);
-//                });
                 break;
             case Common::constant("role.admin"):
-//                $qrBuilder = $qrBuilder->whereNull("task.parentID");
                 break;
             case Common::constant("role.worker"):
                 $qrBuilder = $qrBuilder->where("taskCreatorID", "!=", $this->login_id);
@@ -154,10 +245,8 @@ class Task extends Model
                 break;
         }
 
-        $ret = $qrBuilder->orderBy('order', 'asc')->orderBy('id','asc')->get()->toArray();
-
+        $ret = $qrBuilder->orderBy('order', 'asc')->orderBy('id','asc')->orderBy('statusID','asc')->get()->toArray();
         $result = $this->adtResult(Common::stdClass2Array($ret));
-
         $active_tasks = [];
         $overdue_tasks = [];
         $new_tasks = [];
@@ -190,6 +279,7 @@ class Task extends Model
         return $retArr;
 
     }
+
 
     public function getTaskList($taskDetails)
     {
@@ -268,6 +358,7 @@ class Task extends Model
         return $result;
     }
 
+
     /**
      * Checking what level for this task is root.
      */
@@ -299,6 +390,7 @@ class Task extends Model
 
         return $ret;
     }
+
 
     public function getTaskListbyCond($cond)
     {
@@ -345,10 +437,11 @@ class Task extends Model
                 break;
         }
 
-        $ret = $qrBuilder->orderBy('order', 'asc')->orderBy('id', 'asc')->get()->toArray();
+        $ret = $qrBuilder->orderBy('order', 'asc')->orderBy('id', 'asc')->orderBy('statusID','asc')->get()->toArray();
 
         return Common::stdClass2Array($ret);
     }
+
 
     public function getTagIds2Names($sysTagArr, $str, $delimiter = ",")
     {

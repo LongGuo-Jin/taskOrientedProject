@@ -157,6 +157,42 @@
         {{--var showType = "{{$showType}}";--}}
         let roleID = "{{$roleID}}";
         let system = "{{$system}}";
+        let colors = [
+            ['#FF0000','#FF0000CC','#FF000044'],
+            ['#d4b04d','#d4b04dcc','#d4b04d44'],
+            ['#e5ff08','#e5ff08cc',"#e5ff0844"],
+            ['#08ff0f','#08ff0fcc','#08ff0f44'],
+            ['#4a6f4b','#4a6f4bcc','#4a6f4b44'],
+            ['#277af7','#277af7cc','#277af744'],
+            ['#2a27f7','#2a27f7cc','#2a27f744'],
+            ['#f72787','#f72787cc','#f7278744'],
+        ];
+        function ColorSelect(j,i) {
+            $('#tagColor').val(colors[j][i]);
+            color = colors[j][i];
+            let colVal = 8 * i + j * 1;
+            $('#tagColorValue').val(colVal);
+        }
+
+        function ColorSelectEdit(j,i) {
+            if (roleID !=='1' && system === "1")
+                return;
+            if (system === '2' && roleID !== '1')
+                return;
+            $('#tagUpdate').show();
+
+            $('#tagColorEdit').val(colors[j][i]);
+            color = colors[j][i];
+
+            let colVal = 8 * i + j * 1;
+            $('#tagColorValueEdit').val(colVal);
+            if (system === "1") {
+                console.log("system 1")
+                return;
+            }
+            $('#tagDelete').show();
+
+        }
 
         function AddNewTag(tagType) {
             if (tagType === 'organization') {
@@ -195,15 +231,17 @@
                         break;
                 }
                 $('#tagUpdate').show();
+                if (system === "1") {
+                    console.log("system 1")
+
+                    return;
+                }
                 $('#tagDelete').show();
+
             });
             $('#tagColorEdit').on('click',function(){
-                if (roleID !=='1' && system === "1")
-                    return;
-                if (system === '2' && roleID !== '1')
-                    return;
-                $('#tagUpdate').show();
-                $('#tagDelete').show();
+
+
             });
             $('#tagShowEdit').on('click',function() {
                 if (roleID !=='1' && system === "1")
@@ -211,7 +249,13 @@
                 if (system === '2' && roleID !== '1')
                     return;
                 $('#tagUpdate').show();
+                if (system === "1") {
+                    console.log("system 1")
+
+                    return;
+                }
                 $('#tagDelete').show();
+
             });
 
         });

@@ -20,6 +20,7 @@ class CreateTagTable extends Migration
             $table->unsignedBigInteger('organization_id');
             $table->unsignedBigInteger('person_id')->nullable();
             $table->string('color')->nullable();
+            $table->integer('colorValue')->nullable();
             $table->string('note')->nullable();
             $table->longText('description')->nullable();
             $table->integer('show')->default(1);

@@ -72,7 +72,7 @@
                                                                 </div>
                                                                 <div class="col-lg-3">
                                                                     <span class="kt-badge kt-badge--brand kt-badge--lg">
-                                                                        {{$taskItem['psntagName']}}
+                                                                        {{--{{$taskItem['psntagName']}}--}}
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -118,7 +118,7 @@
                                                                         </div>
                                                                         <div class="col-lg-3 person-tag">
                                                                             <span class="kt-badge kt-badge--brand kt-badge--lg" id="detail-add-personTag">
-                                                                                {{$taskItem['psntagName']}}
+                                                                                {{--{{$taskItem['psntagName']}}--}}
                                                                             </span>
                                                                         </div>
                                                                     </div>
@@ -249,7 +249,7 @@
                                                                 </div>
                                                                 <div class="col-lg-3 final-sub-task-name">
                                                                     <span class="kt-badge kt-badge--brand kt-badge--lg">
-                                                                        {{$taskItem['psntagName']}}
+                                                                        {{--{{$taskItem['psntagName']}}--}}
                                                                     </span>
                                                                 </div>
                                                             </div>

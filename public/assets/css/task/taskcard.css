@@ -573,3 +573,58 @@ div.detail-statistics-content {
     font-size: 16px;
     color: lightskyblue;
 }
+
+
+.color-check-box {
+    display: block;
+    position: relative;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    font-size: 18px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    border-radius: 2px;
+}
+
+.color-check-box input {
+    position: absolute;
+    z-index: 99;
+    opacity: 0;
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+}
+.color-check-box:hover input ~ .checkmark {
+    background-color: #ffffff;
+}
+
+.color-check-box .checkmark:after {
+    left: 5px;
+    top: 2px;
+    width: 6px;
+    height: 10px;
+    border: solid #000000;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.color-check-box input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.checkmark:after {
+    content:"";
+    position:absolute;
+    display: none;
+}

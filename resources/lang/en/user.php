@@ -22,4 +22,5 @@ return [
     'update' => 'Update',
     'userSettings' => 'User Settings',
     'userRole' => 'User Role',
+    'avatarEditor' => "Avatar Editor",
 ];

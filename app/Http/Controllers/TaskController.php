@@ -140,6 +140,7 @@ class TaskController extends Controller
         $login_role_id = $user->roleID;
         if ($taskId == "") {
             $taskList = $Task->getTaskListInit();
+//            dd($taskList);
         } else {
             $taskDetails = $Task->adtResult($Task->getTaskListbyCond(array("taskID" => $taskId)));
             $memos = $Memo->getMemoByCond(array("taskID" => $taskId, "personID" => $personID));
@@ -499,6 +500,8 @@ class TaskController extends Controller
 
     public function SaveSettings(Request $request) {
         $user = auth()->user();
+//        $request["password"]==""?$user->password:$request["password"];
+//        dd($request);
         $fields = $this->validate($request, [
             'nameFirst' => ['required', 'string', 'max:255'],
             'nameFamily' => ['required', 'string', 'max:255'],
@@ -508,6 +511,9 @@ class TaskController extends Controller
             'nameFirst' => $fields['nameFirst'],
             'nameFamily' => $fields['nameFamily'],
             'password' => Hash::make($fields['password']),
+            'avatarType' => $request['avatarType'],
+            'avatarColor' => $request['avatarColor'],
+            'avatarColorValue' => $request['avatarColorValue'],
         ]);
 
         return redirect('dashboard');

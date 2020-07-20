@@ -63,15 +63,13 @@ class Task extends Model
         $organization_id = auth()->user()->organization_id;
         $retArr = array();
         $qrBuilder = DB::table($this->table)
-            ->leftJoin("tagperson", "task.personID", "=", "tagperson.tagID")
-            ->leftJoin("tag", "tagperson.tagID", "=", "tag.ID")
             ->leftJoin("taskstatus", "task.statusID", "=", "taskstatus.ID")
             ->leftJoin("taskpriority", "task.priorityID", "=", "taskpriority.ID")
             ->leftJoin("taskweight", "task.weightID", "=", "taskweight.ID")
             ->leftJoin("users", "task.personID", "=", "users.id")
             ->where('deleteFlag', 0)
             ->where('users.organization_id',$organization_id)
-            ->select("{$this->table}.*", "tag.name as psntagName", "taskstatus.note as status_icon"
+            ->select("{$this->table}.*", "taskstatus.note as status_icon"
                 , "taskpriority.title as priority_title","taskpriority.order as order" , "taskweight.title as weight"
                 , DB::raw("concat(users.nameFamily, ' ', users.nameFirst) as fullName"));
 
@@ -82,6 +80,7 @@ class Task extends Model
             case Common::constant("role.worker"):
 //                $qrBuilder = $qrBuilder->whereNull("task.parentID");
                 $qrBuilder = $qrBuilder->where("task.personID", "=", $this->login_id);
+
 //                $qrBuilder = $qrBuilder->where("taskCreatorID", "!=", $this->login_id);
 //                $qrBuilder = $qrBuilder->orwhere(function ($query) {
 //                    $query->where("task.personID", "=", $this->login_id)
@@ -90,9 +89,9 @@ class Task extends Model
 //                });
                 $ret = $qrBuilder->orderBy('order', 'asc')->orderBy('id','asc')->get()->toArray();
                 $pmArr = [];
+
                 foreach($ret as $eachTask){
                     $task = $this->getTaskListbyCond(array("taskID" => $eachTask->parentID));
-
                     if ($task[0]['personID'] != $this->login_id) {
                         array_push($pmArr,$eachTask);
                     }
@@ -108,7 +107,7 @@ class Task extends Model
 
 
         $result = $this->adtResult(Common::stdClass2Array($ret));
-//        dd($result);
+
         $retArr[0] = $result;
         $result['list'] = $retArr;
         $result['parents'][0] = "";
@@ -119,15 +118,13 @@ class Task extends Model
     public  function getTaskListForCalendar($data) {
         $organization_id = auth()->user()->organization_id;
         $qrBuilder = DB::table($this->table)
-            ->leftJoin("tagperson", "task.personID", "=", "tagperson.tagID")
-            ->leftJoin("tag", "tagperson.tagID", "=", "tag.ID")
             ->leftJoin("taskstatus", "task.statusID", "=", "taskstatus.ID")
             ->leftJoin("taskpriority", "task.priorityID", "=", "taskpriority.ID")
             ->leftJoin("taskweight", "task.weightID", "=", "taskweight.ID")
             ->leftJoin("users", "task.personID", "=", "users.id")
             ->where('deleteFlag', 0)
             ->where('users.organization_id',$organization_id)
-            ->select("{$this->table}.*", "tag.name as psntagName", "taskstatus.note as status_icon" , "taskpriority.title as priority_title", "taskpriority.order as order" ,  "taskweight.title as weight"
+            ->select("{$this->table}.*", "taskstatus.note as status_icon" , "taskpriority.title as priority_title", "taskpriority.order as order" ,  "taskweight.title as weight"
                 , DB::raw("concat(users.nameFamily, ' ', users.nameFirst) as fullName"));
 
         $status = $data->input('status') == "" ? "1": $data->input('status');
@@ -219,15 +216,14 @@ class Task extends Model
     public function getTaskListForDashboard() {
         $organization_id = auth()->user()->organization_id;
         $qrBuilder = DB::table($this->table)
-            ->leftJoin("tagperson", "task.personID", "=", "tagperson.tagID")
-            ->leftJoin("tag", "tagperson.tagID", "=", "tag.ID")
+
             ->leftJoin("taskstatus", "task.statusID", "=", "taskstatus.ID")
             ->leftJoin("taskpriority", "task.priorityID", "=", "taskpriority.ID")
             ->leftJoin("taskweight", "task.weightID", "=", "taskweight.ID")
             ->leftJoin("users", "task.personID", "=", "users.id")
             ->where('deleteFlag', 0)
             ->where('users.organization_id',$organization_id)
-            ->select("{$this->table}.*", "tag.name as psntagName", "taskstatus.note as status_icon" , "taskstatus.id as taskstatusid"
+            ->select("{$this->table}.*", "taskstatus.note as status_icon" , "taskstatus.id as taskstatusid"
                 , "taskpriority.title as priority_title", "taskpriority.order as order" ,  "taskweight.title as weight"
                 , DB::raw("concat(users.nameFamily, ' ', users.nameFirst) as fullName"));
 
@@ -307,13 +303,14 @@ class Task extends Model
                 $parentsArr[0] = $upParentId;
             }
         }
-
+//        dd($taskDetails);
         //get second column data.
         if ($isMainRoot ){
             $retArr[1] = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID'])));
             $parentsArr[1] = $taskDetails['ID'];
         } else if( $isParentRoot) {
-            if ($role == Common::constant("role.admin") && $isParentRoot) {
+
+            if ($role == Common::constant("role.admin")) {
                 $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $parentId)));
                 if (count($tmp)) {
                     $retArr[1] = $tmp;
@@ -324,6 +321,7 @@ class Task extends Model
             else {
                 $retArr[1] = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID'])));
                 $parentsArr[1] = $taskDetails['ID'];
+//                dd($retArr);
             }
         } else {
             $retArr[1] = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['parentID'])));
@@ -396,15 +394,13 @@ class Task extends Model
     {
         $organization_id = auth()->user()->organization_id;
         $qrBuilder = DB::table($this->table)
-            ->leftJoin("tagperson", "task.personID", "=", "tagperson.tagID")
-            ->leftJoin("tag", "tagperson.tagID", "=", "tag.ID")
             ->leftJoin("taskstatus", "task.statusID", "=", "taskstatus.ID")
             ->leftJoin("taskpriority", "task.priorityID", "=", "taskpriority.ID")
             ->leftJoin("taskweight", "task.weightID", "=", "taskweight.ID")
             ->leftJoin("users", "task.personID", "=", "users.id")
             ->where('users.organization_id',$organization_id)
             ->where('deleteFlag', "=", 0)
-            ->select("{$this->table}.*", "tag.name as psntagName", "taskstatus.note as status_icon"
+            ->select("{$this->table}.*", "taskstatus.note as status_icon"
                 , "taskpriority.title as priority_title","taskpriority.order as order" , "taskweight.title as weight"
                 , DB::raw("concat(users.nameFamily, ' ', users.nameFirst) as fullName"));
 
@@ -420,6 +416,7 @@ class Task extends Model
                 $qrBuilder = $qrBuilder->whereNull("task.parentID");
             } else {
                 $qrBuilder = $qrBuilder->where("task.parentID", "=", $cond['parentID']);
+
             }
         }
 
@@ -427,12 +424,12 @@ class Task extends Model
             case Common::constant("role.proManager"):
             case Common::constant("role.foreman"):
             case Common::constant("role.worker"):
-                if (isset($cond['parentID']) && $cond['parentID'] == "")
-                    $qrBuilder = $qrBuilder->where('task.personID', $this->login_id);
+//                if (isset($cond['parentID']) && $cond['parentID'] == "")
+//                    $qrBuilder = $qrBuilder->where('task.personID', $this->login_id);
                 break;
 
-//                $qrBuilder = $qrBuilder->where('task.personID', $this->login_id);
-//                break;
+                $qrBuilder = $qrBuilder->where('task.personID', $this->login_id);
+                break;
             case Common::constant("role.admin"):
                 break;
         }

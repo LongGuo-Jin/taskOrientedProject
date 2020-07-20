@@ -52,7 +52,7 @@
                                         <div class="row">
                                             <div class="col-lg-3">
                                                 <span class="kt-badge kt-badge--brand kt-badge--lg" id="detail-add-personTag">
-                                                    {{$taskDetails["psntagName"]}}
+                                                    {{--{{$taskDetails["psntagName"]}}--}}
                                                 </span>
                                             </div>
                                             <div class="col-lg-9">

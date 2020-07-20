@@ -52,6 +52,7 @@ class UserController extends Controller
         $user = $organization->Users()->create([
             'nameFirst' => $fields['nameFirst'],
             'nameFamily' => $fields['nameFamily'],
+            'nameTag' => $fields['nameFirst'][0].$fields['nameFamily'][0],
             'organization' => $organization,
             'email' => $fields['email'],
             'password' => Hash::make($fields['password']),
@@ -66,14 +67,14 @@ class UserController extends Controller
 //            'roleID' => $request->roleID,
 //            'userID' => $user->id,
 //        ]);
-        $tag = Tag::create([
-            'name' => $user->nameFirst[0].$user->nameFamily[0],
-            'tagtype' => 4,
-            'color' => 1,
-            'note' => 1,
-        ]);
+//        $tag = Tag::create([
+//            'name' => $user->nameFirst[0].$user->nameFamily[0],
+//            'tagtype' => 4,
+//            'color' => 1,
+//            'note' => 1,
+//        ]);
 
-        TagPerson::create(['tagID'=>$tag->id , 'personID'=>$user->id]);
+//        TagPerson::create(['tagID'=>$tag->id , 'personID'=>$user->id]);
 
         return redirect('user');
     }
@@ -110,7 +111,7 @@ class UserController extends Controller
     public function DeleteUser(Request $request) {
         $id = $request->id;
         User::where('id',$id)->firstOrFail()->delete();
-        TagPerson::where('personID',$id)->delete();
+//        TagPerson::where('personID',$id)->delete();
         return redirect('user');
     }
 

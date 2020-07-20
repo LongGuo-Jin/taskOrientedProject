@@ -25,8 +25,8 @@
             <!-- begin:: Content -->
             <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
                 <div class="row">
-                    <div class="content-calendar">
-                        <div class="column-body m-3">
+                    <div class="content-calendar row">
+                        <div class="col-md-3">
                             <!--begin::Portlet-->
                             <div class="kt-portlet  kt-portlet--tabs">
                                 <div class="kt-portlet__head">
@@ -66,7 +66,7 @@
                                                             </div>
                                                             <div class="col-lg-3">
                                                                 <span class="kt-badge kt-badge--brand kt-badge--lg">
-                                                                    {{$columnItem['psntagName']}}
+                                                                    {{--{{$columnItem['psntagName']}}--}}
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -101,7 +101,7 @@
                             </div>
                             <!--end::Portlet-->
                         </div>
-                        <div class="column-body m-3">
+                        <div class="col-md-3">
                             <!--begin::Portlet-->
                             <div class="kt-portlet  kt-portlet--tabs">
                                 <div class="kt-portlet__head">
@@ -142,7 +142,7 @@
                                                             </div>
                                                             <div class="col-lg-3">
                                                                 <span class="kt-badge kt-badge--brand kt-badge--lg">
-                                                                    {{$columnItem['psntagName']}}
+                                                                    {{--{{$columnItem['psntagName']}}--}}
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -177,7 +177,7 @@
                             </div>
                             <!--end::Portlet-->
                         </div>
-                        <div class="column-body m-3">
+                        <div class="col-md-3">
                                 <!--begin::Portlet-->
                                 <div class="kt-portlet  kt-portlet--tabs">
                                     <div class="kt-portlet__head">
@@ -218,7 +218,7 @@
                                                                 </div>
                                                                 <div class="col-lg-3">
                                                                     <span class="kt-badge kt-badge--brand kt-badge--lg">
-                                                                        {{$columnItem['psntagName']}}
+                                                                        {{--{{$columnItem['psntagName']}}--}}
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -253,7 +253,7 @@
                                 </div>
                                 <!--end::Portlet-->
                             </div>
-                        <div class="column-body m-3">
+                        <div class="col-md-3">
                             <!--begin::Portlet-->
                             <div class="kt-portlet  kt-portlet--tabs">
                                 <div class="kt-portlet__head">
@@ -292,7 +292,7 @@
                                                             </div>
                                                             <div class="col-lg-3">
                                                                 <span class="kt-badge kt-badge--brand kt-badge--lg">
-                                                                    {{$columnItem['psntagName']}}
+                                                                    {{--{{$columnItem['psntagName']}}--}}
                                                                 </span>
                                                             </div>
                                                         </div>

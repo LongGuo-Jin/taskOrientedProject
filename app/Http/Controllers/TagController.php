@@ -76,6 +76,7 @@ class TagController extends Controller
                              'person_id' => $personID,
                              'tagtype' => 2,
                              'color' => $request['tagColor'],
+                             'colorValue' => $request['tagColorValue'],
                              'note' => $request['tagNote'],
                              'description' => $request['tagDescription'] ,
                              'show' => $request['showTag']=='on'?1:0
@@ -87,6 +88,7 @@ class TagController extends Controller
                 'person_id' => $personID,
                 'tagtype' => 3,
                 'color' => $request['tagColor'],
+                'colorValue' => $request['tagColorValue'],
                 'note' => $request['tagNote'],
                 'description' => $request['tagDescription'] ]);
         }
@@ -96,11 +98,13 @@ class TagController extends Controller
 
     public function Update(Request $request) {
 
+//        dd($request);
         $systemTag = null;
         if (isset($request['systemTag'])) {
             Tag::where('ID',$request['tagID'])->update(
                 [
                     'color' => $request['tagColor'],
+                    'colorValue' => $request['tagColorValue'],
                     'description' => $request['tagDescription'],
                     'show' => $request['showTagEdit']=='on'?1:0,
                 ]
@@ -110,6 +114,7 @@ class TagController extends Controller
                 [
                     'name' => $request['tagName'],
                     'color' => $request['tagColor'],
+                    'colorValue' => $request['tagColorValue'],
                     'note' => $request['tagNote'],
                     'description' => $request['tagDescription'],
                     'show' => $request['showTagEdit']=='on'?1:0,

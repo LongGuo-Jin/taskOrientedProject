@@ -22,4 +22,5 @@ return [
     'update' => 'Nadgradnja',
     'userSettings' => 'Uporabniške nastavitve',
     'userRole' => 'Vloga uporabnika',
+    'avatarEditor' => "Avatar Editor",
 ];

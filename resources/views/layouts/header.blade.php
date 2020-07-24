@@ -167,7 +167,7 @@
 
                         @break
                     @case (5)
-                        {{--//rotated rectangle--}}
+                    {{--//rotated rectangle--}}
                         <svg width="32" height="32">
                             <polygon points="8.5442763975152E-13,15.999994771282 15.999989542563,31.999999999997 31.999999999992,16.000015686155 	16.000020914873,1.3669065879185E-11 " fill="{{auth()->user()->avatarColor}}" style="stroke:purple;stroke-width:0;"></polygon>
                             <text x="5" y="22" style="fill:black;font-size: 16px">{{auth()->user()->nameTag}}</text>
@@ -175,18 +175,18 @@
                         @break
                     @endswitch
                     @switch(auth()->user()->roleID)
-                    @case (1)
-                        <circle cx="28" cy="4" r="3" stroke="black" stroke-width="0" fill="black"></circle>
-                        <rect height="8" width="2" x="27" y="0" fill="black"></rect>
-                        <polygon points="25.145898644316,1.1974823013079 24.145898266966,2.9295328910135 30.854099523987,6.802519564103 31.854101033387,5.0704696279878 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
-                        <polygon points="24.14589756732,5.0704645899847 25.14589681262,6.8025158332799 31.854103132324,2.9295379290175 30.854105019076,1.1974860321334 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
-                        @break
-                    @case (2)
-                        <polygon points="28,0 25.648857298782,7.2360667481539 31.804227357789,2.7639360007462 24.195775873739,2.7639260551337 30.35113424097,7.2360728948744 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
-                        @break
-                    @case (4)
-                        <circle cx="28" cy="4" r="4" stroke="black" stroke-width="0" fill = "black" style="stroke-width:0;"></circle>
-                        @break
+                        @case (1)
+                            <circle cx="28" cy="4" r="3" stroke="black" stroke-width="0" fill="black"></circle>
+                            <rect height="8" width="2" x="27" y="0" fill="black"></rect>
+                            <polygon points="25.145898644316,1.1974823013079 24.145898266966,2.9295328910135 30.854099523987,6.802519564103 31.854101033387,5.0704696279878 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
+                            <polygon points="24.14589756732,5.0704645899847 25.14589681262,6.8025158332799 31.854103132324,2.9295379290175 30.854105019076,1.1974860321334 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
+                          @break
+                        @case (2)
+                            <polygon points="28,0 25.648857298782,7.2360667481539 31.804227357789,2.7639360007462 24.195775873739,2.7639260551337 30.35113424097,7.2360728948744 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
+                         @break
+                        @case (4)
+                            <circle cx="28" cy="4" r="4" stroke="black" stroke-width="0" fill = "black" style="stroke-width:0;"></circle>
+                            @break
                     @endswitch
                     </svg>
                 </div>

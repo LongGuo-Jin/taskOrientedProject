@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-       'organization_id', 'nameFirst', 'nameFamily','roleID' ,'addressID','administrativeID' , 'email', 'password', 'nameTag','avatarType','avatarColor','avatarColorValue'
+       'organization_id', 'nameFirst', 'nameFamily','roleID' ,'addressID','administrativeID' , 'email', 'password', 'nameTag','avatarType','avatarColor','avatarColorValue','locale'
     ];
 
     /**
@@ -70,8 +70,7 @@ class User extends Authenticatable
 
         if ($roleId == Common::constant("role.admin")){
             $ret = DB::table($this->table)->where('organization_id',$PersonInfo->organization_id)
-                ->where("roleID", "=", 2)
-                ->orwhere("roleID", "=", 4)
+                ->where("roleID", "!=", 1)
                 ->orderBy('id', 'asc')->get()->toArray();
         }
         else if ($roleId == Common::constant("role.proManager") || $roleId == Common::constant("role.foreman")) {

@@ -68,7 +68,7 @@
                                     <p class="user-input-para"> {{__('user.newPassword')}}:</p>
 
                                     <div class="user-input {{ $errors->has('password') ? ' has-danger' : '' }}">
-                                        <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{__('user.newPassword')}}" name="password"  value="" required>
+                                        <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{__('user.newPassword')}}" name="password"  value="">
                                         <i class="fa fa-key"></i>
                                     </div>
                                     @if ($errors->has('password'))

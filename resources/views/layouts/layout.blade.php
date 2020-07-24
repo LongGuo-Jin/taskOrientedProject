@@ -182,6 +182,7 @@
     <script src="{{asset('public/assets/vendors/general/jquery.repeater/src/jquery.input.js')}}" type="text/javascript"></script>
     <script src="{{asset('public/assets/vendors/general/jquery.repeater/src/repeater.js')}}" type="text/javascript"></script>
     <script src="{{asset('public/assets/vendors/general/dompurify/dist/purify.js')}}" type="text/javascript"></script>
+    <script src="{{asset('public/assets/vendors/custom/flot/flot.bundle.js')}}" type="text/javascript"></script>
 
     <!--end:: Global Optional Vendors -->
 

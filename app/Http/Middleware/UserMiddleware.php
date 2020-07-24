@@ -16,7 +16,6 @@ class UserMiddleware
     public function handle($request, Closure $next)
     {
         $user_id = auth()->user()->roleID;
-
         if ($user_id != 1) {
             abort(403, "Whoops , you must be an admin to view this page");
         }

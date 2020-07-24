@@ -4,6 +4,7 @@
         <form class="kt-form" id="task_update_form" name="task_update_form" enctype="multipart/form-data">
             <input type="hidden" name="_token" value="{{csrf_token()}}">
             <input type="hidden" name="taskID" value="{{$taskId}}">
+            <input type="hidden" name="personID" value="{{$taskDetails["personID"]}}">
             <input type="hidden" name="parentID" value="{{$taskDetails["parentID"]}}">
             <input type="hidden" name="oldstatusID" value="{{$taskDetails["statusID"]}}">
             <div class="kt-portlet__head">
@@ -15,13 +16,16 @@
                 <div class="kt-portlet__head-toolbar">
                     <ul class="nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-brand" role="tablist">
                         <li class="nav-item active">
-                            <a class="nav-link active" data-toggle="tab" id="tab_information" href="#edit_panel_tab_information" role="tab">{{__('task.information')}}</a>
+                            <a class="nav-link active" style="text-transform: uppercase" data-toggle="tab" id="tab_information" href="#edit_panel_tab_information" role="tab">{{__('task.information')}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" id="tab_budget" href="#edit_panel_tab_budget" role="tab">{{__('task.budget')}}</a>
+                            <a class="nav-link" style="text-transform: uppercase" data-toggle="tab" id="tab_time" href="#edit_panel_tab_time" role="tab">{{__('task.time')}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab"  id="tab_statistics" href="#edit_panel_tab_statistics" role="tab">{{__('task.statistics')}}</a>
+                            <a class="nav-link" style="text-transform: uppercase" data-toggle="tab" id="tab_budget" href="#edit_panel_tab_budget" role="tab">{{__('task.budget')}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" style="text-transform: uppercase" data-toggle="tab"  id="tab_statistics" href="#edit_panel_tab_statistics" role="tab">{{__('task.statistics')}}</a>
                         </li>
                     </ul>
                 </div>
@@ -51,9 +55,60 @@
                                     <div class="col-lg-6">
                                         <div class="row">
                                             <div class="col-lg-3">
-                                                <span class="kt-badge kt-badge--brand kt-badge--lg" id="detail-add-personTag">
+                                                @switch($taskDetails['avatarType'])
+                                                    @case (1)
+                                                    <svg width="32" height="32">
+                                                        <circle cx="16" cy="16" r="16" stroke="black" stroke-width="0" fill="{{$taskDetails['avatarColor']}}"></circle>
+                                                        <text x="5" y="22"  style="fill:black;font-size: 16px">{{$taskDetails['nameTag']}}</text>
+
+                                                        @break
+                                                    @case (2)
+                                                    {{--//rect--}}
+                                                    <svg width="32" height="32">
+                                                        <rect x="0" y="0" rx="5" ry="5" width="32" height="32" fill="{{$taskDetails['avatarColor']}}" style="stroke-width:0;"></rect>
+                                                        <text x="5" y="22" style="fill:black;font-size: 16px">{{$taskDetails['nameTag']}}</text>
+
+                                                        @break
+                                                    @case (3)
+                                                    {{--//polygon 5--}}
+                                                    <svg width="32" height="32">
+                                                        <polygon points="16,0 0.78309703188832,11.055724111756 6.5954291951265,28.944266992616 25.404553884384,28.944279286068 	31.216909431155,11.055744002985 " fill="{{$taskDetails['avatarColor']}}" style="stroke:purple;stroke-width:0;"></polygon>
+                                                        <text x="5" y="22" style="fill:black;font-size: 16px">{{$taskDetails['nameTag']}}</text>
+
+                                                        @break
+                                                    @case (4)
+                                                    {{--//polygon 6--}}
+                                                    <svg width="32" height="32" >
+                                                        <polygon points="8.000001509401,2.143592667996 8.5442763975152E-13,15.999994771282 7.9999924529963,29.856402103284 23.999989434191,29.856412560718 	31.999999999992,16.000015686155 24.000016603405,2.1436031254426 "  fill="{{$taskDetails['avatarColor']}}" style="stroke:purple;stroke-width:0;"></polygon>
+                                                        <text x="5" y="22" style="fill:black;font-size: 16px">{{$taskDetails['nameTag']}}</text>
+
+                                                        @break
+                                                    @case (5)
+                                                    {{--//rotated rectangle--}}
+                                                    <svg width="32" height="32">
+                                                        <polygon points="8.5442763975152E-13,15.999994771282 15.999989542563,31.999999999997 31.999999999992,16.000015686155 	16.000020914873,1.3669065879185E-11 " fill="{{$taskDetails['avatarColor']}}" style="stroke:purple;stroke-width:0;"></polygon>
+                                                        <text x="5" y="22" style="fill:black;font-size: 16px">{{$taskDetails['nameTag']}}</text>
+
+                                                        @break
+                                                @endswitch
+                                                @switch($taskDetails['roleID'])
+                                                    @case (1)
+                                                    <circle cx="28" cy="4" r="3" stroke="black" stroke-width="0" fill="black"></circle>
+                                                    <rect height="8" width="2" x="27" y="0" fill="black"></rect>
+                                                    <polygon points="25.145898644316,1.1974823013079 24.145898266966,2.9295328910135 30.854099523987,6.802519564103 31.854101033387,5.0704696279878 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
+                                                    <polygon points="24.14589756732,5.0704645899847 25.14589681262,6.8025158332799 31.854103132324,2.9295379290175 30.854105019076,1.1974860321334 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
+                                                    @break
+                                                    @case (2)
+                                                    <polygon points="28,0 25.648857298782,7.2360667481539 31.804227357789,2.7639360007462 24.195775873739,2.7639260551337 30.35113424097,7.2360728948744 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
+                                                    @break
+                                                    @case (4)
+                                                    <circle cx="28" cy="4" r="4" stroke="black" stroke-width="0" fill = "black" style="stroke-width:0;"></circle>
+                                                    @break
+                                                @endswitch
+                                            </svg>
+                                                {{--<span class="kt-badge kt-badge--brand kt-badge--lg" id="detail-add-personTag">--}}
                                                     {{--{{$taskDetails["psntagName"]}}--}}
-                                                </span>
+                                                {{--</span>--}}
                                             </div>
                                             <div class="col-lg-9">
                                                 <div class="detail-information-staus-title">
@@ -278,6 +333,155 @@
                                             </div>
                                         </div>
                                     @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="edit_panel_tab_time">
+                            <div class="detail-infomation-content">
+                                <div class="row detail-information-title">
+                                    @for($i=count($pathArr)-1; $i>=0; $i--)
+                                        <a href="{{url('/task/taskCard?task_id=')}}{{$pathArr[$i]['ID']}}">
+                                            <h5>
+                                                {{$pathArr[$i]["title"]}}
+                                            </h5>
+                                        </a>
+                                        @if($i != 0)
+                                            <h5>&nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;</h5>
+                                        @endif
+                                    @endfor
+                                </div>
+                                <div class="row detail-budget-dashboard">
+                                    <div class="col-lg-6">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                {{__('task.timeAllocated')}}
+                                            </div>
+                                            <div class="col-lg-6" id="timeAllocated" style="text-align: right">
+                                                {{$timeAllocated}}d
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                {{__('task.timeSpent')}}
+                                            </div>
+                                            <div class="col-lg-6" id="totalTime" style="text-align: right">
+                                                {{$totalTime}} h
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                {{__('task.timeSpentOnSubTask')}}
+                                            </div>
+                                            <div class="col-lg-6" id="timeSpentOnSubTask" style="text-align: right">
+                                                {{$timeSpentOnSubTask}}h
+                                            </div>
+                                        </div>
+                                        <div class="row balance">
+                                            <div class="col-lg-6">
+                                                {{__('task.timeLeft')}}
+                                            </div>
+                                            <div class="col-lg-6" id="timeLeft" style="text-align: right">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="kt-portlet__body">
+                                            <div id="timePieChart" style="height: 150px; width:150px"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4 mb-4 pt-5 pb-4" style="border-top: solid 1px #000;">
+                                    <span class="ml-auto mr-auto" id="workTimeCounterText" style="font-size: 54px;text-align: center">00:00:00</span>
+                                </div>
+                                 <div class="row mb-4">
+                                    <div class="col-lg-9">
+                                        <input type="text"  class="form-control" id="workTime_description" name="workTimeDescription" placeholder=" {{__('task.workTimeDescription')}}">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <button type="button" class="btn btn-outline-brand btn-elevate btn-pill" id="startCounter">
+                                            Start Work
+                                        </button>
+                                        <button type="button" class="btn btn-outline-brand btn-elevate btn-pill" id="stopCounter" style="display: none">
+                                            Stop Work
+                                        </button>
+                                    </div>
+                                  </div>
+                                <div class="row mt-4 mb-4 pt-5 pb-4" style="border-top: solid 1px #000;">
+                                    <div class="col-lg-6 text-left" style="font-size: 30px;">Work Hours</div>
+                                    <div class="col-lg-6 text-right" style="font-size: 30px;" id="workHours"></div>
+                                </div>
+                                @foreach($workTime as $time)
+                                <div class="row">
+                                    <div class="col-lg-3 text-left">
+                                        {{$time['workDate']}}
+                                    </div>
+                                    <div class="col-lg-3 text-left">
+                                        {{$time['personName']}}
+                                    </div>
+                                    <div class="col-lg-3 text-left">
+                                        {{$time['description']}}
+                                    </div>
+                                    <div class="col-lg-3 text-right">
+                                        {{floor($time['timeSpent']/8) }}d &nbsp; {{round($time['timeSpent']-floor($time['timeSpent']/8) * 8,1)}}h
+                                    </div>
+                                </div>
+                                @endforeach
+                                <div class="row mt-3">
+                                    <div class="col-lg-6">
+                                        <input name="workDescription" id="workDescription" class="form-control" placeholder="Work Description">
+                                    </div>
+                                    <div class="col-lg-3" style="display: flex">
+                                        <input name="workHour" id="workHour" class="form-control" value="0" min="0" type="number"> &nbsp; <span class="mt-auto mb-auto" style="font-size: 16px">h</span>
+                                    </div>
+                                    <div class="col-lg-3"  style="display: flex">
+                                        <input name="workMin" id="workMin" class="form-control" value="0" max="59" min="0" type="number">&nbsp;<span class="mt-auto mb-auto" style="font-size: 16px">m</span>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-4 ml-auto">
+                                        <button type="button" class="btn btn-outline-brand btn-elevate btn-pill" id="addWorkHour">
+                                            Add Work Hours
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row mt-4 mb-4 pt-5 pb-4" style="border-top: solid 1px #000;">
+                                    <div class="col-lg-6 text-left" style="font-size: 30px;">Allocated time</div>
+                                    <div class="col-lg-6 text-right" style="font-size: 30px;" id="allocatedTime"></div>
+                                </div>
+                                @foreach($allocatedTimes as $allocatedTime)
+                                    <div class="row">
+                                        <div class="col-lg-3 text-left">
+                                            {{$allocatedTime['allocateDate']}}
+                                        </div>
+                                        <div class="col-lg-3 text-left">
+                                            {{$allocatedTime['personName']}}
+                                        </div>
+                                        <div class="col-lg-3 text-left">
+                                            {{$allocatedTime['description']}}
+                                        </div>
+                                        <div class="col-lg-3 text-right">
+                                            {{floor($allocatedTime['timeAllocated']/8) }}d &nbsp; {{round($allocatedTime['timeAllocated']-floor($allocatedTime['timeAllocated']/8) * 8 , 1)}}h
+                                        </div>
+                                    </div>
+                                @endforeach
+                                <div class="row mt-3">
+                                    <div class="col-lg-6">
+                                        <input name="allocationDescription"  id="allocationDescription" class="form-control" placeholder="Time Allocation Description">
+                                    </div>
+                                    <div class="col-lg-3" style="display: flex">
+                                        <input name="allocationHour" id="allocationHour" class="form-control" value="0" type="number"> &nbsp; <span class="mt-auto mb-auto" style="font-size: 16px">h</span>
+                                    </div>
+                                    <div class="col-lg-3"  style="display: flex">
+                                        <input name="allocationMin" id="allocationMin" class="form-control" value="0" max="59" type="number">&nbsp;<span class="mt-auto mb-auto" style="font-size: 16px">m</span>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-4 ml-auto">
+                                        <button type="button" class="btn btn-outline-brand btn-elevate btn-pill" id="addAllocationTime">
+                                            Add Work Hours
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

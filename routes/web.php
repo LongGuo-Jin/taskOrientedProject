@@ -21,22 +21,23 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
 Route::group(['middleware'=>['auth' , 'tag']] , function() {
 
-    Route::get('locale/{locale}', function ($locale){
-        Session::put('locale', $locale);
-        return redirect()->back();
-    });
+
 
     Route::get('dashboard', 'TaskController@index')->name('dashboard');
     Route::get('calendar', 'TaskController@CalendarView')->name('CalendarView');
-
+    Route::post('shake','TaskController@Shake')->name('Shake');
+    Route::post('addWorkTime','TaskController@AddWorkTime');
+    Route::post('addAllocationTime','TaskController@AddAllocationTime');
+    Route::get('locale/{locale}', 'TaskController@Locale');
 
     Route::group(['middleware'=>['task'] , "prefix"=>"task"] , function() {
-
         Route::any('/taskCard', 'TaskController@taskCard')->name('task.taskCard');
         Route::any('/taskCardAdd', 'TaskController@taskCardAdd');
         Route::any('/taskCardUpdate', 'TaskController@taskCardUpdate');
+        Route::post('/taskWorkTimeUpdate', 'TaskController@taskWorkTimeUpdate');
         Route::any('/fileUpload', 'TaskController@fileUpload');
         Route::any('/taskCardDelete', 'TaskController@taskCardDelete');
         Route::any('/isFinalTask', 'TaskController@isFinalTask');
@@ -65,7 +66,7 @@ Route::group(['middleware'=>['auth' , 'tag']] , function() {
         Route::post('update','TagController@Update')->name('tag.update');
         Route::get('delete','TagController@Delete')->name('tag.delete');
     });
-    
+
 });
 
 Route::get('/cmd/clear', function () {

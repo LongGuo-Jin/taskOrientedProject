@@ -1,3 +1,7 @@
+let sec = 0;
+let min = 0;
+let hour = 0;
+let timer;
 $(document).ready(function () {
     $('div.kt-extended-task-item').on('click', function(){
         var offsetTop = $(this).offset().top - 64 - 25;
@@ -147,6 +151,52 @@ $(document).ready(function () {
                 }
             }
         });
+    });
+
+    $("button#startCounter").on("click",function(){
+        sec = 0; min = 0; hour = 0;
+        timer = setInterval(WorkTimeCounter, 1000)
+        $("button#startCounter").hide();
+        $("button#stopCounter").show();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    });
+    $("button#stopCounter").on("click",function(){
+        clearInterval(timer)
+        let newID = UpdateWorkTime();
+        console.log(newID,"successTaskID");
+        if (newID != "-1")
+        {
+            console.log(newID,"successTaskID");
+            window.location.href = base_url + "/task/taskCard?task_id=" + newID + "&show_type=regular&message=Success&messageType=success";
+        } else {
+            console.log(newID,"successTaskID");
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+
+            toastr.error("failed");
+        }
+        $("button#startCounter").show();
+        $("button#stopCounter").hide();
+
     });
 
     //feature about edit-detail
@@ -332,6 +382,128 @@ $(document).ready(function () {
         });
     });
 
+    $("button#addAllocationTime").on('click',function(){
+        let workHour = $("#allocationHour").val();
+        let workMin = $("#allocationMin").val();
+        let description =  $('#allocationDescription').val();
+        let params = "description="+ description +"&hour=" + workHour + "&min=" + workMin + "&taskID=" + task_id + "&personID=" + person_id;
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type:'POST',
+            url:base_url+'/addAllocationTime',
+            data: params,
+            async: false,
+            timeout: 5000,
+            crossDomain: true,
+            beforeSend: function() {
+                KTApp.blockPage({
+                    overlayColor: '#000000',
+                    type: 'v2',
+                    state: 'warning',
+                    size: 'lg',
+                    opacity: 0.4,
+                });
+            },
+            complete: function(data) {
+                KTApp.unblockPage();
+            },
+            success:function(data) {
+                var result = $.parseJSON(data);
+                if (result["result"] === 1) {
+                    window.location.href = base_url + "/task/taskCard?task_id=" + task_id + "&show_type=regular&message=Success&messageType=success";
+                }
+                else {
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    };
+
+                    toastr.error("failed");
+                }
+            }
+        });
+
+    });
+
+    $("button#addWorkHour").on("click",function(){
+        let workHour = $("#workHour").val();
+        let workMin = $("#workMin").val();
+        let description =  $('#workDescription').val();
+        let params = "description="+ description +"&hour=" + workHour + "&min=" + workMin + "&taskID=" + task_id + "&personID=" + person_id;
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type:'POST',
+            url:base_url+'/addWorkTime',
+            data: params,
+            async: false,
+            timeout: 5000,
+            crossDomain: true,
+            beforeSend: function() {
+                KTApp.blockPage({
+                    overlayColor: '#000000',
+                    type: 'v2',
+                    state: 'warning',
+                    size: 'lg',
+                    opacity: 0.4,
+                });
+            },
+            complete: function(data) {
+                KTApp.unblockPage();
+            },
+            success:function(data) {
+                var result = $.parseJSON(data);
+                if (result["result"] === 1) {
+                    window.location.href = base_url + "/task/taskCard?task_id=" + task_id + "&show_type=regular&message=Success&messageType=success";
+                }
+                else {
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    };
+
+                    toastr.error("failed");
+                }
+            }
+        });
+
+    });
+
     if (message["flage"] == 1) {
         showToast();
     }
@@ -445,7 +617,11 @@ function setColumnType()
     //set Tab for task detail
     $("div.detail-edit div.tab-pane").removeClass("active");
     $("div.detail-edit div.kt-portlet__head li.nav-item a").removeClass("active");
-    if (detailTab == "budget") {
+    if (detailTab == "time") {
+        $("div.detail-edit div#edit_panel_tab_time").addClass("active");
+        $("div.detail-edit div.kt-portlet__head a#tab_time").addClass("active");
+    }
+    else if (detailTab == "budget") {
         $("div.detail-edit div#edit_panel_tab_budget").addClass("active");
         $("div.detail-edit div.kt-portlet__head a#tab_budget").addClass("active");
     }
@@ -661,4 +837,75 @@ function changeUserId()
 {
     var userId = $("select#select_user").val();
     window.location.href = base_url + "/task/setLoginUser?user_id=" + userId;
+}
+
+function WorkTimeCounter() {
+
+    sec ++;
+    if ( sec > 59) {
+        min ++;
+        sec = 0;
+        if (min > 59) {
+            hour ++;
+            min = 0;
+        }
+    }
+    let timeText = hour < 10?"0"+hour:hour;
+    timeText+=":";
+    timeText += min < 10?"0"+min:min;
+    timeText+=":";
+    timeText += sec < 10?"0"+sec:sec;
+    $("#workTimeCounterText").text(timeText);
+    if (sec % 30 === 0) {
+        $.ajax({
+            type:'POST',
+            url:base_url+'/shake',
+            data: [],
+            async: false,
+            timeout: 5000,
+            crossDomain: true,
+            success:function(data) {
+
+            },
+            failed: function (err) {
+
+            }
+        });
+    }
+}
+
+
+
+function UpdateWorkTime()
+{
+    let ret = -1;
+    let timeValue = hour +  min/60.0;
+    let params = $("#task_update_form").serialize() + "&" + "workTime="+timeValue;
+
+    $.ajax({
+        type:'POST',
+        url:'taskWorkTimeUpdate',
+        data: params,
+        async: false,
+        timeout: 5000,
+        crossDomain: true,
+        beforeSend: function() {
+            KTApp.blockPage({
+                overlayColor: '#000000',
+                type: 'v2',
+                state: 'warning',
+                size: 'lg',
+                opacity: 0.4,
+            });
+        },
+        complete: function(data) {
+            KTApp.unblockPage();
+        },
+        success:function(data) {
+            let result = $.parseJSON(data);
+            ret = result["result"];
+        }
+    });
+
+    return ret;
 }

@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use App\Model\Tag;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Session;
 class TagMiddleware
 {
     /**
@@ -16,8 +17,15 @@ class TagMiddleware
      */
     public function handle($request, Closure $next)
     {
-
         $user = auth()->user();
+
+        $locale = $user->locale;
+//        dd($locale);
+        if ($locale != null) {
+            Session::put('locale', $locale);
+            app()->setlocale(Session::get('locale'));
+        }
+
         $personID = $user->id;
         $role_id = $user->roleID;
         $organization_id = $user->organization_id;

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AllocatedTime;
 use App\Model\Attachment;
 use App\Model\Budget;
 use App\Model\Expense;
@@ -13,6 +14,8 @@ use App\Model\Task;
 use App\Model\TaskPriority;
 use App\Model\TaskStatus;
 use App\Model\TaskWeight;
+use App\SubTaskTime;
+use App\Time;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -123,6 +126,11 @@ class TaskController extends Controller
         $statisticsData = array();
         $history = array();
         $pathArr = array();
+        $workTime = array();
+        $allocateTimes = array();
+        $timeSpentOnSubTask = null;
+        $totalTime = 0;
+        $timeAllocated = 0;
         $expenseSum = $budgetSum = $expenseTotalSum = $budgetTotalSum =0;
         $showType = $request->input('show_type') == "" ? "regular": $request->input('show_type');
         $taskId = $request->input('task_id') == "" ? "": $request->input('task_id');
@@ -140,9 +148,23 @@ class TaskController extends Controller
         $login_role_id = $user->roleID;
         if ($taskId == "") {
             $taskList = $Task->getTaskListInit();
-//            dd($taskList);
         } else {
+
+            $workTime = Time::where('taskID',$taskId)->get()->toArray();
+            foreach($workTime as $time) {
+                $totalTime += $time['timeSpent'];
+            }
+
+            $timeSpentOnSubTask = SubTaskTime::where('taskID',$taskId)->get()->first();
+            $timeSpentOnSubTask = $timeSpentOnSubTask==null?0:$timeSpentOnSubTask['timeSpentOnSubTask'];
             $taskDetails = $Task->adtResult($Task->getTaskListbyCond(array("taskID" => $taskId)));
+
+            $allocateTimes = AllocatedTime::where('taskID',$taskId)->get()->toArray();
+            foreach($allocateTimes as $allocateTime) {
+                $timeAllocated += $allocateTime['timeAllocated'];
+            }
+
+
             $memos = $Memo->getMemoByCond(array("taskID" => $taskId, "personID" => $personID));
             $budget = $Budget->getBudgetByCond(array("taskID" => $taskId, "personID" => $personID));
             $expense = $Expense->getExpenseByCond(array("taskID" => $taskId, "personID" => $personID));
@@ -152,7 +174,7 @@ class TaskController extends Controller
             $budgetTotalSum = $Budget->getSumBudget(array("entireTree" => $entireTree));
             $pathArr = $Task->getPathName($taskId);
 
-            $attachs = $Attachment->getAttachmentByCond(array("taskID" => $taskId, "personID" => $personID));
+            $attachs = $Attachment->getAttachmentByCond(array("taskID" => $taskId));
             $history = $History->getHistoryByCond(array("taskID" => $taskId, "personID" => $personID));
             $statisticsData = $Task->getStatisticsData($taskDetails[0]);
             $taskList = $Task->getTaskList($taskDetails[0]);
@@ -186,6 +208,11 @@ class TaskController extends Controller
                 'history' => $history,
                 'expenseTotalSum' => $expenseTotalSum,
                 'budgetTotalSum' => $budgetTotalSum,
+                'workTime' => $workTime,
+                'timeSpentOnSubTask' => $timeSpentOnSubTask,
+                'timeAllocated' => $timeAllocated,
+                'allocatedTimes' => $allocateTimes,
+                'totalTime' => $totalTime,
                 'pathArr'   => $pathArr,
                 'message'   => $message,
                 'taskCard'  => true,
@@ -265,6 +292,115 @@ class TaskController extends Controller
         $data["ID"] = $taskID;
         $data["result"] = $ret;
 
+        print_r(json_encode($data));die;
+    }
+
+    public function AddAllocationTime(Request $request) {
+
+        Log::debug($request);
+        $taskID = $request->input('taskID');
+        $description = $request->input('description');
+        $hour = $request->input('hour');
+        $min = $request->input('min');
+        $personID = $request->input('personID');
+        $user = User::where('id',$personID)->get()->first();
+        $timeSpent = $hour * 1 + $min * 1/60;
+        $taskData = [
+            'taskID' => $taskID,
+            'personName' =>  $user->nameFirst." ".$user->nameFamily,
+            'description' =>  $description,
+            'timeAllocated'=> $timeSpent,
+            'allocateDate'   =>  date('Y-m-d'),
+        ];
+        $ret = 1;
+        try{
+            AllocatedTime::create($taskData);
+        } catch (\Exception $e) {
+            Log::debug($e->getMessage());
+            $ret = -1;
+        }
+        $data = array();
+        $data["result"] = $ret;
+        print_r(json_encode($data));die;
+    }
+
+    public function AddWorkTime(Request $request) {
+        $taskID = $request->input('taskID');
+        $description = $request->input('description');
+        $hour = $request->input('hour');
+        $min = $request->input('min');
+        $personID = $request->input('personID');
+        $user = User::where('id',$personID)->get()->first();
+        $timeSpent = $hour * 1 + $min * 1/60;
+        $taskData = [
+            'taskID' => $taskID,
+            'personName' =>  $user->nameFirst." ".$user->nameFamily,
+            'description' =>  $description,
+            'timeSpent'=> $timeSpent,
+            'workDate'   =>  date('Y-m-d'),
+        ];
+        $ret = 1;
+        try {
+            Time::create($taskData);
+            $taskParentID = Task::where('ID',$taskData['taskID'])->get()->first()->parentID;
+            while($taskParentID != null) {
+                $time = SubTaskTime::where('taskID',$taskParentID)->get()->first();
+                $task = Task::where('ID',$taskParentID)->get()->first();
+                if ($time == null) {
+                    SubTaskTime::create(['taskID'=>$task->ID,
+                        'timeSpentOnSubTask' => $timeSpent * 1.0
+                    ]);
+                } else {
+                    SubTaskTime::where('taskID',$taskParentID)->update(['timeSpentOnSubTask' => $time->timeSpentOnSubTask + $timeSpent * 1.0]);
+                }
+                $taskParentID = $task->parentID;
+            }
+        } catch (\Exception $e) {
+            Log::debug($e->getMessage());
+            $ret = -1;
+        }
+
+        $data = array();
+        $data["result"] = $ret;
+        print_r(json_encode($data));die;
+    }
+
+    public function taskWorkTimeUpdate(Request $request) {
+
+        $taskID = $request->input('taskID');
+        $timeSpent = $request->input('workTime');
+
+        $taskData = [
+            'taskID' => $request->input('taskID'),
+            'personID' =>  $request->input('personID'),
+            'description' =>  $request->input('workTimeDescription'),
+            'timeSpent'=>$request->input('workTime'),
+            'workDate'   =>  date('Y-m-d'),
+        ];
+        $ret = $taskID;
+         try {
+             Time::create($taskData);
+             $taskParentID = Task::where('ID',$taskData['taskID'])->get()->first()->parentID;
+             while($taskParentID != null) {
+                 $time = SubTaskTime::where('taskID',$taskParentID)->get()->first();
+                 $task = Task::where('ID',$taskParentID)->get()->first();
+                 if ($time == null) {
+                     SubTaskTime::create(['taskID'=>$task->ID,
+                         'timeSpentOnSubTask' => $timeSpent * 1.0
+                     ]);
+                 } else {
+                     SubTaskTime::where('taskID',$taskParentID)->update(['timeSpentOnSubTask' => $time->timeSpentOnSubTask + $timeSpent * 1.0]);
+                 }
+                 $taskParentID = $task->parentID;
+             }
+         } catch (\Exception $e) {
+             Log::debug($e->getMessage());
+             $ret = -1;
+         }
+
+        $data = array();
+        $data["result"] = $ret;
+        Log::debug($data);
         print_r(json_encode($data));die;
     }
 
@@ -500,17 +636,16 @@ class TaskController extends Controller
 
     public function SaveSettings(Request $request) {
         $user = auth()->user();
-//        $request["password"]==""?$user->password:$request["password"];
-//        dd($request);
+        $password = $request["password"]==""?$user->password: Hash::make($request["password"]);
+
         $fields = $this->validate($request, [
             'nameFirst' => ['required', 'string', 'max:255'],
             'nameFamily' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'string', 'min:8'],
         ]);
         $user->update([
             'nameFirst' => $fields['nameFirst'],
             'nameFamily' => $fields['nameFamily'],
-            'password' => Hash::make($fields['password']),
+            'password' => $password,
             'avatarType' => $request['avatarType'],
             'avatarColor' => $request['avatarColor'],
             'avatarColorValue' => $request['avatarColorValue'],
@@ -527,5 +662,17 @@ class TaskController extends Controller
         return redirect('dashboard');
     }
 
+    public function Shake(Request $request) {
+        return ['success'=>true];
+    }
+
+
+    public function Locale($locale) {
+        Session::put('locale', $locale);
+        $id = auth()->user()->id;
+        $user = User::where('id',$id)->get()->first();
+        $user->update(['locale'=>$locale]);
+        return redirect()->back();
+    }
 }
 

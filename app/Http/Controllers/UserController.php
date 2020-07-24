@@ -12,6 +12,7 @@ use App\Helper\Common;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -111,20 +112,17 @@ class UserController extends Controller
     public function DeleteUser(Request $request) {
         $id = $request->id;
         User::where('id',$id)->firstOrFail()->delete();
-//        TagPerson::where('personID',$id)->delete();
         return redirect('user');
     }
 
     public function AskPassword(Request $request) {
         $pwd = $request->password;
         $password = auth()->user()->password;
-//        Log::debug("ask password".$pwd);
-//        Log::debug("password".$password);
-//        Log::debug("hash password".Hash::make($pwd));
         if (Hash::check($pwd, $password)) {
             return response()->json(['success' => true]);
         } else {
             return response()->json(['success' => false]);
         }
     }
+
 }

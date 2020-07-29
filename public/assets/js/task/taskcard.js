@@ -909,3 +909,334 @@ function UpdateWorkTime()
 
     return ret;
 }
+
+function StatusFilter(object, index) {
+    let val = $("#statusFilter").val();
+    let value='';
+    for (let i = 0; i < val.length; i ++) {
+        if (i === index) {
+            value+= val.charAt(i) ==='0'?'1':'0';
+        } else {
+            value += val.charAt(i);
+        }
+    }
+    $("#statusFilter").val(value);
+    console.log($("#statusFilter").val());
+    if ($(object).hasClass('eye-deselect')) {
+        $(object).removeClass('eye-deselect');
+    } else {
+        $(object).addClass('eye-deselect');
+    }
+}
+
+function PriorityFilter(object,index) {
+    let val = $("#priorityFilter").val();
+    let value='';
+
+    for (let i = 0; i < val.length; i ++) {
+        if (i === index) {
+            value+= val.charAt(i) ==='0'?'1':'0';
+        } else {
+            value += val.charAt(i);
+        }
+    }
+
+    $("#priorityFilter").val(value);
+    console.log($("#priorityFilter").val());
+    if ($(object).hasClass('eye-deselect')) {
+        $(object).removeClass('eye-deselect');
+    } else {
+        $(object).addClass('eye-deselect');
+    }
+}
+
+function WeightFilter(object,index) {
+    let val = $("#weightFilter").val();
+    let value='';
+
+    for (let i = 0; i < val.length; i ++) {
+        if (i === index) {
+            value+= val.charAt(i) ==='0'?'1':'0';
+        } else {
+            value += val.charAt(i);
+        }
+    }
+
+    $("#weightFilter").val(value);
+    console.log($("#weightFilter").val());
+    if ($(object).hasClass('eye-deselect')) {
+        $(object).removeClass('eye-deselect');
+    } else {
+        $(object).addClass('eye-deselect');
+    }
+}
+
+function DateFilter(index) {
+    let val = $("#dateFilter").val();
+    let value='';
+    if(index === 6) {
+        for (let i = 0; i < val.length; i ++) {
+            if (i === 2) {
+                value+= val[2]==='0'?'1':'0';
+            } else {
+                value += val[i];
+            }
+        }
+        $("#dateFilter").val(value);
+        console.log($("#dateFilter").val());
+
+        return;
+    }
+    for (let i = 0; i < val.length; i ++) {
+        if (i === 0) {
+            value+= index + 1;
+        } else {
+            value += val[i];
+        }
+    }
+    $("#dateFilter").val(value);
+    console.log($("#dateFilter").val());
+}
+
+function WorkTimeFilter(index) {
+    let val = $("#workTimeFilter").val();
+    let value='';
+
+    for (let i = 0; i < val.length; i ++) {
+        if (i === 0) {
+            value+= index + 1;
+        } else {
+            value += val[i];
+        }
+    }
+    $("#workTimeFilter").val(value);
+    console.log($("#workTimeFilter").val());
+}
+
+function BudgetFilter(index) {
+    let val = $("#budgetFilter").val();
+    let value='';
+
+    for (let i = 0; i < val.length; i ++) {
+        if (i === 0) {
+            value+= index + 1;
+        } else {
+            value += val[i];
+        }
+    }
+    $("#budgetFilter").val(value);
+    console.log($("#budgetFilter").val());
+}
+
+function StatusOrderMenu() {
+    $('#statusOrderDropDownMenu').css('display')==='none'?$('#statusOrderDropDownMenu').show():$('#statusOrderDropDownMenu').hide();
+}
+
+function StatusScending(option) {
+    let val = $("#statusFilter").val();
+    let value='';
+    for (let i = 0; i < val.length-1; i ++) {
+        value += val.charAt(i);
+    }
+
+    if (option === true) {
+        value+='1';
+        $("#statusOrderMenu span:nth-child(2)")[0].innerHTML ='<i class="fa fa-caret-up"></i>';
+    } else {
+        value+='0';
+        $("#statusOrderMenu span:nth-child(2)")[0].innerHTML ='<i class="fa fa-caret-down"></i>';
+    }
+
+    $("#statusFilter").val(value);
+    console.log($("#statusOrderMenu span:nth-child(2)"));
+    this.StatusOrderMenu();
+}
+
+function PriorityOrderMenu() {
+    $('#priorityOrderDropDownMenu').css('display')==='none'?$('#priorityOrderDropDownMenu').show():$('#priorityOrderDropDownMenu').hide();
+}
+
+function PriorityScending(option) {
+    let val = $("#priorityFilter").val();
+    let value='';
+    for (let i = 0; i < val.length-1; i ++) {
+        value += val.charAt(i);
+    }
+
+    if (option === true) {
+        value+='1';
+        $("#priorityOrderMenu span:nth-child(2)")[0].innerHTML ='<i class="fa fa-caret-up"></i>';
+    } else {
+        value+='0';
+        $("#priorityOrderMenu span:nth-child(2)")[0].innerHTML ='<i class="fa fa-caret-down"></i>';
+    }
+
+    $("#priorityFilter").val(value);
+    this.PriorityOrderMenu();
+}
+
+function WeightOrderMenu() {
+    $('#weightOrderDropDownMenu').css('display')==='none'?$('#weightOrderDropDownMenu').show():$('#weightOrderDropDownMenu').hide();
+}
+
+function WeightScending(option) {
+    let val = $("#weightFilter").val();
+    let value='';
+    for (let i = 0; i < val.length-1; i ++) {
+        value += val.charAt(i);
+    }
+
+    if (option === true) {
+        value+='1';
+        $("#weightOrderMenu span:nth-child(2)")[0].innerHTML ='<i class="fa fa-caret-up"></i>';
+    } else {
+        value+='0';
+        $("#weightOrderMenu span:nth-child(2)")[0].innerHTML ='<i class="fa fa-caret-down"></i>';
+    }
+
+    $("#weightFilter").val(value);
+
+    this.WeightOrderMenu();
+}
+
+
+function DateOrderMenu() {
+    $('#dateOrderDropDownMenu').css('display')==='none'?$('#dateOrderDropDownMenu').show():$('#dateOrderDropDownMenu').hide();
+}
+
+function DateScending(option) {
+    let val = $("#dateFilter").val();
+    let value='';
+    for (let i = 0; i < val.length-1; i ++) {
+        value += val.charAt(i);
+    }
+
+    if (option === true) {
+        value+='1';
+        $("#dateOrderMenu span:nth-child(2)")[0].innerHTML ='<i class="fa fa-caret-up"></i>';
+    } else {
+        value+='0';
+        $("#dateOrderMenu span:nth-child(2)")[0].innerHTML ='<i class="fa fa-caret-down"></i>';
+    }
+
+    $("#dateFilter").val(value);
+
+    this.DateOrderMenu();
+}
+
+function WorkTimeOrderMenu() {
+    $('#workTimeOrderDropDownMenu').css('display')==='none'?$('#workTimeOrderDropDownMenu').show():$('#workTimeOrderDropDownMenu').hide();
+}
+
+function WorkTimeScending(option) {
+    let val = $("#workTimeFilter").val();
+    let value='';
+    for (let i = 0; i < val.length-1; i ++) {
+        value += val.charAt(i);
+    }
+
+    if (option === true) {
+        value+='1';
+        $("#workTimeOrderMenu span:nth-child(2)")[0].innerHTML ='<i class="fa fa-caret-up"></i>';
+    } else {
+        value+='0';
+        $("#workTimeOrderMenu span:nth-child(2)")[0].innerHTML ='<i class="fa fa-caret-down"></i>';
+    }
+
+    $("#workTimeFilter").val(value);
+
+    this.WorkTimeOrderMenu();
+}
+
+function BudgetOrderMenu() {
+    $('#budgetOrderDropDownMenu').css('display')==='none'?$('#budgetOrderDropDownMenu').show():$('#budgetOrderDropDownMenu').hide();
+}
+
+function BudgetScending(option) {
+    let val = $("#budgetFilter").val();
+    let value='';
+    for (let i = 0; i < val.length-1; i ++) {
+        value += val.charAt(i);
+    }
+
+    if (option === true) {
+        value+='1';
+        $("#budgetOrderMenu span:nth-child(2)")[0].innerHTML ='<i class="fa fa-caret-up"></i>';
+    } else {
+        value+='0';
+        $("#budgetOrderMenu span:nth-child(2)")[0].innerHTML ='<i class="fa fa-caret-down"></i>';
+    }
+
+    $("#budgetFilter").val(value);
+
+    this.BudgetOrderMenu();
+}
+
+function task_filter_reorder(myOrder, index) {
+    let order = $('#task_filter_order').val();
+    let val = index + 1;
+
+    let value = "";
+    if (val === order[myOrder] * 1) {
+        return;
+    }
+
+
+    let origin = order[myOrder];
+    for (let i = 0; i < 6; i ++) {
+        if (i === myOrder) {
+            value += val;
+        } else {
+            if (order[i] * 1 < val) {
+                value += order[i]
+            } else {
+                if (order[i] === '6') {
+                    if (val > order[myOrder])
+                        value+=origin;
+                    else value += origin * 1 + 1;
+                } else {
+                    value += order[i] * 1 + 1;
+                }
+            }
+        }
+    }
+    $('#task_filter_order').val(value);
+    let orderCharacters = ["I","II", "III", "IV","V", "VI"];
+    $("#statusOrderMenu span:first-child")[0].innerHTML = orderCharacters[value[0] * 1 -1];
+    $("#priorityOrderMenu span:first-child")[0].innerHTML = orderCharacters[value[1] * 1 -1];
+    $("#weightOrderMenu span:first-child")[0].innerHTML = orderCharacters[value[2] * 1 -1];
+    $("#dateOrderMenu span:first-child")[0].innerHTML = orderCharacters[value[3] * 1 -1];
+    $("#workTimeOrderMenu span:first-child")[0].innerHTML = orderCharacters[value[4] * 1 -1];
+    $("#budgetOrderMenu span:first-child")[0].innerHTML = orderCharacters[value[5] * 1 -1];
+
+}
+function StatusOrderSelect(index) {
+    task_filter_reorder(0,index);
+    this.StatusOrderMenu();
+
+}
+
+function PriorityOrderSelect(index) {
+    task_filter_reorder(1,index);
+    this.PriorityOrderMenu();
+}
+
+function WeightOrderSelect(index) {
+    task_filter_reorder(2,index);
+    this.WeightOrderMenu();
+}
+
+function DateOrderSelect(index) {
+    task_filter_reorder(3,index);
+    this.DateOrderMenu();
+}
+
+function WorkTimeOrderSelect(index) {
+    task_filter_reorder(4,index);
+    this.WorkTimeOrderMenu();
+}
+
+function BudgetOrderSelect(index) {
+    task_filter_reorder(5,index);
+    this.BudgetOrderMenu();
+}

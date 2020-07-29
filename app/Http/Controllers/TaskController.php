@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\AllocatedTime;
+use App\Filter;
 use App\Model\Attachment;
 use App\Model\Budget;
 use App\Model\Expense;
@@ -96,6 +97,228 @@ class TaskController extends Controller
         ]);
     }
 
+    public function task_filter($data) {
+        $user_id = auth()->user()->id;
+        $filter = Filter::where('user_id',$user_id)->get()->first();
+        $new_data = [];
+        foreach($data as $item) {
+            if ($filter['status'][$item['statusID']-1]=='1' && $filter['priority'][$item['order']]=='1'
+                && $filter['weight'][9-$item['weight']] == '1') {
+                if ($filter['date'][2] != '1') {
+                    if ($item['datePlanStart'] != null) {
+                        array_push($new_data,$item);
+                    }
+                } else {
+                    array_push($new_data,$item);
+                }
+            }
+        }
+        return $new_data;
+    }
+
+    public function topSort($data , $key) {
+        $user_id = auth()->user()->id;
+        $filter = Filter::where('user_id',$user_id)->get()->first();
+
+        $option = $filter[$key][strlen($filter[$key])-1]=='1'?true:false;
+
+        $length = count($data);
+        for ($i = 0 ; $i < $length - 1; $i ++) {
+            for ($j = $i ; $j < $length; $j ++) {
+                switch ($key) {
+                    case "status":
+
+                        if ($option) {
+                            if ($data[$i]["statusID"] > $data[$j]["statusID"]) {
+                                $temp = $data[$i];
+                                $data[$i] = $data[$j];
+                                $data[$j] = $temp;
+                            }
+                        } else {
+                            if ($data[$i]["statusID"] < $data[$j]["statusID"]) {
+                                $temp = $data[$i];
+                                $data[$i] = $data[$j];
+                                $data[$j] = $temp;
+                            }
+                        }
+                        break;
+                    case "priority":
+                        if ($option) {
+                            if ($data[$i]["order"] < $data[$j]["order"]) {
+                                $temp = $data[$i];
+                                $data[$i] = $data[$j];
+                                $data[$j] = $temp;
+                            }
+                        } else {
+                            if ($data[$i]["order"] > $data[$j]["order"]) {
+                                $temp = $data[$i];
+                                $data[$i] = $data[$j];
+                                $data[$j] = $temp;
+                            }
+                        }
+                        break;
+                    case "weight":
+                        if ($option) {
+                            if ($data[$i]["weight"] > $data[$j]["weight"]) {
+                                $temp = $data[$i];
+                                $data[$i] = $data[$j];
+                                $data[$j] = $temp;
+                            }
+                        } else {
+                            if ($data[$i]["weight"] < $data[$j]["weight"]) {
+                                $temp = $data[$i];
+                                $data[$i] = $data[$j];
+                                $data[$j] = $temp;
+                            }
+                        }
+                        break;
+                    case "date":
+
+                        switch ($filter['date'][0]) {
+                            case '1':
+                                $op1 = strtotime($data[$i]['creatAt']);
+                                $op2 = strtotime($data[$j]['creatAt']);
+                                break;
+                            case '2':
+                                $arrEnd = (explode(".",$data[$i]['datePlanStart']));
+                                $op1 = strtotime($arrEnd[1].'/'.$arrEnd[0].'/'.$arrEnd[2]);
+                                $arrEnd = (explode(".",$data[$j]['datePlanStart']));
+                                $op2 = strtotime($arrEnd[1].'/'.$arrEnd[0].'/'.$arrEnd[2]);
+                                break;
+                            case '3':
+                                $arrEnd = (explode(".",$data[$i]['datePlanEnd']));
+                                $op1 = strtotime($arrEnd[1].'/'.$arrEnd[0].'/'.$arrEnd[2]);
+                                $arrEnd = (explode(".",$data[$j]['datePlanEnd']));
+                                $op2 = strtotime($arrEnd[1].'/'.$arrEnd[0].'/'.$arrEnd[2]);
+                                break;
+                            case '4':
+                                $dasi = $data[$i]['dateActualStart'] != null?$data[$i]['dateActualStart']:$data[$i]['datePlanStart'];
+                                $dasj = $data[$j]['dateActualStart'] != null?$data[$j]['dateActualStart']:$data[$j]['datePlanStart'];
+                                $arrEnd = (explode(".",$dasi));
+                                $op1 = strtotime($arrEnd[1].'/'.$arrEnd[0].'/'.$arrEnd[2]);
+                                $arrEnd = (explode(".",$dasj));
+                                $op2 = strtotime($arrEnd[1].'/'.$arrEnd[0].'/'.$arrEnd[2]);
+                                break;
+                            case '5':
+                                $dasi = $data[$i]['dateActualEnd'] != null?$data[$i]['dateActualEnd']:$data[$i]['datePlanEnd'];
+                                $dasj = $data[$j]['dateActualEnd'] != null?$data[$j]['dateActualEnd']:$data[$j]['datePlanEnd'];
+                                $arrEnd = (explode(".",$dasi));
+                                $op1 = strtotime($arrEnd[1].'/'.$arrEnd[0].'/'.$arrEnd[2]);
+                                $arrEnd = (explode(".",$dasj));
+                                $op2 = strtotime($arrEnd[1].'/'.$arrEnd[0].'/'.$arrEnd[2]);
+                                break;
+                        }
+
+                        if ($option) {
+                            if ($op1 > $op2) {
+                                $temp = $data[$i];
+                                $data[$i] = $data[$j];
+                                $data[$j] = $temp;
+                            }
+                        } else {
+                            if ($op1 < $op2) {
+                                $temp = $data[$i];
+                                $data[$i] = $data[$j];
+                                $data[$j] = $temp;
+                            }
+                        }
+                        break;
+                    case "workTime":
+                        /// for index $i
+                        $totalTime_i = 0;
+                        $timeAllocated_i = 0;
+                        $taskId= $data[$i]['ID'];
+                        $workTime = Time::where('taskID',$taskId)->get()->toArray();
+                        foreach($workTime as $time) {
+                            $totalTime_i+= $time['timeSpent'] * 1.0;
+                        }
+                        $timeSpentOnSubTask_i = SubTaskTime::where('taskID',$taskId)->get()->first();
+                        $timeSpentOnSubTask_i = $timeSpentOnSubTask_i==null?0:$timeSpentOnSubTask_i['timeSpentOnSubTask'] * 1.0;
+
+                        $allocateTimes = AllocatedTime::where('taskID',$taskId)->get()->toArray();
+                        foreach($allocateTimes as $allocateTime) {
+                            $timeAllocated_i += $allocateTime['timeAllocated'] * 1.0;
+                        }
+                        $timeSpent_i = $totalTime_i + $timeSpentOnSubTask_i;
+                        $remainingTime_i = $timeAllocated_i - $timeSpent_i;
+
+                        /// for index $j
+                        $totalTime_j = 0;
+                        $timeAllocated_j = 0;
+                        $taskId= $data[$j]['ID'];
+                        $workTime = Time::where('taskID',$taskId)->get()->toArray();
+                        foreach($workTime as $time) {
+                            $totalTime_j+= $time['timeSpent'] * 1.0;
+                        }
+                        $timeSpentOnSubTask_j = SubTaskTime::where('taskID',$taskId)->get()->first();
+                        $timeSpentOnSubTask_j = $timeSpentOnSubTask_j==null?0:$timeSpentOnSubTask_j['timeSpentOnSubTask'] * 1.0;
+
+                        $allocateTimes = AllocatedTime::where('taskID',$taskId)->get()->toArray();
+                        foreach($allocateTimes as $allocateTime) {
+                            $timeAllocated_j += $allocateTime['timeAllocated'] * 1.0;
+                        }
+                        $timeSpent_j = $totalTime_j + $timeSpentOnSubTask_j;
+                        $remainingTime_j = $timeAllocated_j - $timeSpent_j;
+
+                        switch ($filter['workTime'][0]) {
+                            case '1':
+                                if ($option) {
+                                    if ($timeAllocated_i > $timeAllocated_j) {
+                                        $temp = $data[$i];
+                                        $data[$i] = $data[$j];
+                                        $data[$j] = $temp;
+                                    }
+                                } else {
+                                    if ($timeAllocated_i < $timeAllocated_j) {
+                                        $temp = $data[$i];
+                                        $data[$i] = $data[$j];
+                                        $data[$j] = $temp;
+                                    }
+                                }
+                                break;
+                            case '2':
+                                if ($option) {
+                                    if ($timeSpent_i > $timeSpent_j) {
+                                        $temp = $data[$i];
+                                        $data[$i] = $data[$j];
+                                        $data[$j] = $temp;
+                                    }
+                                } else {
+                                    if ($timeSpent_i < $timeSpent_j) {
+                                        $temp = $data[$i];
+                                        $data[$i] = $data[$j];
+                                        $data[$j] = $temp;
+                                    }
+                                }
+                                break;
+                            case '3':
+                                if ($option) {
+                                    if ($remainingTime_i > $remainingTime_j) {
+                                        $temp = $data[$i];
+                                        $data[$i] = $data[$j];
+                                        $data[$j] = $temp;
+                                    }
+                                } else {
+                                    if ($remainingTime_i < $remainingTime_j) {
+                                        $temp = $data[$i];
+                                        $data[$i] = $data[$j];
+                                        $data[$j] = $temp;
+                                    }
+                                }
+                                break;
+                        }
+                        break;
+                    case "budget":
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return $data;
+    }
+
+
     public function taskCard(Request $request) {
         $Person = new User();
         $TaskPriority = new TaskPriority();
@@ -128,6 +351,8 @@ class TaskController extends Controller
         $pathArr = array();
         $workTime = array();
         $allocateTimes = array();
+        $filters = array();
+
         $timeSpentOnSubTask = null;
         $totalTime = 0;
         $timeAllocated = 0;
@@ -146,6 +371,8 @@ class TaskController extends Controller
         $user = auth()->user();
         $personID = $user->id;
         $login_role_id = $user->roleID;
+        $filters =Filter::where('user_id',$personID)->first()->toArray();
+
         if ($taskId == "") {
             $taskList = $Task->getTaskListInit();
         } else {
@@ -154,7 +381,6 @@ class TaskController extends Controller
             foreach($workTime as $time) {
                 $totalTime += $time['timeSpent'];
             }
-
             $timeSpentOnSubTask = SubTaskTime::where('taskID',$taskId)->get()->first();
             $timeSpentOnSubTask = $timeSpentOnSubTask==null?0:$timeSpentOnSubTask['timeSpentOnSubTask'];
             $taskDetails = $Task->adtResult($Task->getTaskListbyCond(array("taskID" => $taskId)));
@@ -163,7 +389,6 @@ class TaskController extends Controller
             foreach($allocateTimes as $allocateTime) {
                 $timeAllocated += $allocateTime['timeAllocated'];
             }
-
 
             $memos = $Memo->getMemoByCond(array("taskID" => $taskId, "personID" => $personID));
             $budget = $Budget->getBudgetByCond(array("taskID" => $taskId, "personID" => $personID));
@@ -179,6 +404,26 @@ class TaskController extends Controller
             $statisticsData = $Task->getStatisticsData($taskDetails[0]);
             $taskList = $Task->getTaskList($taskDetails[0]);
             $detailTab = $request->input("detailTab");
+        }
+
+        $filter_order = auth()->user()->filter_order;
+        $filter_array= array();
+        $filter_array_str = ["status","priority","weight","date","workTime","budget"];
+
+        for ($i = 0 ; $i < strlen($filter_order);  $i ++) {
+            $filter_array[$filter_order[$i]] = $filter_array_str[$i];
+        }
+
+        for ($i = count($filter_array) ; $i >= 1;  $i --) {
+            if ($filter_array[$i] == 'budget')
+                continue;
+            foreach ($taskList['list'] as $index => $task) {
+                $taskList['list'][$index] = $this->topSort($task,$filter_array[$i]);
+            }
+        }
+
+        foreach ($taskList['list'] as $index => $task) {
+            $taskList['list'][$index] = $this->task_filter($task);
         }
 
         return view('task/taskCard',
@@ -216,6 +461,7 @@ class TaskController extends Controller
                 'pathArr'   => $pathArr,
                 'message'   => $message,
                 'taskCard'  => true,
+                'filters'   => $filters,
             ]
         );
     }
@@ -673,6 +919,34 @@ class TaskController extends Controller
         $user = User::where('id',$id)->get()->first();
         $user->update(['locale'=>$locale]);
         return redirect()->back();
+    }
+
+    public function UpdateFilter(Request $request) {
+        $user_id = $request['user_id'];
+        $data = [
+            'status'=>$request['statusFilter'],
+            'priority'=>$request['priorityFilter'],
+            'weight'=>$request['weightFilter'],
+            'date'=>$request['dateFilter'],
+            'workTime'=>$request['workTimeFilter'],
+            'budget'=>$request['budgetFilter'],
+        ];
+        Filter::where('user_id',$user_id)->update($data);
+        User::where('id',$user_id)->update(['filter_order'=>$request['task_filter_order']]);
+        return  redirect()->back();
+    }
+    public function ResetFilter(Request $request) {
+        $data = [
+            'status'=>'111110000001',
+            'priority'=>'111100',
+            'weight'=>'11111111110',
+            'date'=>'211',
+            'workTime'=>'20',
+            'budget'=>'10',
+        ];
+        Filter::where('user_id',$request['user_id'])->update($data);
+        User::where('id',$request['user_id'])->update(['filter_order'=>'214356']);
+        return  redirect()->back();
     }
 }
 

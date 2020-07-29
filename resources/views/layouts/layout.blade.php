@@ -194,6 +194,7 @@
     <!--begin::Page Vendors(used by this page) -->
     <script src="{{asset('public/assets/vendors/custom/fullcalendar/fullcalendar.bundle.js')}}" type="text/javascript"></script>
     <script src="{{asset('public/assets/vendors/custom/gmaps/gmaps.js')}}" type="text/javascript"></script>
+    <script type="text/javascript" charset="utf-8" src="{{asset('public/assets/js/task/taskcard.js')}}"></script>
 
     @yield('script');
 

@@ -12,7 +12,8 @@ div.kt-portlet__body {
     padding: 10px !important;
 }
 div.task-status {
-    vertical-align: middle;
+    /*vertical-align: middle;*/
+    text-align: center;
     font-size: 12pt;
 }
 div.task-name {
@@ -54,10 +55,10 @@ div.task-start-date, div.task-end-date {
 }
 
 div.kt-regular-task-item {
-    padding: 10px;
+    /*padding: 10px;*/
     border-radius: 3px;
     margin: 1.6rem 0.6rem;
-    -webkit-box-shadow: 0px 2px 7px 2px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     background: white;
 }
@@ -81,24 +82,17 @@ div.parent_selected{
 }
 
 div.fat {
-    border-right: 1px solid;
-    border-top: 1px solid;
-    border-bottom: 1px solid;
-    border-left: 8px solid;
+    border-style: solid;
+    border-width: 1px 1px 1px 8px;
 }
 
 div.medium {
-    border-right: 1px solid;
-    border-top: 1px solid;
-    border-bottom: 1px solid;
-    border-left: 4px solid;
+    border-style: solid;
+    border-width:  1px 1px 1px 4px;
 }
 
 div.thin {
-    border-right: 1px solid;
-    border-top: 1px solid;
-    border-bottom: 1px solid;
-    border-left: 1px solid;
+    border: solid 1px #c5cbc7;
 }
 
 div.danger {
@@ -118,8 +112,8 @@ div.kt-item-date {
 }
 
 .kt-header {
-    -webkit-box-shadow: 0px 10px 30px 0px rgba(82, 63, 105, 0.08);
-    box-shadow: 0px 10px 30px 0px rgba(82, 63, 105, 0.08);
+    -webkit-box-shadow: 0 10px 30px 0 rgba(82, 63, 105, 0.08);
+    box-shadow: 0 10px 30px 0 rgba(82, 63, 105, 0.08);
     -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
@@ -129,7 +123,7 @@ div.kt-extended-task-item {
     margin: 1.6rem 0.6rem;
     background: #fefcf8;
     border-radius: 3px;
-    -webkit-box-shadow: 0px 2px 7px 2px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.1);
     cursor: pointer;
 }
 
@@ -137,30 +131,30 @@ div.kt-extend-part {
     padding: 10px;
     border-radius: 3px;
     margin: 1.6rem 0.6rem;
-    -webkit-box-shadow: 0px 2px 7px 2px rgba(0, 0, 0, 0.1);
+    /*-webkit-box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.1);*/
     cursor: pointer;
     background: white;
 }
 
 div.kt-extended-task-item div.kt-extend-part {
-    margin: 0rem 0rem;
-    -webkit-box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.1);
+    margin: 0 0;
+    /*-webkit-box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.1);*/
 }
 
 div.extand-main-content {
-    padding-right: 0px;
-    padding-left: 0px;
-    margin-left: -8px;
-    margin-top: -3px;
+    padding-right: 0;
+    padding-left: 0;
+    /*margin-left: -8px;*/
+    /*margin-top: -3px;*/
 }
 
 div.extand-below-content {
-    padding: 10px 0px 10px 20px;
+    padding: 10px 0 10px 20px;
 }
 
 .triangle {
-    width: 0px;
-    height: 0px;
+    width: 0;
+    height: 0;
     border-style: inset;
     border-width: 0 14px 24px 14px;
     border-color: transparent transparent #646c9a transparent;
@@ -170,9 +164,9 @@ div.extand-below-content {
 
 .triangle span {
     text-align: center;
-    width: 0px;
-    height: 0px;
-    margin: 0px;
+    width: 0;
+    height: 0;
+    margin: 0;
     transform:rotate(0deg);
     color: #ffffff;
     font-weight: bold;
@@ -182,8 +176,8 @@ div.extand-below-content {
 }
 
 .triangle-icon {
-    width: 0px;
-    height: 0px;
+    width: 0;
+    height: 0;
     border-style: inset;
     border-width: 0 12px 21px 13px;
     border-color: transparent transparent #646c9a transparent;
@@ -194,9 +188,9 @@ div.extand-below-content {
 
 .triangle-icon span {
     text-align: center;
-    width: 0px;
-    height: 0px;
-    margin: 0px;
+    width: 0;
+    height: 0;
+    margin: 0;
     transform:rotate(0deg);
     color: #ffffff;
     font-weight: bold;
@@ -256,12 +250,14 @@ div#kt_final_sub_task {
 }
 
 div.kt-simple-task-item {
-    padding: 6px;
     border-radius: 3px;
     margin: 1.6rem 0.6rem;
-    -webkit-box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     background: white;
+}
+div.kt-simple-task-item>div{
+    padding: 6px 0 6px 0;
 }
 
 div.kt-simple-task-item:hover {
@@ -284,11 +280,11 @@ div.kt-quick-panel {
 }
 
 .detail-infomation-content {
-    padding: 0px 20px 10px 20px;
+    padding: 0 20px 10px 20px;
 }
 
 .detail-budget-content {
-    padding: 0px 20px 10px 20px;
+    padding: 0 20px 10px 20px;
 }
 
 .detail-information-staus {
@@ -344,6 +340,19 @@ div.kt-quick-panel {
     margin-bottom: auto;
 }
 
+.detail-information-addExpense {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-bottom:  1px solid;
+}
+
+.detail-information-addSubTask {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-bottom:  1px solid;
+}
+
+
 .detail-information-description {
     padding-top: 30px;
     padding-bottom: 30px;
@@ -383,7 +392,7 @@ div.kt-quick-panel {
 .col-task-extended {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 45%;
-    flex: 0 0 45%;
+    flex: 0 0 32%;
     /*max-width: 45%;*/
     position: relative;
     width: 100%;
@@ -393,8 +402,8 @@ div.kt-quick-panel {
 
 .col-task-regular {
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 30%;
-    flex: 0 0 30%;
+    -ms-flex: 0 0 32%;
+    flex: 0 0 32%;
     /*max-width: 30%;*/
     position: relative;
     width: 100%;
@@ -404,8 +413,8 @@ div.kt-quick-panel {
 
 .col-task-simple {
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 25%;
-    flex: 0 0 25%;
+    -ms-flex: 0 0 32%;
+    flex: 0 0 32%;
     /*max-width: 25%;*/
     position: relative;
     width: 100%;
@@ -488,7 +497,7 @@ div.detail-budget-dashboard .balance {
 }
 
 div.detail-statistics-content {
-    padding: 0px 20px 10px 20px;
+    padding: 0 20px 10px 20px;
 }
 
 .statistics-content {
@@ -515,8 +524,8 @@ div.detail-statistics-content {
     padding: 20px;
     border-radius: 5px;
 
-    -webkit-box-shadow: 0px 0px 13px 0px rgba(82, 63, 105, 0.05);
-     box-shadow: 0px 0px 13px 0px rgba(82, 63, 105, 0.05);
+    -webkit-box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.05);
+     box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.05);
     background-color: #ffffff;
 }
 .list-card .list-head {

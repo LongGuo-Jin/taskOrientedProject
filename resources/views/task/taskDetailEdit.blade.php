@@ -244,6 +244,46 @@
                                     <p>{{$taskDetails["description"]}}</p>
                                     <textarea class="form-control" id="edit_description" @if ($taskDetails["description"] != "") style="display: none" @endif rows="5" name="info_description">{{$taskDetails["description"]}}</textarea>
                                 </div>
+                                <div class="detail-information-addExpense">
+                                    <h5>{{__('task.addExpense')}}</h5>
+                                    {{--@if($taskId == $taskItem['ID'])--}}
+                                    <input type="hidden" id="quick_token" name="_token" value="{{csrf_token()}}">
+                                    <div class="row task-expense-add m-2">
+                                        <div class="col-lg-5">
+                                            <input type="text" class="form-control" id="quick-expense-title" placeholder="{{__('task.addExpense')}}">
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <input type="text" class="form-control" id="quick-expense-val" placeholder="0.00">
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <button type="button" class="btn btn-outline-brand btn-elevate btn-pill quick-add-expense">
+                                                {{__('task.add')}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="detail-information-addSubTask">
+                                    <h5>{{__('task.addSubTask')}}</h5>
+                                    <div class="row task-extand-add  m-2">
+                                        <div class="col-lg-5">
+                                            <input type="text" class="form-control" id="quick-subtask-title" placeholder="{{__('task.addSubTask')}}">
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <select class="form-control" id="quick-add-person" name="personID">
+                                                <option value=""></option>
+                                                @foreach($rolePersonList as $personItem)
+                                                    <option value="{{$personItem['id']}}" <?php if($personItem['id'] == $personalID) print_r("selected=selected");?>>{{$personItem['nameFamily'] . " " . $personItem['nameFirst']}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <button type="button" class="btn btn-outline-brand btn-elevate btn-pill quick-add-task" >
+                                                {{__('task.add')}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                    {{--@endif--}}
+                                </div>
                                 <div class="detail-information-task-memos">
                                     <h5>{{__('task.memos')}}</h5>
                                     @foreach($memos as $memoitem)

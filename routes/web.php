@@ -32,6 +32,8 @@ Route::group(['middleware'=>['auth' , 'tag']] , function() {
     Route::post('addWorkTime','TaskController@AddWorkTime');
     Route::post('addAllocationTime','TaskController@AddAllocationTime');
     Route::get('locale/{locale}', 'TaskController@Locale');
+    Route::post('update_filter','TaskController@UpdateFilter')->name('filter.update');
+    Route::get('rest_filter','TaskController@ResetFilter')->name('filter.reset');
 
     Route::group(['middleware'=>['task'] , "prefix"=>"task"] , function() {
         Route::any('/taskCard', 'TaskController@taskCard')->name('task.taskCard');

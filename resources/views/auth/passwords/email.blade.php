@@ -25,12 +25,12 @@
                     @endif
                     <div class="aje-card-footer">
 
-                        <button type="submit" class="btn btn-primary btn-block">Request new password</button>
+                        <button type="submit" class="btn btn-primary btn-block">Send Password Reset Link</button>
                         <p class="mt-3 mb-1">
                             <a href="{{route("login")}}">Login</a>
                         </p>
                         <p class="mb-0">
-                            <a href="{{route("register")}}" class="text-center">Register a new membership</a>
+                            <a href="{{route("register")}}" class="text-center">Register</a>
                         </p>
                     </div>
                 </form>

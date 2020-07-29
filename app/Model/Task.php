@@ -20,10 +20,6 @@ class Task extends Model
         'ID', 'title', 'datePlanStart', 'datePlanEnd', 'dateActualStart', 'dateActualEnd', 'statusID', 'priorityID', 'weightID', 'personID'
         , 'budgetAllocated', 'hoursAllocated', 'hourSpent', 'hourCost','taskCreatorID', 'deleteFlag'
     ];
-//    protected $fillable = [
-//        'ID', 'title', 'datePlanStart', 'datePlanEnd', 'dateActualStart', 'dateActualEnd', 'statusID', 'priorityID', 'weightID', 'personID'
-//        , 'budgetAllocated', 'hoursAllocated', 'hourSpent', 'hourCost', 'organizationID', 'locationID', 'taskCreatorID', 'deleteFlag'
-//    ];
 
     public function __construct()
     {
@@ -61,11 +57,14 @@ class Task extends Model
     public function getTaskListInit()
     {
         $organization_id = auth()->user()->organization_id;
+        $filter_order = auth()->user()->filter_order;
+
         $retArr = array();
         $qrBuilder = DB::table($this->table)
             ->leftJoin("taskstatus", "task.statusID", "=", "taskstatus.ID")
             ->leftJoin("taskpriority", "task.priorityID", "=", "taskpriority.ID")
             ->leftJoin("taskweight", "task.weightID", "=", "taskweight.ID")
+            ->leftJoin("allocated_times","task.ID",'=',"allocated_times.taskID")
             ->leftJoin("users", "task.personID", "=", "users.id")
             ->where('deleteFlag', 0)
             ->where('users.organization_id',$organization_id)
@@ -73,7 +72,6 @@ class Task extends Model
                 , "taskpriority.title as priority_title","taskpriority.order as order" , "taskweight.title as weight"
                 ,"users.avatarType as avatarType","users.avatarColor as avatarColor" , "users.nameTag as nameTag" ,"users.roleID"
                 , DB::raw("concat(users.nameFamily, ' ', users.nameFirst) as fullName"));
-
 
         $ret = [];
         switch ($this->roleId) {
@@ -103,9 +101,10 @@ class Task extends Model
         }
 
 
-        $result = $this->adtResult(Common::stdClass2Array($ret));
+        $result1 = $this->adtResult(Common::stdClass2Array($ret));
 
-        $retArr[0] = $result;
+        $retArr[0] = $result1;
+
         $result['list'] = $retArr;
         $result['parents'][0] = "";
 
@@ -255,6 +254,7 @@ class Task extends Model
             $arrEnd = (explode(".",$dateEnd));
             $datePlanEnd = strtotime($arrEnd[1].'/'.$arrEnd[0].'/'.$arrEnd[2]);
 
+
             $dateStart = $taskItem["creatAt"];
             $datePlanStart = strtotime($dateStart);
             if ($taskStatus != 4 && $taskStatus!= 5 && $now >   $datePlanEnd){
@@ -288,79 +288,70 @@ class Task extends Model
 
         $isParentRoot = $this->isRootLevel($taskDetails["parentID"]);
 
-//        if ($role == Common::constant("role.admin")) {
-            //get first column data
-            if ($isParentRoot || $isMainRoot) {
+        //get first column data
+        if ($isParentRoot || $isMainRoot) {
 
-                $initList = $this->getTaskListInit();
-                $retArr[0] = $initList["list"][0];
-                $parentsArr[0] = $initList['parents'][0];
+            $initList = $this->getTaskListInit();
+            $retArr[0] = $initList["list"][0];
+            $parentsArr[0] = $initList['parents'][0];
 
+        } else {
+            $tmp = $this->adtResult($this->getTaskListbyCond(array("taskID" => $taskDetails['parentID'])));
+
+            if ($this->roleId == 1) {
+                $tmp1 = $this->adtResult($this->getTaskListbyCond(array("parentID" => $tmp[0]['parentID'])));
             } else {
-                $tmp = $this->adtResult($this->getTaskListbyCond(array("taskID" => $taskDetails['parentID'])));
-
-                if ($this->roleId == 1) {
-                    $tmp1 = $this->adtResult($this->getTaskListbyCond(array("parentID" => $tmp[0]['parentID'])));
-                } else {
-                    $tmp1 = $this->adtResult($this->getTaskListbyCond(array("parentID" => $tmp[0]['parentID'] , "personID"=>auth()->user()->id)));
-                }
-                $parentsArr[0] =  $parentId;
-                if (count($tmp1)) {
-                    $retArr[0] = $tmp1;
-                    $upParentId = $tmp[0]['parentID'];
-                    $parentsArr[0] = $upParentId;
-                }
+                $tmp1 = $this->adtResult($this->getTaskListbyCond(array("parentID" => $tmp[0]['parentID'] , "personID"=>auth()->user()->id)));
             }
-            // get second column
-            if ($isMainRoot ){
+            $parentsArr[0] =  $parentId;
+            if (count($tmp1)) {
+                $retArr[0] = $tmp1;
+                $upParentId = $tmp[0]['parentID'];
+                $parentsArr[0] = $upParentId;
+            }
+        }
 
-                if ($this->roleId == 1) {
-                    $retArr[1] = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID'])));
-                } else {
-                    $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID'], "personID"=>auth()->user()->id)));
-                    $tmp1 = $this->adtResult($this->getTaskListbyCond(array("parentID" =>$taskDetails['ID'],"taskCreatorID"=>auth()->user()->id)));
-                    $tmp = array_merge($tmp,$tmp1);
-                    $retArr[1] = $tmp;
-                }
-//                $retArr[1] = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID'])));
-
-                $parentsArr[1] = $taskDetails['ID'];
+        // get second column
+        if ($isMainRoot ){
+            if ($this->roleId == 1) {
+                $retArr[1] = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID'])));
             } else {
-                if ($this->roleId == 1) {
-                    $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $parentId)));
-                } else {
-//                    $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $parentId, "personID"=>auth()->user()->id)));
-                    $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $parentId, "personID"=>auth()->user()->id)));
-                    $tmp1 = $this->adtResult($this->getTaskListbyCond(array("parentID" =>$parentId,"taskCreatorID"=>auth()->user()->id)));
-                    $tmp = array_merge($tmp,$tmp1);
-                }
-
-                if (count($tmp)) {
-                    $retArr[1] = $tmp;
-                    $upParentId =$parentId;
-                    $parentsArr[1] = $upParentId;
-                }
+                $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID'], "personID"=>auth()->user()->id)));
+                $tmp1 = $this->adtResult($this->getTaskListbyCond(array("parentID" =>$taskDetails['ID'],"taskCreatorID"=>auth()->user()->id)));
+                $tmp = array_merge($tmp,$tmp1);
+                $retArr[1] = $tmp;
             }
-
-            // get third column
-            if (!$isMainRoot) {
-                if ($this->roleId == 1) {
-                    $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID'])));
-                } else {
-                    $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID'], "personID"=>auth()->user()->id)));
-                    $tmp1 = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID'],"taskCreatorID"=>auth()->user()->id)));
-                    $tmp = array_merge($tmp,$tmp1);
-                }
-
-//                $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID'])));
-                if (count($tmp)) {
-                    $retArr[2] = $tmp;
-                    $upParentId = $taskDetails['ID'];
-                    $parentsArr[2] = $upParentId;
-                }
-
+            $parentsArr[1] = $taskDetails['ID'];
+        } else {
+            if ($this->roleId == 1) {
+                $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $parentId)));
+            } else {
+                $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $parentId, "personID"=>auth()->user()->id)));
+                $tmp1 = $this->adtResult($this->getTaskListbyCond(array("parentID" =>$parentId,"taskCreatorID"=>auth()->user()->id)));
+                $tmp = array_merge($tmp,$tmp1);
             }
+            if (count($tmp)) {
+                $retArr[1] = $tmp;
+                $upParentId =$parentId;
+                $parentsArr[1] = $upParentId;
+            }
+        }
 
+        // get third column
+        if (!$isMainRoot) {
+            if ($this->roleId == 1) {
+                $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID'])));
+            } else {
+                $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID'], "personID"=>auth()->user()->id)));
+                $tmp1 = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID'],"taskCreatorID"=>auth()->user()->id)));
+                $tmp = array_merge($tmp,$tmp1);
+            }
+            if (count($tmp)) {
+                $retArr[2] = $tmp;
+                $upParentId = $taskDetails['ID'];
+                $parentsArr[2] = $upParentId;
+            }
+        }
 
         foreach ($retArr as $key => $retItem)
         {
@@ -380,7 +371,6 @@ class Task extends Model
     public function isRootLevel($taskId)
     {
         $user_id = auth()->user()->id;
-
         $ret = false;
         $parentId = "";
 
@@ -389,8 +379,6 @@ class Task extends Model
 
         } else {
             $tmp = $this->getTaskListbyCond(array("taskID" => $taskId , "personID"=>$user_id));
-
-
         }
 
         if (count($tmp)) {

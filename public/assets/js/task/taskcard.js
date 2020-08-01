@@ -735,9 +735,11 @@ function addTask()
 
 function updateTask()
 {
-    var ret = -1;
-    var tagList = "tagList=" + $("div.detail-edit select[name=tags]").val();
-    var params = $("#task_update_form").serialize() + "&" + tagList;
+    let ret = -1;
+    let tagList = "tagList=" + $("div.detail-edit select[name=tags]").val();
+    let params = $("#task_update_form").serialize() + "&" + tagList;
+
+    console.log(tagList,"------------>parameter lists");
 
     $.ajax({
         type:'POST',
@@ -1182,24 +1184,38 @@ function task_filter_reorder(myOrder, index) {
     }
 
 
-    let origin = order[myOrder];
-    for (let i = 0; i < 6; i ++) {
-        if (i === myOrder) {
-            value += val;
-        } else {
-            if (order[i] * 1 < val) {
-                value += order[i]
+    let origin = order[myOrder] * 1;
+    if ( origin > val ) {
+        for (let i = 0; i < 6; i ++) {
+            if (i === myOrder) {
+                value += val;
+            } else if (order[i] * 1 === val) {
+                value += origin;
             } else {
-                if (order[i] === '6') {
-                    if (val > order[myOrder])
-                        value+=origin;
-                    else value += origin * 1 + 1;
+                value += order[i];
+            }
+        }
+    } else {
+        for (let i = 0; i < 6; i ++) {
+            if (i === myOrder) {
+                value += val;
+            } else {
+                if (order[i] * 1 < val) {
+                    value += order[i]
                 } else {
-                    value += order[i] * 1 + 1;
+                    if (order[i] === '6') {
+                        if (val > order[myOrder])
+                            value+=origin;
+                        // else value += origin * 1 + 1;
+                    } else {
+                        value += order[i] * 1 + 1;
+                    }
                 }
             }
         }
     }
+
+
     $('#task_filter_order').val(value);
     let orderCharacters = ["I","II", "III", "IV","V", "VI"];
     $("#statusOrderMenu span:first-child")[0].innerHTML = orderCharacters[value[0] * 1 -1];

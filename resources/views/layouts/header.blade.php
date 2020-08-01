@@ -54,16 +54,477 @@
 
     <!-- begin:: Header Topbar -->
     <div class="kt-header__topbar">
+        @if(isset($taskCard))
+            <?php
 
-        <div class="kt-header__topbar-item kt-header__topbar-item--user">  
-            <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="0px,0px">
-                <div class="kt-header__topbar-user header_menu_item">
-                    
+            $filter_order = auth()->user()->filter_order;
 
+            $filter_orders = [ ['First' , 'Second','Third','Fourth','Fifth','Sixth'],[
+                "I",
+                "II",
+                "III",
+                "IV",
+                "V",
+                "VI",
+            ] ];
+
+            ?>
+            <div class="kt-header__topbar-item dropdown mt-auto mb-auto">
+                <div class="" data-toggle="dropdown" data-offset="0px,0px" aria-expanded="true">
+                    <div class="kt-header__topbar-user header_menu_item">
+                        <span class="kt-header__topbar-icon">
+                            <i class="fa fa-filter"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="dropdown-menu dropdown-menu-fit dropdown-menu-left dropdown-menu-anim dropdown-menu-top-unround">
+                    <form method="post" action="{{route('filter.update')}}">
+                        @csrf
+                        <input type="hidden" name="task_filter_order" id="task_filter_order" value="{{$filter_order}}">
+                        <input type="hidden" value="{{$personalID}}" name="user_id">
+                        <div class="filter-box">
+                            <div>
+                                <div class="filter-column">
+                                    <input type="hidden" name="statusFilter" id="statusFilter" value="{{$filters['status']}}">
+                                    <div style="display:flex; justify-content: space-between">
+                                        <h3>Status</h3>
+                                        <div class="kt-header__topbar-item dropdown mt-auto mb-auto">
+                                            <div class="task-order-item" id="statusOrderMenu" onclick="StatusOrderMenu()" data-offset="0px,0px" aria-expanded="true" style="font-size: 20px">
+                                                <span>
+                                                    {{$filter_orders[1][$filter_order[0]-1]}}
+                                                </span>
+                                                <span>
+                                                    @if ($filters['status'][11] == '1')
+                                                        <i class="fa fa-caret-up"></i>
+                                                    @else
+                                                        <i class="fa fa-caret-down"></i>
+                                                    @endif
+                                                </span>
+                                            </div>
+                                            <div class="dropdown-menu dropdown-menu-fit dropdown-menu-left dropdown-menu-anim dropdown-menu-top-unround"  id="statusOrderDropDownMenu" style="border-radius: 10px; min-width: 1rem !important; transform: translateX(-80%);">
+                                                <div class="filter-order-box">
+                                                    @foreach($filter_orders[0] as $index => $item)
+                                                        <div class="row filter-order-item" onclick="StatusOrderSelect({{$index}})">
+                                                            <div class="col-lg-3 kt-notification__item">
+                                                                {{$filter_orders[1][$index]}}
+                                                            </div>
+                                                            <div class="col-lg-9 kt-notification__item">
+                                                                {{$item}}
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                    <div style="width: 100%; height: 1px; background-color: whitesmoke;"></div>
+                                                    <div class="row filter-order-item" onclick="StatusScending(true)">
+                                                        <div class="col-lg-3">
+                                                            <i class="fa fa-caret-up"></i>
+                                                        </div>
+                                                        <div class="col-lg-9">
+                                                            Ascending
+                                                        </div>
+                                                    </div>
+                                                    <div class="row filter-order-item" onclick="StatusScending(false)">
+                                                        <div class="col-lg-3">
+                                                            <i class="fa fa-caret-down"></i>
+                                                        </div>
+                                                        <div class="col-lg-9">
+                                                            Descending
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php
+                                    $status = [ ['Created' , 'Active','Paused','Finished','Canceled','Reviewed',
+                                        'Confirmed','Refused','Failed','Removed','Deleted'],[
+                                        "<i class='fa fa-circle'></i>",
+                                        "<i class='flaticon2-arrow lg'></i>",
+                                        "<i class='fa fa-pause'></i>",
+                                        "<i class='flaticon2-check-mark'></i>",
+                                        "<i class='flaticon2-hexagonal'></i>",
+                                        "<i class='fa fa-check-circle'></i>",
+                                        "<i class='fa fa-star'></i>",
+                                        "<i class='fa fa-star'></i>",
+                                        "<i class='fa fa-times-circle'></i>",
+                                        "<i class='fa fa-star'></i>",
+                                        "<i class='fa fa-trash'></i>",
+                                    ] ];
+
+                                    ?>
+                                    @foreach ($status[0] as $index => $state)
+                                        <div class="row filter-column-item">
+                                            <div class="col-lg-3"><i class="fa fa-eye <?php if($filters['status'][$index] == '0') { echo 'eye-deselect'; } ?>" onclick="StatusFilter(this,{{$index}})"></i></div>
+                                            <div class="col-lg-3"><?php echo $status[1][$index]; ?></div>
+                                            <div class="col-lg-3"><span>{{$state}}</span></div>
+                                        </div>
+                                    @endforeach
+
+                                </div>
+                            </div>
+                            <div>
+                                <div class="filter-column">
+                                    <input type="hidden" name="priorityFilter" id="priorityFilter" value="{{$filters['priority']}}">
+                                    <div style="display:flex; justify-content: space-between">
+                                        <h3>Priority</h3>
+                                        <div class="kt-header__topbar-item dropdown mt-auto mb-auto">
+                                            <div class="task-order-item" id="priorityOrderMenu" onclick="PriorityOrderMenu()" data-offset="0px,0px" aria-expanded="true" style="font-size: 20px">
+                                                <span>
+                                                    {{$filter_orders[1][$filter_order[1]-1]}}
+                                                </span>
+                                                <span>
+                                                    @if ($filters['priority'][5] == '1')
+                                                        <i class="fa fa-caret-up"></i>
+                                                    @else
+                                                        <i class="fa fa-caret-down"></i>
+                                                    @endif
+                                               </span>
+                                            </div>
+                                            <div class="dropdown-menu dropdown-menu-fit dropdown-menu-left dropdown-menu-anim dropdown-menu-top-unround"  id="priorityOrderDropDownMenu" style="border-radius: 10px; min-width: 1rem !important; transform: translateX(-70%);">
+                                                <div class="filter-order-box">
+                                                    @foreach($filter_orders[0] as $index => $item)
+
+                                                        <div class="row filter-order-item" onclick="PriorityOrderSelect({{$index}})">
+                                                            <div class="col-lg-3 kt-notification__item">
+                                                                {{$filter_orders[1][$index]}}
+                                                            </div>
+                                                            <div class="col-lg-9 kt-notification__item">
+                                                                {{$item}}
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                    <div style="width: 100%; height: 1px; background-color: whitesmoke;"></div>
+                                                    <div class="row filter-order-item" onclick="PriorityScending(true)">
+                                                        <div class="col-lg-3">
+                                                            <i class="fa fa-caret-up"></i>
+                                                        </div>
+                                                        <div class="col-lg-9">
+                                                            Ascending
+                                                        </div>
+                                                    </div>
+                                                    <div class="row filter-order-item" onclick="PriorityScending(false)">
+                                                        <div class="col-lg-3">
+                                                            <i class="fa fa-caret-down"></i>
+                                                        </div>
+                                                        <div class="col-lg-9">
+                                                            Descending
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php
+                                    $priorities = [ ['Critical' , 'High','Medium','Low','Optional'],[
+                                        "<i class='fa fa-exclamation' style='color: darkred'></i>",
+                                        "H",
+                                        "M",
+                                        "L",
+                                        "O",
+                                    ] ];
+
+                                    ?>
+                                    @foreach ($priorities[0] as $index => $priority)
+                                        <div class="row filter-column-item">
+                                            <div class="col-lg-3"><i class="fa fa-eye <?php if($filters['priority'][$index] == '0') { echo 'eye-deselect'; } ?>" onclick="PriorityFilter(this,{{$index}})"></i></div>
+                                            <div class="col-lg-3"><?php echo $priorities[1][$index]; ?></div>
+                                            <div class="col-lg-3"><span>{{$priority}}</span></div>
+                                        </div>
+                                    @endforeach
+
+                                </div>
+                            </div>
+                            <div>
+                                <div class="filter-column">
+                                    <input type="hidden" name="weightFilter" id="weightFilter" value="{{$filters['weight']}}">
+                                    <div style="display:flex; justify-content: space-between">
+                                        <h3>Weight</h3>
+                                        <div class="kt-header__topbar-item dropdown mt-auto mb-auto">
+                                            <div class="task-order-item" id="weightOrderMenu" onclick="WeightOrderMenu()" data-offset="0px,0px" aria-expanded="true" style="font-size: 20px">
+                                                <span>
+                                                    {{$filter_orders[1][$filter_order[2]-1]}}
+                                                </span>
+                                                <span>
+                                                    @if ($filters['weight'][10] == '1')
+                                                        <i class="fa fa-caret-up"></i>
+                                                    @else
+                                                        <i class="fa fa-caret-down"></i>
+                                                    @endif
+                                               </span>
+                                            </div>
+                                            <div class="dropdown-menu dropdown-menu-fit dropdown-menu-left dropdown-menu-anim dropdown-menu-top-unround"  id="weightOrderDropDownMenu" style="border-radius: 10px; min-width: 1rem !important; transform: translateX(-70%);">
+                                                <div class="filter-order-box">
+                                                    @foreach($filter_orders[0] as $index => $item)
+
+                                                        <div class="row filter-order-item" onclick="WeightOrderSelect({{$index}})">
+                                                            <div class="col-lg-3 kt-notification__item">
+                                                                {{$filter_orders[1][$index]}}
+                                                            </div>
+                                                            <div class="col-lg-9 kt-notification__item">
+                                                                {{$item}}
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                    <div style="width: 100%; height: 1px; background-color: whitesmoke;"></div>
+                                                    <div class="row filter-order-item" onclick="WeightScending(true)">
+                                                        <div class="col-lg-3">
+                                                            <i class="fa fa-caret-up"></i>
+                                                        </div>
+                                                        <div class="col-lg-9">
+                                                            Ascending
+                                                        </div>
+                                                    </div>
+                                                    <div class="row filter-order-item" onclick="WeightScending(false)">
+                                                        <div class="col-lg-3">
+                                                            <i class="fa fa-caret-down"></i>
+                                                        </div>
+                                                        <div class="col-lg-9">
+                                                            Descending
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php
+                                    $weights = [ ['Complex' , '','','','Medium','','','','Simple','UnWeighted'],[
+                                        "9", "8", "7", "6", "5","4", "3", "2", "1", "0",
+                                    ] ];
+
+                                    ?>
+                                    @foreach ($weights[0] as $index => $weight)
+                                        <div class="row filter-column-item">
+                                            <div class="col-lg-3"><i class="fa fa-eye <?php if($filters['weight'][$index] == '0') { echo 'eye-deselect'; } ?>" onclick="WeightFilter(this,{{$index}})"></i></div>
+                                            <div class="col-lg-3"><?php echo $weights[1][$index]; ?></div>
+                                            <div class="col-lg-3"><span>{{$weight}}</span></div>
+                                        </div>
+                                    @endforeach
+
+                                </div>
+                            </div>
+                            <div style="display: flex; flex-direction: column; justify-content: space-between">
+                                <div class="filter-column">
+                                    <input type="hidden" name="dateFilter" id="dateFilter" value="{{$filters['date']}}">
+                                    <div style="display:flex; justify-content: space-between">
+                                        <h3>Date</h3>
+                                        <div class="kt-header__topbar-item dropdown mt-auto mb-auto">
+                                            <div class="task-order-item" id="dateOrderMenu" onclick="DateOrderMenu()" data-offset="0px,0px" aria-expanded="true" style="font-size: 20px">
+                                                <span>
+                                                    {{$filter_orders[1][$filter_order[3]-1]}}
+                                                </span>
+                                                <span>
+                                                    @if ($filters['date'][2] == '1')
+                                                        <i class="fa fa-caret-up"></i>
+                                                    @else
+                                                        <i class="fa fa-caret-down"></i>
+                                                    @endif
+                                                </span>
+                                            </div>
+                                            <div class="dropdown-menu dropdown-menu-fit dropdown-menu-left dropdown-menu-anim dropdown-menu-top-unround"  id="dateOrderDropDownMenu" style="border-radius: 10px; min-width: 1rem !important; transform: translateX(-70%);">
+                                                <div class="filter-order-box">
+                                                    @foreach($filter_orders[0] as $index => $item)
+
+                                                        <div class="row filter-order-item" onclick="DateOrderSelect({{$index}})">
+                                                            <div class="col-lg-3 kt-notification__item">
+                                                                {{$filter_orders[1][$index]}}
+                                                            </div>
+                                                            <div class="col-lg-9 kt-notification__item">
+                                                                {{$item}}
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                    <div style="width: 100%; height: 1px; background-color: whitesmoke;"></div>
+                                                    <div class="row filter-order-item" onclick="DateScending(true)">
+                                                        <div class="col-lg-3">
+                                                            <i class="fa fa-caret-up"></i>
+                                                        </div>
+                                                        <div class="col-lg-9">
+                                                            Ascending
+                                                        </div>
+                                                    </div>
+                                                    <div class="row filter-order-item" onclick="DateScending(false)">
+                                                        <div class="col-lg-3">
+                                                            <i class="fa fa-caret-down"></i>
+                                                        </div>
+                                                        <div class="col-lg-9">
+                                                            Descending
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php
+                                    $dates = [ 'Date Created','Date Start','Date End','Date Actual Start','Date Actual End' ];
+
+                                    ?>
+                                    @foreach ($dates as $index => $date)
+                                        <div class="row filter-column-item">
+                                            <div class="col-lg-3">
+                                                <div class="check-box" >
+                                                    <input type="radio" name="radio-status" onclick="DateFilter({{$index}})" <?php if($filters['date'][0] == $index + 1) {echo 'checked'; } ?>>
+                                                    <span class="check-mark" style="background-color: rgba(0,0,0,0);"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-9  mt-auto mb-auto"><span>{{$date}}</span></div>
+                                        </div>
+                                    @endforeach
+                                    <div style="width: 100%; height: 1px; background-color: whitesmoke"></div>
+                                    <div class="row filter-column-item">
+                                        <div class="col-lg-3">
+                                            <div class="check-box" >
+                                                <input type="checkbox" onclick="DateFilter(6)" <?php if($filters['date'][2] == '1') {echo 'checked'; } ?>>
+                                                <span class="check-mark" style="background-color: rgba(0,0,0,0);"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9  mt-auto mb-auto"><span>Show Undated</span></div>
+                                    </div>
+                                </div>
+                                <a href="{{route('filter.reset',['user_id'=>$personalID])}}" type="button" class="btn btn-default m-2" id="taskFilterReset">
+                                    <i class="fa fa-reply mb-1"  > </i>Reset Default
+                                </a>
+                            </div>
+                            <div style="display: flex; flex-direction: column;">
+                                <div class="filter-column">
+                                    <input type="hidden" name="workTimeFilter" id="workTimeFilter" value="{{$filters['workTime']}}">
+                                    <div style="display:flex; justify-content: space-between">
+                                        <h3>WorkTime</h3>
+                                        <div class="kt-header__topbar-item dropdown mt-auto mb-auto">
+                                            <div class="task-order-item" id="workTimeOrderMenu" onclick="WorkTimeOrderMenu()" data-offset="0px,0px" aria-expanded="true" style="font-size: 20px">
+                                                <span>
+                                                    {{$filter_orders[1][$filter_order[4]-1]}}
+                                                </span>
+                                                <span>
+                                                    @if ($filters['workTime'][1] == '1')
+                                                        <i class="fa fa-caret-up"></i>
+                                                    @else
+                                                        <i class="fa fa-caret-down"></i>
+                                                    @endif
+                                                </span>
+                                            </div>
+                                            <div class="dropdown-menu dropdown-menu-fit dropdown-menu-left dropdown-menu-anim dropdown-menu-top-unround"  id="workTimeOrderDropDownMenu" style="border-radius: 10px; min-width: 1rem !important; transform: translateX(-70%);">
+                                                <div class="filter-order-box">
+                                                    @foreach($filter_orders[0] as $index => $item)
+
+                                                        <div class="row filter-order-item" onclick="WorkTimeOrderSelect({{$index}})">
+                                                            <div class="col-lg-3 kt-notification__item">
+                                                                {{$filter_orders[1][$index]}}
+                                                            </div>
+                                                            <div class="col-lg-9 kt-notification__item">
+                                                                {{$item}}
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                    <div style="width: 100%; height: 1px; background-color: whitesmoke;"></div>
+                                                    <div class="row filter-order-item" onclick="WorkTimeScending(true)">
+                                                        <div class="col-lg-3">
+                                                            <i class="fa fa-caret-up"></i>
+                                                        </div>
+                                                        <div class="col-lg-9">
+                                                            Ascending
+                                                        </div>
+                                                    </div>
+                                                    <div class="row filter-order-item" onclick="WorkTimeScending(false)">
+                                                        <div class="col-lg-3">
+                                                            <i class="fa fa-caret-down"></i>
+                                                        </div>
+                                                        <div class="col-lg-9">
+                                                            Descending
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php
+                                    $workTime_items = [ 'Time Allocated','Time Spent','Time Remaining'];
+
+                                    ?>
+                                    @foreach ($workTime_items as $index => $workTime_item)
+                                        <div class="row filter-column-item">
+                                            <div class="col-lg-3">
+                                                <div class="check-box" >
+                                                    <input type="radio" name="radio-workTime" onclick="WorkTimeFilter({{$index}})" <?php if($filters['workTime'][0] == $index + 1) {echo 'checked'; } ?>>
+                                                    <span class="check-mark" style="background-color: rgba(0,0,0,0);"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-9  mt-auto mb-auto"><span>{{$workTime_item}}</span></div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <div class="filter-column">
+                                    <input type="hidden" name="budgetFilter" id="budgetFilter" value="{{$filters['budget']}}">
+                                    <div style="display:flex; justify-content: space-between">
+                                        <h3>Budget</h3>
+                                        <div class="kt-header__topbar-item dropdown mt-auto mb-auto">
+                                            <div class="task-order-item" id="budgetOrderMenu" onclick="BudgetOrderMenu()" data-offset="0px,0px" aria-expanded="true" style="font-size: 20px">
+                                                <span>
+                                                    {{$filter_orders[1][$filter_order[5]-1]}}
+                                                </span>
+                                                <span>
+                                                    @if ($filters['budget'][1] == '1')
+                                                        <i class="fa fa-caret-up"></i>
+                                                    @else
+                                                        <i class="fa fa-caret-down"></i>
+                                                    @endif
+                                                </span>
+                                            </div>
+                                            <div class="dropdown-menu dropdown-menu-fit dropdown-menu-left dropdown-menu-anim dropdown-menu-top-unround"  id="budgetOrderDropDownMenu" style="border-radius: 10px; min-width: 1rem !important; transform: translateX(-70%);">
+                                                <div class="filter-order-box">
+                                                    @foreach($filter_orders[0] as $index => $item)
+
+                                                        <div class="row filter-order-item" onclick="BudgetOrderSelect({{$index}})">
+                                                            <div class="col-lg-3 kt-notification__item">
+                                                                {{$filter_orders[1][$index]}}
+                                                            </div>
+                                                            <div class="col-lg-9 kt-notification__item">
+                                                                {{$item}}
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                    <div style="width: 100%; height: 1px; background-color: whitesmoke;"></div>
+                                                    <div class="row filter-order-item" onclick="BudgetScending(true)">
+                                                        <div class="col-lg-3">
+                                                            <i class="fa fa-caret-up"></i>
+                                                        </div>
+                                                        <div class="col-lg-9">
+                                                            Ascending
+                                                        </div>
+                                                    </div>
+                                                    <div class="row filter-order-item" onclick="BudgetScending(false)">
+                                                        <div class="col-lg-3">
+                                                            <i class="fa fa-caret-down"></i>
+                                                        </div>
+                                                        <div class="col-lg-9">
+                                                            Descending
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php
+                                    $budget_items = [ 'Budget','Expense','Balance'];
+                                    ?>
+                                    @foreach ($budget_items as $index => $budget_item)
+                                        <div class="row filter-column-item">
+                                            <div class="col-lg-3">
+                                                <div class="check-box" >
+                                                    <input type="radio" name="radio-budget" onclick="BudgetFilter({{$index}})" <?php if($filters['budget'][0] == $index + 1) {echo 'checked'; } ?>>
+                                                    <span class="check-mark" style="background-color: rgba(0,0,0,0);"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-9 mt-auto mb-auto"><span>{{$budget_item}}</span></div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <button type="submit" class="btn btn-success m-2" id="taskFilter"> Filter </button>
+                            </div>
+
+                        </div>
+                    </form>
                 </div>
             </div>
-        </div>
-
+        @endif
         <!--begin: Search -->
         <!--begin: Language bar -->
         <div class="kt-header__topbar-item kt-header__topbar-item--langs">

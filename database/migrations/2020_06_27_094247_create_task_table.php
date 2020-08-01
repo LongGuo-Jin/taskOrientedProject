@@ -28,11 +28,9 @@ class CreateTaskTable extends Migration
             $table->float('hoursAllocated')->nullable();
             $table->float('hourSpent')->nullable();
             $table->float('hourCost')->nullable();
-//            $table->integer('organizationID')->unsigned();
-//            $table->integer('locationID')->unsigned();
             $table->unsignedBigInteger('parentID');
             $table->string('tags')->nullable();
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->string('creatAt')->nullable();
             $table->string('updateAt')->nullable();
             $table->unsignedBigInteger('taskCreatorID');
@@ -41,12 +39,6 @@ class CreateTaskTable extends Migration
             $table->foreign('weightID')
                 ->references('ID')->on('taskweight')
                 ->onDelete('cascade');
-//            $table->foreign('organizationID')
-//                ->references('ID')->on('organization')
-//                ->onDelete('cascade');
-//            $table->foreign('locationID')
-//                ->references('ID')->on('address')
-//                ->onDelete('cascade');
             $table->foreign('parentID')
                 ->references('ID')->on('task')
                 ->onDelete('cascade');

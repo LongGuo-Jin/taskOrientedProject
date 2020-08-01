@@ -116,8 +116,8 @@
                                                 </div>
                                                 <div class="detail-information-person-content">
                                                     <p>{{$taskDetails["fullName"]}}</p>
-                                                    <select class="form-control"  @if($taskDetails["fullName"] != "") style="display: none" @endif id="detail-add-person" name="personID" >
-                                                        <option value=""></option>
+                                                    <select class="form-control"  @if($taskDetails["fullName"] != "") style="display: none" @endif id="detail-add-person" name="selectedPersonID" >
+                                                        {{--<option value=""></option>--}}
                                                         @foreach($rolePersonList as $personItem)
                                                             <option value="{{$personItem['id']}}" <?php if($personItem['id'] == $taskDetails["personID"]) echo 'selected=selected';?>>
                                                                 {{$personItem['nameFamily'] . " " . $personItem['nameFirst']}}
@@ -431,22 +431,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mt-4 mb-4 pt-5 pb-4" style="border-top: solid 1px #000;">
-                                    <span class="ml-auto mr-auto" id="workTimeCounterText" style="font-size: 54px;text-align: center">00:00:00</span>
-                                </div>
-                                 <div class="row mb-4">
-                                    <div class="col-lg-9">
-                                        <input type="text"  class="form-control" id="workTime_description" name="workTimeDescription" placeholder=" {{__('task.workTimeDescription')}}">
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <button type="button" class="btn btn-outline-brand btn-elevate btn-pill" id="startCounter">
-                                            Start Work
-                                        </button>
-                                        <button type="button" class="btn btn-outline-brand btn-elevate btn-pill" id="stopCounter" style="display: none">
-                                            Stop Work
-                                        </button>
-                                    </div>
-                                  </div>
+                                {{--<div class="row mt-4 mb-4 pt-5 pb-4" style="border-top: solid 1px #000;">--}}
+                                    {{--<span class="ml-auto mr-auto" id="workTimeCounterText" style="font-size: 54px;text-align: center">00:00:00</span>--}}
+                                {{--</div>--}}
+                                 {{--<div class="row mb-4">--}}
+                                    {{--<div class="col-lg-9">--}}
+                                        {{--<input type="text"  class="form-control" id="workTime_description" name="workTimeDescription" placeholder=" {{__('task.workTimeDescription')}}">--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-lg-3">--}}
+                                        {{--<button type="button" class="btn btn-outline-brand btn-elevate btn-pill" id="startCounter">--}}
+                                            {{--Start Work--}}
+                                        {{--</button>--}}
+                                        {{--<button type="button" class="btn btn-outline-brand btn-elevate btn-pill" id="stopCounter" style="display: none">--}}
+                                            {{--Stop Work--}}
+                                        {{--</button>--}}
+                                    {{--</div>--}}
+                                  {{--</div>--}}
                                 <div class="row mt-4 mb-4 pt-5 pb-4" style="border-top: solid 1px #000;">
                                     <div class="col-lg-6 text-left" style="font-size: 30px;">Work Hours</div>
                                     <div class="col-lg-6 text-right" style="font-size: 30px;" id="workHours"></div>

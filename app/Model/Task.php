@@ -316,8 +316,10 @@ class Task extends Model
             if ($this->roleId == 1) {
                 $retArr[1] = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID'])));
             } else {
+
                 $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID'], "personID"=>auth()->user()->id)));
                 $tmp1 = $this->adtResult($this->getTaskListbyCond(array("parentID" =>$taskDetails['ID'],"taskCreatorID"=>auth()->user()->id)));
+//                dd($tmp1);
                 $tmp = array_merge($tmp,$tmp1);
                 $retArr[1] = $tmp;
             }
@@ -327,7 +329,9 @@ class Task extends Model
                 $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $parentId)));
             } else {
                 $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $parentId, "personID"=>auth()->user()->id)));
+
                 $tmp1 = $this->adtResult($this->getTaskListbyCond(array("parentID" =>$parentId,"taskCreatorID"=>auth()->user()->id)));
+
                 $tmp = array_merge($tmp,$tmp1);
             }
             if (count($tmp)) {
@@ -442,15 +446,14 @@ class Task extends Model
 
         if (isset($cond['personID'])){
             $qrBuilder =  $qrBuilder->where("users.id", "=", $cond['personID']);
-            $qrBuilder = $qrBuilder->where("task.taskCreatorID", "!=", $cond['personID']);
-
+//            $qrBuilder = $qrBuilder->where("task.taskCreatorID", "!=", $cond['personID']);
         }
+
         if (isset($cond['parentID'])) {
             if ($cond['parentID'] == "") {
                 $qrBuilder = $qrBuilder->whereNull("task.parentID");
             } else {
                 $qrBuilder = $qrBuilder->where("task.parentID", "=", $cond['parentID']);
-
             }
         }
 

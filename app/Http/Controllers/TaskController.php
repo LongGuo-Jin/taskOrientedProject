@@ -113,21 +113,21 @@ class TaskController extends Controller
                 }
             }
         }
+
         return $new_data;
     }
 
     public function topSort($data , $key) {
         $user_id = auth()->user()->id;
         $filter = Filter::where('user_id',$user_id)->get()->first();
-
         $option = $filter[$key][strlen($filter[$key])-1]=='1'?true:false;
-
         $length = count($data);
+        $op1 = null;
+        $op2 = null;
         for ($i = 0 ; $i < $length - 1; $i ++) {
             for ($j = $i ; $j < $length; $j ++) {
                 switch ($key) {
                     case "status":
-
                         if ($option) {
                             if ($data[$i]["statusID"] > $data[$j]["statusID"]) {
                                 $temp = $data[$i];
@@ -173,39 +173,27 @@ class TaskController extends Controller
                         }
                         break;
                     case "date":
-
                         switch ($filter['date'][0]) {
                             case '1':
                                 $op1 = strtotime($data[$i]['creatAt']);
                                 $op2 = strtotime($data[$j]['creatAt']);
                                 break;
                             case '2':
-                                $arrEnd = (explode(".",$data[$i]['datePlanStart']));
-                                $op1 = strtotime($arrEnd[1].'/'.$arrEnd[0].'/'.$arrEnd[2]);
-                                $arrEnd = (explode(".",$data[$j]['datePlanStart']));
-                                $op2 = strtotime($arrEnd[1].'/'.$arrEnd[0].'/'.$arrEnd[2]);
+                                $op1 = date_create_from_format("d.m.Y",$data[$i]['datePlanStart'])->getTimestamp();
+                                $op2 = date_create_from_format("d.m.Y",$data[$j]['datePlanStart'])->getTimestamp();
+
                                 break;
                             case '3':
-                                $arrEnd = (explode(".",$data[$i]['datePlanEnd']));
-                                $op1 = strtotime($arrEnd[1].'/'.$arrEnd[0].'/'.$arrEnd[2]);
-                                $arrEnd = (explode(".",$data[$j]['datePlanEnd']));
-                                $op2 = strtotime($arrEnd[1].'/'.$arrEnd[0].'/'.$arrEnd[2]);
+                                $op1 = date_create_from_format("d.m.Y",$data[$i]['datePlanEnd'])->getTimestamp();
+                                $op2 = date_create_from_format("d.m.Y",$data[$j]['datePlanEnd'])->getTimestamp();
                                 break;
                             case '4':
-                                $dasi = $data[$i]['dateActualStart'] != null?$data[$i]['dateActualStart']:$data[$i]['datePlanStart'];
-                                $dasj = $data[$j]['dateActualStart'] != null?$data[$j]['dateActualStart']:$data[$j]['datePlanStart'];
-                                $arrEnd = (explode(".",$dasi));
-                                $op1 = strtotime($arrEnd[1].'/'.$arrEnd[0].'/'.$arrEnd[2]);
-                                $arrEnd = (explode(".",$dasj));
-                                $op2 = strtotime($arrEnd[1].'/'.$arrEnd[0].'/'.$arrEnd[2]);
+                                $op1 = $data[$i]['dateActualStart'] != null?strtotime($data[$i]['dateActualStart']):date_create_from_format("d.m.Y",$data[$i]['datePlanStart'])->getTimestamp();
+                                $op2 = $data[$j]['dateActualStart'] != null?strtotime($data[$j]['dateActualStart']):date_create_from_format("d.m.Y",$data[$j]['datePlanStart'])->getTimestamp();
                                 break;
                             case '5':
-                                $dasi = $data[$i]['dateActualEnd'] != null?$data[$i]['dateActualEnd']:$data[$i]['datePlanEnd'];
-                                $dasj = $data[$j]['dateActualEnd'] != null?$data[$j]['dateActualEnd']:$data[$j]['datePlanEnd'];
-                                $arrEnd = (explode(".",$dasi));
-                                $op1 = strtotime($arrEnd[1].'/'.$arrEnd[0].'/'.$arrEnd[2]);
-                                $arrEnd = (explode(".",$dasj));
-                                $op2 = strtotime($arrEnd[1].'/'.$arrEnd[0].'/'.$arrEnd[2]);
+                                $op1 = $data[$i]['dateActualEnd'] != null?strtotime($data[$i]['dateActualEnd']):date_create_from_format("d.m.Y",$data[$i]['datePlanEnd'])->getTimestamp();
+                                $op2 = $data[$j]['dateActualEnd'] != null?strtotime($data[$j]['dateActualEnd']):date_create_from_format("d.m.Y",$data[$j]['datePlanEnd'])->getTimestamp();
                                 break;
                         }
 
@@ -403,6 +391,7 @@ class TaskController extends Controller
             $history = $History->getHistoryByCond(array("taskID" => $taskId, "personID" => $personID));
             $statisticsData = $Task->getStatisticsData($taskDetails[0]);
             $taskList = $Task->getTaskList($taskDetails[0]);
+
             $detailTab = $request->input("detailTab");
         }
 
@@ -665,7 +654,7 @@ class TaskController extends Controller
             'statusID' =>  $request->input('statusID'),
             'priorityID' =>  $request->input('priorityID'),
             'weightID' =>  $request->input('weightID'),
-            'personID' =>  $request->input('personID'),
+            'personID' =>  $request->input('selectedPersonID'),
             'parentID' =>  $request->input('parentID') == 0 ? null: $request->input('parentID'),
             'description' =>  $request->input('info_description'),
             'tags' =>  $request->input('tagList'),

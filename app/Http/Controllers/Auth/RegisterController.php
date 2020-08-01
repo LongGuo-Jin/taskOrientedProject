@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Filter;
 use App\Http\Controllers\Controller;
 use App\Organization;
 use App\User;
@@ -85,6 +86,9 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
+        Filter::create([
+            'user_id'=>$user->id
+        ]);
 
         Tag::create([
             'name' => 'PROJECT',

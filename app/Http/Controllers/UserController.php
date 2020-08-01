@@ -7,6 +7,7 @@ use App\Model\Tag;
 use App\Model\TagPerson;
 use App\Organization;
 use App\User;
+use App\Filter;
 use Illuminate\Http\Request;
 use App\Helper\Common;
 use Illuminate\Validation\ValidationException;
@@ -58,6 +59,10 @@ class UserController extends Controller
             'email' => $fields['email'],
             'password' => Hash::make($fields['password']),
             'roleID' => $request->roleID,
+        ]);
+
+        Filter::create([
+            'user_id'=>$user['id']
         ]);
 
 //        dd($user);

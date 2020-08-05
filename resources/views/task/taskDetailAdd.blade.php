@@ -117,7 +117,7 @@
                                                     <div class="detail-information-staus-content">
                                                         <select class="form-control kt-selectpicker"  id="detail-information-staus" name="statusID">
                                                             @foreach($TaskStatusList as $taskStatusItem)
-                                                                <option data-content="{{$taskStatusItem['note']}}" value="{{$taskStatusItem['ID']}}">{{$taskStatusItem['title']}}</option>
+                                                                <option data-content="{{$taskStatusItem['note']}}" value="{{$taskStatusItem['ID']}}" selected>{{$taskStatusItem['title']}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>

@@ -26,8 +26,8 @@
                         <span class="kt-menu__link-text top-menu"><i class="fa fa-calendar header_menu_item_icon"></i>{{__('calendar.calendar_title')}}</span>
                     </a>
                 </li>
-                <li class="kt-menu__item  header_menu_item" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
-                    <a href="javascript:;" class="header_menu_item_link kt-menu__toggle">
+                <li class="kt-menu__item {{isset($people)?"header_menu_item_active":""}} header_menu_item" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
+                    <a href="{{route('people')}}" class="header_menu_item_link">
                         <span class="kt-menu__link-text top-menu"><i class="fa fa-users header_menu_item_icon"></i>{{__('main.people')}}</span>
                     </a>
                 </li>
@@ -54,7 +54,7 @@
 
     <!-- begin:: Header Topbar -->
     <div class="kt-header__topbar">
-        @if(isset($taskCard))
+        @if(isset($taskCard) || isset($dashboard))
             <?php
 
             $filter_order = auth()->user()->filter_order;
@@ -153,7 +153,7 @@
                                     ?>
                                     @foreach ($status[0] as $index => $state)
                                         <div class="row filter-column-item">
-                                            <div class="col-lg-3"><i class="fa fa-eye <?php if($filters['status'][$index] == '0') { echo 'eye-deselect'; } ?>" onclick="StatusFilter(this,{{$index}})"></i></div>
+                                            <div class="col-lg-3"><i class="fa fa-eye  <?php if($filters['status'][$index] == '0') { echo 'eye-deselect'; } ?>" onclick="StatusFilter(this,{{$index}})"></i></div>
                                             <div class="col-lg-3"><?php echo $status[1][$index]; ?></div>
                                             <div class="col-lg-3"><span>{{$state}}</span></div>
                                         </div>

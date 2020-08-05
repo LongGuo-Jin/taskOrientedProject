@@ -28,30 +28,19 @@
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
     <!--end::Fonts -->
-
     <link href="{{asset('public/css/app.css')}}" rel="stylesheet" type="text/css" />
-    {{-- <link href="{{asset('public/css/adminlte.css')}}" rel="stylesheet" type="text/css" /> --}}
-    {{--<link href="{{asset('public/assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />--}}
-
     <!--end::Layout Skins -->
     <link rel="shortcut icon" href="{{asset('public/assets/media/logos/favicon.ico')}}" />
-
     @yield('style')
 
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-        {{--@include('partials.sidebar')--}}
-        {{--@include('partials.nav')--}}
         @yield('content')
     </div>
-
 <!-- begin::Global Config(global config for global JS sciprts) -->
-
-<script src="{{asset('public/js/app.js')}}" type="text/javascript"></script>
-
-@yield('script')
-
+    <script src="{{asset('public/js/app.js')}}" type="text/javascript"></script>
+    @yield('script')
 </body>
 </html>

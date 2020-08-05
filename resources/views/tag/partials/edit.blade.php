@@ -24,21 +24,23 @@
 
         </div>
         <div class="row mt-3">
-            <div class="col-6">
-                <div class="mb-2 custom-span">
-                    Tag Type
+                <div class="ml-2">
+                    <div class="mb-2 custom-span">
+                        Tag Type
+                    </div>
+                    <div class="ml-2" style="display: flex">
+                        <input type="radio" id="system-radio" {{$tags['selected']['tagtype'] == 1?"checked":""}} disabled class="mt-1 mr-3"> <span> <h5>System Tag</h5></span>
+                    </div>
+                    <div class="ml-2" style="display: flex">
+                        <input type="radio" id="system-radio" {{$tags['selected']['tagtype'] == 2?"checked":""}} disabled class="mt-1 mr-3"> <span> <h5>Organization Tag</h5></span>
+                    </div>
+                    <div class="ml-2" style="display: flex">
+                        <input type="radio" id="system-radio" {{$tags['selected']['tagtype'] == 3?"checked":""}} disabled class="mt-1 mr-3"> <span> <h5>Personal Tag</h5></span>
+                    </div>
                 </div>
-                <div class="ml-2" style="display: flex">
-                    <input type="radio" id="system-radio" {{$tags['selected']['tagtype'] == 1?"checked":""}} disabled class="mt-1 mr-3"> <span> <h5>System Tag</h5></span>
-                </div>
-                <div class="ml-2" style="display: flex">
-                    <input type="radio" id="system-radio" {{$tags['selected']['tagtype'] == 2?"checked":""}} disabled class="mt-1 mr-3"> <span> <h5>Organization Tag</h5></span>
-                </div>
-                <div class="ml-2" style="display: flex">
-                    <input type="radio" id="system-radio" {{$tags['selected']['tagtype'] == 3?"checked":""}} disabled class="mt-1 mr-3"> <span> <h5>Personal Tag</h5></span>
-                </div>
-            </div>
-            <div class="col-6" id="colorpicker">
+        </div>
+        <div class="row mt-2">
+            <div class="ml-2">
                 <span class="custom-span">Tag Color</span>
                 <input type="hidden" name="tagColor" id="tagColorEdit" value="{{$tags['selected']['color']}}">
                 <input type="hidden" name="tagColorValue" id="tagColorValueEdit" value="{{$tags['selected']['colorValue']}}">
@@ -58,7 +60,7 @@
                 ];
                 ?>
                 @for( $i = 0; $i < 3;  $i ++)
-                    <div style="display: flex">
+                    <div style="display: flex;margin-left: 10px">
                         @for( $j = 0; $j < 8; $j ++)
                             <div class="color-check-box" >
                                 @if($i == $row && $j == $col)
@@ -71,11 +73,12 @@
                         @endfor
                     </div>
                 @endfor
-                <div style="display: flex;">
+                <div style="display: flex;margin-left: 10px">
                     <input type="checkbox" style="width: 25px; height: 25px" name="showTagEdit" id="tagShowEdit" {{$tags['selected']['show'] == 1?"checked":""}}>
                     <span class="mt-auto mb-auto ml-2 custom-span">Show Tag</span>
                 </div>
             </div>
+
         </div>
         <div class="mt-2">
             <div class="mb-2 custom-span">

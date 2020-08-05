@@ -43,6 +43,28 @@ class TaskController extends Controller
         $PersonTagNameList = $TagPerson->getPersonTagName();
         $user = auth()->user();
         $personID = $user->id;
+        $filters =Filter::where('user_id',$personID)->first()->toArray();
+
+        $filter_order = auth()->user()->filter_order;
+        $filter_array= array();
+        $filter_array_str = ["status","priority","weight","date","workTime","budget"];
+
+        for ($i = 0 ; $i < strlen($filter_order);  $i ++) {
+            $filter_array[$filter_order[$i]] = $filter_array_str[$i];
+        }
+
+        for ($i = count($filter_array) ; $i >= 1;  $i --) {
+            if ($filter_array[$i] == 'budget')
+                continue;
+            $taskList['new'] = $this->topSort($taskList['new'],$filter_array[$i]);
+            $taskList['active'] = $this->topSort($taskList['active'],$filter_array[$i]);
+            $taskList['overdue'] = $this->topSort($taskList['overdue'],$filter_array[$i]);
+        }
+
+        $taskList['new'] = $this->task_filter($taskList['new']);
+        $taskList['active'] = $this->task_filter($taskList['active']);
+        $taskList['overdue'] = $this->task_filter($taskList['overdue']);
+
 
         return view('dashboard',
             [
@@ -51,6 +73,7 @@ class TaskController extends Controller
                 'PersonTagNameList' => $PersonTagNameList,
                 'personalID' => $personID,
                 'locale' => $locale,
+                'filters' => $filters,
             ]
         );
     }
@@ -542,6 +565,7 @@ class TaskController extends Controller
         $timeSpent = $hour * 1 + $min * 1/60;
         $taskData = [
             'taskID' => $taskID,
+            'personID'=>$personID,
             'personName' =>  $user->nameFirst." ".$user->nameFamily,
             'description' =>  $description,
             'timeAllocated'=> $timeSpent,
@@ -569,6 +593,7 @@ class TaskController extends Controller
         $timeSpent = $hour * 1 + $min * 1/60;
         $taskData = [
             'taskID' => $taskID,
+            'personID'=>$personID,
             'personName' =>  $user->nameFirst." ".$user->nameFamily,
             'description' =>  $description,
             'timeSpent'=> $timeSpent,
@@ -877,6 +902,7 @@ class TaskController extends Controller
             'nameFirst' => ['required', 'string', 'max:255'],
             'nameFamily' => ['required', 'string', 'max:255'],
         ]);
+
         $user->update([
             'nameFirst' => $fields['nameFirst'],
             'nameFamily' => $fields['nameFamily'],

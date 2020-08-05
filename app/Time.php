@@ -8,6 +8,6 @@ class Time extends Model
 {
     //
     protected $fillable = [
-        'personName','taskID','description','timeSpent','timeAllocated','workDate'
+       'personID', 'personName','taskID','description','timeSpent','timeAllocated','workDate'
     ];
 }

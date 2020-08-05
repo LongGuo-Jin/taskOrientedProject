@@ -80,35 +80,35 @@
                                                                                 <text x="5" y="22"  style="fill:black;font-size: 16px">{{$taskItem['nameTag']}}</text>
 
                                                                                 @break
-                                                                                @case (2)
-                                                                                {{--//rect--}}
+                                                                            @case (2)
+                                                                            {{--//rect--}}
+                                                                              <svg width="32" height="32">
+                                                                                <rect x="0" y="0" rx="5" ry="5" width="32" height="32" fill="{{$taskItem['avatarColor']}}" style="stroke-width:0;"></rect>
+                                                                                <text x="5" y="22" style="fill:black;font-size: 16px">{{$taskItem['nameTag']}}</text>
+
+                                                                                @break
+                                                                            @case (3)
+                                                                            {{--//polygon 5--}}
+                                                                               <svg width="32" height="32">
+                                                                                <polygon points="16,0 0.78309703188832,11.055724111756 6.5954291951265,28.944266992616 25.404553884384,28.944279286068 	31.216909431155,11.055744002985 " fill="{{$taskItem['avatarColor']}}" style="stroke:purple;stroke-width:0;"></polygon>
+                                                                                <text x="5" y="22" style="fill:black;font-size: 16px">{{$taskItem['nameTag']}}</text>
+
+                                                                                @break
+                                                                            @case (4)
+                                                                            {{--//polygon 6--}}
+                                                                              <svg width="32" height="32" >
+                                                                                <polygon points="8.000001509401,2.143592667996 8.5442763975152E-13,15.999994771282 7.9999924529963,29.856402103284 23.999989434191,29.856412560718 	31.999999999992,16.000015686155 24.000016603405,2.1436031254426 "  fill="{{$taskItem['avatarColor']}}" style="stroke:purple;stroke-width:0;"></polygon>
+                                                                                <text x="5" y="22" style="fill:black;font-size: 16px">{{$taskItem['nameTag']}}</text>
+
+                                                                                @break
+                                                                            @case (5)
+                                                                            {{--//rotated rectangle--}}
                                                                                 <svg width="32" height="32">
-                                                                                    <rect x="0" y="0" rx="5" ry="5" width="32" height="32" fill="{{$taskItem['avatarColor']}}" style="stroke-width:0;"></rect>
+                                                                                    <polygon points="8.5442763975152E-13,15.999994771282 15.999989542563,31.999999999997 31.999999999992,16.000015686155 	16.000020914873,1.3669065879185E-11 " fill="{{$taskItem['avatarColor']}}" style="stroke:purple;stroke-width:0;"></polygon>
                                                                                     <text x="5" y="22" style="fill:black;font-size: 16px">{{$taskItem['nameTag']}}</text>
 
-                                                                                    @break
-                                                                                    @case (3)
-                                                                                    {{--//polygon 5--}}
-                                                                                    <svg width="32" height="32">
-                                                                                        <polygon points="16,0 0.78309703188832,11.055724111756 6.5954291951265,28.944266992616 25.404553884384,28.944279286068 	31.216909431155,11.055744002985 " fill="{{$taskItem['avatarColor']}}" style="stroke:purple;stroke-width:0;"></polygon>
-                                                                                        <text x="5" y="22" style="fill:black;font-size: 16px">{{$taskItem['nameTag']}}</text>
-
-                                                                                        @break
-                                                                                        @case (4)
-                                                                                        {{--//polygon 6--}}
-                                                                                        <svg width="32" height="32" >
-                                                                                            <polygon points="8.000001509401,2.143592667996 8.5442763975152E-13,15.999994771282 7.9999924529963,29.856402103284 23.999989434191,29.856412560718 	31.999999999992,16.000015686155 24.000016603405,2.1436031254426 "  fill="{{$taskItem['avatarColor']}}" style="stroke:purple;stroke-width:0;"></polygon>
-                                                                                            <text x="5" y="22" style="fill:black;font-size: 16px">{{$taskItem['nameTag']}}</text>
-
-                                                                                            @break
-                                                                                            @case (5)
-                                                                                            {{--//rotated rectangle--}}
-                                                                                            <svg width="32" height="32">
-                                                                                                <polygon points="8.5442763975152E-13,15.999994771282 15.999989542563,31.999999999997 31.999999999992,16.000015686155 	16.000020914873,1.3669065879185E-11 " fill="{{$taskItem['avatarColor']}}" style="stroke:purple;stroke-width:0;"></polygon>
-                                                                                                <text x="5" y="22" style="fill:black;font-size: 16px">{{$taskItem['nameTag']}}</text>
-
-                                                                                                @break
-                                                                                                @endswitch
+                                                                                @break
+                                                                        @endswitch
                                                                         @switch($taskItem['roleID'])
                                                                                                     @case (1)
                                                                                                     <circle cx="28" cy="4" r="3" stroke="black" stroke-width="0" fill="black"></circle>
@@ -318,9 +318,6 @@
                                                                                 @break
                                                                             @endswitch
                                                                         </svg>
-                                                                    {{--<span class="kt-badge kt-badge--brand kt-badge--lg">--}}
-                                                                        {{--{{$taskItem['psntagName']}}--}}
-                                                                    {{--</span>--}}
                                                                 </div>
                                                             </div>
                                                             </div>

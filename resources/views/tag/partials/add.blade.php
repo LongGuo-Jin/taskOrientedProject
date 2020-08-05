@@ -14,7 +14,7 @@
                 @endif
             </div>
             <div class="row mt-3">
-                <div class="col-6">
+                <div class="ml-2">
                     <div class="mb-2 custom-span">
                         Tag Type
                     </div>
@@ -23,7 +23,9 @@
                         <span id="tagTypeShow"> <h5>Organization Tag</h5></span>
                     </div>
                 </div>
-                <div class="col-6" id="colorpicker">
+            </div>
+            <div class="row mt-3">
+                <div class="ml-2">
                     <span class="custom-span">Tag Color</span>
                     <input type="hidden" name="tagColor" id="tagColor" value="#4a6f4b99" class="color-picker mt-2 mb-3">
                     <input type="hidden" name="tagColorValue" id="tagColorValue" value="{{13}}">
@@ -44,7 +46,7 @@
                     ];
                     ?>
                     @for( $i = 0; $i < 3;  $i ++)
-                        <div style="display: flex">
+                        <div style="display: flex; margin-left: 10px">
                             @for( $j = 0; $j < 8; $j ++)
                                 <div class="color-check-box" >
                                     @if($i == $row && $j == $col)
@@ -57,7 +59,7 @@
                             @endfor
                         </div>
                     @endfor
-                    <div style="display: flex;">
+                    <div style="display: flex;margin-left: 10px">
                         <input type="checkbox" style="width: 25px; height: 25px" name="showTag" checked >
                         <span class="mt-auto mb-auto ml-2 custom-span">Show Tag</span>
                     </div>

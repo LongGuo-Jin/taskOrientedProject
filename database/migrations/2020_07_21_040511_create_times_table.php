@@ -15,6 +15,7 @@ class CreateTimesTable extends Migration
     {
         Schema::create('times', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('personID');
             $table->string('personName');
             $table->unsignedBigInteger('taskID');
             $table->string('description')->nullable();

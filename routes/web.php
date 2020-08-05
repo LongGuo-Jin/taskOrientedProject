@@ -24,8 +24,6 @@ Auth::routes();
 
 Route::group(['middleware'=>['auth' , 'tag']] , function() {
 
-
-
     Route::get('dashboard', 'TaskController@index')->name('dashboard');
     Route::get('calendar', 'TaskController@CalendarView')->name('CalendarView');
     Route::post('shake','TaskController@Shake')->name('Shake');
@@ -61,13 +59,15 @@ Route::group(['middleware'=>['auth' , 'tag']] , function() {
     });
 
     Route::group(["prefix"=>"tag"] , function() {
-
-        Route::get('', 'TagController@index')->name('tag');
+        Route::get('','TagController@index')->name('tag');
         Route::get('updatePin', 'TagController@UpdatePin')->name('tag.updatePin');
         Route::post('add','TagController@Add')->name('tag.add');
         Route::post('update','TagController@Update')->name('tag.update');
         Route::get('delete','TagController@Delete')->name('tag.delete');
     });
+
+    Route::get('people','UserController@People')->name('people');
+    Route::get('organization','OrganizationController@Organization')->name('organization');
 
 });
 

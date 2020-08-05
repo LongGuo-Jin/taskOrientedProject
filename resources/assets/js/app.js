@@ -1,8 +1,9 @@
 require('./bootstrap');
-require('jquery-knob-chif');
-require('jquery-mapael');
-require('jquery-mousewheel');
-require('jquery-validation');
 
+// window.Vue = require('vue');
 
-
+// Vue.component('my-color-picker',require('./components/MyColorPicker.vue'));
+// Vue.component('avatar-shape',require('./components/AvatarShape.vue'));
+// const  app = new Vue({
+//     el: "#app"
+// });

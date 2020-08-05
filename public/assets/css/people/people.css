@@ -1,0 +1,126 @@
+.filter_menu {
+    width: 6%;
+    margin-left: 2px;
+    padding-left: 2px;
+    /*height: 100vh;*/
+    display: flex;
+    flex-direction: column
+}
+.filter_item {
+    background-color: white;
+    cursor: pointer;
+    text-align: center;
+    margin: 3px;
+    font-size: 12px;
+}
+
+.filter_item:hover {
+    -webkit-transition: background-color .65s ease-in-out;
+    transition: background-color .65s ease-in-out;
+    background-color: #ff6aa8;
+    cursor: pointer;
+    text-align: center;
+    margin: 3px;
+    font-size: 12px;
+
+}
+
+.filter_item_selected {
+    background-color: #ff6aa8;
+    cursor: pointer;
+    text-align: center;
+    margin: 3px;
+    font-size: 12px;
+}
+.people_element,
+.people_outer {
+    height: calc(100vh - 119px);
+    width: 100%;
+    border: none;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.people_outer {
+    position: relative;
+    overflow: hidden;
+}
+
+.people_inner {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.people_inner::-webkit-scrollbar {
+    display: none;
+}
+
+
+.people_section {
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.person_card {
+    width: 290px;
+    height: 200px;
+    -webkit-box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.1);
+    display: flex;
+    margin: 10px;
+    background-color: white;
+    cursor: pointer;
+    color: black;
+    border-radius: 10px;
+}
+.people_card_text {
+    display: flex;
+    margin-bottom: 5px
+}
+
+.people_card_text div:nth-child(1) {
+    width: 20%;
+}
+
+.people_card_text div:nth-child(2) {
+    width: 80%;
+}
+
+.people_details_text {
+    display: flex;
+}
+
+.people_details_text p:nth-child(1) {
+    width: 40%;
+}
+
+.people_details_text p:nth-child(2) {
+    width: 60%;
+    overflow: visible;
+}
+
+.person_card_selected {
+    width: 290px;
+    height: 200px;
+    -webkit-box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 1);
+    box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 1);
+    display: flex;
+    margin: 10px;
+    background-color: white;
+    border-radius: 10px;
+    color: black;
+}
+
+.person_eye_icon {
+    cursor: pointer;
+}
+.person_eye_icon_selected {
+    cursor: pointer;
+    color: grey;
+}

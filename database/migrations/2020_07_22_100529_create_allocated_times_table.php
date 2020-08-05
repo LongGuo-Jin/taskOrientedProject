@@ -15,6 +15,7 @@ class CreateAllocatedTimesTable extends Migration
     {
         Schema::create('allocated_times', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('personID');
             $table->string('personName');
             $table->unsignedBigInteger('taskID');
             $table->string('description')->nullable();

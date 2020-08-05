@@ -15,7 +15,7 @@ class TaskStatus extends Model
 
     public function getTaskStatusList()
     {
-        $ret = DB::table($this->table)->orderBy('id', 'asc')->get()->toArray();
+        $ret = DB::table($this->table)->where('ID' ,'<',6)->orderBy('id', 'asc')->get()->toArray();
 
         return Common::stdClass2Array($ret);
     }

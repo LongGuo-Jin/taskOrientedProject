@@ -587,8 +587,8 @@ div.detail-statistics-content {
 .color-check-box {
     display: block;
     position: relative;
-    margin-right: 20px;
-    margin-bottom: 20px;
+    margin-right: 30px;
+    margin-bottom: 30px;
     cursor: pointer;
     font-size: 18px;
     -webkit-user-select: none;
@@ -599,8 +599,8 @@ div.detail-statistics-content {
     position: absolute;
     top: 0;
     left: 0;
-    height: 15px;
-    width: 15px;
+    height: 25px;
+    width: 25px;
     border-radius: 2px;
 }
 
@@ -609,20 +609,20 @@ div.detail-statistics-content {
     z-index: 99;
     opacity: 0;
     cursor: pointer;
-    height: 15px;
-    width: 15px;
+    height: 20px;
+    width: 20px;
 }
 .color-check-box:hover input ~ .checkmark {
     background-color: #ffffff;
 }
 
 .color-check-box .checkmark:after {
-    left: 5px;
-    top: 2px;
-    width: 6px;
-    height: 10px;
+    left: 9px;
+    top: 5px;
+    width: 8px;
+    height: 13px;
     border: solid #000000;
-    border-width: 0 2px 2px 0;
+    border-width: 0 3px 3px 0;
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);

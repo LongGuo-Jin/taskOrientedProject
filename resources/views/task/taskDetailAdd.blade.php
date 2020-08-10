@@ -87,9 +87,7 @@
                                                         @break
                                                     @endswitch
                                                 </svg>
-                                                    {{--<span class="kt-badge kt-badge--brand kt-badge--lg" id="detail-add-personTag">--}}
-                                                        {{--{{$PersonTagNameList[$personalID]}}--}}
-                                                    {{--</span>--}}
+
                                                 </div>
                                                 <div class="col-lg-9">
                                                     <div class="detail-information-staus-title">
@@ -159,8 +157,11 @@
                                             <div class="col-lg-10">
                                                 <div class="detail-information-staus-content">
                                                     <select class="form-control kt-selectpicker" multiple data-actions-box="true" name="tags">
-                                                        @foreach($systemTagList as $tagItem)
-                                                            <option data-content="{{$tagItem['note']}}" value="{{$tagItem['ID']}}">{{$tagItem['name']}}</option>
+                                                        @foreach($tagList as $tagItem)
+                                                            <option data-content='<span class="@if($tagItem['tagtype']==1) system-span @elseif($tagItem['tagtype']==2) organization-span @elseif($tagItem['tagtype']==3) personal-span @endif" style="@if ($tagItem['tagtype']!=3 )background-color:{{$tagItem['color']}} @else border-color:{{$tagItem['color']}} @endif">
+                                                                        {{$tagItem['name']}}
+                                                                    </span>' value="{{$tagItem['ID']}}">
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 </div>

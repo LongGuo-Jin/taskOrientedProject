@@ -29,17 +29,14 @@ class UserController extends Controller
         $organization = Organization::findOrFail($organization_id);
         $users = $organization->Users()->get();
 //        dd($users);
-        $TagPerson = new TagPerson();
-        $PersonTagNameList = $TagPerson->getPersonTagName();
-        return view('user.index',['users'=>$users , 'organization' => $organization->organization,'PersonTagNameList' => $PersonTagNameList,]);
+
+        return view('user.index',['users'=>$users , 'organization' => $organization->organization]);
     }
 
     public function AddUser() {
         $organization_id = auth()->user()->Organization()->first()->id;
         $organization = Organization::findOrFail($organization_id);
-        $TagPerson = new TagPerson();
-        $PersonTagNameList = $TagPerson->getPersonTagName();
-        return view('user.create' , ['organization' => $organization->organization,'PersonTagNameList' => $PersonTagNameList]);
+        return view('user.create' , ['organization' => $organization->organization]);
     }
 
     public function SaveUser(Request $request) {
@@ -93,9 +90,8 @@ class UserController extends Controller
 
         $id = $request->id;
         $users = User::where('id',$id)->firstOrFail();
-        $TagPerson = new TagPerson();
-        $PersonTagNameList = $TagPerson->getPersonTagName();
-        return view('user.edit',['user'=>$users,'organization' => $organization->organization,'PersonTagNameList' => $PersonTagNameList]);
+
+        return view('user.edit',['user'=>$users,'organization' => $organization->organization]);
     }
 
     public function UpdateUser(Request $request) {
@@ -133,13 +129,20 @@ class UserController extends Controller
     }
 
     public function People(Request $request) {
+        $orgID = auth()->user()->organization_id;
         $selected_Id = $request->select;
         $alpha_filter = $request->alpha;
         $select_person = null;
+        $Tag = new Tag();
+        $tagList = $Tag->getTagList();
+        $peopleTag = new TagPerson();
+        $PeopleTagList = [];
+        if ($selected_Id)
+            $PeopleTagList = $peopleTag->getPersonTagList($selected_Id);
+
         $statistics = Task::where('personID',$selected_Id)->get()->toArray();
         $times = Time::where('personID',$selected_Id)->get()->toArray();
 
-//        dd($times);
         $workTime = $this->GetWorkTime($times);
         $statistics = $this->GetStatistics($statistics);
 
@@ -147,7 +150,7 @@ class UserController extends Controller
             $select_person = User::leftJoin('organizations','organizations.id','=','users.organization_id')->select('users.*','organizations.organization')->where('users.id',$selected_Id)->get()->first();
         }
 
-        $people = User::leftJoin('organizations','organizations.id','=','users.organization_id')->select('users.*','organizations.organization')->get()->toArray();
+        $people = User::leftJoin('organizations','organizations.id','=','users.organization_id')->select('users.*','organizations.organization')->where('users.organization_id',$orgID)->get()->toArray();
 
         $alpha_filter = !isset($alpha_filter)?'All':($alpha_filter==''?'All':$alpha_filter);
         $people = $this->GetPeopleByAlphaAndCategory($people,$alpha_filter);
@@ -160,8 +163,94 @@ class UserController extends Controller
                 'selectedID'=>$selected_Id,
                 'workTime' => $workTime,
                 'statistics' => $statistics,
+                'tagList' => $tagList,
+                'peopleTagList' => $PeopleTagList
             ]
         );
+    }
+
+    public function AddPerson(Request $request) {
+        $orgId = $request->input('organizationID');
+        $tags = $request->input('personTags');
+
+        $fields = $this->validate($request, [
+            'nameFirst' => ['required', 'string', 'max:255'],
+            'nameFamily' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        ]);
+
+        $data = [
+            'nameFirst' => $request->input('nameFirst'),
+            'nameMiddle' => $request->input('nameMiddle'),
+            'nameFamily' => $request->input('nameFamily'),
+            'nameTag' => $request->input('nameFirst')[0].$request->input('nameFamily')[0],
+            'gender' => $request->input('gender'),
+            'birthday' => $request->input('birthday'),
+            'nationality' => $request->input('nationality'),
+            'address' => $request->input('address'),
+            'country' => $request->input('country'),
+            'phone_number' => $request->input('phone_number'),
+            'email' => $request->input('email'),
+            'messenger' => $request->input('messenger'),
+            'companyID' => $request->input('companyID'),
+            'nationalID' => $request->input('nationalID'),
+            'bankAccount' => $request->input('bankAccount'),
+            'bank' => $request->input('bank'),
+            'swift_bic' => $request->input('swift_bic'),
+            'family' => $request->input('family'),
+            'roleID' => $request->input('roleID'),
+            'description' => $request->input('description'),
+            'password' => Hash::make($request->input('password')),
+        ];
+
+        $user = Organization::findOrFail($orgId)->Users()->create($data);
+        if ($tags != "") {
+            $tags = explode(",",$tags);
+            foreach($tags as $tag) {
+                TagPerson::create(['personID'=>$user->id,'tagID'=>$tag]);
+            }
+        }
+        return redirect('people?select='.$user->id);
+
+    }
+
+    public function UpdatePeople(Request $request) {
+        $id = $request->input('selectedID');
+        $tags = $request->input('tags');
+
+        if ($tags != "") {
+            TagPerson::where('personID',$id)->delete();
+            $tags = explode(",",$tags);
+
+            foreach($tags as $tag) {
+                TagPerson::create(['personID'=>$id,'tagID'=>$tag]);
+            }
+
+        }
+
+        $data = [
+            'nameFirst' => $request->input('nameFirst'),
+            'nameMiddle' => $request->input('nameMiddle'),
+            'nameFamily' => $request->input('nameFamily'),
+            'gender' => $request->input('gender'),
+            'birthday' => $request->input('birthday'),
+            'nationality' => $request->input('nationality'),
+            'address' => $request->input('address'),
+            'country' => $request->input('country'),
+            'phone_number' => $request->input('phone_number'),
+            'email' => $request->input('email'),
+            'messenger' => $request->input('messenger'),
+            'companyID' => $request->input('companyID'),
+            'nationalID' => $request->input('nationalID'),
+            'bankAccount' => $request->input('bankAccount'),
+            'bank' => $request->input('bank'),
+            'swift_bic' => $request->input('swift_bic'),
+            'family' => $request->input('family'),
+            'description' => $request->input('description'),
+        ];
+        User::where('id',$id)->update($data);
+        return redirect()->back();
+
     }
 
     public function GetPeopleByAlphaAndCategory($people,$alpha) {

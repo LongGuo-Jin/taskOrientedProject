@@ -17,7 +17,7 @@
 .filter_item:hover {
     -webkit-transition: background-color .65s ease-in-out;
     transition: background-color .65s ease-in-out;
-    background-color: #ff6aa8;
+    background-color: #6fe900;
     cursor: pointer;
     text-align: center;
     margin: 3px;
@@ -26,7 +26,7 @@
 }
 
 .filter_item_selected {
-    background-color: #ff6aa8;
+    background-color: #6fe900;
     cursor: pointer;
     text-align: center;
     margin: 3px;
@@ -68,8 +68,8 @@
 }
 
 .person_card {
-    width: 290px;
-    height: 200px;
+    width: 300px;
+    height: 220px;
     -webkit-box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.1);
     box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -92,6 +92,10 @@
     width: 80%;
 }
 
+.people_input_field {
+    width: 60%;
+    margin-bottom: 5px;
+}
 .people_details_text {
     display: flex;
 }
@@ -100,14 +104,14 @@
     width: 40%;
 }
 
-.people_details_text p:nth-child(2) {
-    width: 60%;
-    overflow: visible;
-}
+/*.people_details_text p:nth-child(2) {*/
+    /*width: 60%;*/
+    /*overflow: visible;*/
+/*}*/
 
 .person_card_selected {
-    width: 290px;
-    height: 200px;
+    width: 300px;
+    height: 220px;
     -webkit-box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 1);
     box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 1);
     display: flex;
@@ -123,4 +127,24 @@
 .person_eye_icon_selected {
     cursor: pointer;
     color: grey;
+}
+.system-span {
+    padding: 5px;
+    color: black !important;
+    margin: 2px;
+}
+
+.organization-span {
+    padding: 5px;
+    border-radius: 10px;
+    color: black !important;
+    margin: 2px;
+}
+
+.personal-span {
+    padding: 5px;
+    border-radius: 10px;
+    border: solid 2px;
+    color: black !important;
+    margin: 2px;
 }

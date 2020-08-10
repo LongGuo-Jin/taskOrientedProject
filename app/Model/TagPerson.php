@@ -13,20 +13,9 @@ class TagPerson extends Model
     protected $fillable = [
         'tagID', 'personID'
     ];
-
-    public function getPersonTagName()
-    {
-        $ret = DB::table('tag')
-                    ->join($this->table, 'tagID', '=', 'ID')
-                    ->select('tag.name', "{$this->table}.personID")
-                    ->get()
-                    ->toArray();
-        $keyArr = array();
-
-        foreach (Common::stdClass2Array($ret) as $item) {
-            $keyArr[$item["personID"]] = $item["name"];
-        }
-
-        return $keyArr;
+    public function getPersonTagList($personID) {
+        $ret  = DB::table($this->table)->leftJoin('tag','tagperson.tagID','tag.ID')
+            ->select('tagperson.personID','tag.*')->where('tagperson.personID',$personID)->where('tag.show',1)->get()->toArray();
+        return Common::stdClass2Array($ret);
     }
 }

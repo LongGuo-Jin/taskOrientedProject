@@ -10,7 +10,7 @@
     <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" style="padding-top: 90px !important;" id="kt_wrapper">
     @include('layouts.header')
         <div class="row m-0">
-            <div class="col-lg-7">
+            <div class="col-lg-8">
                 <div style="display: flex">
                     <div class="filter_menu">
                         <?php
@@ -37,9 +37,12 @@
                             <div class="people_element">
                                 @foreach($people as $index1=>$item)
                                     @if(is_array($item))
-                                        <div style="display: flex">
-                                            <h3> <i class="fa fa-eye person_eye_icon" id="{{$sections[$index]."eye"}}" onclick="section({{$index}})"></i> {{$sections[$index]}}</h3>
-                                            &nbsp;&nbsp;&nbsp;<h4> {{count($item)}} of {{$people[$index1.'_count']}}</h4>
+                                        <div style="display: flex; justify-content: space-between">
+                                            <div style="display: flex">
+                                                <h3> <i class="fa fa-eye person_eye_icon" id="{{$sections[$index]."eye"}}" onclick="section({{$index}})"></i> {{$sections[$index]}}</h3>
+                                                &nbsp;&nbsp;&nbsp;<h4> {{count($item)}} of {{$people[$index1.'_count']}}</h4>
+                                            </div>
+                                            @if($sections[$index] == "Employees")<button class="form-control btn btn-primary" style="width: 20%;" id="addPerson"> Add Person </button>@endif
                                         </div>
                                         <div style="width: 100%; height: 1px; background-color: rgba(99,99,99,0.72)"></div>
                                         <div class="people_section" id="{{$sections[$index ++]}}">
@@ -142,10 +145,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-5">
+            <div class="col-lg-4">
                 @if($selected_person != null)
                     @include('people.partials.details')
                 @endif
+                @include('people.partials.add')
             </div>
         </div>
     </div>
@@ -153,6 +157,9 @@
 @section('script')
 
 <script src="{{asset('public/assets/js/people/people.js')}}" type="text/javascript"></script>
+<script src="{{asset('public/assets/js/demo1/pages/crud/forms/widgets/bootstrap-datepicker.js')}}" type="text/javascript"></script>
+<script src="{{asset('public/assets/js/demo1/pages/crud/forms/widgets/bootstrap-select.js')}}" type="text/javascript"></script>
+
 <script>
     let alpha = "{{$alpha}}";
     function section(id) {

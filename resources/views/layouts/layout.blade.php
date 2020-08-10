@@ -128,6 +128,7 @@
     <script src="{{asset('public/assets/vendors/custom/js/vendors/sweetalert2.init.js')}}" type="text/javascript"></script>
     <script src="{{asset('public/assets/vendors/custom/flot/flot.bundle.js')}}" type="text/javascript"></script>
 
+
     <!--end:: Global Optional Vendors -->
 
     <!--begin::Global Theme Bundle(used by all pages) -->

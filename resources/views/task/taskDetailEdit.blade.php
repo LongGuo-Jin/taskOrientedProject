@@ -185,27 +185,39 @@
                                         {{__('task.tags')}}
                                     </div>
                                     <div class="col-lg-10 detail-edit-tags">
-                                        <p><?php
-                                            print_r($taskDetails["TagNameIcons"]);
-                                            $tmpTagArr = explode(",", $taskDetails["tags"]);
+                                        <div style="display: flex; flex-wrap: wrap;"><?php
+                                            foreach($taskTagList as $taskTag) {
+                                                ?>
+                                                <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="@if ($taskTag['tagtype']!=3 )background-color:{{$taskTag['color']}} @else border-color:{{$taskTag['color']}} @endif">
+                                                    {{$taskTag['name']}}
+                                                </span> &nbsp;
+                                            <?php
+                                            }
                                             ?>
-                                        </p>
-                                        <p @if ($taskDetails["TagNameIcons"] != "") style="display: none;" @endif>
+                                        </div>
+                                        <p @if (count($taskTagList) != 0) style="display: none;" @endif>
                                             <select class="form-control kt-selectpicker" multiple data-actions-box="true" name="tags">
-                                                @foreach($systemTagList as $tagItem)
-                                                    <option data-content="{{$tagItem['note']}}" value="{{$tagItem['ID']}}"
+                                                @foreach($tagList as $tagItem)
+                                                    <option data-content='<span class="@if($tagItem['tagtype']==1) system-span @elseif($tagItem['tagtype']==2) organization-span @elseif($tagItem['tagtype']==3) personal-span @endif" style="@if ($tagItem['tagtype']!=3 )background-color:{{$tagItem['color']}} @else border-color:{{$tagItem['color']}} @endif">
+                                                    {{$tagItem['name']}}
+                                                        </span>' value="{{$tagItem['ID']}}"
                                                         <?php
-                                                        if(in_array($tagItem["ID"], $tmpTagArr) == 1)
-                                                            echo 'selected=selected';
+                                                            foreach($taskTagList as $taskTag) {
+                                                            if ($taskTag['ID'] == $tagItem['ID'])
+                                                            {
+                                                                echo 'selected';
+                                                                break;
+                                                            }
+                                                        }
                                                         ?>
                                                     >
-                                                        {{$tagItem['name']}}
                                                     </option>
                                                 @endforeach
                                             </select>
                                         </p>
                                     </div>
                                 </div>
+
                                 <div class="detail-information-task-date">
                                     <div class="row">
                                         <div class="col-lg-3 detail-label">
@@ -315,7 +327,37 @@
                                         <div class="row attach_file" style="margin-top: 10px" data-tmpfilename="{{$attchItem['tmpFileName']}}">
                                             <div class="col-lg-3">
                                                 <div class="kt-widget4__pic kt-widget4__pic--icon">
-                                                    <img src="./assets/media/files/pdf.svg" width="70%" alt="">
+                                                    <?php
+                                                        $images = ['jpg','jpeg','png','bmp','svg'];
+                                                        $docs = ['doc','docx'];
+                                                        $csv = ['csv'];
+                                                        $zip = ['zip','rar'];
+                                                        $pdf = ['pdf'];
+                                                        $extension = $attchItem['extension'];
+                                                        $attachIcon = asset('public/assets/media/files/xml.svg');
+                                                        foreach($images as $item) {
+                                                            if ($item == $extension)
+                                                                $attachIcon = asset('public/assets/media/files/jpg.svg');
+                                                        }
+                                                        foreach($docs as $item) {
+                                                            if ($item == $extension)
+                                                                $attachIcon = asset('public/assets/media/files/doc.svg');
+                                                        }
+                                                        foreach($csv as $item) {
+                                                            if ($item == $extension)
+                                                                $attachIcon = asset('public/assets/media/files/csv.svg');
+                                                        }
+                                                        foreach($zip as $item) {
+                                                            if ($item == $extension)
+                                                                $attachIcon = asset('public/assets/media/files/zip.svg');
+                                                        }
+                                                        foreach($pdf as $item) {
+                                                            if ($item == $extension)
+                                                                $attachIcon = asset('public/assets/media/files/pdf.svg');
+                                                        }
+
+                                                    ?>
+                                                    <img src="{{$attachIcon}}" width="100%" alt="">
                                                 </div>
                                             </div>
                                             <div class="col-lg-9">
@@ -323,7 +365,6 @@
                                                     <div class="col-lg-12 detail-label">
                                                         <h5 style="cursor: pointer;">
                                                             <span>
-                                                                <i class="fa fa-file-alt"></i>
                                                                 {{$attchItem['fileName']}}
                                                             </span>
                                                         </h5>

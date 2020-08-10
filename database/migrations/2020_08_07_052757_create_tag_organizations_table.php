@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTagPersonTable extends Migration
+class CreateTagOrganizationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,14 @@ class CreateTagPersonTable extends Migration
      */
     public function up()
     {
-        Schema::create('tagperson', function (Blueprint $table) {
+        Schema::create('tag_organizations', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('personID');
+            $table->unsignedBigInteger('companyID');
             $table->unsignedBigInteger('tagID');
             $table->timestamps();
-            $table->foreign('personID')
-                ->references('id')->on('users')
+            $table->foreign('companyID')
+                ->references('id')->on('companies')
                 ->onDelete('cascade');
-//            $table->foreign('tagID')
-//                ->references('id')->on('tag')
-//                ->onDelete('cascade');
         });
     }
 
@@ -34,6 +31,6 @@ class CreateTagPersonTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tagperson');
+        Schema::dropIfExists('tag_organizations');
     }
 }

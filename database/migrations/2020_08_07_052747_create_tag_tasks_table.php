@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrganizationsTable extends Migration
+class CreateTagTasksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateOrganizationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('organizations', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('organization')->unique();
+        Schema::create('tag_tasks', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('taskID');
+            $table->unsignedBigInteger('tagID');
             $table->timestamps();
+            $table->foreign('taskID')
+                ->references('ID')->on('task')
+                ->onDelete('cascade');
         });
-        \App\Organization::forceCreate([
-            'organization' => 'AteLje',
-        ]);
     }
 
     /**
@@ -30,6 +31,6 @@ class CreateOrganizationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('organizations');
+        Schema::dropIfExists('tag_tasks');
     }
 }

@@ -1,0 +1,92 @@
+
+.company_card {
+    width: 270px;
+    height: 200px;
+    -webkit-box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.1);
+    display: flex;
+    margin: 10px;
+    background-color: white;
+    cursor: pointer;
+    color: black;
+    border-radius: 10px;
+}
+
+.company_card_selected {
+    width: 270px;
+    height: 200px;
+    -webkit-box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 1);
+    box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 1);
+    display: flex;
+    margin: 10px;
+    background-color: white;
+    border-radius: 10px;
+    color: black;
+}
+
+.company_card_text {
+    display: flex;
+    margin-bottom: 5px
+}
+
+.company_card_text div:nth-child(1) {
+    width: 20%;
+}
+
+.company_card_text div:nth-child(2) {
+    width: 80%;
+}
+
+.company_element,
+.company_outer {
+    height: calc(100vh - 119px);
+    width: 100%;
+    border: none;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.company_outer {
+    position: relative;
+    overflow: hidden;
+}
+
+.company_inner {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.company_inner::-webkit-scrollbar {
+    display: none;
+}
+
+.tab-pane div[class='row'] {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.company_detail_span_text {
+    color: #ca30e9;
+}
+.system-span {
+    padding: 5px;
+    color: black !important;
+    margin: 2px;
+}
+
+.organization-span {
+    padding: 5px;
+    border-radius: 10px;
+    color: black !important;
+    margin: 2px;
+}
+
+.personal-span {
+    padding: 5px;
+    border-radius: 10px;
+    border: solid 2px;
+    color: black !important;
+    margin: 2px;
+}

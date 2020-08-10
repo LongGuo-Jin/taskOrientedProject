@@ -67,7 +67,13 @@ Route::group(['middleware'=>['auth' , 'tag']] , function() {
     });
 
     Route::get('people','UserController@People')->name('people');
-    Route::get('organization','OrganizationController@Organization')->name('organization');
+    Route::post('people/update','UserController@UpdatePeople')->name('people.update');
+    Route::post('people/add','UserController@AddPerson')->name('people.add');
+    Route::get('organization','CompanyController@company')->name('company');
+    Route::post('organization/add','CompanyController@Add')->name('company.add');
+    Route::post('organization/update','CompanyController@Update')->name('company.update');
+    Route::get('organization/delete','CompanyController@Delete')->name('company.delete');
+
 
 });
 

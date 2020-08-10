@@ -28,9 +28,12 @@ class CreateUsersTable extends Migration
             $table->integer('addressType')->nullable();
             $table->string('address')->nullable();
             $table->string('phone_number')->nullable();
-            $table->unsignedBigInteger('bank_account_id')->nullable();
-            $table->string('international_id_number')->nullable();
-            $table->string('company_id_number')->nullable();
+            $table->string('messenger')->nullable();
+            $table->string('nationalID')->nullable();
+            $table->string('companyID')->nullable();
+            $table->string('bankAccount')->nullable();
+            $table->string('bank')->nullable();
+            $table->string('swift_bic')->nullable();
             $table->longText('description')->nullable();
             $table->string('family')->nullable();
             $table->string('email')->unique();

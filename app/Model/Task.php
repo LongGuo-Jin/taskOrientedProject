@@ -511,8 +511,8 @@ class Task extends Model
 
 
         foreach ($retArr as $key => $retItem) {
-            $retArr[$key]["TagNames"] = $this->getTagIds2Names($sysTagArr, $retItem["tags"]);
-            $retArr[$key]["TagNameIcons"] = $this->getTagIds2Names($sysTagIconArr, $retItem["tags"], "");
+//            $retArr[$key]["TagNames"] = $this->getTagIds2Names($sysTagArr, $retItem["tags"]);
+//            $retArr[$key]["TagNameIcons"] = $this->getTagIds2Names($sysTagIconArr, $retItem["tags"], "");
 
             $datetime1 = strtotime(str_replace(".", "-", $retItem['datePlanStart']));
             $datetime2 = strtotime(str_replace(".", "-", $retItem['datePlanEnd']));

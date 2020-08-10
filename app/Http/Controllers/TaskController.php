@@ -16,6 +16,7 @@ use App\Model\TaskPriority;
 use App\Model\TaskStatus;
 use App\Model\TaskWeight;
 use App\SubTaskTime;
+use App\TagTask;
 use App\Time;
 use App\User;
 use Illuminate\Http\Request;
@@ -38,9 +39,7 @@ class TaskController extends Controller
     public function index() {
         $locale = App::getLocale();
         $Task = new Task();
-        $TagPerson = new TagPerson();
         $taskList = $Task->getTaskListForDashboard();
-        $PersonTagNameList = $TagPerson->getPersonTagName();
         $user = auth()->user();
         $personID = $user->id;
         $filters =Filter::where('user_id',$personID)->first()->toArray();
@@ -70,7 +69,6 @@ class TaskController extends Controller
             [
                 'taskList' => $taskList,
                 'dashboard' => true,
-                'PersonTagNameList' => $PersonTagNameList,
                 'personalID' => $personID,
                 'locale' => $locale,
                 'filters' => $filters,
@@ -80,9 +78,7 @@ class TaskController extends Controller
 
     public function CalendarView(Request $request) {
         $Task = new Task();
-        $TagPerson = new TagPerson();
         $taskList = $Task->getTaskListForCalendar($request);
-        $PersonTagNameList = $TagPerson->getPersonTagName();
         $user = auth()->user();
         $personID = $user->id;
         $status = $request->input('status') == "" ? "1": $request->input('status');
@@ -110,7 +106,6 @@ class TaskController extends Controller
         return view('calendar', [
             'taskList' => $taskList,
             'calendar' => true,
-            'PersonTagNameList' => $PersonTagNameList,
             'personalID' => $personID,
             'status' => $status,
             'H' => $priority_high,
@@ -335,7 +330,6 @@ class TaskController extends Controller
         $TaskPriority = new TaskPriority();
         $TaskStatus = new TaskStatus();
         $TaskWeight = new TaskWeight();
-        $TagPerson = new TagPerson();
         $Task = new Task();
         $Tag = new Tag();
         $Memo = new Memo();
@@ -343,14 +337,14 @@ class TaskController extends Controller
         $Expense = new Expense();
         $Attachment = new Attachment();
         $History = new History();
-
+        $taskTag = new TagTask();
         $totalPersonList = $Person->getPersonList();
         $rolePersonList = $Person->getrolePersonList();
         $TaskPriorityList = $TaskPriority->getTaskPriorityList();
         $TaskStatusList = $TaskStatus->getTaskStatusList();
         $TaskWeightList = $TaskWeight->getTaskWeightList();
-        $PersonTagNameList = $TagPerson->getPersonTagName();
         $systemTagList = $Tag->getSystemTagList();
+        $tagList = $Tag->getTagList();
 
         $taskDetails = array();
         $memos = array();
@@ -363,7 +357,7 @@ class TaskController extends Controller
         $workTime = array();
         $allocateTimes = array();
         $filters = array();
-
+        $taskTagList = array();
         $timeSpentOnSubTask = null;
         $totalTime = 0;
         $timeAllocated = 0;
@@ -401,6 +395,7 @@ class TaskController extends Controller
                 $timeAllocated += $allocateTime['timeAllocated'];
             }
 
+            $taskTagList = $taskTag->getTaskTagList($taskId);
             $memos = $Memo->getMemoByCond(array("taskID" => $taskId, "personID" => $personID));
             $budget = $Budget->getBudgetByCond(array("taskID" => $taskId, "personID" => $personID));
             $expense = $Expense->getExpenseByCond(array("taskID" => $taskId, "personID" => $personID));
@@ -437,7 +432,7 @@ class TaskController extends Controller
         foreach ($taskList['list'] as $index => $task) {
             $taskList['list'][$index] = $this->task_filter($task);
         }
-
+//        dd($tagList);
         return view('task/taskCard',
             [
                 'totalPersonList' => $totalPersonList,
@@ -445,8 +440,9 @@ class TaskController extends Controller
                 'TaskPriorityList' => $TaskPriorityList,
                 'TaskStatusList' => $TaskStatusList,
                 'TaskWeightList' => $TaskWeightList,
-                'PersonTagNameList' => $PersonTagNameList,
                 'taskList' => $taskList['list'],
+                'taskTagList' =>$taskTagList,
+                'tagList' => $tagList,
                 'parents' => $taskList['parents'],
                 'personalID' => $personID,
                 'login_role_id' => $login_role_id,
@@ -514,6 +510,13 @@ class TaskController extends Controller
 
             $ret = $Task->addTask($taskData);
             $taskID = $Task->getLastInsertId();
+            if($taskData['tags'] != "") {
+                $tags = explode(",",$taskData['tags']);
+
+                foreach($tags as $tag) {
+                    TagTask::create(['taskID'=>$taskID,'tagID'=>$tag]);
+                }
+            }
 
             if ($request->input('memo') != "") {
                 $Memo = new Memo();
@@ -538,6 +541,7 @@ class TaskController extends Controller
 
             DB::commit();
         }catch (\Exception $e ){
+            Log::debug($e->getMessage());
             DB::rollBack();
             $ret = -1;
         }
@@ -672,6 +676,7 @@ class TaskController extends Controller
         $personID = $user->id;
         $login_role_id = $user->roleID;
 
+
         $taskData = array(
             'title' =>  $request->input('title'),
             'datePlanStart' =>  $request->input('datePlanStart') == "" ? date("d.m.Y") : $request->input('datePlanStart'),
@@ -704,6 +709,15 @@ class TaskController extends Controller
             $attachment = new Attachment();
             $History = new History();
             $taskStatus = new TaskStatus();
+//            $TaskTag = new TagTask();
+
+            TagTask::where('taskID',$taskID)->delete();
+            if ($taskData['tags'] != "") {
+                $tags = explode(",",$taskData['tags']);
+                foreach($tags as $tag) {
+                    TagTask::create(['taskID'=>$taskID,'tagID'=>$tag]);
+                }
+            }
 
             if ($request->input("fileInfo") != "") {
                 $fileInfo = $request->input("fileInfo");
@@ -757,6 +771,7 @@ class TaskController extends Controller
             DB::commit();
         }catch (\Exception $e) {
             DB::rollBack();
+            Log::debug($e->getMessage());
             $ret = -1;
         }
 
@@ -888,10 +903,7 @@ class TaskController extends Controller
 
     public function Settings() {
         $user = auth()->user();
-        $TagPerson = new TagPerson();
-        $PersonTagNameList = $TagPerson->getPersonTagName();
-
-        return view('user.settings',['user'=>$user,'PersonTagNameList'=>$PersonTagNameList]);
+        return view('user.settings',['user'=>$user]);
     }
 
     public function SaveSettings(Request $request) {

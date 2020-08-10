@@ -558,17 +558,23 @@ div.detail-statistics-content {
 }
 .system-span {
     padding: 5px;
+    color: black !important;
+    margin: 2px;
 }
 
 .organization-span {
     padding: 5px;
     border-radius: 10px;
+    color: black !important;
+    margin: 2px;
 }
 
 .personal-span {
     padding: 5px;
     border-radius: 10px;
     border: solid 2px;
+    color: black !important;
+    margin: 2px;
 }
 
 .list-card .color-picker {

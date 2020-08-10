@@ -31,8 +31,8 @@
                         <span class="kt-menu__link-text top-menu"><i class="fa fa-users header_menu_item_icon"></i>{{__('main.people')}}</span>
                     </a>
                 </li>
-                <li class="kt-menu__item header_menu_item" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
-                    <a href="javascript:;" class="header_menu_item_link kt-menu__toggle">
+                <li class="kt-menu__item {{isset($organization)?"header_menu_item_active":""}}  header_menu_item" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
+                    <a href="{{route('company')}}" class="header_menu_item_link">
                         <span class="kt-menu__link-text top-menu"><i class="la la-building header_menu_item_icon"></i>{{__('main.organizations')}}</span>
                     </a>
                 </li>

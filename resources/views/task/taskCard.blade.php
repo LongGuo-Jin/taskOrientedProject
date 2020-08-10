@@ -69,7 +69,7 @@
                                                                             {{$taskItem['title']}}
                                                                         </div>
                                                                         <div class="row project-name">
-                                                                            {{$taskItem['TagNames']}}
+
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-lg-3">
@@ -126,6 +126,21 @@
                                                                         </svg>
                                                                     </div>
                                                                 </div>
+                                                                <div class="row m-2">
+                                                                    <div style="display: flex; flex-wrap: wrap;"><?php
+                                                                        $tagTask =new \App\TagTask();
+                                                                        $taskTags =  $tagTask->getTaskTagList($taskItem['ID']);
+                                                                        foreach($taskTags as $taskTag) {
+                                                                        ?>
+                                                                        <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="@if ($taskTag['tagtype']!=3 )background-color:{{$taskTag['color']}} @else border-color:{{$taskTag['color']}} @endif">
+                                                                           {{$taskTag['name']}}
+                                                                        </span> &nbsp;
+                                                                        <?php
+                                                                        }
+                                                                        ?>
+                                                                    </div>
+                                                                </div>
+
                                                                 <div class="kt-space-10"></div>
                                                                 <div class="progress" style="height: 6px;">
                                                                     @if($taskItem["statusID"] == 4)
@@ -167,7 +182,7 @@
                                                                                 {{$taskItem['title']}}
                                                                             </div>
                                                                             <div class="row project-name">
-                                                                                {{$taskItem['TagNames']}}
+
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-lg-3 person-tag">
@@ -222,12 +237,23 @@
                                                                                         @break
                                                                                 @endswitch
                                                                             </svg>
-                                                                            {{--<span class="kt-badge kt-badge--brand kt-badge--lg" id="detail-add-personTag">--}}
-                                                                                {{--{{$taskItem['psntagName']}}--}}
-                                                                            {{--</span>--}}
                                                                         </div>
                                                                     </div>
                                                                     <div class="kt-space-10"></div>
+                                                                    <div class="row m-2">
+                                                                        <div style="display: flex; flex-wrap: wrap;"><?php
+                                                                            $tagTask =new \App\TagTask();
+                                                                            $taskTags =  $tagTask->getTaskTagList($taskItem['ID']);
+                                                                            foreach($taskTags as $taskTag) {
+                                                                            ?>
+                                                                            <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="@if ($taskTag['tagtype']!=3 )background-color:{{$taskTag['color']}} @else border-color:{{$taskTag['color']}} @endif">
+                                                                           {{$taskTag['name']}}
+                                                                        </span> &nbsp;
+                                                                            <?php
+                                                                            }
+                                                                            ?>
+                                                                        </div>
+                                                                    </div>
                                                                     <div class="progress" style="height: 6px;">
                                                                         @if($taskItem["statusID"] == 4)
                                                                             <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
@@ -354,7 +380,6 @@
     <script src="{{asset('public/assets/js/demo1/pages/components/extended/sweetalert2.js')}}" type="text/javascript"></script>
 
     <script type="text/javascript">
-        let personTagList = $.parseJSON('<?php echo(json_encode($PersonTagNameList));?>');
         let base_url = "{{URL::to('')}}";
         let person_id = "{{$personalID}}";
         let task_id = "{{$taskId}}";

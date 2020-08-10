@@ -62,7 +62,7 @@
                                                                     {{$columnItem['title']}}
                                                                 </div>
                                                                 <div class="row project-name">
-                                                                    {{$columnItem['TagNames']}}
+                                                                    {{--{{$columnItem['TagNames']}}--}}
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-3">
@@ -186,7 +186,7 @@
                                                                         {{$columnItem['title']}}
                                                                     </div>
                                                                     <div class="row project-name">
-                                                                        {{$columnItem['TagNames']}}
+                                                                        {{--{{$columnItem['TagNames']}}--}}
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-3">
@@ -309,7 +309,7 @@
                                                                             {{$columnItem['title']}}
                                                                         </div>
                                                                         <div class="row project-name">
-                                                                            {{$columnItem['TagNames']}}
+                                                                            {{--{{$columnItem['TagNames']}}--}}
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-lg-3">
@@ -432,7 +432,7 @@
                                                                     {{$columnItem['title']}}
                                                                 </div>
                                                                 <div class="row project-name">
-                                                                    {{$columnItem['TagNames']}}
+                                                                    {{--{{$columnItem['TagNames']}}--}}
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-3">

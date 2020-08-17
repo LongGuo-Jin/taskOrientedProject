@@ -8,11 +8,13 @@
 @endsection
 
 @section('content')
+    <?php
+        $notifications = explode(',',$memoNotification);
+    ?>
     <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
         @include('layouts.header')
         <!-- end:: Header -->
         <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
-
             <!-- begin:: Content -->
             <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
                 <div class="row">
@@ -57,10 +59,19 @@
                                                         <div class="kt-regular-task-item row thin <?php if($taskId == $taskItem['ID']) echo 'selected';?>
                                                             <?php if($taskId != $taskItem['ID'] && in_array($taskItem['ID'], $parents)) echo 'parent_selected';?>"
                                                              data-task_id="{{$taskItem['ID']}}" data-show_type="regular" style="display: flex;">
-                                                            <div class="task-status pt-2" style="background-color: #c97acb; display: flex; flex-direction: column; width: 10%">
-                                                                <div><?php echo($taskItem['status_icon'])?></div>
-                                                                <div>{{$taskItem['priority_title']}}</div>
-                                                                <div>{{$taskItem['weight']}}</div>
+                                                            <div class="task-status pt-2" style="background-color: #89cb84; display: flex; flex-direction: column; width: 10%; justify-content: space-between">
+                                                                <div style="display: flex; flex-direction: column">
+                                                                    <div><?php echo($taskItem['status_icon'])?></div>
+                                                                    <div>{{$taskItem['priority_title']}}</div>
+                                                                    <div>{{$taskItem['weight']}}</div>
+                                                                </div>
+                                                                <div style="position: relative; margin: 0; padding: 0">
+                                                                    @if(in_array($taskItem['ID'],$notifications))
+                                                                        <i class="fa fa-envelope "></i>
+                                                                        <div class="blink_mark blink_mail_icon" id="blink_mail_icon_{{$taskItem['ID']}}">
+                                                                        </div>
+                                                                    @endif
+                                                                </div>
                                                             </div>
                                                             <div style="width: 90%; padding: 10px">
                                                                 <div class="row m-2">
@@ -110,19 +121,19 @@
                                                                                 @break
                                                                         @endswitch
                                                                         @switch($taskItem['roleID'])
-                                                                                                    @case (1)
-                                                                                                    <circle cx="28" cy="4" r="3" stroke="black" stroke-width="0" fill="black"></circle>
-                                                                                                    <rect height="8" width="2" x="27" y="0" fill="black"></rect>
-                                                                                                    <polygon points="25.145898644316,1.1974823013079 24.145898266966,2.9295328910135 30.854099523987,6.802519564103 31.854101033387,5.0704696279878 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
-                                                                                                    <polygon points="24.14589756732,5.0704645899847 25.14589681262,6.8025158332799 31.854103132324,2.9295379290175 30.854105019076,1.1974860321334 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
-                                                                                                    @break
-                                                                                                    @case (2)
-                                                                                                    <polygon points="28,0 25.648857298782,7.2360667481539 31.804227357789,2.7639360007462 24.195775873739,2.7639260551337 30.35113424097,7.2360728948744 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
-                                                                                                    @break
-                                                                                                    @case (4)
-                                                                                                    <circle cx="28" cy="4" r="4" stroke="black" stroke-width="0" fill = "black" style="stroke-width:0;"></circle>
-                                                                                                    @break
-                                                                                                @endswitch
+                                                                            @case (1)
+                                                                            <circle cx="28" cy="4" r="3" stroke="black" stroke-width="0" fill="black"></circle>
+                                                                            <rect height="8" width="2" x="27" y="0" fill="black"></rect>
+                                                                            <polygon points="25.145898644316,1.1974823013079 24.145898266966,2.9295328910135 30.854099523987,6.802519564103 31.854101033387,5.0704696279878 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
+                                                                            <polygon points="24.14589756732,5.0704645899847 25.14589681262,6.8025158332799 31.854103132324,2.9295379290175 30.854105019076,1.1974860321334 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
+                                                                            @break
+                                                                            @case (2)
+                                                                            <polygon points="28,0 25.648857298782,7.2360667481539 31.804227357789,2.7639360007462 24.195775873739,2.7639260551337 30.35113424097,7.2360728948744 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
+                                                                            @break
+                                                                            @case (4)
+                                                                            <circle cx="28" cy="4" r="4" stroke="black" stroke-width="0" fill = "black" style="stroke-width:0;"></circle>
+                                                                            @break
+                                                                        @endswitch
                                                                         </svg>
                                                                     </div>
                                                                 </div>
@@ -169,10 +180,19 @@
                                                 <div class="tab-pane" id="kt_extended_tab_{{$columnClass}}">
                                                     @foreach($columnItem as $taskItem)
                                                         <div class="row kt-extended-task-item <?php if($taskId == $taskItem['ID']) echo 'selected';?>"  data-task_id="{{$taskItem['ID']}}" data-show_type="extended" style="display: flex;">
-                                                            <div class="task-status pt-2" style="background-color: #89cb84; display: flex; flex-direction: column; width: 10%">
-                                                                <div><?php echo($taskItem['status_icon'])?></div>
-                                                                <div>{{$taskItem['priority_title']}}</div>
-                                                                <div>{{$taskItem['weight']}}</div>
+                                                            <div class="task-status pt-2" style="background-color: #89cb84; display: flex; flex-direction: column; width: 10%; justify-content: space-between">
+                                                                <div style="display: flex; flex-direction: column">
+                                                                    <div><?php echo($taskItem['status_icon'])?></div>
+                                                                    <div>{{$taskItem['priority_title']}}</div>
+                                                                    <div>{{$taskItem['weight']}}</div>
+                                                                </div>
+                                                                <div style="position: relative; margin: 0; padding: 0">
+                                                                    @if(in_array($taskItem['ID'],$notifications))
+                                                                        <i class="fa fa-envelope "></i>
+                                                                        <div class="blink_mark blink_mail_icon"  id="blink_mail_icon_{{$taskItem['ID']}}">
+                                                                        </div>
+                                                                    @endif
+                                                                </div>
                                                             </div>
                                                             <div class="extand-main-content" style=" width: 90%">
                                                                 <div class="kt-extend-part">
@@ -182,7 +202,6 @@
                                                                                 {{$taskItem['title']}}
                                                                             </div>
                                                                             <div class="row project-name">
-
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-lg-3 person-tag">
@@ -222,7 +241,7 @@
 
                                                                                     @break
                                                                                 @endswitch
-                                                                                @switch($taskItem['roleID'])
+                                                                            @switch($taskItem['roleID'])
                                                                                     @case (1)
                                                                                         <circle cx="28" cy="4" r="3" stroke="black" stroke-width="0" fill="black"></circle>
                                                                                         <rect height="8" width="2" x="27" y="0" fill="black"></rect>
@@ -329,21 +348,21 @@
 
                                                                                 @break
                                                                             @endswitch
-                                                                            @switch($taskItem['roleID'])
-                                                                                @case (1)
-                                                                                <circle cx="28" cy="4" r="3" stroke="black" stroke-width="0" fill="black"></circle>
-                                                                                <rect height="8" width="2" x="27" y="0" fill="black"></rect>
-                                                                                <polygon points="25.145898644316,1.1974823013079 24.145898266966,2.9295328910135 30.854099523987,6.802519564103 31.854101033387,5.0704696279878 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
-                                                                                <polygon points="24.14589756732,5.0704645899847 25.14589681262,6.8025158332799 31.854103132324,2.9295379290175 30.854105019076,1.1974860321334 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
-                                                                                @break
-                                                                                @case (2)
-                                                                                <polygon points="28,0 25.648857298782,7.2360667481539 31.804227357789,2.7639360007462 24.195775873739,2.7639260551337 30.35113424097,7.2360728948744 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
-                                                                                @break
-                                                                                @case (4)
-                                                                                <circle cx="28" cy="4" r="4" stroke="black" stroke-width="0" fill = "black" style="stroke-width:0;"></circle>
-                                                                                @break
-                                                                            @endswitch
-                                                                        </svg>
+                                                                    @switch($taskItem['roleID'])
+                                                                        @case (1)
+                                                                        <circle cx="28" cy="4" r="3" stroke="black" stroke-width="0" fill="black"></circle>
+                                                                        <rect height="8" width="2" x="27" y="0" fill="black"></rect>
+                                                                        <polygon points="25.145898644316,1.1974823013079 24.145898266966,2.9295328910135 30.854099523987,6.802519564103 31.854101033387,5.0704696279878 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
+                                                                        <polygon points="24.14589756732,5.0704645899847 25.14589681262,6.8025158332799 31.854103132324,2.9295379290175 30.854105019076,1.1974860321334 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
+                                                                        @break
+                                                                        @case (2)
+                                                                        <polygon points="28,0 25.648857298782,7.2360667481539 31.804227357789,2.7639360007462 24.195775873739,2.7639260551337 30.35113424097,7.2360728948744 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
+                                                                        @break
+                                                                        @case (4)
+                                                                        <circle cx="28" cy="4" r="4" stroke="black" stroke-width="0" fill = "black" style="stroke-width:0;"></circle>
+                                                                        @break
+                                                                    @endswitch
+                                                                </svg>
                                                                 </div>
                                                             </div>
                                                             </div>
@@ -384,8 +403,9 @@
         let person_id = "{{$personalID}}";
         let task_id = "{{$taskId}}";
         let showType = "{{$showType}}";
-        let userRoleId = "{{$login_role_id}}";;
+        let userRoleId = "{{$login_role_id}}";
         let detailTab = "{{$detailTab}}";
+        let memoNotification = "{{$memoNotification}}";
         let message = $.parseJSON('<?php echo(json_encode($message));?>');
         let filters = $.parseJSON('<?php echo(json_encode($filters));?>');
         let timeAllocated = "{{$timeAllocated}}";
@@ -393,7 +413,7 @@
         let subTimeSpent = "{{$timeSpentOnSubTask}}";
 
         $(document).ready(function () {
-            console.log(filters);
+
             let arrows;
             let timeAllocatedDay = Math.floor(timeAllocated / 8);
             let timeAllocateHour = (timeAllocated - timeAllocatedDay * 8).toPrecision(1);
@@ -481,7 +501,7 @@
                         $('#datePlanStartEdit').val(val);
                     }
                 }
-            })
+            });
 
             $( "#task_add_form" ).validate({
                 // define validation rules

@@ -112,11 +112,11 @@
 .person_card_selected {
     width: 300px;
     height: 220px;
-    -webkit-box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 1);
-    box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 1);
+    -webkit-box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.1);
     display: flex;
     margin: 10px;
-    background-color: white;
+    background-color: #e8e8e8;
     border-radius: 10px;
     color: black;
 }
@@ -147,4 +147,8 @@
     border: solid 2px;
     color: black !important;
     margin: 2px;
+}
+
+.people_P_Field_text {
+    color: #9726af;
 }

@@ -77,6 +77,7 @@ class RegisterController extends Controller
         $organization = Organization::create([
             'organization'=> $data["organization"]
         ]);
+
         $user = $organization->Users()->create([
             'nameFirst' => $data['nameFirst'],
             'nameFamily' => $data['nameFamily'],
@@ -227,8 +228,6 @@ Has extra attribute “Answer” (text box).",
             'organization_id' => $organization->id,
         ]);
 
-//        TagPerson::create(['tagID'=>$tag->id , 'personID'=>$user->id]);
-        
         return $user;
     }
 }

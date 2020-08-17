@@ -15,11 +15,11 @@
 .company_card_selected {
     width: 270px;
     height: 200px;
-    -webkit-box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 1);
-    box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 1);
+    -webkit-box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.1);
     display: flex;
     margin: 10px;
-    background-color: white;
+    background-color: #e8e8e8;
     border-radius: 10px;
     color: black;
 }
@@ -68,7 +68,7 @@
 }
 
 .company_detail_span_text {
-    color: #ca30e9;
+    color: #9726af;
 }
 .system-span {
     padding: 5px;

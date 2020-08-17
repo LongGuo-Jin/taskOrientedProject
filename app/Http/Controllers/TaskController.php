@@ -15,6 +15,7 @@ use App\Model\Task;
 use App\Model\TaskPriority;
 use App\Model\TaskStatus;
 use App\Model\TaskWeight;
+use App\Organization;
 use App\SubTaskTime;
 use App\TagTask;
 use App\Time;
@@ -39,10 +40,12 @@ class TaskController extends Controller
     public function index() {
         $locale = App::getLocale();
         $Task = new Task();
-        $taskList = $Task->getTaskListForDashboard();
+        $taskList = $Task->getTaskListForDashboard(auth()->user());
         $user = auth()->user();
         $personID = $user->id;
         $filters =Filter::where('user_id',$personID)->first()->toArray();
+        $memoNotification = auth()->user()->memoNotification;
+        $notifications = explode(',',$memoNotification);
 
         $filter_order = auth()->user()->filter_order;
         $filter_array= array();
@@ -55,15 +58,22 @@ class TaskController extends Controller
         for ($i = count($filter_array) ; $i >= 1;  $i --) {
             if ($filter_array[$i] == 'budget')
                 continue;
-            $taskList['new'] = $this->topSort($taskList['new'],$filter_array[$i]);
-            $taskList['active'] = $this->topSort($taskList['active'],$filter_array[$i]);
-            $taskList['overdue'] = $this->topSort($taskList['overdue'],$filter_array[$i]);
+            $taskList['new'] = $this->topSort($taskList['new'],$filter_array[$i],auth()->user());
+            $taskList['active'] = $this->topSort($taskList['active'],$filter_array[$i],auth()->user());
+            $taskList['overdue'] = $this->topSort($taskList['overdue'],$filter_array[$i],auth()->user());
         }
 
-        $taskList['new'] = $this->task_filter($taskList['new']);
-        $taskList['active'] = $this->task_filter($taskList['active']);
-        $taskList['overdue'] = $this->task_filter($taskList['overdue']);
-
+        $taskList['new'] = $this->task_filter($taskList['new'],auth()->user());
+        $taskList['active'] = $this->task_filter($taskList['active'],auth()->user());
+        $taskList['overdue'] = $this->task_filter($taskList['overdue'],auth()->user());
+        $taskList['unread'] = [];
+        foreach($taskList as $tasks) {
+            foreach($tasks as $task) {
+                if (in_array($task['ID'],$notifications)) {
+                    array_push($taskList['unread'],$task);
+                }
+            }
+        }
 
         return view('dashboard',
             [
@@ -72,13 +82,14 @@ class TaskController extends Controller
                 'personalID' => $personID,
                 'locale' => $locale,
                 'filters' => $filters,
+                'memoNotification' => $memoNotification,
             ]
         );
     }
 
     public function CalendarView(Request $request) {
         $Task = new Task();
-        $taskList = $Task->getTaskListForCalendar($request);
+        $taskList = $Task->getTaskListForCalendar($request,auth()->user());
         $user = auth()->user();
         $personID = $user->id;
         $status = $request->input('status') == "" ? "1": $request->input('status');
@@ -115,13 +126,14 @@ class TaskController extends Controller
         ]);
     }
 
-    public function task_filter($data) {
-        $user_id = auth()->user()->id;
+    public function task_filter($data , $user) {
+
+        $user_id = $user->id;
         $filter = Filter::where('user_id',$user_id)->get()->first();
         $new_data = [];
         foreach($data as $item) {
             if ($filter['status'][$item['statusID']-1]=='1' && $filter['priority'][$item['order']]=='1'
-                && $filter['weight'][9-$item['weight']] == '1') {
+                && $filter['weight'][9 - $item['weight']] == '1') {
                 if ($filter['date'][2] != '1') {
                     if ($item['datePlanStart'] != null) {
                         array_push($new_data,$item);
@@ -135,8 +147,8 @@ class TaskController extends Controller
         return $new_data;
     }
 
-    public function topSort($data , $key) {
-        $user_id = auth()->user()->id;
+    public function topSort($data , $key , $user) {
+        $user_id = $user->id;
         $filter = Filter::where('user_id',$user_id)->get()->first();
         $option = $filter[$key][strlen($filter[$key])-1]=='1'?true:false;
         $length = count($data);
@@ -324,7 +336,6 @@ class TaskController extends Controller
         return $data;
     }
 
-
     public function taskCard(Request $request) {
         $Person = new User();
         $TaskPriority = new TaskPriority();
@@ -345,6 +356,8 @@ class TaskController extends Controller
         $TaskWeightList = $TaskWeight->getTaskWeightList();
         $systemTagList = $Tag->getSystemTagList();
         $tagList = $Tag->getTagList();
+
+        $memoNotification = auth()->user()->memoNotification;
 
         $taskDetails = array();
         $memos = array();
@@ -379,8 +392,25 @@ class TaskController extends Controller
         $filters =Filter::where('user_id',$personID)->first()->toArray();
 
         if ($taskId == "") {
-            $taskList = $Task->getTaskListInit();
+            $taskList = $Task->getTaskListInit(auth()->user());
         } else {
+            $notifications = explode(',',$memoNotification);
+            if (in_array($taskId, $notifications)) {
+                $newMemoNotification = "";
+                $cnt = 0;
+                foreach($notifications as $notification) {
+                    if ($notification != $taskId) {
+                        if ($cnt == 0) {
+                            $newMemoNotification = $notification;
+                        } else {
+                            $newMemoNotification = $newMemoNotification.",".$notification;
+                        }
+                        $cnt += 1;
+                    }
+                }
+                User::where('id',$personID)->update(["memoNotification" => $newMemoNotification]);
+//                $memoNotification = $newMemoNotification;
+            }
 
             $workTime = Time::where('taskID',$taskId)->get()->toArray();
             foreach($workTime as $time) {
@@ -388,7 +418,7 @@ class TaskController extends Controller
             }
             $timeSpentOnSubTask = SubTaskTime::where('taskID',$taskId)->get()->first();
             $timeSpentOnSubTask = $timeSpentOnSubTask==null?0:$timeSpentOnSubTask['timeSpentOnSubTask'];
-            $taskDetails = $Task->adtResult($Task->getTaskListbyCond(array("taskID" => $taskId)));
+            $taskDetails = $Task->adtResult($Task->getTaskListbyCond(array("taskID" => $taskId),auth()->user()));
 
             $allocateTimes = AllocatedTime::where('taskID',$taskId)->get()->toArray();
             foreach($allocateTimes as $allocateTime) {
@@ -396,7 +426,7 @@ class TaskController extends Controller
             }
 
             $taskTagList = $taskTag->getTaskTagList($taskId);
-            $memos = $Memo->getMemoByCond(array("taskID" => $taskId, "personID" => $personID));
+            $memos = $Memo->getMemoByCond(array("taskID" => $taskId));
             $budget = $Budget->getBudgetByCond(array("taskID" => $taskId, "personID" => $personID));
             $expense = $Expense->getExpenseByCond(array("taskID" => $taskId, "personID" => $personID));
             $expenseSum = $Expense->getSumExpense(array("taskID" => $taskId, "personID" => $personID));
@@ -408,7 +438,7 @@ class TaskController extends Controller
             $attachs = $Attachment->getAttachmentByCond(array("taskID" => $taskId));
             $history = $History->getHistoryByCond(array("taskID" => $taskId, "personID" => $personID));
             $statisticsData = $Task->getStatisticsData($taskDetails[0]);
-            $taskList = $Task->getTaskList($taskDetails[0]);
+            $taskList = $Task->getTaskList($taskDetails[0],auth()->user());
 
             $detailTab = $request->input("detailTab");
         }
@@ -425,14 +455,14 @@ class TaskController extends Controller
             if ($filter_array[$i] == 'budget')
                 continue;
             foreach ($taskList['list'] as $index => $task) {
-                $taskList['list'][$index] = $this->topSort($task,$filter_array[$i]);
+                $taskList['list'][$index] = $this->topSort($task,$filter_array[$i],auth()->user());
             }
         }
 
         foreach ($taskList['list'] as $index => $task) {
-            $taskList['list'][$index] = $this->task_filter($task);
+            $taskList['list'][$index] = $this->task_filter($task,auth()->user());
         }
-//        dd($tagList);
+
         return view('task/taskCard',
             [
                 'totalPersonList' => $totalPersonList,
@@ -470,6 +500,7 @@ class TaskController extends Controller
                 'message'   => $message,
                 'taskCard'  => true,
                 'filters'   => $filters,
+                'memoNotification' => $memoNotification,
             ]
         );
     }
@@ -526,8 +557,27 @@ class TaskController extends Controller
                     'taskID' => $taskID,
                     'Message' => $request->input('memo')
                 );
-
                 $ret = $Memo->addMemo($memo);
+                //starting adding memo notification;;;
+                $orgID = $user->organization_id;
+                $organization = Organization::where('id',$orgID)->get()->first();
+                $org_users = $organization->Users()->get();
+                foreach($org_users as $org_user) {
+                    $id = $org_user->id;
+                    $memoNotification = $org_user->memoNotification;
+                    if ($id != $personID) {
+                        if ($memoNotification == "") {
+                            $memoNotification = $taskID;
+                        } else {
+                            $notifications = explode(',',$memoNotification);
+                            if (!in_array($taskID,$notifications)) {
+                                $memoNotification = $memoNotification.",".$taskID;
+                            }
+                        }
+                        User::where('id',$id)->update(['memoNotification'=>$memoNotification]);
+                    }
+                }
+                //end adding memo notification;;;
             }
 
             $History = new History();
@@ -753,6 +803,27 @@ class TaskController extends Controller
                 );
 
                 $ret = $Memo->addMemo($memo);
+                //starting adding memo notification;;;
+                $orgID = $user->organization_id;
+                $organization = Organization::where('id',$orgID)->get()->first();
+                $org_users = $organization->Users()->get();
+                foreach($org_users as $org_user) {
+                    $id = $org_user->id;
+                    $memoNotification = $org_user->memoNotification;
+                    if ($id != $personID) {
+                        if ($memoNotification == "") {
+                            $memoNotification = $taskID;
+                        } else {
+                            $notifications = explode(',',$memoNotification);
+                            if (!in_array($taskID,$notifications)) {
+                                $memoNotification = $memoNotification.",".$taskID;
+                            }
+                        }
+                        Log::debug(__FUNCTION__."=>".$memoNotification."=>".$org_user."=>"."memoNotification");
+                        User::where('id',$id)->update(['memoNotification'=>$memoNotification]);
+                    }
+                }
+                //end adding memo notification;;;
             }
 
             $ret = $Task->updateTask($taskID, $taskData);

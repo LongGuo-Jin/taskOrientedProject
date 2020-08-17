@@ -12,6 +12,7 @@
 */
 use Illuminate\Support\Facades\Session;
 
+
 Route::get('/', function () {
     if (Route::has('login')) {
         return redirect('/dashboard');
@@ -20,7 +21,6 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
 
 Route::group(['middleware'=>['auth' , 'tag']] , function() {
 

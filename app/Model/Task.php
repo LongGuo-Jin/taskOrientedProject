@@ -54,10 +54,10 @@ class Task extends Model
         return DB::getPdo()->lastInsertId();
     }
 
-    public function getTaskListInit()
+    public function getTaskListInit($user)
     {
-        $organization_id = auth()->user()->organization_id;
-        $filter_order = auth()->user()->filter_order;
+        $organization_id = $user->organization_id;
+        $filter_order = $user->filter_order;
 
         $retArr = array();
         $qrBuilder = DB::table($this->table)
@@ -74,17 +74,17 @@ class Task extends Model
                 , DB::raw("concat(users.nameFamily, ' ', users.nameFirst) as fullName"));
 
         $ret = [];
-        switch ($this->roleId) {
+        switch ($user->roleID) {
             case Common::constant("role.proManager"):
             case Common::constant("role.foreman"):
             case Common::constant("role.worker"):
 //                $qrBuilder = $qrBuilder->whereNull("task.parentID");
-                $qrBuilder = $qrBuilder->where("task.personID", "=", $this->login_id);
+                $qrBuilder = $qrBuilder->where("task.personID", "=", $user->id);
                 $ret = $qrBuilder->orderBy('order', 'asc')->orderBy('id','asc')->get()->toArray();
                 $pmArr = [];
 
                 foreach($ret as $eachTask){
-                    $task = $this->getTaskListbyCond(array("taskID" => $eachTask->parentID));
+                    $task = $this->getTaskListbyCond(array("taskID" => $eachTask->parentID),$user);
                     if ($task[0]['personID'] != $this->login_id) {
                         array_push($pmArr,$eachTask);
                     }
@@ -111,8 +111,8 @@ class Task extends Model
         return $result;
     }
 
-    public  function getTaskListForCalendar($data) {
-        $organization_id = auth()->user()->organization_id;
+    public  function getTaskListForCalendar($data,$user) {
+        $organization_id = $user->organization_id;
         $qrBuilder = DB::table($this->table)
             ->leftJoin("taskstatus", "task.statusID", "=", "taskstatus.ID")
             ->leftJoin("taskpriority", "task.priorityID", "=", "taskpriority.ID")
@@ -151,14 +151,14 @@ class Task extends Model
         switch ($this->roleId) {
             case Common::constant("role.proManager"):
             case Common::constant("role.foreman"):
-                $qrBuilder = $qrBuilder->where("task.personID", "=", $this->login_id);
-                $qrBuilder = $qrBuilder->orwhere("taskCreatorID", "=", $this->login_id);
+                $qrBuilder = $qrBuilder->where("task.personID", "=", $user->id);
+                $qrBuilder = $qrBuilder->orwhere("taskCreatorID", "=",  $user->id);
                 break;
             case Common::constant("role.admin"):
                 break;
             case Common::constant("role.worker"):
-                $qrBuilder = $qrBuilder->where("taskCreatorID", "!=", $this->login_id);
-                $qrBuilder = $qrBuilder->where("task.personID", "=", $this->login_id);
+                $qrBuilder = $qrBuilder->where("taskCreatorID", "!=",  $user->id);
+                $qrBuilder = $qrBuilder->where("task.personID", "=",  $user->id);
                 break;
         }
 
@@ -210,8 +210,8 @@ class Task extends Model
     }
 
 
-    public function getTaskListForDashboard() {
-        $organization_id = auth()->user()->organization_id;
+    public function getTaskListForDashboard($user) {
+        $organization_id = $user->organization_id;
         $qrBuilder = DB::table($this->table)
 
             ->leftJoin("taskstatus", "task.statusID", "=", "taskstatus.ID")
@@ -220,7 +220,7 @@ class Task extends Model
             ->leftJoin("users", "task.personID", "=", "users.id")
             ->where('deleteFlag', 0)
             ->where('users.organization_id',$organization_id)
-            ->select("{$this->table}.*", "taskstatus.note as status_icon" , "taskstatus.id as taskstatusid"
+            ->select("{$this->table}.*", "taskstatus.note as status_icon" , "taskstatus.ID as taskstatusid"
                 , "taskpriority.title as priority_title", "taskpriority.order as order" ,  "taskweight.title as weight"
                 ,"users.avatarType as avatarType","users.avatarColor as avatarColor" , "users.nameTag as nameTag" ,"users.roleID"
                 , DB::raw("concat(users.nameFamily, ' ', users.nameFirst) as fullName"));
@@ -228,14 +228,14 @@ class Task extends Model
         switch ($this->roleId) {
             case Common::constant("role.proManager"):
             case Common::constant("role.foreman"):
-                $qrBuilder = $qrBuilder->where("task.personID", "=", $this->login_id);
-                $qrBuilder = $qrBuilder->orwhere("taskCreatorID", "=", $this->login_id);
+                $qrBuilder = $qrBuilder->where("task.personID", "=", $user->id);
+                $qrBuilder = $qrBuilder->orwhere("taskCreatorID", "=", $user->id);
                 break;
             case Common::constant("role.admin"):
                 break;
             case Common::constant("role.worker"):
-                $qrBuilder = $qrBuilder->where("taskCreatorID", "!=", $this->login_id);
-                $qrBuilder = $qrBuilder->where("task.personID", "=", $this->login_id);
+                $qrBuilder = $qrBuilder->where("taskCreatorID", "!=",$user->id);
+                $qrBuilder = $qrBuilder->where("task.personID", "=", $user->id);
                 break;
         }
 
@@ -259,7 +259,8 @@ class Task extends Model
             $datePlanStart = strtotime($dateStart);
             if ($taskStatus != 4 && $taskStatus!= 5 && $now >   $datePlanEnd){
                 array_push($overdue_tasks , $taskItem);
-            } else {
+            }
+            if ($taskStatus != 4 && $taskStatus!= 5 && $now <=   $datePlanEnd){
                 array_push($active_tasks , $taskItem);
             }
             $datediff = $now - $datePlanStart;
@@ -276,32 +277,32 @@ class Task extends Model
     }
 
 
-    public function getTaskList($taskDetails)
+    public function getTaskList($taskDetails,$user)
     {
-        $role = auth()->user()->roleID;
+        $role = $user->roleID;
         $result['list'] = $result['parents'] = array();
         $parentsArr[2] = $parentsArr[1] = $parentsArr[0] = "";
         $retArr[2] = $retArr[1] = $retArr[0] = array();
         $parentId = empty($taskDetails["parentID"]) ? "": $taskDetails["parentID"];
 
-        $isMainRoot = $this->isRootLevel($taskDetails["ID"]);
+        $isMainRoot = $this->isRootLevel($taskDetails["ID"],auth()->user());
 
-        $isParentRoot = $this->isRootLevel($taskDetails["parentID"]);
+        $isParentRoot = $this->isRootLevel($taskDetails["parentID"],auth()->user());
 
         //get first column data
         if ($isParentRoot || $isMainRoot) {
 
-            $initList = $this->getTaskListInit();
+            $initList = $this->getTaskListInit(auth()->user());
             $retArr[0] = $initList["list"][0];
             $parentsArr[0] = $initList['parents'][0];
 
         } else {
-            $tmp = $this->adtResult($this->getTaskListbyCond(array("taskID" => $taskDetails['parentID'])));
+            $tmp = $this->adtResult($this->getTaskListbyCond(array("taskID" => $taskDetails['parentID']),auth()->user()));
 
             if ($this->roleId == 1) {
-                $tmp1 = $this->adtResult($this->getTaskListbyCond(array("parentID" => $tmp[0]['parentID'])));
+                $tmp1 = $this->adtResult($this->getTaskListbyCond(array("parentID" => $tmp[0]['parentID']),auth()->user()));
             } else {
-                $tmp1 = $this->adtResult($this->getTaskListbyCond(array("parentID" => $tmp[0]['parentID'] , "personID"=>auth()->user()->id)));
+                $tmp1 = $this->adtResult($this->getTaskListbyCond(array("parentID" => $tmp[0]['parentID'] , "personID"=>auth()->user()->id),auth()->user()));
             }
             $parentsArr[0] =  $parentId;
             if (count($tmp1)) {
@@ -314,11 +315,11 @@ class Task extends Model
         // get second column
         if ($isMainRoot ){
             if ($this->roleId == 1) {
-                $retArr[1] = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID'])));
+                $retArr[1] = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID']),auth()->user()));
             } else {
 
-                $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID'], "personID"=>auth()->user()->id)));
-                $tmp1 = $this->adtResult($this->getTaskListbyCond(array("parentID" =>$taskDetails['ID'],"taskCreatorID"=>auth()->user()->id)));
+                $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID'], "personID"=>$user->id),auth()->user()));
+                $tmp1 = $this->adtResult($this->getTaskListbyCond(array("parentID" =>$taskDetails['ID'],"taskCreatorID"=>$user->id),auth()->user()));
 //                dd($tmp1);
                 $tmp = array_merge($tmp,$tmp1);
                 $retArr[1] = $tmp;
@@ -326,11 +327,11 @@ class Task extends Model
             $parentsArr[1] = $taskDetails['ID'];
         } else {
             if ($this->roleId == 1) {
-                $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $parentId)));
+                $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $parentId),auth()->user()));
             } else {
-                $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $parentId, "personID"=>auth()->user()->id)));
+                $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $parentId, "personID"=>$user->id),auth()->user()));
 
-                $tmp1 = $this->adtResult($this->getTaskListbyCond(array("parentID" =>$parentId,"taskCreatorID"=>auth()->user()->id)));
+                $tmp1 = $this->adtResult($this->getTaskListbyCond(array("parentID" =>$parentId,"taskCreatorID"=>$user->id),auth()->user()));
 
                 $tmp = array_merge($tmp,$tmp1);
             }
@@ -344,10 +345,10 @@ class Task extends Model
         // get third column
         if (!$isMainRoot) {
             if ($this->roleId == 1) {
-                $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID'])));
+                $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID']),auth()->user()));
             } else {
-                $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID'], "personID"=>auth()->user()->id)));
-                $tmp1 = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID'],"taskCreatorID"=>auth()->user()->id)));
+                $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID'], "personID"=>$user->id),auth()->user()));
+                $tmp1 = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID'],"taskCreatorID"=>$user->id),auth()->user()));
                 $tmp = array_merge($tmp,$tmp1);
             }
             if (count($tmp)) {
@@ -372,17 +373,17 @@ class Task extends Model
     /**
      * Checking what level for this task is root.
      */
-    public function isRootLevel($taskId)
+    public function isRootLevel($taskId,$user)
     {
-        $user_id = auth()->user()->id;
+        $user_id = $user->id;
         $ret = false;
         $parentId = "";
 
         if ($this->roleId == 1) {
-            $tmp = $this->getTaskListbyCond(array("taskID" => $taskId));
+            $tmp = $this->getTaskListbyCond(array("taskID" => $taskId),auth()->user());
 
         } else {
-            $tmp = $this->getTaskListbyCond(array("taskID" => $taskId , "personID"=>$user_id));
+            $tmp = $this->getTaskListbyCond(array("taskID" => $taskId , "personID"=>$user_id),auth()->user());
         }
 
         if (count($tmp)) {
@@ -405,7 +406,7 @@ class Task extends Model
                 if ($parentId == "")
                     $ret = true;
 //                $tmp = array();
-                $tmp = $this->getTaskListbyCond(array("taskID" => $parentId,"personID"=>$user_id));
+                $tmp = $this->getTaskListbyCond(array("taskID" => $parentId,"personID"=>$user_id),auth()->user());
                 if (count($tmp) == 0)
                     $ret = true;
                 break;
@@ -415,23 +416,26 @@ class Task extends Model
     }
 
 
-    public function getTaskListbyCond($cond)
+    public function getTaskListbyCond($cond,$user)
     {
-        $organization_id = auth()->user()->organization_id;
+
+        $organization_id = $user->organization_id;
         $qrBuilder = DB::table($this->table)
             ->leftJoin("taskstatus", "task.statusID", "=", "taskstatus.ID")
             ->leftJoin("taskpriority", "task.priorityID", "=", "taskpriority.ID")
             ->leftJoin("taskweight", "task.weightID", "=", "taskweight.ID")
             ->leftJoin("users", "task.personID", "=", "users.id")
+            ->leftJoin("organizations","users.organization_id",'=',"organizations.id")
             ->where('users.organization_id',$organization_id)
             ->where('deleteFlag', "=", 0)
             ->select("{$this->table}.*", "taskstatus.note as status_icon"
-                , "taskpriority.title as priority_title","taskpriority.order as order" , "taskweight.title as weight"
+                , "taskpriority.title as priority_title","taskpriority.order as order" , "taskweight.title as weight" , "taskstatus.ID as taskstatusid"
                 ,"users.organization_id as organizationID","users.avatarType as avatarType","users.avatarColor as avatarColor" , "users.nameTag as nameTag" ,"users.roleID"
-                , DB::raw("concat(users.nameFamily, ' ', users.nameFirst) as fullName"));
-
+                ,'organizations.organization as organization'
+                , DB::raw("concat(users.nameFamily, users.nameMiddle, users.nameFirst) as fullName"));
 
         if (isset($cond['taskID'])){
+            Log::debug("taskID".json_encode($cond['taskID']));
             if ($cond['taskID'] == "") {
                 $qrBuilder = $qrBuilder->whereNull("task.ID");
             } else {
@@ -439,17 +443,20 @@ class Task extends Model
             }
         }
         if (isset($cond['taskCreatorID'])){
+            Log::debug("taskCreatorID".json_encode($cond['taskCreatorID']));
             $qrBuilder =  $qrBuilder->where("users.id", "!=", $cond['taskCreatorID']);
            $qrBuilder = $qrBuilder->where("task.taskCreatorID", "=", $cond['taskCreatorID']);
 
         }
 
         if (isset($cond['personID'])){
+            Log::debug("personID".json_encode($cond['personID']));
             $qrBuilder =  $qrBuilder->where("users.id", "=", $cond['personID']);
 //            $qrBuilder = $qrBuilder->where("task.taskCreatorID", "!=", $cond['personID']);
         }
 
         if (isset($cond['parentID'])) {
+            Log::debug("parentID".json_encode($cond['parentID']));
             if ($cond['parentID'] == "") {
                 $qrBuilder = $qrBuilder->whereNull("task.parentID");
             } else {

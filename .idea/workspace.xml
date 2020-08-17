@@ -1,161 +1,146 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c44be4ee-2183-4ea2-b253-7379dfbeff7d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/assets/css/company/company.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/company/company.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/company/index.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/company/partials/add.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/company/partials/edit.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/people/partials/add.blade.php" afterDir="false" />
+    <list default="true" id="cd7486bd-9e59-4686-b319-e85da83e8942" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/API/AuthController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/API/TaskController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2016_06_01_000001_create_oauth_auth_codes_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2016_06_01_000002_create_oauth_access_tokens_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2016_06_01_000003_create_oauth_refresh_tokens_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2016_06_01_000004_create_oauth_clients_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2016_06_01_000005_create_oauth_personal_access_clients_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/taskOriented.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/taskOriented.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/OrganizationController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Model/Tag.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Model/Tag.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Model/TagPerson.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Model/TagPerson.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Model/Task.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Model/Task.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/auth.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/filesystems.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/filesystems.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/logging.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/logging.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/queue.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/queue.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/session.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/session.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_06_27_030352_create_organizations_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_06_27_030352_create_organizations_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_06_27_110001_create_tagperson_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_06_27_110001_create_tagperson_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/company/company.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/company/company.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/assets/css/people/people.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/people/people.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/assets/css/task/taskcard.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/task/taskcard.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/people/people.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/people/people.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/calendar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/calendar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/js/task/taskcard.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/task/taskcard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/dashboard.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/si/dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/si/dashboard.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/header.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/layout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/layout.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/people/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/people/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/people/partials/add.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/people/partials/add.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/people/partials/details.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/people/partials/details.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/task/taskCard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/task/taskCard.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/task/taskDetailAdd.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/task/taskDetailAdd.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/task/taskDetailEdit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/task/taskDetailEdit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/app/public/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/testing/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/20200704035307_taskoriented.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/20200707071433_wp-config.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/20200708050514_barkrz.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/20200722043605_login.png" beforeDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/node_modules/" />
-    <ignored path="$PROJECT_DIR$/public/assets/vendors/general/handlebars/node_modules/" />
-    <ignored path="$PROJECT_DIR$/public/assets/vendors/general/markdown/node_modules/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" doNotAsk="true">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-  </component>
-  <component name="CreatePatchCommitExecutor">
-    <option name="PATCH_PATH" value="" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="1684177551">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="13" />
-          <entry key="project.open.time.0" value="2" />
-          <entry key="project.open.time.1" value="2" />
-          <entry key="project.open.time.10" value="1" />
-          <entry key="project.open.time.13" value="2" />
-          <entry key="project.open.time.14" value="1" />
-          <entry key="project.open.time.16" value="1" />
-          <entry key="project.open.time.17" value="5" />
-          <entry key="project.open.time.18" value="1" />
-          <entry key="project.open.time.19" value="5" />
-          <entry key="project.open.time.20" value="6" />
-          <entry key="project.open.time.21" value="6" />
-          <entry key="project.open.time.22" value="3" />
-          <entry key="project.open.time.23" value="3" />
-          <entry key="project.open.time.24" value="2" />
-          <entry key="project.open.time.25" value="1" />
-          <entry key="project.open.time.26" value="2" />
-          <entry key="project.open.time.27" value="2" />
-          <entry key="project.open.time.29" value="1" />
-          <entry key="project.open.time.3" value="2" />
-          <entry key="project.open.time.36" value="1" />
-          <entry key="project.open.time.39" value="1" />
-          <entry key="project.open.time.5" value="1" />
-          <entry key="project.open.time.6" value="1" />
-          <entry key="project.opened" value="52" />
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.0" value="1" />
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.opened" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="css" value="59" />
-          <entry key="editorconfig" value="2" />
-          <entry key="env" value="6" />
-          <entry key="error_log" value="2" />
-          <entry key="html" value="11" />
-          <entry key="js" value="112" />
-          <entry key="json" value="10" />
-          <entry key="log" value="14" />
-          <entry key="php" value="868" />
-          <entry key="rnc" value="1" />
-          <entry key="scss" value="210" />
-          <entry key="sql" value="1" />
-          <entry key="txt" value="3" />
-          <entry key="vue" value="3" />
+          <entry key="css" value="1" />
+          <entry key="js" value="1" />
+          <entry key="log" value="6" />
+          <entry key="php" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Blade" value="358" />
-          <entry key="CSS" value="59" />
-          <entry key="HTML" value="11" />
-          <entry key="JSON" value="10" />
-          <entry key="JavaScript" value="112" />
-          <entry key="PHP" value="510" />
-          <entry key="PLAIN_TEXT" value="27" />
-          <entry key="RNG Compact" value="1" />
-          <entry key="SCSS" value="210" />
-          <entry key="SQL" value="1" />
-          <entry key="Vue.js" value="3" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.js.language.service.starts">
-        <counts>
-          <entry key="TypeScriptServerServiceImpl" value="28" />
+          <entry key="Blade" value="2" />
+          <entry key="CSS" value="1" />
+          <entry key="JavaScript" value="1" />
+          <entry key="PHP" value="16" />
+          <entry key="PLAIN_TEXT" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="css" value="4197" />
-          <entry key="dummy" value="65" />
-          <entry key="env" value="35" />
-          <entry key="js" value="7040" />
-          <entry key="json" value="35" />
-          <entry key="log" value="16" />
-          <entry key="php" value="77482" />
-          <entry key="scss" value="2007" />
-          <entry key="sql" value="2" />
-          <entry key="txt" value="1" />
-          <entry key="vue" value="1934" />
+          <entry key="js" value="1" />
+          <entry key="log" value="6" />
+          <entry key="php" value="2919" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Blade" value="42090" />
-          <entry key="CSS" value="4197" />
-          <entry key="JSON" value="35" />
-          <entry key="JavaScript" value="7040" />
-          <entry key="PHP" value="35392" />
-          <entry key="PLAIN_TEXT" value="117" />
-          <entry key="SCSS" value="2007" />
-          <entry key="SQL" value="2" />
-          <entry key="Vue.js" value="1934" />
+          <entry key="JavaScript" value="1" />
+          <entry key="PHP" value="2919" />
+          <entry key="PLAIN_TEXT" value="6" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.js.language.service.starts">
+        <counts>
+          <entry key="TypeScriptServerServiceImpl" value="1" />
         </counts>
       </usages-collector>
     </session>
-  </component>
-  <component name="FavoritesManager">
-    <favorites_list name="taskOriented" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TaskController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="711" selection-start-line="711" selection-end-line="711" selection-end-column="39" />
+            <state relative-caret-position="418">
+              <caret line="354" column="39" lean-forward="true" selection-start-line="354" selection-start-column="39" selection-end-line="354" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/assets/css/company/company.css">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/assets/js/task/taskcard.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="107">
+              <caret line="513" column="40" selection-start-line="513" selection-start-column="24" selection-end-line="513" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -163,43 +148,50 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/task/taskCard.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="438" column="35" selection-start-line="438" selection-start-column="35" selection-end-line="438" selection-end-column="35" />
+            <state relative-caret-position="6028">
+              <caret line="274" column="74" selection-start-line="274" selection-start-column="74" selection-end-line="274" selection-end-column="74" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/UserController.php">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/AuthController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="178" column="82" selection-start-line="178" selection-start-column="82" selection-end-line="178" selection-end-column="82" />
+            <state relative-caret-position="308">
+              <caret line="24" selection-start-line="24" selection-end-line="24" />
               <folding>
-                <element signature="e#40#61#0#PHP" expanded="true" />
+                <element signature="e#125#138#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/people/partials/add.blade.php">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/api.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="90" selection-start-column="90" selection-end-column="90" />
+            <state relative-caret-position="330">
+              <caret line="15" column="11" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="11" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/task/taskList.blade.php">
-          <provider selected="true" editor-type-id="text-editor" />
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/TaskController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="181">
+              <caret line="75" column="33" selection-start-line="75" selection-start-column="33" selection-end-line="75" selection-end-column="33" />
+              <folding>
+                <element signature="e#125#161#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/people/partials/details.blade.php">
+        <entry file="file://$PROJECT_DIR$/app/Model/Task.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="119" lean-forward="true" selection-start-column="119" selection-end-column="119" />
+            <state relative-caret-position="1078">
+              <caret line="56" column="20" selection-start-line="56" selection-start-column="20" selection-end-line="56" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -208,51 +200,17 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>TagNames</find>
-      <find>getTagIds2Names</find>
-      <find>update</find>
-      <find>tagNam</find>
-      <find>se</find>
-      <find>taskCardU</find>
-      <find>task</find>
-      <find>detail-edit-tags</find>
-      <find>tags</find>
-      <find>&lt;select</find>
-      <find>bootstrap-select</find>
-      <find>select</find>
-      <find>kt-selectpicker</find>
-      <find>system</find>
-      <find>select[name=tags]</find>
-      <find>national</find>
-      <find>people</find>
-      <find>people_tags</find>
-      <find>date</find>
-      <find>birth</find>
-      <find>TagName</find>
-      <find>TagN</find>
-      <find>gender</find>
-      <find>cors</find>
-      <find>personAddForm</find>
-      <find>addPerson</find>
-      <find>people_p</find>
-      <find>taskCardAdd</find>
-      <find>input.date-picker</find>
-      <find>date-picker</find>
+      <find>getTaskListByCond</find>
+      <find>topSort</find>
+      <find>isRootLevel</find>
+      <find>getTaskList</find>
+      <find>personID</find>
+      <find>Task</find>
+      <find>getTaskListbyCond</find>
+      <find>progress</find>
+      <find>spentProgress</find>
+      <find>memoNotification</find>
     </findStrings>
-    <replaceStrings>
-      <replace>TaskOriented</replace>
-      <replace>beone.atelje.info</replace>
-      <replace>http://beone.atelje.info</replace>
-      <replace>$columnItem</replace>
-      <replace>$userDetails</replace>
-      <replace>/h5&gt;</replace>
-      <replace>col-md-3</replace>
-      <replace>col-md-9</replace>
-      <replace>[</replace>
-    </replaceStrings>
-    <dirStrings>
-      <dir>C:\xampp\htdocs\taskOriented\resources\assets\sass\TaskOriented</dir>
-    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -260,57 +218,15 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/public/assets/js/task/taskcard.js" />
-        <option value="$PROJECT_DIR$/resources/assets/js/bootstrap.js" />
-        <option value="$PROJECT_DIR$/resources/assets/js/components/MyColorPicker.vue" />
-        <option value="$PROJECT_DIR$/resources/assets/js/components/AvatarShape.vue" />
-        <option value="$PROJECT_DIR$/resources/assets/js/app.js" />
-        <option value="$PROJECT_DIR$/resources/views/people.blade.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2020_07_21_040511_create_times_table.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2020_07_22_100529_create_allocated_times_table.php" />
-        <option value="$PROJECT_DIR$/app/Time.php" />
-        <option value="$PROJECT_DIR$/app/AllocatedTime.php" />
-        <option value="$PROJECT_DIR$/resources/views/people/partials/details_avatar.blade.php" />
-        <option value="$PROJECT_DIR$/public/assets/css/demo1/style.bundle.css" />
-        <option value="$PROJECT_DIR$/app/User.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/OrganizationController.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2020_06_27_030352_create_organizations_table.php" />
-        <option value="$PROJECT_DIR$/resources/views/layouts/header.blade.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2020_08_06_030408_create_companies_table.php" />
-        <option value="$PROJECT_DIR$/app/Company.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2020_06_27_110001_create_tagperson_table.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2020_08_07_052757_create_tag_organizations_table.php" />
-        <option value="$PROJECT_DIR$/app/Model/Tag.php" />
-        <option value="$PROJECT_DIR$/storage/logs/laravel-2020-08-06.log" />
-        <option value="$PROJECT_DIR$/app/TagTask.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2020_08_07_052747_create_tag_tasks_table.php" />
-        <option value="$PROJECT_DIR$/resources/views/task/taskDetailEdit.blade.php" />
-        <option value="$PROJECT_DIR$/public/assets/css/task/taskcard.css" />
-        <option value="$PROJECT_DIR$/resources/views/task/taskDetailAdd.blade.php" />
-        <option value="$PROJECT_DIR$/app/Model/TagPerson.php" />
-        <option value="$PROJECT_DIR$/app/TagOrganization.php" />
-        <option value="$PROJECT_DIR$/public/assets/css/company/company.css" />
-        <option value="$PROJECT_DIR$/resources/views/layouts/layout.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/company/index.blade.php" />
+        <option value="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" />
         <option value="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" />
-        <option value="$PROJECT_DIR$/storage/logs/laravel-2020-08-07.log" />
-        <option value="$PROJECT_DIR$/public/assets/js/company/company.js" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/CompanyController.php" />
-        <option value="$PROJECT_DIR$/app/Model/Task.php" />
-        <option value="$PROJECT_DIR$/resources/views/company/partials/edit.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/company/partials/add.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/dashboard.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/calendar.blade.php" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
-        <option value="$PROJECT_DIR$/resources/views/people/index.blade.php" />
-        <option value="$PROJECT_DIR$/public/assets/css/people/people.css" />
-        <option value="$PROJECT_DIR$/storage/logs/laravel-2020-08-10.log" />
-        <option value="$PROJECT_DIR$/public/assets/js/people/people.js" />
-        <option value="$PROJECT_DIR$/resources/views/task/taskCard.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/API/AuthController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/UserController.php" />
-        <option value="$PROJECT_DIR$/resources/views/people/partials/details.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/people/partials/add.blade.php" />
+        <option value="$PROJECT_DIR$/app/Model/Task.php" />
+        <option value="$PROJECT_DIR$/routes/api.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/API/TaskController.php" />
+        <option value="$PROJECT_DIR$/storage/logs/laravel.log" />
+        <option value="$PROJECT_DIR$/public/assets/js/task/taskcard.js" />
       </list>
     </option>
   </component>
@@ -382,102 +298,128 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
+      <path value="$PROJECT_DIR$/vendor/asm89/stack-cors" />
+      <path value="$PROJECT_DIR$/vendor/brick/math" />
+      <path value="$PROJECT_DIR$/vendor/laminas/laminas-zendframework-bridge" />
+      <path value="$PROJECT_DIR$/vendor/laminas/laminas-diactoros" />
+      <path value="$PROJECT_DIR$/vendor/defuse/php-encryption" />
+      <path value="$PROJECT_DIR$/vendor/nyholm/psr7" />
+      <path value="$PROJECT_DIR$/vendor/fruitcake/laravel-cors" />
+      <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/vendor/firebase/php-jwt" />
+      <path value="$PROJECT_DIR$/vendor/lcobucci/jwt" />
+      <path value="$PROJECT_DIR$/vendor/php-http/message-factory" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/vendor/laravel/ui" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/vendor/laravel/passport" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/dnoegel/php-xdg-base-dir" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/vendor/dragonmantank/cron-expression" />
+      <path value="$PROJECT_DIR$/vendor/egulias/email-validator" />
+      <path value="$PROJECT_DIR$/vendor/facade/ignition-contracts" />
+      <path value="$PROJECT_DIR$/vendor/fideloper/proxy" />
+      <path value="$PROJECT_DIR$/vendor/filp/whoops" />
+      <path value="$PROJECT_DIR$/vendor/fzaninotto/faker" />
+      <path value="$PROJECT_DIR$/vendor/hamcrest/hamcrest-php" />
+      <path value="$PROJECT_DIR$/vendor/laravel/framework" />
+      <path value="$PROJECT_DIR$/vendor/laravel/tinker" />
       <path value="$PROJECT_DIR$/vendor/league/flysystem" />
-      <path value="$PROJECT_DIR$/vendor/myclabs/deep-copy" />
-      <path value="$PROJECT_DIR$/vendor/psr/container" />
       <path value="$PROJECT_DIR$/vendor/mockery/mockery" />
       <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
-      <path value="$PROJECT_DIR$/vendor/psr/event-dispatcher" />
-      <path value="$PROJECT_DIR$/vendor/psr/log" />
-      <path value="$PROJECT_DIR$/vendor/dnoegel/php-xdg-base-dir" />
-      <path value="$PROJECT_DIR$/vendor/psr/simple-cache" />
-      <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
+      <path value="$PROJECT_DIR$/vendor/myclabs/deep-copy" />
+      <path value="$PROJECT_DIR$/vendor/nesbot/carbon" />
+      <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/vendor/nunomaduro/collision" />
       <path value="$PROJECT_DIR$/vendor/opis/closure" />
-      <path value="$PROJECT_DIR$/vendor/egulias/email-validator" />
-      <path value="$PROJECT_DIR$/vendor/hamcrest/hamcrest-php" />
-      <path value="$PROJECT_DIR$/vendor/voku/portable-ascii" />
-      <path value="$PROJECT_DIR$/vendor/ramsey/uuid" />
-      <path value="$PROJECT_DIR$/vendor/tijsverkoyen/css-to-inline-styles" />
+      <path value="$PROJECT_DIR$/vendor/paragonie/random_compat" />
       <path value="$PROJECT_DIR$/vendor/phar-io/manifest" />
       <path value="$PROJECT_DIR$/vendor/phar-io/version" />
-      <path value="$PROJECT_DIR$/vendor/dragonmantank/cron-expression" />
-      <path value="$PROJECT_DIR$/vendor/psy/psysh" />
-      <path value="$PROJECT_DIR$/vendor/nesbot/carbon" />
-      <path value="$PROJECT_DIR$/vendor/webmozart/assert" />
-      <path value="$PROJECT_DIR$/vendor/phpunit/php-file-iterator" />
-      <path value="$PROJECT_DIR$/vendor/phpunit/php-timer" />
-      <path value="$PROJECT_DIR$/vendor/theseer/tokenizer" />
-      <path value="$PROJECT_DIR$/vendor/phpunit/php-text-template" />
-      <path value="$PROJECT_DIR$/vendor/phpunit/php-token-stream" />
-      <path value="$PROJECT_DIR$/vendor/fzaninotto/faker" />
-      <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
-      <path value="$PROJECT_DIR$/vendor/phpunit/phpunit" />
-      <path value="$PROJECT_DIR$/vendor/fideloper/proxy" />
-      <path value="$PROJECT_DIR$/vendor/symfony/console" />
-      <path value="$PROJECT_DIR$/vendor/jakub-onderka/php-console-highlighter" />
-      <path value="$PROJECT_DIR$/vendor/symfony/process" />
-      <path value="$PROJECT_DIR$/vendor/jakub-onderka/php-console-color" />
-      <path value="$PROJECT_DIR$/vendor/symfony/service-contracts" />
-      <path value="$PROJECT_DIR$/vendor/symfony/mime" />
-      <path value="$PROJECT_DIR$/vendor/phpspec/prophecy" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-iconv" />
-      <path value="$PROJECT_DIR$/vendor/paragonie/random_compat" />
-      <path value="$PROJECT_DIR$/vendor/symfony/var-dumper" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-idn" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php72" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php73" />
-      <path value="$PROJECT_DIR$/vendor/symfony/http-kernel" />
-      <path value="$PROJECT_DIR$/vendor/symfony/finder" />
-      <path value="$PROJECT_DIR$/vendor/symfony/routing" />
-      <path value="$PROJECT_DIR$/vendor/laravel/tinker" />
-      <path value="$PROJECT_DIR$/vendor/symfony/css-selector" />
-      <path value="$PROJECT_DIR$/vendor/laravel/framework" />
-      <path value="$PROJECT_DIR$/vendor/symfony/error-handler" />
-      <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher" />
-      <path value="$PROJECT_DIR$/vendor/filp/whoops" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
-      <path value="$PROJECT_DIR$/vendor/symfony/translation" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
       <path value="$PROJECT_DIR$/vendor/phpoption/phpoption" />
-      <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher-contracts" />
-      <path value="$PROJECT_DIR$/vendor/symfony/http-foundation" />
-      <path value="$PROJECT_DIR$/vendor/symfony/translation-contracts" />
-      <path value="$PROJECT_DIR$/vendor/vlucas/phpdotenv" />
-      <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
-      <path value="$PROJECT_DIR$/vendor/erusev/parsedown" />
+      <path value="$PROJECT_DIR$/vendor/phpspec/prophecy" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-token-stream" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/vendor/psr/event-dispatcher" />
+      <path value="$PROJECT_DIR$/vendor/facade/ignition" />
+      <path value="$PROJECT_DIR$/vendor/league/oauth2-server" />
+      <path value="$PROJECT_DIR$/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/vendor/facade/flare-client-php" />
+      <path value="$PROJECT_DIR$/vendor/psr/simple-cache" />
+      <path value="$PROJECT_DIR$/vendor/psy/psysh" />
+      <path value="$PROJECT_DIR$/vendor/ramsey/uuid" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/code-unit-reverse-lookup" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/vendor/scrivo/highlight.php" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/exporter" />
       <path value="$PROJECT_DIR$/vendor/sebastian/global-state" />
-      <path value="$PROJECT_DIR$/vendor/sebastian/recursion-context" />
-      <path value="$PROJECT_DIR$/vendor/composer" />
       <path value="$PROJECT_DIR$/vendor/sebastian/object-enumerator" />
       <path value="$PROJECT_DIR$/vendor/sebastian/object-reflector" />
-      <path value="$PROJECT_DIR$/vendor/facade/ignition-contracts" />
-      <path value="$PROJECT_DIR$/vendor/sebastian/diff" />
-      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
-      <path value="$PROJECT_DIR$/vendor/sebastian/type" />
-      <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
-      <path value="$PROJECT_DIR$/vendor/sebastian/version" />
-      <path value="$PROJECT_DIR$/vendor/nunomaduro/collision" />
-      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
-      <path value="$PROJECT_DIR$/vendor/sebastian/comparator" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
-      <path value="$PROJECT_DIR$/vendor/sebastian/environment" />
-      <path value="$PROJECT_DIR$/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/recursion-context" />
       <path value="$PROJECT_DIR$/vendor/sebastian/resource-operations" />
-      <path value="$PROJECT_DIR$/vendor/sebastian/code-unit-reverse-lookup" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/type" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/vendor/symfony/css-selector" />
+      <path value="$PROJECT_DIR$/vendor/symfony/error-handler" />
+      <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher" />
+      <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-foundation" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-kernel" />
+      <path value="$PROJECT_DIR$/vendor/symfony/mime" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-iconv" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-idn" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php72" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php73" />
+      <path value="$PROJECT_DIR$/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/vendor/symfony/routing" />
+      <path value="$PROJECT_DIR$/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/translation" />
+      <path value="$PROJECT_DIR$/vendor/symfony/translation-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/var-dumper" />
+      <path value="$PROJECT_DIR$/vendor/theseer/tokenizer" />
+      <path value="$PROJECT_DIR$/vendor/tijsverkoyen/css-to-inline-styles" />
+      <path value="$PROJECT_DIR$/vendor/vlucas/phpdotenv" />
+      <path value="$PROJECT_DIR$/vendor/voku/portable-ascii" />
+      <path value="$PROJECT_DIR$/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/vendor/phpseclib/phpseclib" />
+      <path value="$PROJECT_DIR$/vendor/symfony/string" />
+      <path value="$PROJECT_DIR$/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/vendor/symfony/psr-http-message-bridge" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-normalizer" />
+      <path value="$PROJECT_DIR$/vendor/ramsey/collection" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php70" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-grapheme" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/vendor/league/commonmark" />
+      <path value="$PROJECT_DIR$/vendor/league/event" />
+      <path value="$PROJECT_DIR$/vendor/league/mime-type-detection" />
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-10" />
-    <option name="width" value="980" />
-    <option name="height" value="1040" />
-  </component>
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
-  <component name="ProjectReloadState">
-    <option name="STATE" value="0" />
+    <option name="x" value="65" />
+    <option name="y" value="20" />
+    <option name="width" value="1390" />
+    <option name="height" value="775" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -513,6 +455,31 @@
             <path>
               <item name="taskOriented" type="b2602c69:ProjectViewProjectNode" />
               <item name="taskOriented" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="API" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="taskOriented" type="b2602c69:ProjectViewProjectNode" />
+              <item name="taskOriented" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="taskOriented" type="b2602c69:ProjectViewProjectNode" />
+              <item name="taskOriented" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="taskOriented" type="b2602c69:ProjectViewProjectNode" />
+              <item name="taskOriented" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
+              <item name="migrations" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="taskOriented" type="b2602c69:ProjectViewProjectNode" />
+              <item name="taskOriented" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -527,6 +494,14 @@
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="company" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="taskOriented" type="b2602c69:ProjectViewProjectNode" />
+              <item name="taskOriented" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="company" type="462c0819:PsiDirectoryNode" />
+              <item name="partials" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="taskOriented" type="b2602c69:ProjectViewProjectNode" />
@@ -553,13 +528,6 @@
             <path>
               <item name="taskOriented" type="b2602c69:ProjectViewProjectNode" />
               <item name="taskOriented" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="user" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="taskOriented" type="b2602c69:ProjectViewProjectNode" />
-              <item name="taskOriented" type="462c0819:PsiDirectoryNode" />
               <item name="routes" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -580,29 +548,11 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="FullScreen" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="peop&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/resources/views/people&#10;user&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/app/Http/Controllers/UserController.php&#10;people.css&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/public/assets/css/people/people.css&#10;people.js&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/public/assets/js/people/people.js&#10;web.&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/routes/web.php&#10;compan&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/resources/views/company&#10;company&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/app/Http/Controllers/CompanyController.php&#10;TaskCon&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/app/Http/Controllers/TaskController.php&#10;Comp&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/app/Http/Controllers/CompanyController.php&#10;User&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/app/Http/Controllers/UserController.php&#10;pe&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/public/assets/js/people/people.js&#10;taskDe&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/resources/views/task/taskDetailEdit.blade.php&#10;company.js&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/public/assets/js/company/company.js&#10;Compan&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/app/Http/Controllers/CompanyController.php&#10;larave&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/storage/logs/laravel-2020-08-07.log&#10;usercon&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/app/Http/Controllers/UserController.php&#10;task&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/public/assets/js/task/taskcard.js&#10;company.j&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/public/assets/js/company/company.js&#10;taskca&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/public/assets/js/task/taskcard.js&#10;TaskC&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/app/Http/Controllers/TaskController.php&#10;Company&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/app/Http/Controllers/CompanyController.php&#10;taskDetail&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/resources/views/task/taskDetailAdd.blade.php&#10;task.c&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/public/assets/css/task/taskcard.css&#10;taskCard&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/resources/views/task/taskCard.blade.php&#10;Task&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/app/Model/Task.php&#10;lara&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/storage/logs/laravel-2020-08-07.log&#10;laravel-&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/storage/logs/laravel-2020-08-07.log&#10;log&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/storage/logs/laravel-2020-08-06.log&#10;taskCardU&#9;null&#9;null&#10;TaskController&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/app/Http/Controllers/TaskController.php&#10;tag&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/app/TagTask.php&#10;Tag&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/resources/views/tag&#10;tagT&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/app/TagTask.php&#10;tagO&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/app/TagOrganization.php&#10;tagpe&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/app/Model/TagPerson.php&#10;taskCar&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/resources/views/task/taskCard.blade.php&#10;people&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/resources/views/people&#10;edit&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/resources/views/company/partials/edit.blade.php&#10;CompanyCon&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/app/Http/Controllers/CompanyController.php&#10;det&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/resources/views/people/partials/details.blade.php&#10;index&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/resources/views/company/index.blade.php&#10;add&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/resources/views/company/partials/add.blade.php&#10;ed&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/resources/views/company/partials/edit.blade.php&#10;Compa&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/app/Http/Controllers/CompanyController.php&#10;de&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/resources/views/people/partials/details.blade.php&#10;c&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/app/Http/Controllers/CompanyController.php&#10;web&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/routes/web.php&#10;migration&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/database/migrations&#10;migratio&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/database/migrations&#10;companycon\&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/app/Http/Controllers/CompanyController.php" />
+    <property name="SearchEverywhereHistoryKey" value="taskcard.j&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/public/assets/js/task/taskcard.js&#10;company.&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/public/assets/css/company/company.css&#10;taskCard&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/resources/views/task/taskCard.blade.php&#10;Lar&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/storage/logs/laravel.log&#10;laravel.log&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/storage/logs/laravel.log&#10;api&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/routes/api.php&#10;lar&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/storage/logs/laravel.log&#10;laravel&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/storage/logs/laravel.log&#10;api.ph&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/routes/api.php&#10;web&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/routes/web.php" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../barkrz-backend" />
-    <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
-    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2018.2.5\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
-  </component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\taskOriented\resources\views\people" />
-      <recent name="C:\xampp\htdocs\taskOriented\app" />
-      <recent name="C:\xampp\htdocs\taskOriented\app\Model" />
-      <recent name="C:\xampp\htdocs\taskOriented\resources\views\tag" />
-      <recent name="C:\xampp\htdocs\taskOriented\database\migrations" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\taskOriented\resources\lang\si" />
-      <recent name="C:\xampp\htdocs\taskOriented\public\assets\js" />
-      <recent name="C:\xampp\htdocs\taskOriented\public\assets\css" />
-      <recent name="C:\xampp\htdocs\taskOriented\public\js" />
-      <recent name="C:\xampp\htdocs\taskOriented\resources\assets\scss" />
-    </key>
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -621,487 +571,173 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c44be4ee-2183-4ea2-b253-7379dfbeff7d" name="Default Changelist" comment="" />
-      <created>1592230914702</created>
+      <changelist id="cd7486bd-9e59-4686-b319-e85da83e8942" name="Default Changelist" comment="" />
+      <created>1597347106198</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1592230914702</updated>
-      <workItem from="1592230917201" duration="11461000" />
-      <workItem from="1592290036367" duration="503000" />
-      <workItem from="1592317343204" duration="11721000" />
-      <workItem from="1592353900887" duration="8098000" />
-      <workItem from="1592387646011" duration="294000" />
-      <workItem from="1592389025330" duration="3164000" />
-      <workItem from="1592531804835" duration="1479000" />
-      <workItem from="1592544873730" duration="274000" />
-      <workItem from="1592545763002" duration="3610000" />
-      <workItem from="1592571666577" duration="4034000" />
-      <workItem from="1592615610098" duration="7815000" />
-      <workItem from="1592659236185" duration="16545000" />
-      <workItem from="1592702604565" duration="3065000" />
-      <workItem from="1593163702275" duration="20419000" />
-      <workItem from="1593218989035" duration="9730000" />
-      <workItem from="1593235049452" duration="2687000" />
-      <workItem from="1593243272164" duration="6482000" />
-      <workItem from="1593260502443" duration="5366000" />
-      <workItem from="1593390969309" duration="7114000" />
-      <workItem from="1593430464484" duration="2869000" />
-      <workItem from="1593448202335" duration="24851000" />
-      <workItem from="1593544008249" duration="4123000" />
-      <workItem from="1593548700408" duration="10934000" />
-      <workItem from="1593649539957" duration="7526000" />
-      <workItem from="1593679299547" duration="49248000" />
-      <workItem from="1593778910741" duration="3701000" />
-      <workItem from="1593827186115" duration="15384000" />
-      <workItem from="1594037167628" duration="6245000" />
-      <workItem from="1594093408481" duration="5431000" />
-      <workItem from="1594195900673" duration="2566000" />
-      <workItem from="1594212649061" duration="6807000" />
-      <workItem from="1594344001373" duration="3901000" />
-      <workItem from="1594368143538" duration="9347000" />
-      <workItem from="1594429624476" duration="613000" />
-      <workItem from="1594432473878" duration="1132000" />
-      <workItem from="1594479308067" duration="984000" />
-      <workItem from="1594560217010" duration="4770000" />
-      <workItem from="1594604060387" duration="14082000" />
-      <workItem from="1594696496157" duration="17364000" />
-      <workItem from="1594744313190" duration="8801000" />
-      <workItem from="1594783735429" duration="7500000" />
-      <workItem from="1594861621719" duration="14391000" />
-      <workItem from="1595264541164" duration="68951000" />
-      <workItem from="1595570502312" duration="84555000" />
-      <workItem from="1596100275782" duration="840000" />
-      <workItem from="1596101906102" duration="16589000" />
-      <workItem from="1596424180503" duration="18376000" />
-      <workItem from="1596458043143" duration="6146000" />
-      <workItem from="1596477942416" duration="98938000" />
-      <workItem from="1597020817639" duration="1216000" />
-      <workItem from="1597025453891" duration="1269000" />
-      <workItem from="1597029365557" duration="7233000" />
+      <updated>1597347106198</updated>
+      <workItem from="1597347107475" duration="24531000" />
+      <workItem from="1597645004053" duration="686000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="650544000" />
+    <option name="totallyTimeSpent" value="25217000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21275167" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21879195" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info id="npm" order="3" side_tool="true" />
+      <window_info id="npm" order="2" side_tool="true" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="TypeScript" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32907802" />
+      <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Changes" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5026652" side_tool="true" weight="0.159436" />
-      <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
-      <window_info anchor="bottom" id="TypeScript" order="12" weight="0.329718" />
-      <window_info anchor="bottom" id="Terminal" order="13" sideWeight="0.49733475" weight="0.17021276" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="11" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" />
     </layout>
     <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21275167" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info id="npm" order="3" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32907802" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Changes" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5026652" side_tool="true" weight="0.159436" />
-      <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
-      <window_info anchor="bottom" id="TypeScript" order="12" weight="0.329718" />
-      <window_info anchor="bottom" id="Terminal" order="13" sideWeight="0.49733475" visible="true" weight="0.17021276" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" />
+      <window_info id="npm" order="0" side_tool="true" />
+      <window_info id="Favorites" order="1" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.24966443" />
+      <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="1" />
+      <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Database Changes" order="3" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="4" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Message" order="5" />
+      <window_info anchor="bottom" id="Find" order="6" />
+      <window_info anchor="bottom" id="Run" order="7" />
+      <window_info anchor="bottom" id="Debug" order="8" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="10" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="11" />
+      <window_info anchor="right" id="Database" order="0" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="Vcs.Log.UiProperties">
-    <option name="RECENTLY_FILTERED_USER_GROUPS">
-      <collection />
-    </option>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.log" />
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
-  <component name="debuggerHistoryManager">
-    <expressions id="breakpointLogExpression">
-      <expression>
-        <expression-string>$table-&gt;string('long_name')-&gt;nullable();
-            $table-&gt;string('type')-&gt;nullable();
-            $table-&gt;tinyInteger('Taxpayer')-&gt;nullable();
-            $table-&gt;string('VATNumber')-&gt;nullable();
-            $table-&gt;string('registrationNumber')-&gt;nullable();
-            $table-&gt;string('address')-&gt;nullable();
-            $table-&gt;unsignedBigInteger('Manager')-&gt;nullable();
-            $table-&gt;string('ContactPerson')-&gt;nullable();
-            $table-&gt;string('description')-&gt;nullable();</expression-string>
-        <language-id>PHP</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-    </expressions>
-  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/resources/views/layouts/header.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="34" column="79" selection-start-line="34" selection-start-column="79" selection-end-line="34" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_08_06_030408_create_companies_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="35" column="30" selection-start-line="35" selection-start-column="30" selection-end-line="35" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Model/Attachment.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="33" column="20" selection-start-line="33" selection-start-column="20" selection-end-line="33" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_06_27_105645_create_tag_table.php">
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_06_27_030352_create_organizations_table.php">
+    <entry file="file://$PROJECT_DIR$/app/Providers/AuthServiceProvider.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="16" column="40" lean-forward="true" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/db_structure.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="290" column="46" selection-start-line="290" selection-start-column="46" selection-end-line="290" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_06_27_110001_create_tagperson_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/tag/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="481">
-          <caret line="38" column="47" lean-forward="true" selection-start-line="36" selection-start-column="39" selection-end-line="38" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Helper/Common.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storage/logs/laravel-2020-08-06.log" />
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_08_07_052757_create_tag_organizations_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_08_07_052747_create_tag_tasks_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="22" column="38" lean-forward="true" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Model/Tag.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="15" column="19" lean-forward="true" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Model/TagPerson.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/TagOrganization.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="18" column="95" selection-start-line="18" selection-start-column="95" selection-end-line="18" selection-end-column="95" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/css/task/taskcard.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="578" lean-forward="true" selection-start-line="558" selection-end-line="578" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/task/taskcard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="703" column="51" selection-start-line="703" selection-start-column="34" selection-end-line="703" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/layouts/layout.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="129" selection-start-line="129" selection-end-line="129" />
+        <state relative-caret-position="528">
+          <caret line="29" column="49" selection-start-line="29" selection-start-column="49" selection-end-line="29" selection-end-column="49" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="35" column="12" selection-start-line="35" selection-start-column="12" selection-end-line="35" selection-end-column="12" />
+        <state relative-caret-position="154">
+          <caret line="87" column="11" lean-forward="true" selection-start-line="87" selection-start-column="11" selection-end-line="87" selection-end-column="11" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/storage/logs/laravel-2020-08-07.log">
+    <entry file="file://$PROJECT_DIR$/app/Model/Person.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-198" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TagController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-990" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/UserController.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/lib/phpstorm.jar!/resources/html5-schema/html5/web-forms.rnc">
+    <entry file="file://$PROJECT_DIR$/resources/views/people/partials/details_avatar.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="537" column="16" selection-start-line="537" selection-start-column="16" selection-end-line="537" selection-end-column="16" />
+        <state relative-caret-position="176">
+          <caret line="8" column="33" lean-forward="true" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/css/company/company.css">
+    <entry file="file://$PROJECT_DIR$/storage/logs/laravel.log">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/task/taskCard.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="78" column="20" lean-forward="true" selection-start-line="78" selection-start-column="20" selection-end-line="78" selection-end-column="20" />
+        <state relative-caret-position="6028">
+          <caret line="274" column="74" selection-start-line="274" selection-start-column="74" selection-end-line="274" selection-end-column="74" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/company/company.js">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/AuthController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="30" column="3" selection-start-line="30" selection-start-column="3" selection-end-line="30" selection-end-column="3" />
+        <state relative-caret-position="308">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+          <folding>
+            <element signature="e#125#138#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="15" column="11" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Model/Task.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="67" column="65" selection-start-line="67" selection-start-column="65" selection-end-line="67" selection-end-column="65" />
+        <state relative-caret-position="1078">
+          <caret line="56" column="20" selection-start-line="56" selection-start-column="20" selection-end-line="56" selection-end-column="20" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/TagTask.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/TaskController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+        <state relative-caret-position="181">
+          <caret line="75" column="33" selection-start-line="75" selection-start-column="33" selection-end-line="75" selection-end-column="33" />
           <folding>
-            <element signature="e#22#29#0#PHP" expanded="true" />
+            <element signature="e#125#161#0#PHP" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/task/taskDetailEdit.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7150">
-          <caret line="325" column="53" selection-start-line="325" selection-start-column="45" selection-end-line="325" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/company/partials/edit.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4202">
-          <caret line="191" column="44" selection-start-line="191" selection-start-column="44" selection-end-line="191" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/dashboard.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1232">
-          <caret line="56" column="19" selection-start-line="56" selection-start-column="19" selection-end-line="56" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/calendar.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1386">
-          <caret line="63" column="45" selection-start-line="63" selection-start-column="45" selection-end-line="63" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
-          <folding>
-            <element signature="e#7#132#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="70" column="54" selection-start-line="70" selection-start-column="54" selection-end-line="70" selection-end-column="54" />
-          <folding>
-            <element signature="e#7#389#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/company/partials/add.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2618">
-          <caret line="119" column="26" selection-end-line="124" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/people/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="151" column="46" selection-start-line="151" selection-start-column="46" selection-end-line="151" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Organization.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="13" column="18" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Company.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/CompanyController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="66" column="61" lean-forward="true" selection-start-line="66" selection-start-column="8" selection-end-line="66" selection-end-column="61" />
-          <folding>
-            <element signature="e#40#56#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/company/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="704">
-          <caret line="50" column="71" lean-forward="true" selection-start-line="50" selection-start-column="71" selection-end-line="50" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/css/people/people.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="98" column="8" selection-start-line="98" selection-start-column="8" selection-end-line="98" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/user/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1452" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/user/create.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="55" column="42" lean-forward="true" selection-start-line="51" selection-start-column="31" selection-end-line="55" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TagController.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storage/logs/laravel-2020-08-10.log">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/task/taskList.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/task/taskDetailAdd.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3872">
-          <caret line="176" column="98" selection-start-line="176" selection-start-column="87" selection-end-line="176" selection-end-column="98" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/people/people.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="9" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/task/taskCard.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="438" column="35" selection-start-line="438" selection-start-column="35" selection-end-line="438" selection-end-column="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TaskController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="711" selection-start-line="711" selection-end-line="711" selection-end-column="39" />
+        <state relative-caret-position="418">
+          <caret line="354" column="39" lean-forward="true" selection-start-line="354" selection-start-column="39" selection-end-line="354" selection-end-column="39" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="178" column="82" selection-start-line="178" selection-start-column="82" selection-end-line="178" selection-end-column="82" />
-          <folding>
-            <element signature="e#40#61#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/public/assets/css/company/company.css">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/people/partials/details.blade.php">
+    <entry file="file://$PROJECT_DIR$/public/assets/js/task/taskcard.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="119" lean-forward="true" selection-start-column="119" selection-end-column="119" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/people/partials/add.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="90" selection-start-column="90" selection-end-column="90" />
+        <state relative-caret-position="107">
+          <caret line="513" column="40" selection-start-line="513" selection-start-column="24" selection-end-line="513" selection-end-column="40" />
         </state>
       </provider>
     </entry>

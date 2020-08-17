@@ -35,6 +35,7 @@ class CreateUsersTable extends Migration
             $table->string('bank')->nullable();
             $table->string('swift_bic')->nullable();
             $table->longText('description')->nullable();
+            $table->string('memoNotification')->nullable();
             $table->string('family')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

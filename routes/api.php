@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('login','API\AuthController@Login');
+Route::middleware('auth:api')->group(function() {
+   Route::get('tasksInfo','API\TaskController@TasksInfo');
+   Route::post('task','API\TaskController@Task');
 });

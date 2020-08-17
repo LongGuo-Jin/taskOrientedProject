@@ -17,7 +17,7 @@
             <div class="kt-scroll" data-scroll="true">
                 <div class="tab-content">
                     <div class="tab-pane active" id="kt_quick_panel_tab_information">
-                        <div class="mb-3" style="width: 100%; height: 1px; background-color: grey"></div>
+                        <div class="mb-3 mt-3" style="width: 100%; height: 1px; background-color: grey"></div>
                         <div class="row">
                             <div class="col-2" style="color: #ca30e9">Tags:</div>
                             <div class="col-lg-10 ">
@@ -71,7 +71,7 @@
                             <div class="col-md-3"><label for="password">Password</label></div>
                             <div class="col-md-9"><input type="password" class="form-control" name="password" id="password" required></div>
                         </div>
-                        <div class="mb-3" style="width: 100%; height: 1px; background-color: grey"></div>
+                        <div class="mb-3  mt-3" style="width: 100%; height: 1px; background-color: grey"></div>
                         <div class="row mt-1 mb-1">
                             <div class="col-md-3"><label for="birthday">Date of Birth</label></div>
                             <div class="col-md-9"><input type="text" class="form-control" name="birthday" id="birthday"></div>
@@ -137,7 +137,7 @@
                             <div class="col-md-9"><input type="text" class="form-control" name="family" id="family"></div>
                         </div>
 
-                        <div class="mb-3" style="width: 100%; height: 1px; background-color: grey"></div>
+                        <div class="mb-3  mt-3" style="width: 100%; height: 1px; background-color: grey"></div>
                         <div class="row">
                             <div class="col-md-3"><label for="description">Description</label></div>
                         </div>

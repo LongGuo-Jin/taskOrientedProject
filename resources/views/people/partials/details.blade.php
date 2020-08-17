@@ -17,7 +17,6 @@
             <div class="kt-portlet__body">
                 <div class="kt-scroll taskAddBody" data-scroll="true">
                     <div class="tab-content">
-
                             <div class="tab-pane active" id="kt_quick_panel_tab_information">
                                 <form method="post" action="{{route('people.update')}}">
                                     @csrf
@@ -36,9 +35,9 @@
                                     <div id="people-tags" style="display: flex; flex-wrap: wrap;"><?php
                                         foreach($peopleTagList as $taskTag) {
                                         ?>
-                                        <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="@if ($taskTag['tagtype']!=3 )background-color:{{$taskTag['color']}} @else border-color:{{$taskTag['color']}} @endif">
-                                                    {{$taskTag['name']}}
-                                                </span> &nbsp;
+                                            <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="@if ($taskTag['tagtype']!=3 )background-color:{{$taskTag['color']}} @else border-color:{{$taskTag['color']}} @endif">
+                                                {{$taskTag['name']}}
+                                            </span> &nbsp;
                                         <?php
                                         }
                                         ?>
@@ -50,7 +49,7 @@
                                                 <option data-content='<span class="@if($tagItem['tagtype']==1) system-span @elseif($tagItem['tagtype']==2) organization-span @elseif($tagItem['tagtype']==3) personal-span @endif" style="@if ($tagItem['tagtype']!=3 )background-color:{{$tagItem['color']}} @else border-color:{{$tagItem['color']}} @endif">
                                                     {{$tagItem['name']}}
                                                         </span>' value="{{$tagItem['ID']}}"
-                                                <?php
+                                                    <?php
                                                     foreach($peopleTagList as $taskTag) {
                                                         if ($taskTag['ID'] == $tagItem['ID'])
                                                         {
@@ -59,7 +58,7 @@
                                                         }
                                                     }
                                                     ?>
-                                                >
+                                                   >
                                                 </option>
                                             @endforeach
                                         </select>
@@ -67,29 +66,28 @@
                                 </div>
                             </div>
                             <div class="mb-3" style="width: 100%; height: 1px; background-color: grey"></div>
-
                             <div class="row mb-1">
                                 <div class="col-6" >
                                     <div  class="people_details_text">
                                         <p>First Name</p>
-                                        <p class="people_P_Field">{{$selected_person['nameFirst']}}</p>
+                                        <p class="people_P_Field people_P_Field_text">{{$selected_person['nameFirst']}}</p>
                                         <input type="text" class="form-control people_input_field" style="display: @if($selected_person['nameFirst']!="") none @endif" value="{{$selected_person['nameFirst']}}" name="nameFirst">
                                     </div>
                                     <div  class="people_details_text">
                                         <p>Middle Name</p>
-                                        <p class="people_P_Field">{{$selected_person['nameMiddle']}}</p>
+                                        <p class="people_P_Field people_P_Field_text">{{$selected_person['nameMiddle']}}</p>
                                         <input type="text" class="form-control people_input_field" style="display: @if($selected_person['nameMiddle']!="") none @endif"  value="{{$selected_person['nameMiddle']}}" name="nameMiddle">
                                     </div>
                                     <div class="people_details_text">
                                         <p>Last Name</p>
-                                        <p class="people_P_Field">{{$selected_person['nameFamily']}}</p>
+                                        <p class="people_P_Field people_P_Field_text">{{$selected_person['nameFamily']}}</p>
                                         <input type="text" class="form-control people_input_field" style="display: @if($selected_person['nameFamily']!="") none @endif" value="{{$selected_person['nameFamily']}}" name="nameFamily">
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="people_details_text">
                                         <p>Gender</p>
-                                        <p class="people_P_Field"><?php if ($selected_person['gender'] == 1) echo 'Male'; else echo 'Female'; ?></p>
+                                        <p class="people_P_Field people_P_Field_text"><?php if ($selected_person['gender'] == 1) echo 'Male'; else echo 'Female'; ?></p>
                                         <select class="form-control people_input_field" name="gender"  style="display:none;" >
                                             <option value="1" @if ($selected_person['gender'] == 1) selected @endif>Male</option>
                                             <option value="0" @if ($selected_person['gender'] == 0) selected @endif>Female</option>
@@ -97,12 +95,12 @@
                                     </div>
                                     <div class="people_details_text">
                                         <p>Date Of Birth</p>
-                                        <p class="people_P_Field">{{$selected_person['birthday']}}</p>
+                                        <p class="people_P_Field people_P_Field_text">{{$selected_person['birthday']}}</p>
                                         <input type="text" class="form-control people_input_field date-picker" style="display: @if($selected_person['birthday']!="") none @endif" value="{{$selected_person['birthday']}}" name="birthday">
                                     </div>
                                     <div class="people_details_text">
                                         <p>Nationality</p>
-                                        <p class="people_P_Field">{{$selected_person['nationality']}}</p>
+                                        <p class="people_P_Field people_P_Field_text">{{$selected_person['nationality']}}</p>
                                         <input type="text" class="form-control people_input_field"  style="display: @if($selected_person['nationality']!="") none @endif"  value="{{$selected_person['nationality']}}" name="nationality">
                                     </div>
                                 </div>
@@ -113,27 +111,27 @@
                                 <div class="col-12" >
                                     <div class="people_details_text">
                                         <p>Address</p>
-                                        <p class="people_P_Field">{{$selected_person['address']}}</p>
+                                        <p class="people_P_Field people_P_Field_text">{{$selected_person['address']}}</p>
                                         <input type="text" class="form-control people_input_field" style="display: @if($selected_person['address']!="") none @endif"  value="{{$selected_person['address']}}" name="address">
                                     </div>
                                     <div class="people_details_text">
                                         <p >Country</p>
-                                        <p class="people_P_Field">{{$selected_person['country']}}</p>
+                                        <p class="people_P_Field people_P_Field_text">{{$selected_person['country']}}</p>
                                         <input type="text" class="form-control people_input_field" style="display: @if($selected_person['country']!="") none @endif"  value="{{$selected_person['country']}}" name="country">
                                     </div>
                                     <div class="people_details_text">
                                         <p >Phone</p>
-                                        <p class="people_P_Field">{{$selected_person['phone_number']}}</p>
+                                        <p class="people_P_Field people_P_Field_text">{{$selected_person['phone_number']}}</p>
                                         <input type="text" class="form-control people_input_field" style="display: @if($selected_person['phone_number']!="") none @endif"  value="{{$selected_person['phone_number']}}" name="phone_number">
                                     </div>
                                     <div class="people_details_text">
                                         <p >Mail</p>
-                                        <p class="people_P_Field">{{$selected_person['email']}}</p>
+                                        <p class="people_P_Field people_P_Field_text">{{$selected_person['email']}}</p>
                                         <input type="text" class="form-control people_input_field" style="display: @if($selected_person['email']!="") none @endif"  value="{{$selected_person['email']}}" name="email">
                                     </div>
                                     <div class="people_details_text">
                                         <p >Messenger</p>
-                                        <p class="people_P_Field">{{$selected_person['messenger']}}</p>
+                                        <p class="people_P_Field people_P_Field_text">{{$selected_person['messenger']}}</p>
                                         <input type="text" class="form-control people_input_field" style="display: @if($selected_person['messenger']!="") none @endif"  value="{{$selected_person['messenger']}}" name="messenger">
                                     </div>
                                     <div  class="people_details_text">
@@ -148,44 +146,44 @@
                                 <div class="col-6" >
                                     <div class="people_details_text">
                                         <p>Company ID</p>
-                                        <p class="people_P_Field">{{$selected_person['companyID']}}</p>
+                                        <p class="people_P_Field people_P_Field_text">{{$selected_person['companyID']}}</p>
                                         <input type="text" class="form-control people_input_field" style="display: @if($selected_person['companyID']!="") none @endif"  value="{{$selected_person['companyID']}}" name="companyID">
                                     </div>
                                     <div class="people_details_text">
                                         <p>Bank Account</p>
-                                        <p class="people_P_Field">{{$selected_person['bankAccount']}}</p>
+                                        <p class="people_P_Field people_P_Field_text">{{$selected_person['bankAccount']}}</p>
                                         <input type="text" class="form-control people_input_field" style="display: @if($selected_person['bankAccount']!="") none @endif"  value="{{$selected_person['bankAccount']}}" name="bankAccount">
                                     </div>
                                     <div class="people_details_text">
                                         <p>Bank</p>
-                                        <p class="people_P_Field">{{$selected_person['bank']}}</p>
+                                        <p class="people_P_Field people_P_Field_text">{{$selected_person['bank']}}</p>
                                         <input type="text" class="form-control people_input_field" style="display: @if($selected_person['bank']!="") none @endif"  value="{{$selected_person['bank']}}" name="bank">
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="people_details_text">
                                         <p>National ID</p>
-                                        <p class="people_P_Field">{{$selected_person['nationalID']}}</p>
+                                        <p class="people_P_Field people_P_Field_text">{{$selected_person['nationalID']}}</p>
                                         <input type="text" class="form-control people_input_field" style="display: @if($selected_person['nationalID']!="") none @endif"  value="{{$selected_person['nationalID']}}" name="nationalID">
                                     </div>
                                     <div class="people_details_text">
                                         <p>SWIFT/BIC</p>
-                                        <p class="people_P_Field">{{$selected_person['swift_bic']}}</p>
+                                        <p class="people_P_Field people_P_Field_text">{{$selected_person['swift_bic']}}</p>
                                         <input type="text" class="form-control people_input_field" style="display: @if($selected_person['swift_bic']!="") none @endif"  value="{{$selected_person['swift_bic']}}" name="swift_bic">
                                     </div>
                                 </div>
                             </div>
                             <div class="mb-3" style="width: 100%; height: 1px; background-color: grey"></div>
-                            <div class="row m-0">
-                                <div class="col-md-6 people_details_text">
+                            <div class="row mt-0 ml-0 mr-0 mb-3">
+                                <div class="col-md-6 people_details_text m-0 p-0">
                                 <p> Family </p>
-                                <p class="people_P_Field">{{$selected_person['family']}}</p>
+                                <p class="people_P_Field people_P_Field_text">{{$selected_person['family']}}</p>
                                 <input type="text" class="form-control people_input_field" style="display: @if($selected_person['family']!="") none @endif"  value="{{$selected_person['family']}}" name="family">
                                 </div>
                             </div>
                             <div class="mb-3" style="width: 100%; height: 1px; background-color: grey"></div>
                             <div class="row m-0" style="display: flex; flex-direction: column">
-                                <p> Description </p>
+                                <p class="people_P_Field_text"> Description </p>
                                 <p class="people_P_Field"> {{$selected_person['description']}} </p>
                                 <textarea name="description" class="form-control people_input_field mb-5"  rows="10"  style="width: 100% !important;display: @if($selected_person['description']!="") none @endif" >{{$selected_person['description']}}</textarea>
                             </div>

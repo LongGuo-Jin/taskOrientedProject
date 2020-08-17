@@ -507,6 +507,25 @@ $(document).ready(function () {
     if (message["flage"] == 1) {
         showToast();
     }
+
+    /*
+     * focus on memo if it is unread
+     */
+    let notifications = memoNotification.split(',');
+    console.log('#blink_mail_icon_'+task_id,"---------------");
+    $('.kt-extended-task-item #blink_mail_icon_'+task_id).removeClass('blink_mail_icon');
+    $('.kt-regular-task-item #blink_mail_icon_'+task_id).removeClass('blink_mail_icon');
+    if (notifications.includes(task_id)) {
+        $('input#detail-information-task-memos_input').focus();
+    }
+    // notifications.forEach((item)=>{
+    //     console.log(task_id,"----------",item);
+    //    if (item == task_id) {
+    //        console.log(notifications,"-------asdfasdfasdf---");
+    //        $('input#detail-information-task-memos_input').focus();
+    //    }
+    // });
+
 });
 
 function showToast()
@@ -633,7 +652,7 @@ function setColumnType()
         $("div.detail-edit div#edit_panel_tab_information").addClass("active");
         $("div.detail-edit div.kt-portlet__head a#tab_information").addClass("active");
     }
-    $("div.task-extand-add input#quick-subtask-title").focus();
+    // $("div.task-extand-add input#quick-subtask-title").focus();
 }
 
 function reCalcWidth() {

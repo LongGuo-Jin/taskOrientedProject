@@ -314,7 +314,7 @@
                                         </div>
                                     @endforeach
                                     <div class="row">
-                                        <input type="text"  class="form-control" name="memo">
+                                        <input type="text"  class="form-control" id="detail-information-task-memos_input" name="memo">
                                     </div>
                                 </div>
                                 <div class="detail-information-task-attachments">
@@ -399,7 +399,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="detail-information-task-memos">
+                                <div class="detail-information-task-memos" id="detail-information-task-memos">
                                     <h5>{{__('task.history')}}</h5><br>
                                     @foreach($history as $historyItem)
                                         <div class="row">

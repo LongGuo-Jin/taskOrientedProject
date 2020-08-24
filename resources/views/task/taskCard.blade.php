@@ -57,7 +57,7 @@
                                                 <div class="tab-pane active" id="kt_regular_tab_{{$columnClass}}">
                                                     @foreach($columnItem as $taskItem)
                                                         <div class="kt-regular-task-item row thin <?php if($taskId == $taskItem['ID']) echo 'selected';?>
-                                                            <?php if($taskId != $taskItem['ID'] && in_array($taskItem['ID'], $parents)) echo 'parent_selected';?>"
+                                                        <?php if($taskId != $taskItem['ID'] && in_array($taskItem['ID'], $parents)) echo 'parent_selected';?>"
                                                              data-task_id="{{$taskItem['ID']}}" data-show_type="regular" style="display: flex;">
                                                             <div class="task-status pt-2" style="background-color: #89cb84; display: flex; flex-direction: column; width: 10%; justify-content: space-between">
                                                                 <div style="display: flex; flex-direction: column">

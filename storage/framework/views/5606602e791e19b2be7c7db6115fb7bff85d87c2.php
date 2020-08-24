@@ -37,14 +37,14 @@
                         <div class="tab-pane active" id="edit_panel_tab_information">
                             <div class="detail-infomation-content">
                                 <div class="row detail-information-title">
-                                    <?php for($i=count($pathArr)-1; $i>=0; $i--): ?>
+                                    <?php for($i=count($pathArr)-1; $i>=1; $i--): ?>
                                         <a href="<?php echo e(url('/task/taskCard?task_id=')); ?><?php echo e($pathArr[$i]['ID']); ?>">
                                             <h5>
                                                 <?php echo e($pathArr[$i]["title"]); ?>
 
                                             </h5>
                                         </a>
-                                        <?php if($i != 0): ?>
+                                        <?php if($i != 1): ?>
                                             <h5>&nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;</h5>
                                         <?php endif; ?>
                                     <?php endfor; ?>

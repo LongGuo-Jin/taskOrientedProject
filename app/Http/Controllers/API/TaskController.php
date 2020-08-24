@@ -8,7 +8,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Model\Memo;
 use App\Model\Task;
+use App\Organization;
+use App\TagTask;
+use App\User;
 use Illuminate\Validation\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,9 +25,13 @@ class TaskController extends Controller {
     public function TasksInfo(Request $request) {
         $user = $request->user();
         $taskModel = new Task();
-        $tmp = $taskModel->adtResult($taskModel->getTaskListbyCond(array("personID"=>$user->id),auth()->user()));
-        $tmp1 = $taskModel->adtResult($taskModel->getTaskListbyCond(array("taskCreatorID"=>$user->id),auth()->user()));
-        $tmp = array_merge($tmp,$tmp1);
+        if ($user->roleID == 1) {
+            $tmp = $taskModel->adtResult($taskModel->getTaskListbyCond(array(),auth()->user()));
+        } else {
+            $tmp = $taskModel->adtResult($taskModel->getTaskListbyCond(array("personID"=>$user->id),auth()->user()));
+            $tmp1 = $taskModel->adtResult($taskModel->getTaskListbyCond(array("taskCreatorID"=>$user->id),auth()->user()));
+            $tmp = array_merge($tmp,$tmp1);
+        }
 
         $result = $tmp;
         $active_tasks = 0;
@@ -65,35 +73,54 @@ class TaskController extends Controller {
 //                array_push($new_tasks , $taskItem);
 //            }
         }
+        //Getting Unread messages
+        $newMemo = $user->newMemo;
+        $memos = explode(',',$newMemo);
+
+        //////////////////////////
         $retArr['active'] = $active_tasks;
         $retArr['overdue'] = $overdue_tasks;
         $retArr['created'] = $created;
         $retArr['finished'] = $finished;
+        $retArr['messages'] = $memos[0]==""?0:count($memos);
         return response()->json(['taskInfo'=>$retArr]);
     }
 
     public function Task(Request $request) {
         $user = $request->user();
         $taskModel = new Task();
+        $TaskTag = new TagTask();
         $taskID = $request->taskID;
         $parentID = null;
-        if (!isset($taskID)) {
+        $parentName = null;
+        if (!isset($taskID) || $taskID == null) {
             $result = $this->GetTaskListInit($user);
 
         } else {
             $task = Task::where('ID',$taskID)->get()->first();
-            $parentID = $task->parentID;
-            $result = $taskModel->adtResult($taskModel->getTaskListbyCond(array("parentID"=>$taskID,"personID"=>$user->id),$user),$user);
+
+            if ($task->personID == $user->id || $task->taskCreatorID == $user->id || $user->roleID == 1) {
+                $parentID = $task->parentID;
+                $parentName = $task->title;
+            }
+            if ($user->roleID == 1) {
+                $result = $taskModel->adtResult($taskModel->getTaskListbyCond(array("parentID"=>$taskID),$user),$user);
+            } else {
+                $result = $taskModel->adtResult($taskModel->getTaskListbyCond(array("parentID"=>$taskID,"personID"=>$user->id),$user),$user);
+            }
         }
 
         $retData = [];
         foreach ($result as $item) {
-//            $childTasks = $taskModel->getTaskListbyCond(array("parentID"=>$item['ID']),$user);
             $childTasks = $taskModel->adtResult($taskModel->getTaskListbyCond(array("parentID"=>$item['ID']),$user),$user);
             $active_tasks = 0;
             $overdue_tasks = 0;
             $finished  = 0;
             $created = 0;
+
+            $Memo = new Memo();
+            $memos = $Memo->getMemoByCond(array("taskID" => $item['ID']));
+            $path = $taskModel->getPathName($item['ID']);
 
             $now = time();
             foreach ($childTasks as $taskItem) {
@@ -124,11 +151,17 @@ class TaskController extends Controller {
             $retArr['overdue'] = $overdue_tasks;
             $retArr['created'] = $created;
             $retArr['finished'] = $finished;
+
+            $tags = $TaskTag->getTaskTagList($item['ID']);
+//            array_push($item , ['tags'=>$tags]);
             $ret['data'] = $item;
+            $ret['tags'] = $tags;
             $ret['child'] = $retArr;
+            $ret['memo'] = $memos;
+            $ret['path'] = $path;
             array_push($retData,$ret);
         }
-        return ['tasks'=>$retData,'parentID' => $parentID];
+        return ['tasks'=>$retData,'parentID' => $parentID , 'parentTitle' => $parentName];
 
     }
 
@@ -137,4 +170,121 @@ class TaskController extends Controller {
         $result = $taskModel->getTaskListInit($user);
         return $result['list'][0];
     }
+
+    public function GetUnreadMessages(Request $request) {
+        $newMemo = $request->user()->newMemo;
+        $Task = new Task();
+        $memos = explode(',',$newMemo);
+        $messages = [];
+        foreach($memos as $memo) {
+            $mm = explode(' ',$memo);
+            if (isset($mm[1])) {
+                $path = $Task->getPathName($mm[0]);
+                $message = Memo::leftJoin('users','users.ID','=',"memo.personID")
+                    ->select(DB::raw("concat(users.nameFamily, ' ', users.nameFirst) as fullName") , 'memo.*')
+                    ->where('memo.ID',$mm[1])->first();
+
+                array_push($messages,['message'=>$message,'path'=>$path]);
+            }
+        }
+        return response()->json($messages);
+    }
+
+    public function AddMemo(Request $request) {
+        $user = $request->user();
+        $message = $request->message;
+        $taskID = $request->taskID;
+        $Memo = new Memo();
+        $Task = new Task();
+
+        $memo = array(
+            'timeStamp' => date("d.m.Y h:i"),
+            'personID' => $user->id,
+            'taskID' => $taskID,
+            'Message' => $message
+        );
+        $ret = $Memo->addMemo($memo);
+
+        $memoID = $ret->ID;
+        //starting adding memo notification;;;
+        $orgID = $user->organization_id;
+        $organization = Organization::where('id',$orgID)->get()->first();
+        $org_users = $organization->Users()->get();
+        foreach($org_users as $org_user) {
+            $id = $org_user->id;
+            $memoNotification = $org_user->memoNotification;
+            $newMemo = $org_user->newMemo;
+            if ($id != $user->id && $Task->IsAvailableTaskForPerson($taskID,$id)) {
+                if ($newMemo == "") {
+                    $newMemo = $taskID.' '.$memoID;
+                } else {
+                    $memos = explode(',',$newMemo);
+                    $memo_flag = false;
+                    foreach($memos as $item) {
+                        $memo = explode(',',$item);
+                        if ($memo[0] == $taskID) {
+                            $memo_flag = true;
+                        }
+                    }
+                    if (!$memo_flag) {
+                        $newMemo = $newMemo.",".$taskID." ".$memoID;
+                    }
+                }
+                if ($memoNotification == "") {
+                    $memoNotification = $taskID;
+                } else {
+                    $notifications = explode(',',$memoNotification);
+                    if (!in_array($taskID,$notifications)) {
+                        $memoNotification = $memoNotification.",".$taskID;
+                    }
+                }
+                User::where('id',$id)->update(['memoNotification'=>$memoNotification,'newMemo' => $newMemo]);
+            }
+        }
+        //end adding memo notification;;;
+//        $memos = $Memo->getMemoByCond(array("ID" => $memoID));
+        $memos = $Memo->getMemoByCond(array("taskID" => $taskID));
+        return response()->json(['taskID'=> $taskID,'memos'=>$memos]);
+    }
+
+    public function SeenMessage(Request $request) {
+        $user  = $request->user();
+        $taskID = $request->taskID;
+        $memoID = $request->memoID;
+        Log::debug(__FUNCTION__.$request);
+        $newMemo = $user->newMemo;
+        $newMemos = '';
+        $memos = explode(',',$newMemo);
+        $memoCnt = 0;
+        foreach($memos as $item) {
+            $mm = explode(' ',$item);
+            if (isset($mm[0]) && ($mm[0] != $taskID || $mm[1] != $memoID)) {
+                if ($memoCnt==0) {
+                    $newMemos = $item;
+                } else {
+                    $newMemos = $newMemos.','.$item;
+                }
+                $memoCnt ++;
+            }
+        }
+
+        User::where('id',$user->id)->update(['newMemo'=>$newMemos]);
+
+        $Task = new Task();
+        $res_memos = explode(',',$newMemos);
+        $messages = [];
+        foreach($res_memos as $memo) {
+            $mm = explode(' ',$memo);
+            if (isset($mm[1])) {
+                $path = $Task->getPathName($mm[0]);
+                $message = Memo::leftJoin('users','users.ID','=',"memo.personID")
+                    ->select(DB::raw("concat(users.nameFamily, ' ', users.nameFirst) as fullName") , 'memo.*')
+                    ->where('memo.ID',$mm[1])->first();
+
+                array_push($messages,['message'=>$message,'path'=>$path]);
+            }
+        }
+        return response()->json($messages);
+    }
+
 }

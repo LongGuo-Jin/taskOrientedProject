@@ -355,9 +355,10 @@ class TaskController extends Controller
         $TaskStatusList = $TaskStatus->getTaskStatusList();
         $TaskWeightList = $TaskWeight->getTaskWeightList();
         $systemTagList = $Tag->getSystemTagList();
-        $tagList = $Tag->getTagList();
+        $tagList = $Tag->getTagList(auth()->user());
 
         $memoNotification = auth()->user()->memoNotification;
+        $newMemo = auth()->user()->newMemo;
 
         $taskDetails = array();
         $memos = array();
@@ -395,6 +396,21 @@ class TaskController extends Controller
             $taskList = $Task->getTaskListInit(auth()->user());
         } else {
             $notifications = explode(',',$memoNotification);
+            $newMemos = '';
+            $memos = explode(',',$newMemo);
+            $memoCnt = 0;
+            foreach($memos as $item) {
+                $mm = explode(' ',$item);
+                if ($mm[0] != $taskId) {
+                    if ($memoCnt==0) {
+                        $newMemos = $item;
+                    } else {
+                        $newMemos = $newMemos.','.$item;
+                    }
+                    $memoCnt ++;
+                }
+            }
+
             if (in_array($taskId, $notifications)) {
                 $newMemoNotification = "";
                 $cnt = 0;
@@ -408,7 +424,7 @@ class TaskController extends Controller
                         $cnt += 1;
                     }
                 }
-                User::where('id',$personID)->update(["memoNotification" => $newMemoNotification]);
+                User::where('id',$personID)->update(["newMemo" => $newMemos,"memoNotification" => $newMemoNotification]);
 //                $memoNotification = $newMemoNotification;
             }
 
@@ -455,6 +471,7 @@ class TaskController extends Controller
             if ($filter_array[$i] == 'budget')
                 continue;
             foreach ($taskList['list'] as $index => $task) {
+
                 $taskList['list'][$index] = $this->topSort($task,$filter_array[$i],auth()->user());
             }
         }
@@ -558,6 +575,7 @@ class TaskController extends Controller
                     'Message' => $request->input('memo')
                 );
                 $ret = $Memo->addMemo($memo);
+                $memoID = $ret->ID;
                 //starting adding memo notification;;;
                 $orgID = $user->organization_id;
                 $organization = Organization::where('id',$orgID)->get()->first();
@@ -565,7 +583,23 @@ class TaskController extends Controller
                 foreach($org_users as $org_user) {
                     $id = $org_user->id;
                     $memoNotification = $org_user->memoNotification;
-                    if ($id != $personID) {
+                    $newMemo = $org_user->newMemo;
+                    if ($id != $personID && $Task->IsAvailableTaskForPerson($taskID,$id)) {
+                        if ($newMemo == "") {
+                            $newMemo = $taskID.' '.$memoID;
+                        } else {
+                            $memos = explode(',',$newMemo);
+                            $memo_flag = false;
+                            foreach($memos as $item) {
+                                $memo = explode(',',$item);
+                                if ($memo[0] == $taskID) {
+                                    $memo_flag = true;
+                                }
+                            }
+                            if (!$memo_flag) {
+                                $newMemo = $newMemo.",".$taskID." ".$memoID;
+                            }
+                        }
                         if ($memoNotification == "") {
                             $memoNotification = $taskID;
                         } else {
@@ -574,7 +608,7 @@ class TaskController extends Controller
                                 $memoNotification = $memoNotification.",".$taskID;
                             }
                         }
-                        User::where('id',$id)->update(['memoNotification'=>$memoNotification]);
+                        User::where('id',$id)->update(['memoNotification'=>$memoNotification,'newMemo' => $newMemo]);
                     }
                 }
                 //end adding memo notification;;;
@@ -591,7 +625,7 @@ class TaskController extends Controller
 
             DB::commit();
         }catch (\Exception $e ){
-            Log::debug($e->getMessage());
+            Log::debug(__FUNCTION__.$e->getMessage());
             DB::rollBack();
             $ret = -1;
         }
@@ -609,7 +643,6 @@ class TaskController extends Controller
 
     public function AddAllocationTime(Request $request) {
 
-        Log::debug($request);
         $taskID = $request->input('taskID');
         $description = $request->input('description');
         $hour = $request->input('hour');
@@ -629,7 +662,7 @@ class TaskController extends Controller
         try{
             AllocatedTime::create($taskData);
         } catch (\Exception $e) {
-            Log::debug($e->getMessage());
+            Log::debug(__FUNCTION__.$e->getMessage());
             $ret = -1;
         }
         $data = array();
@@ -670,7 +703,7 @@ class TaskController extends Controller
                 $taskParentID = $task->parentID;
             }
         } catch (\Exception $e) {
-            Log::debug($e->getMessage());
+            Log::debug(__FUNCTION__.$e->getMessage());
             $ret = -1;
         }
 
@@ -708,13 +741,12 @@ class TaskController extends Controller
                  $taskParentID = $task->parentID;
              }
          } catch (\Exception $e) {
-             Log::debug($e->getMessage());
+             Log::debug(__FUNCTION__.$e->getMessage());
              $ret = -1;
          }
 
         $data = array();
         $data["result"] = $ret;
-        Log::debug($data);
         print_r(json_encode($data));die;
     }
 
@@ -803,6 +835,7 @@ class TaskController extends Controller
                 );
 
                 $ret = $Memo->addMemo($memo);
+                $memoID = $ret->ID;
                 //starting adding memo notification;;;
                 $orgID = $user->organization_id;
                 $organization = Organization::where('id',$orgID)->get()->first();
@@ -810,7 +843,23 @@ class TaskController extends Controller
                 foreach($org_users as $org_user) {
                     $id = $org_user->id;
                     $memoNotification = $org_user->memoNotification;
-                    if ($id != $personID) {
+                    $newMemo = $org_user->newMemo;
+                    if ($id != $personID && $Task->IsAvailableTaskForPerson($taskID,$id)) {
+                        if ($newMemo == "") {
+                            $newMemo = $taskID.' '.$memoID;
+                        } else {
+                            $memos = explode(',',$newMemo);
+                            $memo_flag = false;
+                            foreach($memos as $item) {
+                                $memo = explode(',',$item);
+                                if ($memo[0] == $taskID) {
+                                    $memo_flag = true;
+                                }
+                            }
+                            if (!$memo_flag) {
+                                $newMemo = $newMemo.",".$taskID." ".$memoID;
+                            }
+                        }
                         if ($memoNotification == "") {
                             $memoNotification = $taskID;
                         } else {
@@ -819,8 +868,7 @@ class TaskController extends Controller
                                 $memoNotification = $memoNotification.",".$taskID;
                             }
                         }
-                        Log::debug(__FUNCTION__."=>".$memoNotification."=>".$org_user."=>"."memoNotification");
-                        User::where('id',$id)->update(['memoNotification'=>$memoNotification]);
+                        User::where('id',$id)->update(['memoNotification'=>$memoNotification,'newMemo' => $newMemo]);
                     }
                 }
                 //end adding memo notification;;;
@@ -842,7 +890,7 @@ class TaskController extends Controller
             DB::commit();
         }catch (\Exception $e) {
             DB::rollBack();
-            Log::debug($e->getMessage());
+            Log::debug(__FUNCTION__.$e->getMessage());
             $ret = -1;
         }
 

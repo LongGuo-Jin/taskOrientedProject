@@ -61,7 +61,7 @@
                                                 <div class="tab-pane active" id="kt_regular_tab_<?php echo e($columnClass); ?>">
                                                     <?php $__currentLoopData = $columnItem; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $taskItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                         <div class="kt-regular-task-item row thin <?php if($taskId == $taskItem['ID']) echo 'selected';?>
-                                                            <?php if($taskId != $taskItem['ID'] && in_array($taskItem['ID'], $parents)) echo 'parent_selected';?>"
+                                                        <?php if($taskId != $taskItem['ID'] && in_array($taskItem['ID'], $parents)) echo 'parent_selected';?>"
                                                              data-task_id="<?php echo e($taskItem['ID']); ?>" data-show_type="regular" style="display: flex;">
                                                             <div class="task-status pt-2" style="background-color: #89cb84; display: flex; flex-direction: column; width: 10%; justify-content: space-between">
                                                                 <div style="display: flex; flex-direction: column">

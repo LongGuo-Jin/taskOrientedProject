@@ -15,6 +15,9 @@ use Illuminate\Http\Request;
 
 Route::post('login','API\AuthController@Login');
 Route::middleware('auth:api')->group(function() {
-   Route::get('tasksInfo','API\TaskController@TasksInfo');
-   Route::post('task','API\TaskController@Task');
+    Route::get('tasksInfo','API\TaskController@TasksInfo');
+    Route::post('task','API\TaskController@Task');
+    Route::get('messages','API\TaskController@GetUnreadMessages');
+    Route::post('addMessages','API\TaskController@AddMemo');
+    Route::post('seenMessage','API\TaskController@SeenMessage');
 });

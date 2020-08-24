@@ -36,13 +36,13 @@
                         <div class="tab-pane active" id="edit_panel_tab_information">
                             <div class="detail-infomation-content">
                                 <div class="row detail-information-title">
-                                    @for($i=count($pathArr)-1; $i>=0; $i--)
+                                    @for($i=count($pathArr)-1; $i>=1; $i--)
                                         <a href="{{url('/task/taskCard?task_id=')}}{{$pathArr[$i]['ID']}}">
                                             <h5>
                                                 {{$pathArr[$i]["title"]}}
                                             </h5>
                                         </a>
-                                        @if($i != 0)
+                                        @if($i != 1)
                                             <h5>&nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;</h5>
                                         @endif
                                     @endfor

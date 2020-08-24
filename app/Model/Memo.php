@@ -33,9 +33,11 @@ class Memo extends Model
 
     public function addMemo($memo)
     {
-        $ret = DB::table($this->table)
+        DB::table($this->table)
             ->insert($memo);
+        $id = DB::getPdo()->lastInsertId();
+        $ret = DB::table($this->table)->where('ID',$id)->get();
 
-        return $ret;
+        return $ret[0];
     }
 }

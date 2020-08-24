@@ -36,6 +36,7 @@ class CreateUsersTable extends Migration
             $table->string('swift_bic')->nullable();
             $table->longText('description')->nullable();
             $table->string('memoNotification')->nullable();
+            $table->string('newMemo')->nullable();
             $table->string('family')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -52,56 +53,6 @@ class CreateUsersTable extends Migration
                 ->references('id')->on('organizations')
                 ->onDelete('cascade');
         });
-
-        \App\User::forceCreate([
-            'nameFirst' => 'Afred',
-            'nameFamily' => 'Antonijević',
-            'organization_id' => 1,
-            'email' => 'test@test.com',
-            'password' => bcrypt('12345678'),
-            'roleID' => 1
-        ]);
-
-        \App\User::forceCreate([
-            'nameFirst' => 'Ivan',
-            'nameFamily' => 'Balan',
-            'organization_id' => 1,
-            'email' => 'test1@test.com',
-            'password' => bcrypt('12345678'),
-            'roleID' => 2
-        ]);
-        \App\User::forceCreate([
-            'nameFirst' => 'Bitenc',
-            'nameFamily' => 'Bitenc',
-            'organization_id' => 1,
-            'email' => 'test2@test.com',
-            'password' => bcrypt('12345678'),
-            'roleID' => 2
-        ]);
-        \App\User::forceCreate([
-            'nameFirst' => 'Bojanovic',
-            'nameFamily' => 'Bojanovic',
-            'organization_id' => 1,
-            'email' => 'test3@test.com',
-            'password' => bcrypt('12345678'),
-            'roleID' => 4
-        ]);
-        \App\User::forceCreate([
-            'nameFirst' => 'Yang',
-            'nameFamily' => 'Zhen',
-            'organization_id' => 1,
-            'email' => 'test4@test.com',
-            'password' => bcrypt('12345678'),
-            'roleID' => 2
-        ]);
-        \App\User::forceCreate([
-            'nameFirst' => 'Jin',
-            'nameFamily' => 'Longguo',
-            'organization_id' => 1,
-            'email' => 'test5@test.com',
-            'password' => bcrypt('12345678'),
-            'roleID' => 4
-        ]);
 
     }
 

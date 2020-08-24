@@ -92,3 +92,11 @@ Route::get('/cmd/migrate', function () {
     $cmd = shell_exec ('php artisan migrate');
     return $cmd;
 });
+
+Route::get('/cmd/passport', function () {
+    chdir('./');
+    $dir = getcwd();
+    print_r($dir);
+    $cmd = shell_exec ('php artisan passport:install');
+    return $cmd;
+});

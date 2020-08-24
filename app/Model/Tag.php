@@ -21,8 +21,7 @@ class Tag extends Model
         return Common::stdClass2Array($ret);
     }
 
-    public function getTagList() {
-        $user = auth()->user();
+    public function getTagList($user) {
         $personID = $user->id;
         $organizationID = $user->organization_id;
 

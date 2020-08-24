@@ -18,7 +18,7 @@ class CreateMemoTable extends Migration
             $table->string('timestamp')->nullable();
             $table->unsignedBigInteger('personID');
             $table->unsignedBigInteger('taskID');
-            $table->string('Message')->nullable();
+            $table->longText('Message')->nullable();
             $table->foreign('personID')
                 ->references('id')->on('users')
                 ->onDelete('cascade');

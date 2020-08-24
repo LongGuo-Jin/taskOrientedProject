@@ -36,7 +36,7 @@ class Task extends Model
     {
         $ret = DB::table($this->table)
             ->insert($taskData);
-        Log::debug("insert task data".$ret);
+        Log::debug(__FUNCTION__."insert task data".$ret);
         return $ret;
     }
 
@@ -66,11 +66,13 @@ class Task extends Model
             ->leftJoin("taskweight", "task.weightID", "=", "taskweight.ID")
             ->leftJoin("allocated_times","task.ID",'=',"allocated_times.taskID")
             ->leftJoin("users", "task.personID", "=", "users.id")
+            ->leftJoin("organizations","users.organization_id",'=',"organizations.id")
             ->where('deleteFlag', 0)
             ->where('users.organization_id',$organization_id)
             ->select("{$this->table}.*", "taskstatus.note as status_icon"
                 , "taskpriority.title as priority_title","taskpriority.order as order" , "taskweight.title as weight"
                 ,"users.avatarType as avatarType","users.avatarColor as avatarColor" , "users.nameTag as nameTag" ,"users.roleID"
+                ,'organizations.organization as organization'
                 , DB::raw("concat(users.nameFamily, ' ', users.nameFirst) as fullName"));
 
         $ret = [];
@@ -432,10 +434,10 @@ class Task extends Model
                 , "taskpriority.title as priority_title","taskpriority.order as order" , "taskweight.title as weight" , "taskstatus.ID as taskstatusid"
                 ,"users.organization_id as organizationID","users.avatarType as avatarType","users.avatarColor as avatarColor" , "users.nameTag as nameTag" ,"users.roleID"
                 ,'organizations.organization as organization'
-                , DB::raw("concat(users.nameFamily, users.nameMiddle, users.nameFirst) as fullName"));
+                , DB::raw("concat(users.nameFamily,' ', users.nameFirst) as fullName"));
 
         if (isset($cond['taskID'])){
-            Log::debug("taskID".json_encode($cond['taskID']));
+            Log::debug(__FUNCTION__."taskID".json_encode($cond['taskID']));
             if ($cond['taskID'] == "") {
                 $qrBuilder = $qrBuilder->whereNull("task.ID");
             } else {
@@ -443,20 +445,20 @@ class Task extends Model
             }
         }
         if (isset($cond['taskCreatorID'])){
-            Log::debug("taskCreatorID".json_encode($cond['taskCreatorID']));
+            Log::debug(__FUNCTION__."taskCreatorID".json_encode($cond['taskCreatorID']));
             $qrBuilder =  $qrBuilder->where("users.id", "!=", $cond['taskCreatorID']);
            $qrBuilder = $qrBuilder->where("task.taskCreatorID", "=", $cond['taskCreatorID']);
 
         }
 
         if (isset($cond['personID'])){
-            Log::debug("personID".json_encode($cond['personID']));
+            Log::debug(__FUNCTION__."personID".json_encode($cond['personID']));
             $qrBuilder =  $qrBuilder->where("users.id", "=", $cond['personID']);
 //            $qrBuilder = $qrBuilder->where("task.taskCreatorID", "!=", $cond['personID']);
         }
 
         if (isset($cond['parentID'])) {
-            Log::debug("parentID".json_encode($cond['parentID']));
+            Log::debug(__FUNCTION__."parentID".json_encode($cond['parentID']));
             if ($cond['parentID'] == "") {
                 $qrBuilder = $qrBuilder->whereNull("task.parentID");
             } else {
@@ -604,7 +606,7 @@ class Task extends Model
             ->where("ID", "=" , $taskId)
             ->select("parentID", "title")->get()->toArray());
 
-        $parentId = isset($ret[0]["parentID"]) ? $ret[0]["parentID"]: "";
+        $parentId = $taskId;
         $parentName = isset($ret[0]["title"]) ? $ret[0]["title"]: "";
         $result = array();
 
@@ -657,10 +659,25 @@ class Task extends Model
 
         return $statisticsData;
     }
+
     function childTask() {
         return $this->hasMany(Task::class);
     }
+
     function parentTask() {
         return $this->belongsTo(Task::class,'parentID');
     }
+
+    function IsAvailableTaskForPerson($taskID , $personID) {
+        $ID = $taskID;
+        while($ID) {
+            $task = DB::table($this->table)->where('ID',$ID)->select("personID" , "taskCreatorID","parentID")->get();
+            if ($task[0]->personID == $personID || $task[0]->taskCreatorID == $personID) {
+                return true;
+            }
+            $ID = $task[0]->parentID;
+        }
+        return false;
+    }
+
 }

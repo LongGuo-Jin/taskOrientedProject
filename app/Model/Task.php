@@ -36,7 +36,7 @@ class Task extends Model
     {
         $ret = DB::table($this->table)
             ->insert($taskData);
-        Log::debug(__FUNCTION__."insert task data".$ret);
+
         return $ret;
     }
 
@@ -437,7 +437,6 @@ class Task extends Model
                 , DB::raw("concat(users.nameFamily,' ', users.nameFirst) as fullName"));
 
         if (isset($cond['taskID'])){
-            Log::debug(__FUNCTION__."taskID".json_encode($cond['taskID']));
             if ($cond['taskID'] == "") {
                 $qrBuilder = $qrBuilder->whereNull("task.ID");
             } else {
@@ -445,20 +444,17 @@ class Task extends Model
             }
         }
         if (isset($cond['taskCreatorID'])){
-            Log::debug(__FUNCTION__."taskCreatorID".json_encode($cond['taskCreatorID']));
             $qrBuilder =  $qrBuilder->where("users.id", "!=", $cond['taskCreatorID']);
            $qrBuilder = $qrBuilder->where("task.taskCreatorID", "=", $cond['taskCreatorID']);
 
         }
 
         if (isset($cond['personID'])){
-            Log::debug(__FUNCTION__."personID".json_encode($cond['personID']));
             $qrBuilder =  $qrBuilder->where("users.id", "=", $cond['personID']);
 //            $qrBuilder = $qrBuilder->where("task.taskCreatorID", "!=", $cond['personID']);
         }
 
         if (isset($cond['parentID'])) {
-            Log::debug(__FUNCTION__."parentID".json_encode($cond['parentID']));
             if ($cond['parentID'] == "") {
                 $qrBuilder = $qrBuilder->whereNull("task.parentID");
             } else {

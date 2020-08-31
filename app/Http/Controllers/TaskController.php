@@ -471,7 +471,6 @@ class TaskController extends Controller
             if ($filter_array[$i] == 'budget')
                 continue;
             foreach ($taskList['list'] as $index => $task) {
-
                 $taskList['list'][$index] = $this->topSort($task,$filter_array[$i],auth()->user());
             }
         }

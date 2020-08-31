@@ -391,9 +391,9 @@ div.kt-quick-panel {
 
 .col-task-extended {
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 45%;
+    -ms-flex: 0 0 32%;
     flex: 0 0 32%;
-    /*max-width: 45%;*/
+    max-width: 32%;
     position: relative;
     width: 100%;
     padding-right: 5px;
@@ -404,7 +404,7 @@ div.kt-quick-panel {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 32%;
     flex: 0 0 32%;
-    /*max-width: 30%;*/
+    max-width: 32%;
     position: relative;
     width: 100%;
     padding-right: 5px;
@@ -415,7 +415,7 @@ div.kt-quick-panel {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 32%;
     flex: 0 0 32%;
-    /*max-width: 25%;*/
+    max-width: 32%;
     position: relative;
     width: 100%;
     padding-right: 5px;

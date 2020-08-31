@@ -16,6 +16,7 @@ class CreateFiltersTable extends Migration
         Schema::create('filters', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->string('mobile_status')->default('1111100000');
             $table->string('status')->default('111110000001');
             $table->string('priority')->default('111100');
             $table->string('weight')->default('11111111110');

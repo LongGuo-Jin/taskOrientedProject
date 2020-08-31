@@ -47,6 +47,7 @@ class CreateUsersTable extends Migration
             $table->integer('avatarColorValue')->default(13);
             $table->string('locale')->nullable();
             $table->string('filter_order')->default('214356');
+            $table->string('mobile_filter_order')->default('123');
             $table->rememberToken();
             $table->timestamps();
             $table->foreign('organization_id')

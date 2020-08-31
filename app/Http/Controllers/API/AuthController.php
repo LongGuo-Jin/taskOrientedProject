@@ -31,4 +31,8 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthorized'],401);
         }
     }
+
+    public function LoginWithToken(Request $request) {
+        return response()->json(['success'=>true]);
+    }
 }

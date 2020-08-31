@@ -8,6 +8,6 @@ class Filter extends Model
 {
     //
     protected $fillable = [
-        'user_id','status','priority','weight','date','workTime','budget'
+        'user_id','status','priority','weight','date','workTime','budget','mobile_status'
     ];
 }

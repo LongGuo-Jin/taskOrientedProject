@@ -7,6 +7,7 @@
  */
 namespace App\Http\Controllers\API;
 
+use App\Filter;
 use App\Http\Controllers\Controller;
 use App\Model\Memo;
 use App\Model\Task;
@@ -60,10 +61,15 @@ class TaskController extends Controller {
                 $active_tasks++;
             }
 
-            if ($dateStart == $now) {
-//                array_push($created,$taskItem);
+            $datediff = $now - $datePlanStart;
+            if (abs(round($datediff / (60 * 60 * 24))) < 5.0 && $taskStatus != 4 && $taskStatus!= 5) {
                 $created++;
             }
+
+//            if ($dateStart == $now) {
+////                array_push($created,$taskItem);
+//                $created++;
+//            }
 
             if ($taskStatus == 4) {
                 $finished ++;
@@ -111,6 +117,20 @@ class TaskController extends Controller {
         }
 
         $retData = [];
+        $filter_order = $user->mobile_filter_order;
+        $filter_array= array();
+        $filter_array_str = ["status","priority","weight"];
+
+        for ($i = 0 ; $i < strlen($filter_order);  $i ++) {
+            $filter_array[$filter_order[$i]] = $filter_array_str[$i];
+        }
+
+        for ($i = count($filter_array) ; $i >= 1;  $i --) {
+            $result = $this->topSort($result,$filter_array[$i],$user);
+        }
+
+        $result = $this->task_filter($result,$user);
+
         foreach ($result as $item) {
             $childTasks = $taskModel->adtResult($taskModel->getTaskListbyCond(array("parentID"=>$item['ID']),$user),$user);
             $active_tasks = 0;
@@ -153,7 +173,7 @@ class TaskController extends Controller {
             $retArr['finished'] = $finished;
 
             $tags = $TaskTag->getTaskTagList($item['ID']);
-//            array_push($item , ['tags'=>$tags]);
+
             $ret['data'] = $item;
             $ret['tags'] = $tags;
             $ret['child'] = $retArr;
@@ -161,8 +181,26 @@ class TaskController extends Controller {
             $ret['path'] = $path;
             array_push($retData,$ret);
         }
-        return ['tasks'=>$retData,'parentID' => $parentID , 'parentTitle' => $parentName];
 
+        $filter_order = $user->mobile_filter_order;
+        $filter_status = Filter::where('user_id',$user->id)->get()->first()->mobile_status;
+
+        return [
+                    'tasks'=>$retData,
+                    'parentID' => $parentID ,
+                    'parentTitle' => $parentName,
+                    'filter' => ['order'=>$filter_order,'status'=>$filter_status]
+                ];
+
+    }
+
+    public function SaveFilter(Request $request) {
+        $user = $request->user();
+        $order = $request->order;
+        $status = $request->status;
+        User::where('id',$user->id)->update(['mobile_filter_order'=>$order]);
+        Filter::where('user_id',$user->id)->update(['mobile_status'=>$status]);
+        return ['success' => true];
     }
 
     public function GetTaskListInit($user) {
@@ -251,7 +289,6 @@ class TaskController extends Controller {
         $user  = $request->user();
         $taskID = $request->taskID;
         $memoID = $request->memoID;
-        Log::debug(__FUNCTION__.$request);
         $newMemo = $user->newMemo;
         $newMemos = '';
         $memos = explode(',',$newMemo);
@@ -287,4 +324,59 @@ class TaskController extends Controller {
         return response()->json($messages);
     }
 
+    public function task_filter($data , $user) {
+
+        $user_id = $user->id;
+        $filter = Filter::where('user_id',$user_id)->get()->first();
+        $new_data = [];
+        foreach($data as $item) {
+            if ($filter['mobile_status'][$item['statusID']-1]=='1') {
+                array_push($new_data,$item);
+            }
+        }
+        return $new_data;
+    }
+
+    public function topSort($data , $key , $user) {
+        $length = count($data);
+        for ($i = 0 ; $i < $length - 1; $i ++) {
+            for ($j = $i ; $j < $length; $j ++) {
+                switch ($key) {
+                    case "status":
+                        if ($data[$i]["statusID"] > $data[$j]["statusID"]) {
+                            $temp = $data[$i];
+                            $data[$i] = $data[$j];
+                            $data[$j] = $temp;
+                        }
+                        break;
+                    case "priority":
+                        if ($data[$i]["order"] < $data[$j]["order"]) {
+                            $temp = $data[$i];
+                            $data[$i] = $data[$j];
+                            $data[$j] = $temp;
+                        }
+                        break;
+                    case "weight":
+                        if ($data[$i]["weight"] > $data[$j]["weight"]) {
+                            $temp = $data[$i];
+                            $data[$i] = $data[$j];
+                            $data[$j] = $temp;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return $data;
+    }
+
+    public function UpdateTask(Request $request) {
+        $user = $request->user();
+        $taskID = $request->taskID;
+        $data = $request->data;
+        Log::debug(__FUNCTION__.$request);
+        Task::where('ID',$taskID)->update(['statusID' => $data['statusID'] , 'priorityID' => $data['priorityID'] , 'weightID'=> $data['weightID']]);
+        return response()->json(['success'=>true]);
+    }
 }

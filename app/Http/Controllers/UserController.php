@@ -134,7 +134,7 @@ class UserController extends Controller
         $alpha_filter = $request->alpha;
         $select_person = null;
         $Tag = new Tag();
-        $tagList = $Tag->getTagList();
+        $tagList = $Tag->getTagList(auth()->user());
         $peopleTag = new TagPerson();
         $PeopleTagList = [];
         if ($selected_Id)

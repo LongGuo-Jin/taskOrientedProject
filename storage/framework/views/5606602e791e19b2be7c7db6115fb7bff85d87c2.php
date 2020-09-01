@@ -36,7 +36,8 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="edit_panel_tab_information">
                             <div class="detail-infomation-content">
-                                <div class="row detail-information-title">
+                                <div class="row" style="justify-content: space-between; margin: 5px">
+                                    <div class="row detail-information-title">
                                     <?php for($i=count($pathArr)-1; $i>=1; $i--): ?>
                                         <a href="<?php echo e(url('/task/taskCard?task_id=')); ?><?php echo e($pathArr[$i]['ID']); ?>">
                                             <h5>
@@ -48,6 +49,12 @@
                                             <h5>&nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;</h5>
                                         <?php endif; ?>
                                     <?php endfor; ?>
+                                    </div>
+                                    <?php if($pinnedTask['personID'] == auth()->user()->id): ?>
+                                        <a href="<?php echo e(route('task.removePin',['taskID'=>$taskDetails['ID']])); ?>"><i class="la la-gavel mt-auto mb-auto font-weight-bold ml-auto" style="cursor: pointer; color: red; font-size: 25px;float:right"></i></a>
+                                    <?php else: ?>
+                                        <a href="<?php echo e(route('task.addPin',['taskID'=>$taskDetails['ID']])); ?>"><i class="la la-gavel mt-auto mb-auto font-weight-bold ml-auto" style="cursor: pointer; color: green; font-size: 25px;float:right"></i></a>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="row detail-information-task-name">
                                     <p><?php echo e($taskDetails["title"]); ?></p>

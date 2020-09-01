@@ -64,31 +64,22 @@
                         <span class="kt-menu__link-text"><i class="fa fa-user side_menu_item"></i>{{__('main.userManagement')}}</span>
                     </a>
                 </li>
-                
+
                 <li class="kt-menu__section ">
-                    <h2 class="kt-menu__section-text">{{__('main.myFavourite')}}</h2>
+                    <div class="kt-menu__section-text" style="width: 90%; justify-content: space-between">
+                        {{__('main.myFavourite')}}
+                        <i class="la la-credit-card header_menu_item_icon" style="color: white; font-size: 22px"></i>
+                    </div>
                 </li>
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-                    <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+                @foreach($pinnedTasks as $task)
+                    <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+                        <a href="{{url('/task/taskCard?task_id='.$task['ID'])}}" class="kt-menu__link kt-menu__toggle">
                         <span class="side-menu__link-icon">
                         </span>
-                        <span class="kt-menu__link-text">{{__('main.newWebsite')}}</span>
-                    </a>
-                </li>
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-                    <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
-                        <span class="side-menu__link-icon">
-                        </span>
-                        <span class="kt-menu__link-text">{{__('main.takeWithExtremelyLong')}}</span>
-                    </a>
-                </li>
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-                    <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
-                        <span class="side-menu__link-icon">
-                        </span>
-                        <span class="kt-menu__link-text">{{__('main.metalFactory')}}</span>
-                    </a>
-                </li>
+                            <span class="kt-menu__link-text">{{$task['title']}}</span>
+                        </a>
+                    </li>
+                @endforeach
 
                 <li class="kt-menu__section ">
                     <div class="kt-menu__section-text" style="width: 90%; justify-content: space-between">

@@ -1,0 +1,32 @@
+BARKRZ NOTES:
+- Move video into ‘Welcome ‘to Barkrz’ section. Replace current image (done)
+- Make text on right side more large (done)
+- Add thumbnail image to video (attached)
+
+- ‘A must hav for all pet owners’ - Make text more large (done)
+- Add these promoters: 
+	Ryan Hall - ‘’My dog deserves the best” 
+	Heloisa Romao - “It makes everything so much easier.”
+	Meaghan McCracken - “It’ so cool and I love to show it off to everyone. They love it!” (done)
+
+- @Heloisa  will provide design to show ’How it Works’ section.
+
+- We need to make a sample pet profile with this url: http://barkrs.toplev.io/sample. Can we have ability to edit this profile with some login or on admin panel? (not sure)
+- When click membership tab, it does not show ‘contact us’ menu item. 
+- Where does contact us email send now? Please direct to contact@barkrz.com
+- Newsletter (footer) - Let’s collect emails into DB for for this. We can list them on admin panel. subscriber_list
+- New membership page design (done)
+- change ‘Year I was born’ —> When I was born?  Allow custom text input.
+- If gender is female show ‘Am I spayed?’ . If gender is male show ‘Am I neutered?’ (done)
+- Update ‘My Owner Names’ —> “Friendly Humans \n (Owner Contact Information)”.  (owner contact information in smaller text)(done)
+
+- Delete pet button deleted other pets not just current selected pet.  — bad bug!
+
+Pet Profile:
+- Move ‘Edit’ button above text ‘Hi they call me’
+- Once click edit, show a ‘Cancel’ button also in case need to cancel.
+- Once click edit, show a ‘Delete Profile’ button in red text to delete. Remove trash can icon before edit.
+- Show Neutered/Spayed depending on gender.
+- Add green bar on left side like original design just without icons. It will not be action bar.
+
+- FAQ design - let me know if you need it still

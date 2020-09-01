@@ -64,31 +64,23 @@
                         <span class="kt-menu__link-text"><i class="fa fa-user side_menu_item"></i><?php echo e(__('main.userManagement')); ?></span>
                     </a>
                 </li>
-                
+
                 <li class="kt-menu__section ">
-                    <h2 class="kt-menu__section-text"><?php echo e(__('main.myFavourite')); ?></h2>
+                    <div class="kt-menu__section-text" style="width: 90%; justify-content: space-between">
+                        <?php echo e(__('main.myTasks')); ?>
+
+                        <i class="la la-credit-card header_menu_item_icon" style="color: white; font-size: 22px"></i>
+                    </div>
                 </li>
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-                    <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+                <?php $__currentLoopData = $pinnedTasks; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $task): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+                        <a href="<?php echo e(url('/task/taskCard?task_id='.$task['ID'])); ?>" class="kt-menu__link kt-menu__toggle">
                         <span class="side-menu__link-icon">
                         </span>
-                        <span class="kt-menu__link-text"><?php echo e(__('main.newWebsite')); ?></span>
-                    </a>
-                </li>
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-                    <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
-                        <span class="side-menu__link-icon">
-                        </span>
-                        <span class="kt-menu__link-text"><?php echo e(__('main.takeWithExtremelyLong')); ?></span>
-                    </a>
-                </li>
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-                    <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
-                        <span class="side-menu__link-icon">
-                        </span>
-                        <span class="kt-menu__link-text"><?php echo e(__('main.metalFactory')); ?></span>
-                    </a>
-                </li>
+                            <span class="kt-menu__link-text"><?php echo e($task['title']); ?></span>
+                        </a>
+                    </li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                 <li class="kt-menu__section ">
                     <div class="kt-menu__section-text" style="width: 90%; justify-content: space-between">

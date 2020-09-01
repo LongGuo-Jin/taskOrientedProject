@@ -376,7 +376,7 @@ class TaskController extends Controller {
         $taskID = $request->taskID;
         $data = $request->data;
         Log::debug(__FUNCTION__.$request);
-        Task::where('ID',$taskID)->update(['statusID' => $data['statusID'] , 'priorityID' => $data['priorityID'] , 'weightID'=> $data['weightID']]);
+        Task::where('ID',$taskID)->update(['statusID' => $data['statusID']]);
         return response()->json(['success'=>true]);
     }
 }

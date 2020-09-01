@@ -44,7 +44,9 @@ Route::group(['middleware'=>['auth' , 'tag']] , function() {
         Route::any('/setLoginUser', 'TaskController@setLoginUser');
         Route::any('/addBudget', 'TaskController@addBudget');
         Route::any('/addExpense', 'TaskController@addExpense');
-        Route::any('/taskList', 'TaskController@taskList');   
+        Route::any('/taskList', 'TaskController@taskList');
+        Route::any('/addPin','TaskController@AddPin')->name('task.addPin');
+        Route::any('/removePin','TaskController@RemovePin')->name('task.removePin');
     });
     Route::group(["prefix"=>"user"] , function() {
         Route::get('' , 'UserController@index')->name('user');

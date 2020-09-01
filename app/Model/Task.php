@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Model;
+use App\PinnedTask;
 use Carbon\Carbon;
 use DB;
 use App\Helper\Common;

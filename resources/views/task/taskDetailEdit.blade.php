@@ -35,7 +35,8 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="edit_panel_tab_information">
                             <div class="detail-infomation-content">
-                                <div class="row detail-information-title">
+                                <div class="row" style="justify-content: space-between; margin: 5px">
+                                    <div class="row detail-information-title">
                                     @for($i=count($pathArr)-1; $i>=1; $i--)
                                         <a href="{{url('/task/taskCard?task_id=')}}{{$pathArr[$i]['ID']}}">
                                             <h5>
@@ -46,6 +47,12 @@
                                             <h5>&nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;</h5>
                                         @endif
                                     @endfor
+                                    </div>
+                                    @if($pinnedTask['personID'] == auth()->user()->id)
+                                        <a href="{{route('task.removePin',['taskID'=>$taskDetails['ID']])}}"><i class="la la-gavel mt-auto mb-auto font-weight-bold ml-auto" style="cursor: pointer; color: red; font-size: 25px;float:right"></i></a>
+                                    @else
+                                        <a href="{{route('task.addPin',['taskID'=>$taskDetails['ID']])}}"><i class="la la-gavel mt-auto mb-auto font-weight-bold ml-auto" style="cursor: pointer; color: green; font-size: 25px;float:right"></i></a>
+                                    @endif
                                 </div>
                                 <div class="row detail-information-task-name">
                                     <p>{{$taskDetails["title"]}}</p>

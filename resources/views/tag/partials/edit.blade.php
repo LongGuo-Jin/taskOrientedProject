@@ -21,7 +21,6 @@
                     <a href="{{route('tag.updatePin',['tagID'=>$selected])}}"><i class="la la-gavel mt-auto mb-auto font-weight-bold" style="cursor: pointer; color: red; font-size: 25px"></i></a>
                 @endif
             @endif
-
         </div>
         <div class="row mt-3">
                 <div class="ml-2">

@@ -17,7 +17,7 @@ class CompanyController extends Controller
         $select = $request->input('select');
         $selected_company = Company::where('id',$select)->get()->first();
         $companies = Company::all()->toArray();
-        $tagList = $Tag->getTagList();
+        $tagList = $Tag->getTagList(auth()->user());
         $organizationTagList = [];
         if ($select)
             $organizationTagList = $organizationTag->getOrganizationTagList($select);

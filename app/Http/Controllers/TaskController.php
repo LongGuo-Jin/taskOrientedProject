@@ -16,6 +16,7 @@ use App\Model\TaskPriority;
 use App\Model\TaskStatus;
 use App\Model\TaskWeight;
 use App\Organization;
+use App\PinnedTask;
 use App\SubTaskTime;
 use App\TagTask;
 use App\Time;
@@ -337,6 +338,7 @@ class TaskController extends Controller
     }
 
     public function taskCard(Request $request) {
+
         $Person = new User();
         $TaskPriority = new TaskPriority();
         $TaskStatus = new TaskStatus();
@@ -372,6 +374,7 @@ class TaskController extends Controller
         $allocateTimes = array();
         $filters = array();
         $taskTagList = array();
+        $pinnedTask = array();
         $timeSpentOnSubTask = null;
         $totalTime = 0;
         $timeAllocated = 0;
@@ -435,6 +438,7 @@ class TaskController extends Controller
             $timeSpentOnSubTask = SubTaskTime::where('taskID',$taskId)->get()->first();
             $timeSpentOnSubTask = $timeSpentOnSubTask==null?0:$timeSpentOnSubTask['timeSpentOnSubTask'];
             $taskDetails = $Task->adtResult($Task->getTaskListbyCond(array("taskID" => $taskId),auth()->user()));
+            $pinnedTask = PinnedTask::where('personID',$user->id)->where('taskID',$taskId)->get()->first();
 
             $allocateTimes = AllocatedTime::where('taskID',$taskId)->get()->toArray();
             foreach($allocateTimes as $allocateTime) {
@@ -478,7 +482,7 @@ class TaskController extends Controller
         foreach ($taskList['list'] as $index => $task) {
             $taskList['list'][$index] = $this->task_filter($task,auth()->user());
         }
-
+//        dd($taskDetails[0]);
         return view('task/taskCard',
             [
                 'totalPersonList' => $totalPersonList,
@@ -496,6 +500,7 @@ class TaskController extends Controller
                 'showType' => $showType,
                 'taskId' => $taskId,
                 'taskDetails' => isset($taskDetails[0]) ? $taskDetails[0]: array(),
+                'pinnedTask' => $pinnedTask,
                 'memos' => $memos,
                 'budget' => $budget,
                 'expense'=> $expense,
@@ -1093,5 +1098,21 @@ class TaskController extends Controller
         User::where('id',$request['user_id'])->update(['filter_order'=>'214356']);
         return  redirect()->back();
     }
+
+    public function AddPin(Request $request) {
+        $taskID = $request->taskID;
+        $personID = auth()->user()->id;
+        PinnedTask::create(['taskID' => $taskID,'personID' => $personID]);
+        return redirect()->back();
+
+    }
+
+    public function RemovePin(Request $request) {
+        $taskID = $request->taskID;
+        $personID = auth()->user()->id;
+        PinnedTask::where('taskID',$taskID)->where('personID',$personID)->delete();
+        return redirect()->back();
+    }
+
 }
 

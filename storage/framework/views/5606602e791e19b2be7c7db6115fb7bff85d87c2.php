@@ -50,15 +50,15 @@
                                         <?php endif; ?>
                                     <?php endfor; ?>
                                     </div>
-                                    <?php if($pinnedTask['personID'] == auth()->user()->id): ?>
-                                        <a href="<?php echo e(route('task.removePin',['taskID'=>$taskDetails['ID']])); ?>"><i class="la la-gavel mt-auto mb-auto font-weight-bold ml-auto" style="cursor: pointer; color: red; font-size: 25px;float:right"></i></a>
-                                    <?php else: ?>
-                                        <a href="<?php echo e(route('task.addPin',['taskID'=>$taskDetails['ID']])); ?>"><i class="la la-gavel mt-auto mb-auto font-weight-bold ml-auto" style="cursor: pointer; color: green; font-size: 25px;float:right"></i></a>
-                                    <?php endif; ?>
                                 </div>
-                                <div class="row detail-information-task-name">
+                                <div class="row detail-information-task-name" style="justify-content: space-between;">
                                     <p><?php echo e($taskDetails["title"]); ?></p>
-                                    <input type="text" class="form-control" style="display: none" placeholder="<?php echo e(__('task.title')); ?>" name="title" value="<?php echo e($taskDetails["title"]); ?>" >
+                                    <input type="text" class="form-control" style="display: none; width: 80%" placeholder="<?php echo e(__('task.title')); ?>" name="title" value="<?php echo e($taskDetails["title"]); ?>" >
+                                    <?php if($pinnedTask['personID'] == auth()->user()->id): ?>
+                                        <a href="<?php echo e(route('task.removePin',['taskID'=>$taskDetails['ID']])); ?>"><img src="<?php echo e(asset('public/images/pinned.png')); ?>" alt="logo" height="25"></a>
+                                    <?php else: ?>
+                                        <a href="<?php echo e(route('task.addPin',['taskID'=>$taskDetails['ID']])); ?>"><img src="<?php echo e(asset('public/images/unpinned.png')); ?>" alt="logo" height="25"></a>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="row detail-information-staus">
                                     <div class="col-lg-6">
@@ -275,29 +275,11 @@
                                 </div>
                                 <div class="detail-information-description">
                                     <h5><?php echo e(__('task.description')); ?></h5>
-                                    <p><?php echo e($taskDetails["description"]); ?></p>
-                                    <textarea class="form-control" id="edit_description" <?php if($taskDetails["description"] != ""): ?> style="display: none" <?php endif; ?> rows="5" name="info_description"><?php echo e($taskDetails["description"]); ?></textarea>
+                                    <p style="white-space: pre-line;"><?php echo e($taskDetails["description"]); ?></p>
+                                    <textarea class="form-control" id="edit_description" <?php if($taskDetails["description"] != ""): ?> style="display: none;" <?php endif; ?> rows="5" name="info_description"><?php echo e($taskDetails["description"]); ?></textarea>
                                 </div>
                                 <div class="detail-information-addExpense">
-                                    <h5><?php echo e(__('task.addExpense')); ?></h5>
-                                    
-                                    <input type="hidden" id="quick_token" name="_token" value="<?php echo e(csrf_token()); ?>">
-                                    <div class="row task-expense-add m-2">
-                                        <div class="col-lg-5">
-                                            <input type="text" class="form-control" id="quick-expense-title" placeholder="<?php echo e(__('task.addExpense')); ?>">
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <input type="text" class="form-control" id="quick-expense-val" placeholder="0.00">
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <button type="button" class="btn btn-outline-brand btn-elevate btn-pill quick-add-expense">
-                                                <?php echo e(__('task.add')); ?>
 
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="detail-information-addSubTask">
                                     <h5><?php echo e(__('task.addSubTask')); ?></h5>
                                     <div class="row task-extand-add  m-2">
                                         <div class="col-lg-5">
@@ -352,42 +334,28 @@
                                     </div>
                                     <?php $__currentLoopData = $attachs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $attchItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <div class="row attach_file" style="margin-top: 10px" data-tmpfilename="<?php echo e($attchItem['tmpFileName']); ?>">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-2">
                                                 <div class="kt-widget4__pic kt-widget4__pic--icon">
                                                     <?php
-                                                        $images = ['jpg','jpeg','png','bmp','svg'];
+                                                        $images = ['jpg','jpeg','png','bmp','svg','gif'];
                                                         $docs = ['doc','docx'];
                                                         $csv = ['csv'];
                                                         $zip = ['zip','rar'];
                                                         $pdf = ['pdf'];
-                                                        $extension = $attchItem['extension'];
-                                                        $attachIcon = asset('public/assets/media/files/xml.svg');
-                                                        foreach($images as $item) {
-                                                            if ($item == $extension)
-                                                                $attachIcon = asset('public/assets/media/files/jpg.svg');
-                                                        }
-                                                        foreach($docs as $item) {
-                                                            if ($item == $extension)
-                                                                $attachIcon = asset('public/assets/media/files/doc.svg');
-                                                        }
-                                                        foreach($csv as $item) {
-                                                            if ($item == $extension)
-                                                                $attachIcon = asset('public/assets/media/files/csv.svg');
-                                                        }
-                                                        foreach($zip as $item) {
-                                                            if ($item == $extension)
-                                                                $attachIcon = asset('public/assets/media/files/zip.svg');
-                                                        }
-                                                        foreach($pdf as $item) {
-                                                            if ($item == $extension)
-                                                                $attachIcon = asset('public/assets/media/files/pdf.svg');
-                                                        }
+                                                        $file = ['csv','doc','gif','html','jpg','mid','mp3','pdf','png','rar','rtf','txt',
+                                                            'wav','xls','xml','zip'];
+                                                        $extension = strtolower($attchItem['extension']);
 
+                                                        $attachIcon = asset('public/assets/media/files/file.png');
+                                                        if (in_array($extension,$file)) {
+                                                            $attachIcon = asset('public/assets/media/files/'.$extension.'.png');
+                                                        }
                                                     ?>
-                                                    <img src="<?php echo e($attachIcon); ?>" width="100%" alt="">
+                                                    <img src="<?php echo e($attachIcon); ?>" width="60%" alt="">
+                                                    
                                                 </div>
                                             </div>
-                                            <div class="col-lg-9">
+                                            <div class="col-lg-10">
                                                 <div class="row">
                                                     <div class="col-lg-12 detail-label">
                                                         <h5 style="cursor: pointer;">

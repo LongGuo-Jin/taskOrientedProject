@@ -18,7 +18,7 @@ return [
     'actualStartDate' => 'Actual Start Date',
     'actualEndDate' => 'Actual End Date',
     'description' => 'Description',
-    'memos' => 'Memos',
+    'memos' => 'Messages',
     'save' => 'Save',
     'attachments' => 'Attachments',
     'history' => 'History',

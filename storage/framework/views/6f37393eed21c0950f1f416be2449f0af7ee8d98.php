@@ -39,7 +39,10 @@
     <div class="wrapper">
         <?php echo $__env->yieldContent('content'); ?>
     </div>
-<!-- begin::Global Config(global config for global JS sciprts) -->
+    <div class="text-center" style="height: 42px; background-color: #253356; padding: 12px">
+        <span class="mt-auto mb-auto" style=" font-size: 14px; color: white">Copyright © 2019 - <?php echo e(date("Y")); ?> AVG, Alfred Vesligaj s.p., All Rights Reserved</span>
+    </div>
+    <!-- begin::Global Config(global config for global JS sciprts) -->
     <script src="<?php echo e(asset('public/js/app.js')); ?>" type="text/javascript"></script>
     <?php echo $__env->yieldContent('script'); ?>
 </body>

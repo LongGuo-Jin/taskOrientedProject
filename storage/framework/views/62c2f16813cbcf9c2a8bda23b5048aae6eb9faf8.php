@@ -26,6 +26,13 @@
     </script>
 
     <!--end::Fonts -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/file-icon-vectors@1.0.0/dist/file-icon-classic.min.css" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/file-icon-vectors@1.0.0/dist/file-icon-square-o.min.css" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/file-icon-vectors@1.0.0/dist/file-icon-vivid.min.css" />
+
+    <!-- Alternatively, you can load all sets: -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/file-icon-vectors@1.0.0/dist/file-icon-vectors.min.css" />
+
     <!--begin:: Global Mandatory Vendors -->
     <link href="<?php echo e(asset('public/assets/vendors/general/perfect-scrollbar/css/perfect-scrollbar.css')); ?>" rel="stylesheet" type="text/css" />
 
@@ -72,7 +79,6 @@
             <?php echo $__env->yieldContent('content'); ?>
         </div>
     </div>
-
     <!-- begin::Global Config(global config for global JS sciprts) -->
     <script>
         var KTAppOptions = {

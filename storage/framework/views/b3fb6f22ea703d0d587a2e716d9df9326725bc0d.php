@@ -6,7 +6,8 @@
     <div class="kt-aside__brand kt-grid__item " id="kt_aside_brand">
         <div class="kt-aside__brand-logo">
             <a href="<?php echo e(route('dashboard')); ?>">
-                <?php echo app('translator')->get('main.site_title'); ?>
+                
+                <img src="<?php echo e(asset('public/images/logo-03.png')); ?>" alt="logo" width="100%" height="30px">
             </a>
         </div>
         <div class="kt-aside__brand-tools">
@@ -67,7 +68,7 @@
 
                 <li class="kt-menu__section ">
                     <div class="kt-menu__section-text" style="width: 90%; justify-content: space-between">
-                        <?php echo e(__('main.myTasks')); ?>
+                        <?php echo e(__('main.myFavourite')); ?>
 
                         <i class="la la-credit-card header_menu_item_icon" style="color: white; font-size: 22px"></i>
                     </div>

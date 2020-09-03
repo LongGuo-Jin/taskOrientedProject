@@ -18,7 +18,7 @@ return [
     'actualStartDate' => 'Dejanski začetek',
     'actualEndDate' => 'Dejanski konec',
     'description' => 'Opis',
-    'memos' => 'Beležke',
+    'memos' => 'Sporočila',
     'save' => 'Shrani',
     'attachments' => 'Priloge',
     'history' => 'Zgodovina',

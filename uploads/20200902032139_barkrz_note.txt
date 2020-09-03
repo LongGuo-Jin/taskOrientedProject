@@ -1,0 +1,35 @@
+BARKRZ:
+Landing Page
+- Need to add another section for show comparison table like https://www.pettouchid.com/
+//You mean.. comparison between memberships?
+- Need to add ‘Shop’ tab and section on home page to show some product photo preview
+- Need to add a ‘How it works’ Section with animation video
+- Need a FAQ section
+- Need to photoshop the barkrz tag on main background hero image
+//
+- Main text should say ‘For Your Best Friend’ and should be more large.
+- ‘Welcome to Barkrz’ spell fix
+- Landing page buttons don’t work for ‘view more’ and ‘testimonials’ etc. Hide them.
+- Testimonial ‘My dog deserves the best’ - we need a real photo for Ryan hall.
+//can you offer me real photo?
+- Update text to say ‘Looking and feeling great’
+- Menu tab buttons don’t all work.
+//
+After Login:
+- Needs to show photo placeholder before create pet.
+- Am I a good boy/girl - it is outlined red on girl icon. It should not outline either.
+- My weight is?  —> ‘My weight is? (lbs)
+- Temperament - Should have ‘With dogs’ and ‘Playful’
+- Once login, remove ‘Home’ menu option. 
+- Medical conditions field can be optional. 
+- When no photo is added for pet, use placeholder photo.
+
+Profile:
+- Weight box should show ’68 lbs’ not just ’68’
+- When save edit show modal ‘Updated Successfully’
+- Need side bar on profile
+- Need a function to delete pet profile.
+- UnNeutered —> Not Neutered
+
+Memberships:
+- Need to connect Stripe and confirm payment amounts to doc. Seems payment amount is wrong now

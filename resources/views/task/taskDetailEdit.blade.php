@@ -48,15 +48,15 @@
                                         @endif
                                     @endfor
                                     </div>
-                                    @if($pinnedTask['personID'] == auth()->user()->id)
-                                        <a href="{{route('task.removePin',['taskID'=>$taskDetails['ID']])}}"><i class="la la-gavel mt-auto mb-auto font-weight-bold ml-auto" style="cursor: pointer; color: red; font-size: 25px;float:right"></i></a>
-                                    @else
-                                        <a href="{{route('task.addPin',['taskID'=>$taskDetails['ID']])}}"><i class="la la-gavel mt-auto mb-auto font-weight-bold ml-auto" style="cursor: pointer; color: green; font-size: 25px;float:right"></i></a>
-                                    @endif
                                 </div>
-                                <div class="row detail-information-task-name">
+                                <div class="row detail-information-task-name" style="justify-content: space-between;">
                                     <p>{{$taskDetails["title"]}}</p>
-                                    <input type="text" class="form-control" style="display: none" placeholder="{{__('task.title')}}" name="title" value="{{$taskDetails["title"]}}" >
+                                    <input type="text" class="form-control" style="display: none; width: 80%" placeholder="{{__('task.title')}}" name="title" value="{{$taskDetails["title"]}}" >
+                                    @if($pinnedTask['personID'] == auth()->user()->id)
+                                        <a href="{{route('task.removePin',['taskID'=>$taskDetails['ID']])}}"><img src="{{asset('public/images/pinned.png')}}" alt="logo" height="25"></a>
+                                    @else
+                                        <a href="{{route('task.addPin',['taskID'=>$taskDetails['ID']])}}"><img src="{{asset('public/images/unpinned.png')}}" alt="logo" height="25"></a>
+                                    @endif
                                 </div>
                                 <div class="row detail-information-staus">
                                     <div class="col-lg-6">
@@ -260,28 +260,11 @@
                                 </div>
                                 <div class="detail-information-description">
                                     <h5>{{__('task.description')}}</h5>
-                                    <p>{{$taskDetails["description"]}}</p>
-                                    <textarea class="form-control" id="edit_description" @if ($taskDetails["description"] != "") style="display: none" @endif rows="5" name="info_description">{{$taskDetails["description"]}}</textarea>
+                                    <p style="white-space: pre-line;">{{$taskDetails["description"]}}</p>
+                                    <textarea class="form-control" id="edit_description" @if ($taskDetails["description"] != "") style="display: none;" @endif rows="5" name="info_description">{{$taskDetails["description"]}}</textarea>
                                 </div>
                                 <div class="detail-information-addExpense">
-                                    <h5>{{__('task.addExpense')}}</h5>
-                                    {{--@if($taskId == $taskItem['ID'])--}}
-                                    <input type="hidden" id="quick_token" name="_token" value="{{csrf_token()}}">
-                                    <div class="row task-expense-add m-2">
-                                        <div class="col-lg-5">
-                                            <input type="text" class="form-control" id="quick-expense-title" placeholder="{{__('task.addExpense')}}">
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <input type="text" class="form-control" id="quick-expense-val" placeholder="0.00">
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <button type="button" class="btn btn-outline-brand btn-elevate btn-pill quick-add-expense">
-                                                {{__('task.add')}}
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="detail-information-addSubTask">
+
                                     <h5>{{__('task.addSubTask')}}</h5>
                                     <div class="row task-extand-add  m-2">
                                         <div class="col-lg-5">
@@ -332,42 +315,28 @@
                                     </div>
                                     @foreach($attachs as $attchItem)
                                         <div class="row attach_file" style="margin-top: 10px" data-tmpfilename="{{$attchItem['tmpFileName']}}">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-2">
                                                 <div class="kt-widget4__pic kt-widget4__pic--icon">
                                                     <?php
-                                                        $images = ['jpg','jpeg','png','bmp','svg'];
+                                                        $images = ['jpg','jpeg','png','bmp','svg','gif'];
                                                         $docs = ['doc','docx'];
                                                         $csv = ['csv'];
                                                         $zip = ['zip','rar'];
                                                         $pdf = ['pdf'];
-                                                        $extension = $attchItem['extension'];
-                                                        $attachIcon = asset('public/assets/media/files/xml.svg');
-                                                        foreach($images as $item) {
-                                                            if ($item == $extension)
-                                                                $attachIcon = asset('public/assets/media/files/jpg.svg');
-                                                        }
-                                                        foreach($docs as $item) {
-                                                            if ($item == $extension)
-                                                                $attachIcon = asset('public/assets/media/files/doc.svg');
-                                                        }
-                                                        foreach($csv as $item) {
-                                                            if ($item == $extension)
-                                                                $attachIcon = asset('public/assets/media/files/csv.svg');
-                                                        }
-                                                        foreach($zip as $item) {
-                                                            if ($item == $extension)
-                                                                $attachIcon = asset('public/assets/media/files/zip.svg');
-                                                        }
-                                                        foreach($pdf as $item) {
-                                                            if ($item == $extension)
-                                                                $attachIcon = asset('public/assets/media/files/pdf.svg');
-                                                        }
+                                                        $file = ['csv','doc','gif','html','jpg','mid','mp3','pdf','png','rar','rtf','txt',
+                                                            'wav','xls','xml','zip'];
+                                                        $extension = strtolower($attchItem['extension']);
 
+                                                        $attachIcon = asset('public/assets/media/files/file.png');
+                                                        if (in_array($extension,$file)) {
+                                                            $attachIcon = asset('public/assets/media/files/'.$extension.'.png');
+                                                        }
                                                     ?>
-                                                    <img src="{{$attachIcon}}" width="100%" alt="">
+                                                    <img src="{{$attachIcon}}" width="60%" alt="">
+                                                    {{--<span class="fiv-cla fiv-icon-{{$extension}} fiv-size-lg" style="font-size: 60px"></span>--}}
                                                 </div>
                                             </div>
-                                            <div class="col-lg-9">
+                                            <div class="col-lg-10">
                                                 <div class="row">
                                                     <div class="col-lg-12 detail-label">
                                                         <h5 style="cursor: pointer;">

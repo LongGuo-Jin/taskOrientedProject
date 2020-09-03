@@ -88,10 +88,11 @@ class Task extends Model
 
                 foreach($ret as $eachTask){
                     $task = $this->getTaskListbyCond(array("taskID" => $eachTask->parentID),$user);
-                    if ($task[0]['personID'] != $this->login_id) {
+                    if ($task[0]['personID'] != $this->login_id || $eachTask->parentID == null) {
                         array_push($pmArr,$eachTask);
                     }
                 }
+//                dd($pmArr);
                 $ret = $pmArr;
                 break;
 
@@ -368,7 +369,7 @@ class Task extends Model
                 array_push($result['parents'], $parentsArr[$key]);
             }
         }
-
+//        dd($result);
         return $result;
     }
 

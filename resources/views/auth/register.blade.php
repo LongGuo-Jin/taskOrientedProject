@@ -14,7 +14,7 @@
                         <i class="fa fa-bars"></i>
                     </button>
                     <a href="/">
-                    <img src="{{asset('public/images/logo.png')}}" alt="logo" height="45"></a>
+                    <img src="{{asset('public/images/logo-03.png')}}" class="mt-auto mb-auto" alt="logo" height="40">
                     </a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -35,8 +35,8 @@
         <div style="background-size:cover; min-height: 70vh; background-image: url('{{asset("public/images/login_bg.png")}}')">
             {{--<img style="width: 100%; min-height: 40vh" src="{{asset("public/images/login_back.jpg")}}">--}}
             <div class="container">
-                <div class="col-md-4 col-sm-6" style="margin-top: 20vh">
-                    <span class="brand-text-lg" > Focus on your Project ,&nbsp;  not your project management software </span>
+                <div class="col-md-5 col-sm-6" style="margin-top: 20vh">
+                    <span class="brand-text-lg" > Focus on your project, not your project management <br/> software </span>
                 </div>
             </div>
         </div>
@@ -46,10 +46,10 @@
                     <div style="display: flex">
                         <i class="fa fa-quote-left"></i>
                         <div style="font-family: 'Cormorant', serif; font-weight: bold">
-                            <span>Easy to learn and Pleasure to work with.</span>
-                            <p class="aje-name-text" style="text-align: right">john Smith , Smith & Co.</p>
+                            <span>Easy to learn and pleasure to work with.</span>
+                            <p class="aje-name-text" style="text-align: right">John Smith , Smith & Co.</p>
                         </div>
-                        <img class="aje-avatar" src="{{asset("public/images/user5.jpg")}}">
+                        <img class="aje-avatar" src="{{asset("public/assets/media/users/100_12.jpg")}}">
                     </div>
                 </div>
                 <div class="col-md-4  aje-login-card-align">

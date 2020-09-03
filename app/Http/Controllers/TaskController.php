@@ -456,7 +456,7 @@ class TaskController extends Controller
             $pathArr = $Task->getPathName($taskId);
 
             $attachs = $Attachment->getAttachmentByCond(array("taskID" => $taskId));
-            $history = $History->getHistoryByCond(array("taskID" => $taskId, "personID" => $personID));
+            $history = $History->getHistoryByCond(array("taskID" => $taskId));
             $statisticsData = $Task->getStatisticsData($taskDetails[0]);
             $taskList = $Task->getTaskList($taskDetails[0],auth()->user());
 
@@ -482,7 +482,7 @@ class TaskController extends Controller
         foreach ($taskList['list'] as $index => $task) {
             $taskList['list'][$index] = $this->task_filter($task,auth()->user());
         }
-//        dd($taskDetails[0]);
+//        dd($taskList);
         return view('task/taskCard',
             [
                 'totalPersonList' => $totalPersonList,

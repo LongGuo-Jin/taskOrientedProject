@@ -7,7 +7,7 @@
         <div class="kt-aside__brand-logo">
             <a href="<?php echo e(route('dashboard')); ?>">
                 
-                <img src="<?php echo e(asset('public/images/logo-03.png')); ?>" alt="logo" width="100%" height="30px">
+                <img src="<?php echo e(asset('public/images/logo-03.png')); ?>" alt="logo" width="100%">
             </a>
         </div>
         <div class="kt-aside__brand-tools">
@@ -44,21 +44,6 @@
                        <span class="kt-menu__link-text"> <i class="fa fa-dot-circle side_menu_item"></i><?php echo e(__('main.dashboard')); ?></span>
                     </a>
                 </li>
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-                    <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
-                        <span class="kt-menu__link-text"><i class="fa fa-check-square side_menu_item"></i><?php echo e(__('main.myTask')); ?></span>
-                    </a>
-                </li>
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-                    <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
-                        <span class="kt-menu__link-text"><i class="la la-signal side_menu_item"></i><?php echo e(__('main.taskDoctor')); ?></span>
-                    </a>
-                </li>
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-                    <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
-                        <span class="kt-menu__link-text"><i class="la la-file-text side_menu_item"></i> <?php echo e(__('main.reports')); ?></span>
-                    </a>
-                </li>
                 
                 <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
                     <a href="<?php echo e(url('/user')); ?>" class="kt-menu__link kt-menu__toggle">
@@ -67,8 +52,11 @@
                 </li>
 
                 <li class="kt-menu__section ">
-                    <div class="kt-menu__section-text" style="width: 90%; justify-content: space-between">
-                        <?php echo e(__('main.myFavourite')); ?>
+                    <div class="kt-menu__section-text" style="color: #eadbdb;
+                                                            width: 90%;
+                                                            justify-content: space-between;
+                                                            font-size: 14px;">
+                        <?php echo e(__('main.myTask')); ?>
 
                         <i class="la la-credit-card header_menu_item_icon" style="color: white; font-size: 22px"></i>
                     </div>
@@ -84,7 +72,10 @@
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                 <li class="kt-menu__section ">
-                    <div class="kt-menu__section-text" style="width: 90%; justify-content: space-between">
+                    <div class="kt-menu__section-text kt-menu__link-text" style="color: #eadbdb;
+                                                                            width: 90%;
+                                                                            justify-content: space-between;
+                                                                            font-size: 14px;">
                         <?php echo e(__('main.tags')); ?>
 
                         <i class="flaticon-add-label-button" style="color: white; font-size: 22px"></i>
@@ -101,13 +92,7 @@
                         </a>
                     </li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                <li class="kt-menu__section ">
-                    <div class="kt-menu__section-text" style="width: 90%; justify-content: space-between">
-                        <?php echo e(__('main.myTags')); ?>
 
-                        <i class="flaticon-add-label-button" style="color: white; font-size: 22px"></i>
-                    </div>
-                </li>
                 <?php $__currentLoopData = $pinnedPersonTags; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tag): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <li class="kt-menu__item " aria-haspopup="true">
                         <a href="javascript:;" class="kt-menu__link ">

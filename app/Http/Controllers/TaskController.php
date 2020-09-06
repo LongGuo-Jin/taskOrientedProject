@@ -446,7 +446,9 @@ class TaskController extends Controller
             }
 
             $taskTagList = $taskTag->getTaskTagList($taskId);
+
             $memos = $Memo->getMemoByCond(array("taskID" => $taskId));
+//            dd($memos);
             $budget = $Budget->getBudgetByCond(array("taskID" => $taskId, "personID" => $personID));
             $expense = $Expense->getExpenseByCond(array("taskID" => $taskId, "personID" => $personID));
             $expenseSum = $Expense->getSumExpense(array("taskID" => $taskId, "personID" => $personID));

@@ -19,7 +19,13 @@ class Memo extends Model
         $qrBuilder = DB::table($this->table)
             ->leftjoin("users", "memo.personID", "=", "users.id")
             ->leftjoin("task", "memo.taskID", "=", "task.ID")
-            ->select("{$this->table}.*", DB::raw("concat(users.nameFamily, ' ', users.nameFirst) as fullName"));
+            ->select("{$this->table}.*",
+                DB::raw("concat(users.nameFamily, ' ', users.nameFirst) as fullName") ,
+                'users.avatarColor',
+                'users.avatarType',
+                'users.roleID',
+                'users.nameTag',
+                'users.id as userID');
 
         if (isset($cond["taskID"]) && $cond["taskID"])
             $qrBuilder = $qrBuilder->where("memo.taskID", "=", $cond["taskID"]);

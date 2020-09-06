@@ -15,6 +15,7 @@ div.task-status {
     /*vertical-align: middle;*/
     text-align: center;
     font-size: 12pt;
+    color: #000000;
 }
 div.task-name {
     font-weight: 500;
@@ -293,7 +294,6 @@ div.kt-quick-panel {
 
 .detail-information-task-name, .detail-budget-task-name, .detail-statistics-task-name {
     font-size: 16pt;
-    font-weight: bold;
     margin-top: 10px;
 }
 
@@ -301,6 +301,9 @@ div.kt-quick-panel {
     font-size: 8pt;
 }
 
+.detail-information-title {
+    font-size: 8pt;
+}
 .detail-information-staus-content, .detail-information-person-content, .detail-information-priority-content
 , .detail-information-weight-content {
     font-size: 14pt;
@@ -316,6 +319,7 @@ div.kt-quick-panel {
     border-bottom:  1px solid;
     padding-top: 30px;
     padding-bottom: 30px;
+    font-size: 8pt;
 }
 
 .detail-income-content, .detail-expense-content {
@@ -335,6 +339,7 @@ div.kt-quick-panel {
 }
 
 .detail-label {
+    font-size: 8pt;
     letter-spacing: 2px;
     margin-top: auto;
     margin-bottom: auto;
@@ -482,13 +487,13 @@ div.kt-portlet__head-actions {
 }
 
 div.detail-budget-dashboard .row {
-    font-size: 12pt;
+    font-size: 10pt;
     margin-top: 10px;
     letter-spacing: 1px;
 }
 
 div.detail-budget-dashboard .balance {
-    font-size: 13pt;
+    font-size: 12pt;
     padding-top: 15px;
     padding-bottom: 5px;
     border-top: 1px solid;
@@ -500,6 +505,9 @@ div.detail-statistics-content {
     padding: 0 20px 10px 20px;
 }
 
+.subtitle_text {
+    color: #8301e5;
+}
 .statistics-content {
     color: black;
     letter-spacing: 1px;

@@ -286,7 +286,8 @@ class Task extends Model
         $role = $user->roleID;
         $result['list'] = $result['parents'] = array();
         $parentsArr[2] = $parentsArr[1] = $parentsArr[0] = "";
-        $retArr[2] = $retArr[1] = $retArr[0] = array();
+        $retArr = array();
+//        $retArr[2] = $retArr[1] = $retArr[0] = array();
         $parentId = empty($taskDetails["parentID"]) ? "": $taskDetails["parentID"];
 
         $isMainRoot = $this->isRootLevel($taskDetails["ID"],auth()->user());
@@ -339,11 +340,11 @@ class Task extends Model
 
                 $tmp = array_merge($tmp,$tmp1);
             }
-            if (count($tmp)) {
+//            if (count($tmp)) {
                 $retArr[1] = $tmp;
                 $upParentId =$parentId;
                 $parentsArr[1] = $upParentId;
-            }
+//            }
         }
 
         // get third column
@@ -355,19 +356,20 @@ class Task extends Model
                 $tmp1 = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID'],"taskCreatorID"=>$user->id),auth()->user()));
                 $tmp = array_merge($tmp,$tmp1);
             }
-            if (count($tmp)) {
+            if (count($tmp) || $taskDetails['ID'] != null) {
                 $retArr[2] = $tmp;
                 $upParentId = $taskDetails['ID'];
                 $parentsArr[2] = $upParentId;
             }
         }
 
+//        dd($retArr)
         foreach ($retArr as $key => $retItem)
         {
-            if (!empty($retItem)) {
+//            if (!empty($retItem)) {
                 array_push($result['list'], $retItem);
                 array_push($result['parents'], $parentsArr[$key]);
-            }
+//            }
         }
 //        dd($result);
         return $result;

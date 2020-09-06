@@ -14,7 +14,7 @@
                         <i class="fa fa-bars"></i>
                     </button>
                     <a href="/">
-                    <img src="<?php echo e(asset('public/images/logo-03.png')); ?>" class="mt-auto mb-auto" alt="logo" height="40">
+                    <img src="<?php echo e(asset('public/images/logo-03.png')); ?>" class="mt-auto mb-auto" alt="logo">
                     </a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

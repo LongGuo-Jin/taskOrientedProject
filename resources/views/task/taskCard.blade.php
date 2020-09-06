@@ -59,7 +59,51 @@
                                                         <div class="kt-regular-task-item row thin <?php if($taskId == $taskItem['ID']) echo 'selected';?>
                                                         <?php if($taskId != $taskItem['ID'] && in_array($taskItem['ID'], $parents)) echo 'parent_selected';?>"
                                                              data-task_id="{{$taskItem['ID']}}" data-show_type="regular" style="display: flex;">
-                                                            <div class="task-status pt-2" style="background-color: #89cb84; display: flex; flex-direction: column; width: 10%; justify-content: space-between">
+                                                            <?php $tagTask =new \App\TagTask();
+                                                                $taskTags =  $tagTask->getTaskTagList($taskItem['ID']);
+                                                                $color = '#9d88bf';
+
+                                                                foreach($taskTags as $taskTag) {
+                                                                    if ($taskTag["tagtype"] != 1 ) {
+                                                                        continue;
+                                                                    }
+
+                                                                    if($taskTag['name'] == "PROJECT") {
+                                                                        $color = '#302344';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "MILESTONE") {
+                                                                        $color = '#98b6ea';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "TO DO") {
+                                                                        $color = '#f7dd6d';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "PERMANENT") {
+                                                                        $color = '#4fc6a2';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "PERIODIC") {
+                                                                        $color = '#88e588';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "TRIP") {
+                                                                        $color = '#a5a3aa';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "ERROR") {
+                                                                        $color = '#ef6f6f';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "ALARM") {
+                                                                        $color = '#f4c67d';
+                                                                        break;
+                                                                    }
+                                                                }
+
+                                                                ?>
+                                                            <div class="task-status pt-2" style="background-color: {{$color}};display: flex; flex-direction: column; width: 10%; justify-content: space-between">
                                                                 <div style="display: flex; flex-direction: column">
                                                                     <div><?php echo($taskItem['status_icon'])?></div>
                                                                     <div>{{$taskItem['priority_title']}}</div>
@@ -84,63 +128,12 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-lg-3">
-                                                                        @switch($taskItem['avatarType'])
-                                                                            @case (1)
-                                                                            <svg width="32" height="32">
-                                                                                <circle cx="16" cy="16" r="16" stroke="black" stroke-width="0" fill="{{$taskItem['avatarColor']}}"></circle>
-                                                                                <text x="5" y="22"  style="fill:black;font-size: 16px">{{$taskItem['nameTag']}}</text>
-
-                                                                                @break
-                                                                            @case (2)
-                                                                            {{--//rect--}}
-                                                                              <svg width="32" height="32">
-                                                                                <rect x="0" y="0" rx="5" ry="5" width="32" height="32" fill="{{$taskItem['avatarColor']}}" style="stroke-width:0;"></rect>
-                                                                                <text x="5" y="22" style="fill:black;font-size: 16px">{{$taskItem['nameTag']}}</text>
-
-                                                                                @break
-                                                                            @case (3)
-                                                                            {{--//polygon 5--}}
-                                                                               <svg width="32" height="32">
-                                                                                <polygon points="16,0 0.78309703188832,11.055724111756 6.5954291951265,28.944266992616 25.404553884384,28.944279286068 	31.216909431155,11.055744002985 " fill="{{$taskItem['avatarColor']}}" style="stroke:purple;stroke-width:0;"></polygon>
-                                                                                <text x="5" y="22" style="fill:black;font-size: 16px">{{$taskItem['nameTag']}}</text>
-
-                                                                                @break
-                                                                            @case (4)
-                                                                            {{--//polygon 6--}}
-                                                                              <svg width="32" height="32" >
-                                                                                <polygon points="8.000001509401,2.143592667996 8.5442763975152E-13,15.999994771282 7.9999924529963,29.856402103284 23.999989434191,29.856412560718 	31.999999999992,16.000015686155 24.000016603405,2.1436031254426 "  fill="{{$taskItem['avatarColor']}}" style="stroke:purple;stroke-width:0;"></polygon>
-                                                                                <text x="5" y="22" style="fill:black;font-size: 16px">{{$taskItem['nameTag']}}</text>
-
-                                                                                @break
-                                                                            @case (5)
-                                                                            {{--//rotated rectangle--}}
-                                                                                <svg width="32" height="32">
-                                                                                    <polygon points="8.5442763975152E-13,15.999994771282 15.999989542563,31.999999999997 31.999999999992,16.000015686155 	16.000020914873,1.3669065879185E-11 " fill="{{$taskItem['avatarColor']}}" style="stroke:purple;stroke-width:0;"></polygon>
-                                                                                    <text x="5" y="22" style="fill:black;font-size: 16px">{{$taskItem['nameTag']}}</text>
-
-                                                                                @break
-                                                                        @endswitch
-                                                                        @switch($taskItem['roleID'])
-                                                                            @case (1)
-                                                                            <circle cx="28" cy="4" r="3" stroke="black" stroke-width="0" fill="black"></circle>
-                                                                            <rect height="8" width="2" x="27" y="0" fill="black"></rect>
-                                                                            <polygon points="25.145898644316,1.1974823013079 24.145898266966,2.9295328910135 30.854099523987,6.802519564103 31.854101033387,5.0704696279878 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
-                                                                            <polygon points="24.14589756732,5.0704645899847 25.14589681262,6.8025158332799 31.854103132324,2.9295379290175 30.854105019076,1.1974860321334 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
-                                                                            @break
-                                                                            @case (2)
-                                                                            <polygon points="28,0 25.648857298782,7.2360667481539 31.804227357789,2.7639360007462 24.195775873739,2.7639260551337 30.35113424097,7.2360728948744 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
-                                                                            @break
-                                                                            @case (4)
-                                                                            <circle cx="28" cy="4" r="4" stroke="black" stroke-width="0" fill = "black" style="stroke-width:0;"></circle>
-                                                                            @break
-                                                                        @endswitch
-                                                                        </svg>
+                                                                        <x-user-avatar :type="$taskItem['avatarType']" :nameTag="$taskItem['nameTag']" :roleID="$taskItem['roleID']" :color="$taskItem['avatarColor']" />
                                                                     </div>
                                                                 </div>
                                                                 <div class="row m-2">
                                                                     <div style="display: flex; flex-wrap: wrap;"><?php
-                                                                        $tagTask =new \App\TagTask();
-                                                                        $taskTags =  $tagTask->getTaskTagList($taskItem['ID']);
+
                                                                         foreach($taskTags as $taskTag) {
                                                                         ?>
                                                                         <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="@if ($taskTag['tagtype']!=3 )background-color:{{$taskTag['color']}} @else border-color:{{$taskTag['color']}} @endif">
@@ -179,8 +172,52 @@
                                                 </div>
                                                 <div class="tab-pane" id="kt_extended_tab_{{$columnClass}}">
                                                     @foreach($columnItem as $taskItem)
-                                                        <div class="row kt-extended-task-item <?php if($taskId == $taskItem['ID']) echo 'selected';?>"  data-task_id="{{$taskItem['ID']}}" data-show_type="extended" style="display: flex;">
-                                                            <div class="task-status pt-2" style="background-color: #89cb84; display: flex; flex-direction: column; width: 10%; justify-content: space-between">
+                                                        <div class="row kt-extended-task-item <?php if($taskId == $taskItem['ID']) echo 'selected';?> {{'taskID-'.$taskItem['ID']}}"  data-task_id="{{$taskItem['ID']}}" data-show_type="extended" style="display: flex;">
+                                                            <?php $tagTask =new \App\TagTask();
+                                                            $taskTags =  $tagTask->getTaskTagList($taskItem['ID']);
+                                                            $color = '#9d88bf';
+
+                                                            foreach($taskTags as $taskTag) {
+                                                                if ($taskTag["tagtype"] != 1 ) {
+                                                                    continue;
+                                                                }
+
+                                                                if($taskTag['name'] == "PROJECT") {
+                                                                    $color = '#302344';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "MILESTONE") {
+                                                                    $color = '#98b6ea';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "TO DO") {
+                                                                    $color = '#f7dd6d';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "PERMANENT") {
+                                                                    $color = '#4fc6a2';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "PERIODIC") {
+                                                                    $color = '#88e588';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "TRIP") {
+                                                                    $color = '#a5a3aa';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "ERROR") {
+                                                                    $color = '#ef6f6f';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "ALARM") {
+                                                                    $color = '#f4c67d';
+                                                                    break;
+                                                                }
+                                                            }
+
+                                                            ?>
+                                                            <div class="task-status pt-2" style="background-color: {{$color}}; display: flex; flex-direction: column; width: 10%; justify-content: space-between">
                                                                 <div style="display: flex; flex-direction: column">
                                                                     <div><?php echo($taskItem['status_icon'])?></div>
                                                                     <div>{{$taskItem['priority_title']}}</div>
@@ -205,64 +242,12 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-lg-3 person-tag">
-                                                                            @switch($taskItem['avatarType'])
-                                                                                @case (1)
-                                                                                <svg width="32" height="32">
-                                                                                    <circle cx="16" cy="16" r="16" stroke="black" stroke-width="0" fill="{{$taskItem['avatarColor']}}"></circle>
-                                                                                    <text x="5" y="22"  style="fill:black;font-size: 16px">{{$taskItem['nameTag']}}</text>
-
-                                                                                    @break
-                                                                                @case (2)
-                                                                                {{--//rect--}}
-                                                                                <svg width="32" height="32">
-                                                                                    <rect x="0" y="0" rx="5" ry="5" width="32" height="32" fill="{{$taskItem['avatarColor']}}" style="stroke-width:0;"></rect>
-                                                                                    <text x="5" y="22" style="fill:black;font-size: 16px">{{$taskItem['nameTag']}}</text>
-
-                                                                                    @break
-                                                                                @case (3)
-                                                                                {{--//polygon 5--}}
-                                                                                <svg width="32" height="32">
-                                                                                    <polygon points="16,0 0.78309703188832,11.055724111756 6.5954291951265,28.944266992616 25.404553884384,28.944279286068 	31.216909431155,11.055744002985 " fill="{{$taskItem['avatarColor']}}" style="stroke:purple;stroke-width:0;"></polygon>
-                                                                                    <text x="5" y="22" style="fill:black;font-size: 16px">{{$taskItem['nameTag']}}</text>
-
-                                                                                    @break
-                                                                                @case (4)
-                                                                                {{--//polygon 6--}}
-                                                                                <svg width="32" height="32" >
-                                                                                    <polygon points="8.000001509401,2.143592667996 8.5442763975152E-13,15.999994771282 7.9999924529963,29.856402103284 23.999989434191,29.856412560718 	31.999999999992,16.000015686155 24.000016603405,2.1436031254426 "  fill="{{$taskItem['avatarColor']}}" style="stroke:purple;stroke-width:0;"></polygon>
-                                                                                    <text x="5" y="22" style="fill:black;font-size: 16px">{{$taskItem['nameTag']}}</text>
-
-                                                                                    @break
-                                                                                @case (5)
-                                                                                {{--//rotated rectangle--}}
-                                                                                <svg width="32" height="32">
-                                                                                    <polygon points="8.5442763975152E-13,15.999994771282 15.999989542563,31.999999999997 31.999999999992,16.000015686155 	16.000020914873,1.3669065879185E-11 " fill="{{$taskItem['avatarColor']}}" style="stroke:purple;stroke-width:0;"></polygon>
-                                                                                    <text x="5" y="22" style="fill:black;font-size: 16px">{{$taskItem['nameTag']}}</text>
-
-                                                                                    @break
-                                                                                @endswitch
-                                                                            @switch($taskItem['roleID'])
-                                                                                    @case (1)
-                                                                                        <circle cx="28" cy="4" r="3" stroke="black" stroke-width="0" fill="black"></circle>
-                                                                                        <rect height="8" width="2" x="27" y="0" fill="black"></rect>
-                                                                                        <polygon points="25.145898644316,1.1974823013079 24.145898266966,2.9295328910135 30.854099523987,6.802519564103 31.854101033387,5.0704696279878 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
-                                                                                        <polygon points="24.14589756732,5.0704645899847 25.14589681262,6.8025158332799 31.854103132324,2.9295379290175 30.854105019076,1.1974860321334 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
-                                                                                       @break
-                                                                                    @case (2)
-                                                                                        <polygon points="28,0 25.648857298782,7.2360667481539 31.804227357789,2.7639360007462 24.195775873739,2.7639260551337 30.35113424097,7.2360728948744 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
-                                                                                        @break
-                                                                                    @case (4)
-                                                                                        <circle cx="28" cy="4" r="4" stroke="black" stroke-width="0" fill = "black" style="stroke-width:0;"></circle>
-                                                                                        @break
-                                                                                @endswitch
-                                                                            </svg>
-                                                                        </div>
+                                                                            <x-user-avatar :type="$taskItem['avatarType']" :nameTag="$taskItem['nameTag']" :roleID="$taskItem['roleID']" :color="$taskItem['avatarColor']" />
+                                                                       </div>
                                                                     </div>
                                                                     <div class="kt-space-10"></div>
                                                                     <div class="row m-2">
                                                                         <div style="display: flex; flex-wrap: wrap;"><?php
-                                                                            $tagTask =new \App\TagTask();
-                                                                            $taskTags =  $tagTask->getTaskTagList($taskItem['ID']);
                                                                             foreach($taskTags as $taskTag) {
                                                                             ?>
                                                                             <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="@if ($taskTag['tagtype']!=3 )background-color:{{$taskTag['color']}} @else border-color:{{$taskTag['color']}} @endif">
@@ -303,7 +288,52 @@
                                                 <div class="tab-pane" id="kt_simple_tab_{{$columnClass}}">
                                                     @foreach($columnItem as $taskItem)
                                                         <div class="row kt-simple-task-item thin"  data-task_id="{{$taskItem['ID']}}" data-show_type="simple" style="display: flex">
-                                                            <div class="task-status" style="width: 10%;background-color: #82bbcb;  ">
+                                                            <?php $tagTask =new \App\TagTask();
+                                                            $taskTags =  $tagTask->getTaskTagList($taskItem['ID']);
+                                                            $color = '#9d88bf';
+
+                                                            foreach($taskTags as $taskTag) {
+                                                                if ($taskTag["tagtype"] != 1 ) {
+                                                                    continue;
+                                                                }
+
+                                                                if($taskTag['name'] == "PROJECT") {
+                                                                    $color = '#302344';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "MILESTONE") {
+                                                                    $color = '#98b6ea';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "TO DO") {
+                                                                    $color = '#f7dd6d';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "PERMANENT") {
+                                                                    $color = '#4fc6a2';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "PERIODIC") {
+                                                                    $color = '#88e588';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "TRIP") {
+                                                                    $color = '#a5a3aa';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "ERROR") {
+                                                                    $color = '#ef6f6f';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "ALARM") {
+                                                                    $color = '#f4c67d';
+                                                                    break;
+                                                                }
+                                                            }
+
+                                                            ?>
+
+                                                            <div class="task-status " style="width: 10%;background-color: {{$color}};  ">
                                                                 <?php echo($taskItem['status_icon'])?>
                                                             </div>
                                                             <div style="width: 90%">
@@ -312,57 +342,7 @@
                                                                     {{$taskItem['title']}}
                                                                 </div>
                                                                 <div class="col-lg-3 final-sub-task-name">
-                                                                    @switch($taskItem['avatarType'])
-                                                                        @case (1)
-                                                                        <svg width="32" height="32">
-                                                                            <circle cx="16" cy="16" r="16" stroke="black" stroke-width="0" fill="{{$taskItem['avatarColor']}}"></circle>
-                                                                            <text x="5" y="22"  style="fill:black;font-size: 16px">{{$taskItem['nameTag']}}</text>
-
-                                                                            @break
-                                                                            @case (2)
-                                                                            {{--//rect--}}
-                                                                            <svg width="32" height="32">
-                                                                                <rect x="0" y="0" rx="5" ry="5" width="32" height="32" fill="{{$taskItem['avatarColor']}}" style="stroke-width:0;"></rect>
-                                                                                <text x="5" y="22" style="fill:black;font-size: 16px">{{$taskItem['nameTag']}}</text>
-
-                                                                                @break
-                                                                            @case (3)
-                                                                            {{--//polygon 5--}}
-                                                                            <svg width="32" height="32">
-                                                                                <polygon points="16,0 0.78309703188832,11.055724111756 6.5954291951265,28.944266992616 25.404553884384,28.944279286068 	31.216909431155,11.055744002985 " fill="{{$taskItem['avatarColor']}}" style="stroke:purple;stroke-width:0;"></polygon>
-                                                                                <text x="5" y="22" style="fill:black;font-size: 16px">{{$taskItem['nameTag']}}</text>
-
-                                                                                @break
-                                                                            @case (4)
-                                                                            {{--//polygon 6--}}
-                                                                            <svg width="32" height="32" >
-                                                                                <polygon points="8.000001509401,2.143592667996 8.5442763975152E-13,15.999994771282 7.9999924529963,29.856402103284 23.999989434191,29.856412560718 	31.999999999992,16.000015686155 24.000016603405,2.1436031254426 "  fill="{{$taskItem['avatarColor']}}" style="stroke:purple;stroke-width:0;"></polygon>
-                                                                                <text x="5" y="22" style="fill:black;font-size: 16px">{{$taskItem['nameTag']}}</text>
-
-                                                                                @break
-                                                                            @case (5)
-                                                                            {{--//rotated rectangle--}}
-                                                                            <svg width="32" height="32">
-                                                                                <polygon points="8.5442763975152E-13,15.999994771282 15.999989542563,31.999999999997 31.999999999992,16.000015686155 	16.000020914873,1.3669065879185E-11 " fill="{{$taskItem['avatarColor']}}" style="stroke:purple;stroke-width:0;"></polygon>
-                                                                                <text x="5" y="22" style="fill:black;font-size: 16px">{{$taskItem['nameTag']}}</text>
-
-                                                                                @break
-                                                                            @endswitch
-                                                                    @switch($taskItem['roleID'])
-                                                                        @case (1)
-                                                                        <circle cx="28" cy="4" r="3" stroke="black" stroke-width="0" fill="black"></circle>
-                                                                        <rect height="8" width="2" x="27" y="0" fill="black"></rect>
-                                                                        <polygon points="25.145898644316,1.1974823013079 24.145898266966,2.9295328910135 30.854099523987,6.802519564103 31.854101033387,5.0704696279878 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
-                                                                        <polygon points="24.14589756732,5.0704645899847 25.14589681262,6.8025158332799 31.854103132324,2.9295379290175 30.854105019076,1.1974860321334 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
-                                                                        @break
-                                                                        @case (2)
-                                                                        <polygon points="28,0 25.648857298782,7.2360667481539 31.804227357789,2.7639360007462 24.195775873739,2.7639260551337 30.35113424097,7.2360728948744 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
-                                                                        @break
-                                                                        @case (4)
-                                                                        <circle cx="28" cy="4" r="4" stroke="black" stroke-width="0" fill = "black" style="stroke-width:0;"></circle>
-                                                                        @break
-                                                                    @endswitch
-                                                                </svg>
+                                                                    <x-user-avatar :type="$taskItem['avatarType']" :nameTag="$taskItem['nameTag']" :roleID="$taskItem['roleID']" :color="$taskItem['avatarColor']" />
                                                                 </div>
                                                             </div>
                                                             </div>
@@ -411,6 +391,7 @@
         let timeAllocated = "{{$timeAllocated}}";
         let totalTimeSpent = "{{$totalTime}}";
         let subTimeSpent = "{{$timeSpentOnSubTask}}";
+        let selectedTask = $.parseJSON('<?php echo((isset($taskDetails['ID'])?json_encode($taskDetails['ID']):''));?>');
 
         $(document).ready(function () {
 
@@ -424,6 +405,15 @@
             let timeLeft = timeAllocated  - totalTimeSpent - subTimeSpent;
             let timeLeftDay = Math.floor(timeLeft / 8);
             let timeLeftHour = (timeLeft - timeLeftDay * 8).toPrecision(1);
+
+            // let taskPosition = document.getElementsByClassName(".taskID-"+selectedTask);
+            // taskPosition.scrollIntoView();
+            let $container = $('.kt-scroll'),
+                $scrollTo = $(".taskID-"+selectedTask);
+            $container.scrollTop(
+                $scrollTo.offset().top - $container.offset().top + $container.scrollTop() - 120
+            );
+
 
             $("#timeAllocated").text(timeAllocatedDay + "d " + timeAllocateHour + "h");
             $("#allocatedTime").text(timeAllocatedDay + "d " + timeAllocateHour + "h");

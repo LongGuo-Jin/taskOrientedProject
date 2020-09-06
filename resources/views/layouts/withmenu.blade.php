@@ -7,7 +7,7 @@
         <div class="kt-aside__brand-logo">
             <a href="{{route('dashboard')}}">
                 {{--@lang('main.site_title')--}}
-                <img src="{{asset('public/images/logo-03.png')}}" alt="logo" width="100%" height="30px">
+                <img src="{{asset('public/images/logo-03.png')}}" alt="logo" width="100%">
             </a>
         </div>
         <div class="kt-aside__brand-tools">
@@ -44,21 +44,6 @@
                        <span class="kt-menu__link-text"> <i class="fa fa-dot-circle side_menu_item"></i>{{__('main.dashboard')}}</span>
                     </a>
                 </li>
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-                    <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
-                        <span class="kt-menu__link-text"><i class="fa fa-check-square side_menu_item"></i>{{__('main.myTask')}}</span>
-                    </a>
-                </li>
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-                    <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
-                        <span class="kt-menu__link-text"><i class="la la-signal side_menu_item"></i>{{__('main.taskDoctor')}}</span>
-                    </a>
-                </li>
-                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-                    <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
-                        <span class="kt-menu__link-text"><i class="la la-file-text side_menu_item"></i> {{__('main.reports')}}</span>
-                    </a>
-                </li>
                 
                 <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
                     <a href="{{url('/user')}}" class="kt-menu__link kt-menu__toggle">
@@ -67,8 +52,11 @@
                 </li>
 
                 <li class="kt-menu__section ">
-                    <div class="kt-menu__section-text" style="width: 90%; justify-content: space-between">
-                        {{__('main.myFavourite')}}
+                    <div class="kt-menu__section-text" style="color: #eadbdb;
+                                                            width: 90%;
+                                                            justify-content: space-between;
+                                                            font-size: 14px;">
+                        {{__('main.myTask')}}
                         <i class="la la-credit-card header_menu_item_icon" style="color: white; font-size: 22px"></i>
                     </div>
                 </li>
@@ -83,7 +71,10 @@
                 @endforeach
 
                 <li class="kt-menu__section ">
-                    <div class="kt-menu__section-text" style="width: 90%; justify-content: space-between">
+                    <div class="kt-menu__section-text kt-menu__link-text" style="color: #eadbdb;
+                                                                            width: 90%;
+                                                                            justify-content: space-between;
+                                                                            font-size: 14px;">
                         {{__('main.tags')}}
                         <i class="flaticon-add-label-button" style="color: white; font-size: 22px"></i>
                     </div>
@@ -98,12 +89,7 @@
                         </a>
                     </li>
                 @endforeach
-                <li class="kt-menu__section ">
-                    <div class="kt-menu__section-text" style="width: 90%; justify-content: space-between">
-                        {{__('main.myTags')}}
-                        <i class="flaticon-add-label-button" style="color: white; font-size: 22px"></i>
-                    </div>
-                </li>
+
                 @foreach($pinnedPersonTags as $tag)
                     <li class="kt-menu__item " aria-haspopup="true">
                         <a href="javascript:;" class="kt-menu__link ">

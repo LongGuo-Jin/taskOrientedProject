@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 @section('title')
-    People
+    Organization
 @endsection
 @section('style')
     <link rel="stylesheet" href="{{asset('public/assets/css/company/company.css')}}">

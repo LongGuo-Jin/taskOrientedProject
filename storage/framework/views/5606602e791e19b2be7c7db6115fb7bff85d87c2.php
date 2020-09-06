@@ -8,12 +8,6 @@
             <input type="hidden" name="parentID" value="<?php echo e($taskDetails["parentID"]); ?>">
             <input type="hidden" name="oldstatusID" value="<?php echo e($taskDetails["statusID"]); ?>">
             <div class="kt-portlet__head">
-                <div class="kt-portlet__head-label">
-                    <h3 class="kt-portlet__head-title">
-                        <?php echo e(__('task.details')); ?>
-
-                    </h3>
-                </div>
                 <div class="kt-portlet__head-toolbar">
                     <ul class="nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-brand" role="tablist">
                         <li class="nav-item active">
@@ -40,13 +34,11 @@
                                     <div class="row detail-information-title">
                                     <?php for($i=count($pathArr)-1; $i>=1; $i--): ?>
                                         <a href="<?php echo e(url('/task/taskCard?task_id=')); ?><?php echo e($pathArr[$i]['ID']); ?>">
-                                            <h5>
-                                                <?php echo e($pathArr[$i]["title"]); ?>
+                                            <?php echo e($pathArr[$i]["title"]); ?>
 
-                                            </h5>
                                         </a>
                                         <?php if($i != 1): ?>
-                                            <h5>&nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;</h5>
+                                            &nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp
                                         <?php endif; ?>
                                     <?php endfor; ?>
                                     </div>
@@ -64,60 +56,18 @@
                                     <div class="col-lg-6">
                                         <div class="row">
                                             <div class="col-lg-3">
-                                                <?php switch($taskDetails['avatarType']):
-                                                    case (1): ?>
-                                                    <svg width="32" height="32">
-                                                        <circle cx="16" cy="16" r="16" stroke="black" stroke-width="0" fill="<?php echo e($taskDetails['avatarColor']); ?>"></circle>
-                                                        <text x="5" y="22"  style="fill:black;font-size: 16px"><?php echo e($taskDetails['nameTag']); ?></text>
-
-                                                        <?php break; ?>
-                                                    <?php case (2): ?>
-                                                    
-                                                    <svg width="32" height="32">
-                                                        <rect x="0" y="0" rx="5" ry="5" width="32" height="32" fill="<?php echo e($taskDetails['avatarColor']); ?>" style="stroke-width:0;"></rect>
-                                                        <text x="5" y="22" style="fill:black;font-size: 16px"><?php echo e($taskDetails['nameTag']); ?></text>
-
-                                                        <?php break; ?>
-                                                    <?php case (3): ?>
-                                                    
-                                                    <svg width="32" height="32">
-                                                        <polygon points="16,0 0.78309703188832,11.055724111756 6.5954291951265,28.944266992616 25.404553884384,28.944279286068 	31.216909431155,11.055744002985 " fill="<?php echo e($taskDetails['avatarColor']); ?>" style="stroke:purple;stroke-width:0;"></polygon>
-                                                        <text x="5" y="22" style="fill:black;font-size: 16px"><?php echo e($taskDetails['nameTag']); ?></text>
-
-                                                        <?php break; ?>
-                                                    <?php case (4): ?>
-                                                    
-                                                    <svg width="32" height="32" >
-                                                        <polygon points="8.000001509401,2.143592667996 8.5442763975152E-13,15.999994771282 7.9999924529963,29.856402103284 23.999989434191,29.856412560718 	31.999999999992,16.000015686155 24.000016603405,2.1436031254426 "  fill="<?php echo e($taskDetails['avatarColor']); ?>" style="stroke:purple;stroke-width:0;"></polygon>
-                                                        <text x="5" y="22" style="fill:black;font-size: 16px"><?php echo e($taskDetails['nameTag']); ?></text>
-
-                                                        <?php break; ?>
-                                                    <?php case (5): ?>
-                                                    
-                                                    <svg width="32" height="32">
-                                                        <polygon points="8.5442763975152E-13,15.999994771282 15.999989542563,31.999999999997 31.999999999992,16.000015686155 	16.000020914873,1.3669065879185E-11 " fill="<?php echo e($taskDetails['avatarColor']); ?>" style="stroke:purple;stroke-width:0;"></polygon>
-                                                        <text x="5" y="22" style="fill:black;font-size: 16px"><?php echo e($taskDetails['nameTag']); ?></text>
-
-                                                        <?php break; ?>
-                                                <?php endswitch; ?>
-                                                <?php switch($taskDetails['roleID']):
-                                                    case (1): ?>
-                                                    <circle cx="28" cy="4" r="3" stroke="black" stroke-width="0" fill="black"></circle>
-                                                    <rect height="8" width="2" x="27" y="0" fill="black"></rect>
-                                                    <polygon points="25.145898644316,1.1974823013079 24.145898266966,2.9295328910135 30.854099523987,6.802519564103 31.854101033387,5.0704696279878 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
-                                                    <polygon points="24.14589756732,5.0704645899847 25.14589681262,6.8025158332799 31.854103132324,2.9295379290175 30.854105019076,1.1974860321334 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
-                                                    <?php break; ?>
-                                                    <?php case (2): ?>
-                                                    <polygon points="28,0 25.648857298782,7.2360667481539 31.804227357789,2.7639360007462 24.195775873739,2.7639260551337 30.35113424097,7.2360728948744 " fill = "black" style="stroke:purple;stroke-width:0;"></polygon>
-                                                    <?php break; ?>
-                                                    <?php case (4): ?>
-                                                    <circle cx="28" cy="4" r="4" stroke="black" stroke-width="0" fill = "black" style="stroke-width:0;"></circle>
-                                                    <?php break; ?>
-                                                <?php endswitch; ?>
-                                            </svg>
-                                                
-                                                    
-                                                
+                                                 <?php if (isset($component)) { $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\UserAvatar::class, ['type' => $taskDetails['avatarType'],'nameTag' => $taskDetails['nameTag'],'roleID' => $taskDetails['roleID'],'color' => $taskDetails['avatarColor']]); ?>
+<?php $component->withName('user-avatar'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php if (isset($__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da)): ?>
+<?php $component = $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da; ?>
+<?php unset($__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da); ?>
+<?php endif; ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?> 
                                             </div>
                                             <div class="col-lg-9">
                                                 <div class="detail-information-staus-title">
@@ -196,7 +146,7 @@
                                     </div>
                                 </div>
                                 <div class="row detail-information-tags">
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-2 pt-2">
                                         <?php echo e(__('task.tags')); ?>
 
                                     </div>
@@ -274,53 +224,65 @@
                                     </div>
                                 </div>
                                 <div class="detail-information-description">
-                                    <h5><?php echo e(__('task.description')); ?></h5>
+                                    <h5 class="subtitle_text"><?php echo e(__('task.description')); ?></h5>
                                     <p style="white-space: pre-line;"><?php echo e($taskDetails["description"]); ?></p>
                                     <textarea class="form-control" id="edit_description" <?php if($taskDetails["description"] != ""): ?> style="display: none;" <?php endif; ?> rows="5" name="info_description"><?php echo e($taskDetails["description"]); ?></textarea>
                                 </div>
-                                <div class="detail-information-addExpense">
-
-                                    <h5><?php echo e(__('task.addSubTask')); ?></h5>
-                                    <div class="row task-extand-add  m-2">
-                                        <div class="col-lg-5">
-                                            <input type="text" class="form-control" id="quick-subtask-title" placeholder="<?php echo e(__('task.addSubTask')); ?>">
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <select class="form-control" id="quick-add-person" name="personID">
-                                                <option value=""></option>
-                                                <?php $__currentLoopData = $rolePersonList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $personItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                    <option value="<?php echo e($personItem['id']); ?>" <?php if($personItem['id'] == $personalID) print_r("selected=selected");?>><?php echo e($personItem['nameFamily'] . " " . $personItem['nameFirst']); ?></option>
-                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <button type="button" class="btn btn-outline-brand btn-elevate btn-pill quick-add-task" >
-                                                <?php echo e(__('task.add')); ?>
-
-                                            </button>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
                                 <div class="detail-information-task-memos">
-                                    <h5><?php echo e(__('task.memos')); ?></h5>
+                                    <h5  class="subtitle_text"><?php echo e(__('task.memos')); ?></h5>
                                     <?php $__currentLoopData = $memos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $memoitem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <div class="row">
-                                            <div class="col-lg-6 detail-content">
-                                                <?php echo e($memoitem["timestamp"]); ?>
+                                        <?php if($memoitem['personID'] == auth()->user()->id): ?>
+                                            <div class="row " style="display: flex; padding-left: 5px;text-align: right">
+                                                <div class="detail-label" style="word-break: break-word;white-space: normal;flex-wrap: wrap;width: 50%;padding: 3px">
+                                                    <?php echo e($memoitem["Message"]); ?>
 
+                                                </div>
+                                                <div class="detail-label" style="display: flex; flex-direction: column;width: 37%; padding: 3px">
+                                                    <div><?php echo e($memoitem["timestamp"]); ?></div>
+                                                    <div class="subtitle_text"><?php echo e($memoitem["fullName"]); ?></div>
+                                                </div>
+                                                <div style="width: 13%;">
+                                                     <?php if (isset($component)) { $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\UserAvatar::class, ['type' => $memoitem['avatarType'],'nameTag' => $memoitem['nameTag'],'roleID' => $memoitem['roleID'],'color' => $memoitem['avatarColor']]); ?>
+<?php $component->withName('user-avatar'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php if (isset($__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da)): ?>
+<?php $component = $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da; ?>
+<?php unset($__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da); ?>
+<?php endif; ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?> 
+                                                </div>
                                             </div>
-                                            <div class="col-lg-6 detail-label">
-                                                <?php echo e($memoitem["fullName"]); ?>
 
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-12 detail-content" style="word-wrap: break-word;">
-                                                <?php echo e($memoitem["Message"]); ?>
+                                        <?php else: ?>
+                                            <div class="row " style="display: flex;">
+                                                <div style="width: 13%; padding-left: 5px">
+                                                     <?php if (isset($component)) { $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\UserAvatar::class, ['type' => $memoitem['avatarType'],'nameTag' => $memoitem['nameTag'],'roleID' => $memoitem['roleID'],'color' => $memoitem['avatarColor']]); ?>
+<?php $component->withName('user-avatar'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php if (isset($__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da)): ?>
+<?php $component = $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da; ?>
+<?php unset($__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da); ?>
+<?php endif; ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?> 
+                                                </div>
+                                                <div class="detail-label" style="display: flex; flex-direction: column;width: 37%; padding: 3px">
+                                                    <div><?php echo e($memoitem["timestamp"]); ?></div>
+                                                    <div class="subtitle_text"><?php echo e($memoitem["fullName"]); ?></div>
+                                                </div>
+                                                <div class="detail-label" style="word-break: break-word;white-space: normal;flex-wrap: wrap;width: 50%;padding: 3px">
+                                                    <?php echo e($memoitem["Message"]); ?>
 
+                                                </div>
                                             </div>
-                                        </div>
+                                        <?php endif; ?>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     <div class="row">
                                         <input type="text"  class="form-control" id="detail-information-task-memos_input" name="memo">
@@ -329,11 +291,11 @@
                                 <div class="detail-information-task-attachments">
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <h5><?php echo e(__('task.attachments')); ?></h5><br>
+                                            <h5  class="subtitle_text"><?php echo e(__('task.attachments')); ?></h5><br>
                                         </div>
                                     </div>
                                     <?php $__currentLoopData = $attachs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $attchItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <div class="row attach_file" style="margin-top: 10px" data-tmpfilename="<?php echo e($attchItem['tmpFileName']); ?>">
+                                        <div class="row attach_file" style="margin-top: 10px; cursor: pointer" data-tmpfilename="<?php echo e($attchItem['tmpFileName']); ?>">
                                             <div class="col-lg-2">
                                                 <div class="kt-widget4__pic kt-widget4__pic--icon">
                                                     <?php
@@ -351,37 +313,43 @@
                                                             $attachIcon = asset('public/assets/media/files/'.$extension.'.png');
                                                         }
                                                     ?>
-                                                    <img src="<?php echo e($attachIcon); ?>" width="60%" alt="">
+                                                    <img src="<?php echo e($attachIcon); ?>" width="80%" alt="">
                                                     
                                                 </div>
                                             </div>
                                             <div class="col-lg-10">
                                                 <div class="row">
                                                     <div class="col-lg-12 detail-label">
-                                                        <h5 style="cursor: pointer;">
-                                                            <span>
-                                                                <?php echo e($attchItem['fileName']); ?>
+                                                        <span style="font-size: 8pt;"  class="subtitle_text">
+                                                            <?php echo e($attchItem['fileName']); ?>
 
-                                                            </span>
-                                                        </h5>
+                                                        </span>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-lg-5 detail-label">
+                                                        <span style="font-size: 7pt;">
                                                         Attached:
+                                                        </span>
                                                     </div>
                                                     <div class="col-lg-7 detail-content">
-                                                        <?php echo e($attchItem['timestamp']); ?>
+                                                        <span style="font-size: 7pt;">
+                                                            <?php echo e($attchItem['timestamp']); ?>
 
+                                                        </span>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-lg-5 detail-label">
-                                                        Attached by:
+                                                        <span style="font-size: 7pt;">
+                                                            Attached by:
+                                                        </span>
                                                     </div>
                                                     <div class="col-lg-7 detail-content">
-                                                        <?php echo e($attchItem['fullName']); ?>
+                                                        <span style="font-size: 7pt;">
+                                                            <?php echo e($attchItem['fullName']); ?>
 
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -398,40 +366,47 @@
                                     </div>
                                 </div>
                                 <div class="detail-information-task-memos" id="detail-information-task-memos">
-                                    <h5><?php echo e(__('task.history')); ?></h5><br>
+                                    <h5 class="subtitle_text"><?php echo e(__('task.history')); ?></h5><br>
                                     <?php $__currentLoopData = $history; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $historyItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <div class="row">
-                                            <div class="col-lg-4 detail-content">
-                                                <?php echo e($historyItem['eventDate']); ?>
+                                        <?php if($historyItem['personID'] != auth()->user()->id): ?>
+                                            <div class="row">
+                                                <div class="col-lg-4 detail-label">
+                                                    <?php echo e($historyItem['eventDate']); ?>
 
-                                            </div>
-                                            <div class="col-lg-3 detail-label">
-                                                <?php echo e($historyItem['fullName']); ?>
+                                                </div>
+                                                <div class="col-lg-3 detail-label subtitle_text">
+                                                    <?php echo e($historyItem['fullName']); ?>
 
-                                            </div>
-                                            <div class="col-lg-5 detail-content">
-                                                <?php echo e($historyItem['event']); ?>
+                                                </div>
+                                                <div class="col-lg-5 detail-label">
+                                                    <?php echo e($historyItem['event']); ?>
 
+                                                </div>
                                             </div>
-                                        </div>
+                                        <?php else: ?>
+                                            <div class="row text-right">
+                                                <div class="col-lg-5 detail-label">
+                                                    <?php echo e($historyItem['event']); ?>
+
+                                                </div>
+                                                <div class="col-lg-3 detail-label subtitle_text">
+                                                    <?php echo e($historyItem['fullName']); ?>
+
+                                                </div>
+                                                <div class="col-lg-4 detail-label">
+                                                    <?php echo e($historyItem['eventDate']); ?>
+
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane" id="edit_panel_tab_time">
                             <div class="detail-infomation-content">
-                                <div class="row detail-information-title">
-                                    <?php for($i=count($pathArr)-1; $i>=0; $i--): ?>
-                                        <a href="<?php echo e(url('/task/taskCard?task_id=')); ?><?php echo e($pathArr[$i]['ID']); ?>">
-                                            <h5>
-                                                <?php echo e($pathArr[$i]["title"]); ?>
-
-                                            </h5>
-                                        </a>
-                                        <?php if($i != 0): ?>
-                                            <h5>&nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;</h5>
-                                        <?php endif; ?>
-                                    <?php endfor; ?>
+                                <div class="row detail-budget-task-name">
+                                    <p><?php echo e($taskDetails["title"]); ?></p>
                                 </div>
                                 <div class="row detail-budget-dashboard">
                                     <div class="col-lg-6">
@@ -441,7 +416,7 @@
 
                                             </div>
                                             <div class="col-lg-6" id="timeAllocated" style="text-align: right">
-                                                <?php echo e($timeAllocated); ?>d
+                                                <p><?php echo e($timeAllocated); ?>d</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -494,9 +469,12 @@
                                         
                                     
                                   
-                                <div class="row mt-4 mb-4 pt-5 pb-4" style="border-top: solid 1px #000;">
-                                    <div class="col-lg-6 text-left" style="font-size: 30px;">Work Hours</div>
-                                    <div class="col-lg-6 text-right" style="font-size: 30px;" id="workHours"></div>
+                                <div class="row mt-4 mb-4 pt-5" style="border-top: solid 1px #000;">
+                                    <div class="col-lg-6 text-left">
+                                        <h5 class="subtitle_text">Work Hours</h5>
+                                    </div>
+                                    <div class="col-lg-6 text-right" style="font-size: 1.25rem; margin-bottom: 0.5rem; font-weight: 500; line-height: 1.2;" id="workHours">
+                                    </div>
                                 </div>
                                 <?php $__currentLoopData = $workTime; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $time): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <div class="row">
@@ -535,9 +513,9 @@
                                         </button>
                                     </div>
                                 </div>
-                                <div class="row mt-4 mb-4 pt-5 pb-4" style="border-top: solid 1px #000;">
-                                    <div class="col-lg-6 text-left" style="font-size: 30px;">Allocated time</div>
-                                    <div class="col-lg-6 text-right" style="font-size: 30px;" id="allocatedTime"></div>
+                                <div class="row mt-4 mb-4 pt-5" style="border-top: solid 1px #000;">
+                                    <div class="col-lg-6 text-left"><h5 class="subtitle_text">Allocated time</h5></div>
+                                    <div class="col-lg-6 text-right" style="font-size: 1.25rem; margin-bottom: 0.5rem; font-weight: 500; line-height: 1.2;"  id="allocatedTime"></div>
                                 </div>
                                 <?php $__currentLoopData = $allocatedTimes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $allocatedTime): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <div class="row">
@@ -623,7 +601,7 @@
                                 <div class="detail-income-content">
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <h5><?php echo e(__('task.budget')); ?></h5>
+                                            <h5 class="subtitle_text"><?php echo e(__('task.budget')); ?></h5>
                                         </div>
                                         <div class="col-lg-6" style="text-align: right">
                                             <h3><?php echo e(number_format($budgetSum, 2, ',', '.')); ?></h3>
@@ -672,7 +650,7 @@
                                 <div class="detail-expense-content">
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <h5><?php echo e(__('task.expense')); ?></h5>
+                                            <h5 class="subtitle_text"><?php echo e(__('task.expense')); ?></h5>
                                         </div>
                                         <div class="col-lg-6" style="text-align: right">
                                             <h3><?php echo e(number_format($expenseSum, 2, ',', '.')); ?></h3>

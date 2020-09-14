@@ -5,175 +5,32 @@
 
 @section('style')
     <link rel="stylesheet" href="{{asset('public/assets/css/task/taskcard.css')}}">
+    <link rel="stylesheet" href="{{asset('public/assets/css/calendar/vanilla-calendar.css')}}">
     <style>
         .radio_span {
-            font-size: 18px;
+            font-size: 14px;
         }
         .check-span {
-            font-size: 20px;
+            font-size: 14px;
             font-weight: bold;
         }
     </style>
 @endsection
 
 @section('content')
-
+    <?php
+    $notifications = explode(',',$memoNotification);
+    ?>
     <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
     @include('layouts.header')
     <!-- end:: Header -->
         <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
             <!-- begin:: Content -->
             <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
-                <div class="row">
-                    <div class="content-calendar row">
-                        <div class="col-md-3">
-                            <!--begin::Portlet-->
-                            <div class="kt-portlet  kt-portlet--tabs">
-                                <div class="kt-portlet__head">
-                                    <div class="kt-portlet__head-toolbar">
-                                        <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-2x nav-tabs-line-primary" role="tablist">
-                                            <li class="nav-item dropdown">
-                                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="la flaticon-background"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="kt-portlet__head-actions">
-                                        <h5>{{__('calendar.yesterday')}}</h5>
-                                    </div>
-                                </div>
-                                @foreach($taskList['yesterday'] as $columnClass => $columnItem)
-                                    <div class="column-body" data-column_id="{{$columnClass}}">
-                                        @if(isset($columnItem["ID"]))
-
-                                            <div class="tab-content">
-                                                <div class="kt-regular-task-item thin"
-                                                     data-task_id="{{$columnItem['ID']}}" data-show_type="regular" style="display: flex">
-                                                    <div class="task-status pt-2" style="background-color: #c97acb; display: flex; flex-direction: column; width: 10%">
-                                                        <div><?php echo($columnItem['status_icon'])?></div>
-                                                        <div>{{$columnItem['priority_title']}}</div>
-                                                        <div>{{$columnItem['weight']}}</div>
-                                                    </div>
-                                                    <div style="width: 90%; padding: 10px">
-                                                        <div class="row m-2">
-                                                            <div class="col-lg-9">
-                                                                <div class="row task-name">
-                                                                    {{$columnItem['title']}}
-                                                                </div>
-                                                                <div class="row project-name">
-                                                                    {{--{{$columnItem['TagNames']}}--}}
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-3">
-                                                                <x-user-avatar :type="$columnItem['avatarType']" :nameTag="$columnItem['nameTag']" :roleID="$columnItem['roleID']" :color="$columnItem['avatarColor']" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="kt-space-10"></div>
-                                                        <div class="progress" style="height: 6px;">
-                                                            @if($columnItem["statusID"] == 4)
-                                                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            @elseif($columnItem['spentProgress'] <= $columnItem['finishProgress'])
-                                                                <div class="progress-bar bg-success" role="progressbar" style="width: {{$columnItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            @else
-                                                                <div class="progress-bar bg-danger" role="progressbar" style="width: {{$columnItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                <div class="progress-bar bg-dark" role="progressbar" style="width: {{$columnItem['spentProgress'] - $columnItem['finishProgress']}}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            @endif
-                                                        </div>
-                                                        <div class="kt-space-5"></div>
-                                                        <div class="row kt-item-date">
-                                                            <div class="col-lg-6 task-start-date">
-                                                                {{$columnItem['datePlanStart']}}
-                                                            </div>
-                                                            <div class="col-lg-6 task-end-date">
-                                                                {{$columnItem['datePlanEnd']}}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        @endif
-                                    </div>
-                                @endforeach
-                            </div>
-                            <!--end::Portlet-->
-                        </div>
-                        <div class="col-md-3">
-                            <!--begin::Portlet-->
-                            <div class="kt-portlet  kt-portlet--tabs">
-                                <div class="kt-portlet__head">
-                                    <div class="kt-portlet__head-toolbar">
-                                        <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-2x nav-tabs-line-primary" role="tablist">
-                                            <li class="nav-item dropdown">
-                                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="la flaticon-background"></i>
-                                                </a>
-
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="kt-portlet__head-actions">
-                                        <h5>{{__('calendar.today')}}</h5>
-                                    </div>
-                                </div>
-                                @foreach($taskList['today'] as $columnClass => $columnItem)
-                                    <div class="column-body" data-column_id="{{$columnClass}}">
-                                        @if(isset($columnItem["ID"]))
-                                            <div class="tab-content">
-                                                <div class="tab-pane active" id="kt_regular_tab_{{$columnClass}}">
-                                                    <div class="kt-regular-task-item thin"
-                                                         data-task_id="{{$columnItem['ID']}}" data-show_type="regular" style="display: flex">
-                                                        <div class="task-status pt-2" style="background-color: #c97acb; display: flex; flex-direction: column; width: 10%">
-                                                            <div><?php echo($columnItem['status_icon'])?></div>
-                                                            <div>{{$columnItem['priority_title']}}</div>
-                                                            <div>{{$columnItem['weight']}}</div>
-                                                        </div>
-                                                        <div style="width: 90%; padding: 10px">
-                                                            <div class="row m-2">
-                                                                <div class="col-lg-9">
-                                                                    <div class="row task-name">
-                                                                        {{$columnItem['title']}}
-                                                                    </div>
-                                                                    <div class="row project-name">
-                                                                        {{--{{$columnItem['TagNames']}}--}}
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-3">
-                                                                    <x-user-avatar :type="$columnItem['avatarType']" :nameTag="$columnItem['nameTag']" :roleID="$columnItem['roleID']" :color="$columnItem['avatarColor']" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="kt-space-10"></div>
-                                                            <div class="progress" style="height: 6px;">
-                                                                @if($columnItem["statusID"] == 4)
-                                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                @elseif($columnItem['spentProgress'] <= $columnItem['finishProgress'])
-                                                                    <div class="progress-bar bg-success" role="progressbar" style="width: {{$columnItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                @else
-                                                                    <div class="progress-bar bg-danger" role="progressbar" style="width: {{$columnItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                    <div class="progress-bar bg-dark" role="progressbar" style="width: {{$columnItem['spentProgress'] - $columnItem['finishProgress']}}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                @endif
-                                                            </div>
-                                                            <div class="kt-space-5"></div>
-                                                            <div class="row kt-item-date">
-                                                                <div class="col-lg-6 task-start-date">
-                                                                    {{$columnItem['datePlanStart']}}
-                                                                </div>
-                                                                <div class="col-lg-6 task-end-date">
-                                                                    {{$columnItem['datePlanEnd']}}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endif
-                                    </div>
-                                @endforeach
-                            </div>
-                            <!--end::Portlet-->
-                        </div>
-                        <div class="col-md-3">
+                <div style="display: flex">
+                    <div class="content-calendar" >
+                        @foreach($taskList as $index => $taskListItem)
+                            <div style="margin-left: 10px; margin-right: 10px; flex: 0 0 25%;  box-sizing:border-box;">
                                 <!--begin::Portlet-->
                                 <div class="kt-portlet  kt-portlet--tabs">
                                     <div class="kt-portlet__head">
@@ -183,184 +40,263 @@
                                                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                                                         <i class="la flaticon-background"></i>
                                                     </a>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" data-toggle="tab" data-type="col-task-simple" href="#kt_simple_tab_{{$index}}">
+                                                            <i class="fa fa-align-justify"></i>{{__('task.sample')}}
+                                                        </a>
+                                                        <a class="dropdown-item" data-toggle="tab" data-type="col-task-regular" href="#kt_regular_tab_{{$index}}">
+                                                            <i class="flaticon-laptop"></i>{{__('task.regular')}}
+                                                        </a>
+                                                        <a class="dropdown-item" data-toggle="tab" data-type="col-task-extended" href="#kt_extended_tab_{{$index}}">
+                                                            <i class="flaticon-background"></i>{{__('task.extended')}}
+                                                        </a>
+                                                    </div>
                                                 </li>
                                             </ul>
                                         </div>
                                         <div class="kt-portlet__head-actions">
-                                            <h5>{{__('calendar.tomorrow')}}</h5>
+                                            {{--@if($index == 'yesterday')--}}
+                                                {{--<h5>{{__('calendar.yesterday')}}</h5>--}}
+                                            {{--@elseif($index=='today')--}}
+                                                {{--<h5>{{__('calendar.today')}}</h5>--}}
+                                            {{--@elseif($index=='tomorrow')--}}
+                                                {{--<h5>{{__('calendar.tomorrow')}}</h5>--}}
+                                            {{--@elseif($index=='theNextDay')--}}
+                                                {{--<h5>{{__('calendar.theNextDay')}}</h5>--}}
+                                            {{--@endif--}}
+                                            <h5>
+                                                <?php
+                                                    $dt = date('d.m.Y',strtotime($index));
+                                                    $today = date('d.m.Y');
+                                                    $tomorrow = date('d.m.Y',strtotime('tomorrow'));
+                                                    $yesterday = date('d.m.Y',strtotime('yesterday'));
+                                                    if ($dt == $today) {
+                                                        echo "Today";
+                                                    } else if ($dt == $tomorrow) {
+                                                        echo "Tomorrow";
+                                                    } else if ($dt == $yesterday) {
+                                                        echo "Yesterday";
+                                                    } else {
+                                                        echo $dt;
+                                                    }
+                                                ?>
+                                            </h5>
                                         </div>
                                     </div>
-                                    @foreach($taskList['tomorrow'] as $columnClass => $columnItem)
-                                        <div class="column-body" data-column_id="{{$columnClass}}">
-                                            @if(isset($columnItem["ID"]))
-                                                <div class="tab-content">
-                                                    <div class="tab-pane active" id="kt_regular_tab_{{$columnClass}}">
-                                                        <div class="kt-regular-task-item thin"
-                                                             data-task_id="{{$columnItem['ID']}}" data-show_type="regular" style="display: flex">
-                                                            <div class="task-status pt-2" style="background-color: #c97acb; display: flex; flex-direction: column; width: 10%">
-                                                                <div><?php echo($columnItem['status_icon'])?></div>
-                                                                <div>{{$columnItem['priority_title']}}</div>
-                                                                <div>{{$columnItem['weight']}}</div>
-                                                            </div>
-                                                            <div style="width: 90%; padding: 10px">
-                                                                <div class="row m-2">
-                                                                    <div class="col-lg-9">
-                                                                        <div class="row task-name">
-                                                                            {{$columnItem['title']}}
+                                    <div class="kt-portlet__body active">
+                                        <div class="kt-scroll " data-scroll="true" style="width: 250px">
+                                            <div class="tab-content">
+                                                <div class="tab-pane active" id="kt_regular_tab_{{$index}}">
+                                                    @foreach($taskListItem as  $columnItem)
+                                                        <div class="column-body">
+                                                            @if(isset($columnItem["ID"]))
+                                                                <div class="kt-regular-task-item thin"
+                                                                     data-task_id="{{$columnItem['ID']}}" data-show_type="regular" style="display: flex">
+                                                                    <div class="task-status" style="background-color: #c97acb; display: flex; flex-direction: column; width: 10%; justify-content: space-between; padding-top:10px">
+                                                                        <div style="display: flex; flex-direction: column">
+                                                                            <div><?php echo($columnItem['status_icon'])?></div>
+                                                                            <div>{{$columnItem['priority_title']}}</div>
+                                                                            <div>{{$columnItem['weight']}}</div>
                                                                         </div>
-                                                                        <div class="row project-name">
-                                                                            {{--{{$columnItem['TagNames']}}--}}
+                                                                        <div style="position: relative; margin: 0; padding: 0">
+                                                                            @if(in_array($columnItem['ID'],$notifications))
+                                                                                <i class="fa fa-envelope "></i>
+                                                                                <div class="blink_mark blink_mail_icon" id="blink_mail_icon_{{$columnItem['ID']}}">
+                                                                                </div>
+                                                                            @endif
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-lg-3">
-                                                                        <x-user-avatar :type="$columnItem['avatarType']" :nameTag="$columnItem['nameTag']" :roleID="$columnItem['roleID']" :color="$columnItem['avatarColor']" />
+                                                                    <div style="width: 90%; padding: 10px">
+                                                                        <div class="row m-2">
+                                                                            <div class="col-lg-9">
+                                                                                <div class="row task-name">
+                                                                                    {{$columnItem['title']}}
+                                                                                </div>
+                                                                                <div class="row project-name">
+                                                                                    {{--{{$columnItem['TagNames']}}--}}
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-lg-3">
+                                                                                <x-user-avatar :type="$columnItem['avatarType']" :nameTag="$columnItem['nameTag']" :roleID="$columnItem['roleID']" :color="$columnItem['avatarColor']" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="kt-space-10"></div>
+                                                                        <div class="progress" style="height: 6px;">
+                                                                            @if($columnItem["statusID"] == 4)
+                                                                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            @elseif($columnItem['spentProgress'] <= $columnItem['finishProgress'])
+                                                                                <div class="progress-bar bg-success" role="progressbar" style="width: {{$columnItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            @else
+                                                                                <div class="progress-bar bg-danger" role="progressbar" style="width: {{$columnItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                                <div class="progress-bar bg-dark" role="progressbar" style="width: {{$columnItem['spentProgress'] - $columnItem['finishProgress']}}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            @endif
+                                                                        </div>
+                                                                        <div class="kt-space-5"></div>
+                                                                        <div class="row kt-item-date">
+                                                                            <div class="col-lg-6 task-start-date">
+                                                                                {{$columnItem['datePlanStart']}}
+                                                                            </div>
+                                                                            <div class="col-lg-6 task-end-date">
+                                                                                {{$columnItem['datePlanEnd']}}
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="kt-space-10"></div>
-                                                                <div class="progress" style="height: 6px;">
-                                                                    @if($columnItem["statusID"] == 4)
-                                                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                    @elseif($columnItem['spentProgress'] <= $columnItem['finishProgress'])
-                                                                        <div class="progress-bar bg-success" role="progressbar" style="width: {{$columnItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                    @else
-                                                                        <div class="progress-bar bg-danger" role="progressbar" style="width: {{$columnItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                        <div class="progress-bar bg-dark" role="progressbar" style="width: {{$columnItem['spentProgress'] - $columnItem['finishProgress']}}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                    @endif
-                                                                </div>
-                                                                <div class="kt-space-5"></div>
-                                                                <div class="row kt-item-date">
-                                                                    <div class="col-lg-6 task-start-date">
-                                                                        {{$columnItem['datePlanStart']}}
-                                                                    </div>
-                                                                    <div class="col-lg-6 task-end-date">
-                                                                        {{$columnItem['datePlanEnd']}}
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                            @endif
                                                         </div>
-                                                    </div>
-
+                                                    @endforeach
                                                 </div>
-
-                                            @endif
+                                                <div class="tab-pane" id="kt_extended_tab_{{$index}}">
+                                                    @foreach($taskListItem as  $columnItem)
+                                                        <div class="column-body">
+                                                            @if(isset($columnItem["ID"]))
+                                                                <div class="kt-extended-task-item"
+                                                                     data-task_id="{{$columnItem['ID']}}" data-show_type="regular" style="display: flex">
+                                                                    <div class="task-status" style="background-color: #c97acb; display: flex; flex-direction: column; width: 10%; justify-content: space-between; padding-top:10px">
+                                                                        <div style="display: flex; flex-direction: column">
+                                                                            <div><?php echo($columnItem['status_icon'])?></div>
+                                                                            <div>{{$columnItem['priority_title']}}</div>
+                                                                            <div>{{$columnItem['weight']}}</div>
+                                                                        </div>
+                                                                        <div style="position: relative; margin: 0; padding: 0">
+                                                                            @if(in_array($columnItem['ID'],$notifications))
+                                                                                <i class="fa fa-envelope "></i>
+                                                                                <div class="blink_mark blink_mail_icon" id="blink_mail_icon_{{$columnItem['ID']}}">
+                                                                                </div>
+                                                                            @endif
+                                                                        </div>
+                                                                    </div>
+                                                                    <div style="width: 90%; padding: 10px">
+                                                                        <div class="row m-2">
+                                                                            <div class="col-lg-9">
+                                                                                <div class="row task-name">
+                                                                                    {{$columnItem['title']}}
+                                                                                </div>
+                                                                                <div class="row project-name">
+                                                                                    {{--{{$columnItem['TagNames']}}--}}
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-lg-3">
+                                                                                <x-user-avatar :type="$columnItem['avatarType']" :nameTag="$columnItem['nameTag']" :roleID="$columnItem['roleID']" :color="$columnItem['avatarColor']" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="kt-space-10"></div>
+                                                                        <div class="progress" style="height: 6px;">
+                                                                            @if($columnItem["statusID"] == 4)
+                                                                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            @elseif($columnItem['spentProgress'] <= $columnItem['finishProgress'])
+                                                                                <div class="progress-bar bg-success" role="progressbar" style="width: {{$columnItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            @else
+                                                                                <div class="progress-bar bg-danger" role="progressbar" style="width: {{$columnItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                                <div class="progress-bar bg-dark" role="progressbar" style="width: {{$columnItem['spentProgress'] - $columnItem['finishProgress']}}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            @endif
+                                                                        </div>
+                                                                        <div class="kt-space-5"></div>
+                                                                        <div class="row kt-item-date">
+                                                                            <div class="col-lg-6 task-start-date">
+                                                                                {{$columnItem['datePlanStart']}}
+                                                                            </div>
+                                                                            <div class="col-lg-6 task-end-date">
+                                                                                {{$columnItem['datePlanEnd']}}
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="extand-below-content">
+                                                                            <i class="fa fa-user"></i> &nbsp;&nbsp;&nbsp;{{$columnItem['fullName']}}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                                <div class="tab-pane" id="kt_simple_tab_{{$index}}">
+                                                    @foreach($taskListItem as  $columnItem)
+                                                        <div class="column-body">
+                                                            @if(isset($columnItem["ID"]))
+                                                                <div class="kt-simple-task-item thin"
+                                                                     data-task_id="{{$columnItem['ID']}}" data-show_type="simple" style="display: flex">
+                                                                    <div class="task-status" style="background-color: #c97acb; display: flex; flex-direction: column; width: 10%; justify-content: space-between; padding-top:10px">
+                                                                        <div style="display: flex; flex-direction: column">
+                                                                            <div><?php echo($columnItem['status_icon'])?></div>
+                                                                        </div>
+                                                                        <div style="position: relative; margin: 0; padding: 0">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div style="width: 90%;">
+                                                                        <div class="row ml-2">
+                                                                            <div class="col-lg-9 final-sub-task-name">
+                                                                                {{$columnItem['title']}}
+                                                                            </div>
+                                                                            <div class="col-lg-3 final-sub-task-name">
+                                                                                <x-user-avatar :type="$columnItem['avatarType']" :nameTag="$columnItem['nameTag']" :roleID="$columnItem['roleID']" :color="$columnItem['avatarColor']" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
                                         </div>
-                                    @endforeach
+                                    </div>
                                 </div>
                                 <!--end::Portlet-->
                             </div>
-                        <div class="col-md-3">
-                            <!--begin::Portlet-->
-                            <div class="kt-portlet  kt-portlet--tabs">
-                                <div class="kt-portlet__head">
-                                    <div class="kt-portlet__head-toolbar">
-                                        <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-2x nav-tabs-line-primary" role="tablist">
-                                            <li class="nav-item dropdown">
-                                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="la flaticon-background"></i>
-                                                </a>
-
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="kt-portlet__head-actions">
-                                        <h5>{{__('calendar.theNextDay')}}</h5>
-                                    </div>
-                                </div>
-                                @foreach($taskList['theNextDay'] as $columnClass => $columnItem)
-                                    <div class="column-body" data-column_id="{{$columnClass}}">
-                                        @if(isset($columnItem["ID"]))
-                                            <div class="tab-content">
-                                                <div class="tab-pane active" id="kt_regular_tab_{{$columnClass}}">
-                                                    <div class="kt-regular-task-item thin"
-                                                         data-task_id="{{$columnItem['ID']}}" data-show_type="regular">
-                                                        <div class="row">
-                                                            <div class="col-lg-2 task-status">
-                                                                <?php echo($columnItem['status_icon'])?>
-                                                            </div>
-                                                            <div class="col-lg-7">
-                                                                <div class="row task-name">
-                                                                    {{$columnItem['title']}}
-                                                                </div>
-                                                                <div class="row project-name">
-                                                                    {{--{{$columnItem['TagNames']}}--}}
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-3">
-                                                                <x-user-avatar :type="$columnItem['avatarType']" :nameTag="$columnItem['nameTag']" :roleID="$columnItem['roleID']" :color="$columnItem['avatarColor']" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="kt-space-10"></div>
-                                                        <div class="progress" style="height: 6px;">
-                                                            @if($columnItem["statusID"] == 4)
-                                                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            @elseif($columnItem['spentProgress'] <= $columnItem['finishProgress'])
-                                                                <div class="progress-bar bg-success" role="progressbar" style="width: {{$columnItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            @else
-                                                                <div class="progress-bar bg-danger" role="progressbar" style="width: {{$columnItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                <div class="progress-bar bg-dark" role="progressbar" style="width: {{$columnItem['spentProgress'] - $columnItem['finishProgress']}}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            @endif
-                                                        </div>
-                                                        <div class="kt-space-5"></div>
-                                                        <div class="row kt-item-date">
-                                                            <div class="col-lg-6 task-start-date">
-                                                                {{$columnItem['datePlanStart']}}
-                                                            </div>
-                                                            <div class="col-lg-6 task-end-date">
-                                                                {{$columnItem['datePlanEnd']}}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endif
-                                    </div>
-                                @endforeach
-                            </div>
-                            <!--end::Portlet-->
-                        </div>
+                        @endforeach
                     </div>
                     <div class="calendar-filter">
-                        <div class="kt-portlet kt-portlet--tabs kt-portlet--height-fluid calendar-box">
-                            <div id="datepicker" class="ml-auto mr-auto mb-5"></div>
-
-                            <div style="height: 2px; width: 100%; background-color: grey">
-                            </div>
-                            <div class="ml-3 mt-2">
-                                <h4> {{__('calendar.showStatus')}}</h4>
-                                <div>
-                                    <input type="radio"  class="mr-3" id="radio_onHold"> <i class="fa fa-circle mr-2"></i> <span class="radio_span">{{__('calendar.onHold')}}</span>
-                                </div>
-                                <div>
-                                    <input type="radio" class="mr-3" id="radio_active"> <i class='flaticon2-arrow lg mr-2'></i> <span class="radio_span">{{__('calendar.active')}}</span>
-                                </div>
-                                <div>
-                                    <input type="radio" class="mr-3" id="radio_paused"> <i class='fa fa-pause mr-2'></i> <span class="radio_span">{{__('calendar.paused')}}</span>
-                                </div>
-                                <div>
-                                    <input type="radio" class="mr-3" id="radio_finished"> <i class='flaticon2-check-mark mr-2'></i> <span class="radio_span">{{__('calendar.finished')}}</span>
-                                </div>
-                                <div>
-                                    <input type="radio" class="mr-3" id="radio_canceled"> <i class='flaticon2-hexagonal mr-2'></i> <span class="radio_span">{{__('calendar.canceled')}}</span>
-                                </div>
-                            </div>
-                            <div style="margin-top: 20px;height: 2px; width: 100%; background-color: grey">
-                            </div>
-                            <div class="ml-3 mt-2">
-                                    <h4>Show  Priority</h4>
-                                <div>
-                                    <input type="checkbox"  class="mr-3" id="check_high"> <span class="check-span mr-2">H</span> <span class="radio_span">{{__('calendar.high')}}</span>
-                                </div>
-                                <div>
-                                    <input type="checkbox" class="mr-3" id="check_medium"> <span class='check-span mr-2'>M</span><span class="radio_span">{{__('calendar.medium')}}</span>
-                                </div>
-                                <div>
-                                    <input type="checkbox" class="mr-3" id="check_low"> <span class='check-span mr-2'>L</span><span class="radio_span">{{__('calendar.low')}}</span>
-                                </div>
-                                <div>
-                                    <input type="checkbox" class="mr-3" id="check_ness"> <span class='check-span mr-2'>O</span><span class="radio_span">{{__('calendar.ness')}}</span>
+                        <div class="kt-portlet kt-portlet--tabs kt-portlet--height-fluid">
+                        <div class="kt-portlet  kt-portlet--tabs calendar-box">
+                            <div class="kt-portlet__body active">
+                                <div class="kt-scroll taskAddBody" data-scroll="true">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="kt_quick_panel_tab_information">
+                                            <div id="myCalendar" class="vanilla-calendar ml-auto mr-auto mb-2"></div>
+                                            <div style="height: 1px; width: 100%; background-color: grey">
+                                            </div>
+                                            {{--<div class="ml-3 mt-1">--}}
+                                                {{--<h6> {{__('calendar.showStatus')}}</h6>--}}
+                                                {{--<div>--}}
+                                                    {{--<input type="radio"  class="mr-3" id="radio_created"> <i class="fa fa-circle mr-2"></i> <span class="radio_span">{{__('calendar.created')}}</span>--}}
+                                                {{--</div>--}}
+                                                {{--<div>--}}
+                                                    {{--<input type="radio" class="mr-3" id="radio_active"> <i class='flaticon2-arrow lg mr-2'></i> <span class="radio_span">{{__('calendar.active')}}</span>--}}
+                                                {{--</div>--}}
+                                                {{--<div>--}}
+                                                    {{--<input type="radio" class="mr-3" id="radio_paused"> <i class='fa fa-pause mr-2'></i> <span class="radio_span">{{__('calendar.paused')}}</span>--}}
+                                                {{--</div>--}}
+                                                {{--<div>--}}
+                                                    {{--<input type="radio" class="mr-3" id="radio_finished"> <i class='flaticon2-check-mark mr-2'></i> <span class="radio_span">{{__('calendar.finished')}}</span>--}}
+                                                {{--</div>--}}
+                                                {{--<div>--}}
+                                                    {{--<input type="radio" class="mr-3" id="radio_canceled"> <i class='flaticon2-hexagonal mr-2'></i> <span class="radio_span">{{__('calendar.canceled')}}</span>--}}
+                                                {{--</div>--}}
+                                            {{--</div>--}}
+                                            {{--<div style="margin-top: 20px;height: 1px; width: 100%; background-color: grey">--}}
+                                            {{--</div>--}}
+                                            <div class="ml-3 mt-3">
+                                                <h6>Show  Priority</h6>
+                                                <div>
+                                                    <input type="checkbox"  class="mr-3" id="check_high"> <span class="check-span mr-2">H</span> <span class="radio_span">{{__('calendar.high')}}</span>
+                                                </div>
+                                                <div>
+                                                    <input type="checkbox" class="mr-3" id="check_medium"> <span class='check-span mr-2'>M</span><span class="radio_span">{{__('calendar.medium')}}</span>
+                                                </div>
+                                                <div>
+                                                    <input type="checkbox" class="mr-3" id="check_low"> <span class='check-span mr-2'>L</span><span class="radio_span">{{__('calendar.low')}}</span>
+                                                </div>
+                                                <div>
+                                                    <input type="checkbox" class="mr-3" id="check_ness"> <span class='check-span mr-2'>O</span><span class="radio_span">{{__('calendar.ness')}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
                 <!-- end:: Content -->
@@ -375,22 +311,49 @@
     <script src="{{asset('public/assets/js/demo1/pages/crud/forms/widgets/bootstrap-datepicker.js')}}" type="text/javascript"></script>
     <script src="{{asset('public/assets/js/demo1/pages/components/extended/blockui.js')}}" type="text/javascript"></script>
     <script src="{{asset('public/assets/js/demo1/pages/components/extended/sweetalert2.js')}}" type="text/javascript"></script>
+    <script src="{{asset('public/assets/js/calendar/vanilla-calendar.js')}}" type="text/javascript"></script>
 
     <script type="text/javascript">
-        var base_url = "{{URL::to('')}}";
+        let base_url = "{{URL::to('')}}";
         {{--var task_id = "{{$taskId}}";--}}
         {{--var showType = "{{$showType}}";--}}
-        var filter_status = "{{$status}}";
-        var H = "{{$H}}";
-        var M = "{{$M}}";
-        var L = "{{$L}}";
-        var O = "{{$O}}";
+        let filter_status = "{{$status}}";
+        let H = "{{$H}}";
+        let M = "{{$M}}";
+        let L = "{{$L}}";
+        let O = "{{$O}}";
+        let date ="{{$date}}";
+        const slider = document.querySelector('.content-calendar');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
 
-
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.classList.add('active');
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+            slider.classList.remove('active');
+        });
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+            slider.classList.remove('active');
+        });
+        slider.addEventListener('mousemove', (e) => {
+            if(!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 3; //scroll-fast
+            slider.scrollLeft = scrollLeft - walk;
+            console.log(walk);
+        });
 
         switch (filter_status) {
             case '1':
-                $('#radio_onHold').attr('checked',true);
+                $('#radio_created').attr('checked',true);
                 break;
             case '2':
                 $('#radio_active').attr('checked',true);
@@ -421,23 +384,23 @@
 
         $("input[type='radio']").change(function (e) {
             switch (e.target.id) {
-                case "radio_onHold":
-                    window.location.href = base_url + "/calendar?status=" + 1 + "&H="+ H +"&M="+ M +"&L="+ L +"&O="+ O;
+                case "radio_created":
+                    window.location.href = base_url + "/calendar?date="+date+"&status=" + 1 + "&H="+ H +"&M="+ M +"&L="+ L +"&O="+ O;
                     break;
                 case "radio_active":
-                    window.location.href = base_url + "/calendar?status=" + 2 + "&H="+ H +"&M="+ M +"&L="+ L +"&O="+ O;
+                    window.location.href = base_url + "/calendar?date="+date+"&status=" + 2 + "&H="+ H +"&M="+ M +"&L="+ L +"&O="+ O;
                     break;
                 case "radio_paused":
-                    window.location.href = base_url + "/calendar?status=" + 3 + "&H="+ H +"&M="+ M +"&L="+ L +"&O="+ O;
+                    window.location.href = base_url + "/calendar?date="+date+"&status=" + 3 + "&H="+ H +"&M="+ M +"&L="+ L +"&O="+ O;
                     break;
                 case "radio_finished":
-                    window.location.href = base_url + "/calendar?status=" + 4 + "&H="+ H +"&M="+ M +"&L="+ L +"&O="+ O;
+                    window.location.href = base_url + "/calendar?date="+date+"&status=" + 4 + "&H="+ H +"&M="+ M +"&L="+ L +"&O="+ O;
                     break;
                 case "radio_canceled":
-                    window.location.href = base_url + "/calendar?status=" + 5 + "&H="+ H +"&M="+ M +"&L="+ L +"&O="+ O;
+                    window.location.href = base_url + "/calendar?date="+date+"&status=" + 5 + "&H="+ H +"&M="+ M +"&L="+ L +"&O="+ O;
                     break;
             }
-        })
+        });
 
         $("input[type='checkbox']").change(function (e) {
             switch (e.target.id) {
@@ -455,8 +418,8 @@
                     break;
             }
 
-            window.location.href = base_url + "/calendar?status=" + filter_status + "&H="+ H +"&M="+ M +"&L="+ L +"&O="+ O;
-        })
+            window.location.href = base_url + "/calendar?date="+date+"&status=" + filter_status + "&H="+ H +"&M="+ M +"&L="+ L +"&O="+ O;
+        });
 
         $(document).ready(function(){
             // $('#datepicker').datepicker({
@@ -465,11 +428,19 @@
             //         console.log(e.target,"date picker date");
             //     }
             // });
+            let calendar = new VanillaCalendar({
+                selector: "#myCalendar",
+                date:new Date(date),
+                todaysDate: new Date(date),
+                onSelect: (data, elem) => {
+                    let selectedDate = new Date(data.date);
 
-            $('#datepicker').datepicker({
-                todayHighlight: true,
-                format: 'YY-mm-dd',
+                    date = selectedDate.getFullYear()+'/'+(selectedDate.getMonth() + 1) +'/'+selectedDate.getDate();
+                    // console.log(date);
+                    window.location.href = base_url + "/calendar?date="+date+"&status=" + filter_status + "&H="+ H +"&M="+ M +"&L="+ L +"&O="+ O;
+                }
             });
+
         })
     </script>
 

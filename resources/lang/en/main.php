@@ -24,6 +24,7 @@ return [
     'myProfile' => 'My Profile',
     'myProfileText' => 'Account settings and more',
     'myTasks' => 'My Tasks',
+    'tasks' => 'Tasks',
     'myTasksText' => 'latest tasks and projects',
     'signOut' => 'Sign Out',
     'myFavourite' => 'My Favourites',

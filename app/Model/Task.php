@@ -122,8 +122,8 @@ class Task extends Model
             ->leftJoin("taskpriority", "task.priorityID", "=", "taskpriority.ID")
             ->leftJoin("taskweight", "task.weightID", "=", "taskweight.ID")
             ->leftJoin("users", "task.personID", "=", "users.id")
-            ->where('deleteFlag', 0)
             ->where('users.organization_id',$organization_id)
+            ->where('deleteFlag', 0)
             ->select("{$this->table}.*", "taskstatus.note as status_icon" , "taskpriority.title as priority_title", "taskpriority.order as order" ,  "taskweight.title as weight"
                 ,"users.avatarType as avatarType","users.avatarColor as avatarColor" , "users.nameTag as nameTag" ,"users.roleID"
                 , DB::raw("concat(users.nameFamily, ' ', users.nameFirst) as fullName"));
@@ -150,8 +150,6 @@ class Task extends Model
             $priority_ness = 4;
         }
 
-        $qrBuilder = $qrBuilder->where("statusID",'=',$status);
-
         switch ($this->roleId) {
             case Common::constant("role.proManager"):
             case Common::constant("role.foreman"):
@@ -168,56 +166,98 @@ class Task extends Model
 
         $ret = $qrBuilder->orderBy('order', 'asc')->orderBy('id','asc')->orderBy('statusID','asc')->get()->toArray();
         $result = $this->adtResult(Common::stdClass2Array($ret));
-        $yesterday_tasks = [];
-        $today_tasks = [];
-        $tomorrow_tasks = [];
-        $theNextDay_tasks = [];
+
         $retArr = [];
+
+        $currentDate = new DateTime();
+        $today=$data->input('date')==""?strtotime($currentDate->format('Y-m-d')):(strtotime($data->input('date')));
+        for ($i = 0 ; $i < 15; $i ++) {
+            $current = date('Y-m-d',strtotime("-".$i." days",$today));
+            $retArr[$current] = [];
+        }
 
         foreach ($result as $taskItem) {
             if ($taskItem['priorityID'] != $priority_high && $taskItem['priorityID'] != $priority_medium && $taskItem['priorityID'] != $priority_low &&$taskItem['priorityID'] != $priority_ness) {
                 continue;
             }
+//            if (!$this->isRootLevel($taskItem['ID'],auth()->user()) && !$this->isRootLevel($taskItem['parentID'],auth()->user())) {
+//                continue;
+//            }
 
-            $today = date("Y-m-d");
-            $yesterday = date("Y-m-d",strtotime("yesterday"));
-            $tomorrow = date("Y-m-d",strtotime("tomorrow"));
-            $theNextDay = date("Y-m-d",strtotime("tomorrow")+60*60*24);
-            $dateStart = date("Y-m-d",strtotime($taskItem["creatAt"]));
+            $history = History::where('taskID',$taskItem['ID'])->orderBy('id', 'asc')->get()->toArray();
+            $length = count($history);
+            $i = 0;
+            $activeFlag = 0;
+            $startDate = date('Y-m-d');
 
+            while($i < $length) {
+                $item = $history[$i];
+                if ($activeFlag == 1) {
 
-            switch ($dateStart) {
-                case $yesterday:
-                    array_push($yesterday_tasks,$taskItem);
-                    break;
-                case $today:
-                    array_push($today_tasks,$taskItem);
-                    break;
-                case $tomorrow:
-                    array_push($tomorrow_tasks,$taskItem);
-                    break;
-                case $theNextDay:
-                    array_push($theNextDay_tasks,$taskItem);
-                    break;
-                default:
-                    break;
+                    if (strpos($item['event'],"change") != false) {
+
+                        $activeFlag = 0;
+                        $endDate = date('Y-m-d', strtotime($item['eventDate']));
+                        $j = 0;
+                        $iterator = date('Y-m-d', strtotime("+".$j." days", $startDate));
+                        while($iterator != $endDate) {
+                            $j ++;
+                            if (isset($retArr[$iterator])) {
+                                $insertedItem = $taskItem;
+                                $insertedItem['statusID'] = 2;
+                                $insertedItem['status_icon'] = "<i class='flaticon2-arrow lg'></i>";
+                                array_push($retArr[$iterator], $insertedItem);
+                            }
+
+                            $iterator = date('Y-m-d', strtotime("+".$j." days", $startDate));
+                        }
+                        //array_push EndDate
+                        if (isset($retArr[$iterator])) {
+                            array_push($retArr[$iterator], $taskItem);
+                        }
+                    }
+                } else if (strpos($item['event'],"Active") != false || $item['event'] == 'Created.') {
+                    $activeFlag = 1;
+                    $startDate = strtotime($item['eventDate']);
+                }
+                $i ++;
             }
+            if ($activeFlag == 1) {
+                $endDate = date('Y-m-d', strtotime('today'));
+                $j = 0;
+                $iterator = date('Y-m-d', strtotime("+".$j." days", $startDate));
+                while($iterator != $endDate) {
+                    $j ++;
+                    if (isset($retArr[$iterator])) {
+                        $insertedItem = $taskItem;
+                        $insertedItem['statusID'] = 2;
+                        $insertedItem['status_icon'] = "<i class='flaticon2-arrow lg'></i>";
+                        array_push($retArr[$iterator], $insertedItem);
+                    }
+                    $iterator = date('Y-m-d', strtotime("+".$j." days", $startDate));
+                }
+                //array_push EndDate
+                if (isset($retArr[$iterator])) {
+                    array_push($retArr[$iterator], $taskItem);
+                }
+            }
+
+//            $dateStart = date("Y-m-d",strtotime($taskItem["eventDate"]));
+//            for ($i = 0 ; $i < 31; $i ++) {
+//               $current = date('Y-m-d',strtotime("-".$i." days",$today));
+//               if ($dateStart == $current) {
+//                   array_push($retArr[$current],$taskItem);
+//               }
+//            }
+//            dd($retArr);
         }
-
-        $retArr['yesterday'] = $yesterday_tasks;
-        $retArr['today'] = $today_tasks;
-        $retArr['tomorrow'] = $tomorrow_tasks;
-        $retArr['theNextDay'] = $theNextDay_tasks;
-        $retArr['theNextDay'] = $theNextDay_tasks;
-
+//        dd($retArr);
         return $retArr;
     }
-
 
     public function getTaskListForDashboard($user) {
         $organization_id = $user->organization_id;
         $qrBuilder = DB::table($this->table)
-
             ->leftJoin("taskstatus", "task.statusID", "=", "taskstatus.ID")
             ->leftJoin("taskpriority", "task.priorityID", "=", "taskpriority.ID")
             ->leftJoin("taskweight", "task.weightID", "=", "taskweight.ID")
@@ -258,7 +298,6 @@ class Task extends Model
             $arrEnd = (explode(".",$dateEnd));
             $datePlanEnd = strtotime($arrEnd[1].'/'.$arrEnd[0].'/'.$arrEnd[2]);
 
-
             $dateStart = $taskItem["creatAt"];
             $datePlanStart = strtotime($dateStart);
             if ($taskStatus != 4 && $taskStatus!= 5 && $now >   $datePlanEnd){
@@ -272,9 +311,10 @@ class Task extends Model
                 array_push($new_tasks , $taskItem);
             }
         }
+        $retArr['new'] = $new_tasks;
         $retArr['active'] = $active_tasks;
         $retArr['overdue'] = $overdue_tasks;
-        $retArr['new'] = $new_tasks;
+
 
         return $retArr;
 

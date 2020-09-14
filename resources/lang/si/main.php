@@ -11,6 +11,7 @@ return [
     'myTags' => 'My Tags',
     'locations' => 'Lokacije',
     'myTask' => 'Moja opravila',
+    'tasks' => 'Opravila',
     'taskDoctor' => 'Zdravje projektov',
     'reports' => 'Poročila',
     'userManagement' => 'Upravljanje uporabnikov',

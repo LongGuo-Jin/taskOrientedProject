@@ -219,7 +219,6 @@
                                                     <x-user-avatar :type="$memoitem['avatarType']" :nameTag="$memoitem['nameTag']" :roleID="$memoitem['roleID']" :color="$memoitem['avatarColor']" />
                                                 </div>
                                             </div>
-
                                         @else
                                             <div class="row " style="display: flex;">
                                                 <div style="width: 13%; padding-left: 5px">
@@ -744,7 +743,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer" style="justify-content: space-between">
                 <button type="button" class="btn btn-primary" data-taskid="{{$taskId}}" data-parentid="{{$taskDetails["parentID"]}}" id="taskDetailDelete"> {{__('task.delete')}}</button>
                 <button type="button" class="btn btn-primary disabled" id="taskDetailUpdate"> {{__('task.update')}}</button>
             </div>

@@ -107,7 +107,7 @@
                                                                 }
 
                                                                 ?>
-                                                            <div class="task-status pt-2" style="background-color: <?php echo e($color); ?>;display: flex; flex-direction: column; width: 10%; justify-content: space-between">
+                                                            <div class="task-status" style="padding-top: 10px; background-color: <?php echo e($color); ?>;display: flex; flex-direction: column; width: 10%; justify-content: space-between">
                                                                 <div style="display: flex; flex-direction: column">
                                                                     <div><?php echo($taskItem['status_icon'])?></div>
                                                                     <div><?php echo e($taskItem['priority_title']); ?></div>
@@ -191,7 +191,9 @@
                                                 </div>
                                                 <div class="tab-pane" id="kt_extended_tab_<?php echo e($columnClass); ?>">
                                                     <?php $__currentLoopData = $columnItem; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $taskItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                        <div class="row kt-extended-task-item <?php if($taskId == $taskItem['ID']) echo 'selected';?> <?php echo e('taskID-'.$taskItem['ID']); ?>"  data-task_id="<?php echo e($taskItem['ID']); ?>" data-show_type="extended" style="display: flex;">
+                                                        <div class="row kt-extended-task-item <?php if($taskId == $taskItem['ID']) echo 'selected';?>
+                                                        <?php if($taskId != $taskItem['ID'] && in_array($taskItem['ID'], $parents)) echo 'parent_selected';?>"
+                                                                data-task_id="<?php echo e($taskItem['ID']); ?>" data-show_type="extended" style="display: flex;">
                                                             <?php $tagTask =new \App\TagTask();
                                                             $taskTags =  $tagTask->getTaskTagList($taskItem['ID']);
                                                             $color = '#9d88bf';
@@ -236,7 +238,7 @@
                                                             }
 
                                                             ?>
-                                                            <div class="task-status pt-2" style="background-color: <?php echo e($color); ?>; display: flex; flex-direction: column; width: 10%; justify-content: space-between">
+                                                            <div class="task-status" style="padding-top: 10px; background-color: <?php echo e($color); ?>; display: flex; flex-direction: column; width: 10%; justify-content: space-between">
                                                                 <div style="display: flex; flex-direction: column">
                                                                     <div><?php echo($taskItem['status_icon'])?></div>
                                                                     <div><?php echo e($taskItem['priority_title']); ?></div>
@@ -321,7 +323,9 @@
                                                 </div>
                                                 <div class="tab-pane" id="kt_simple_tab_<?php echo e($columnClass); ?>">
                                                     <?php $__currentLoopData = $columnItem; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $taskItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                        <div class="row kt-simple-task-item thin"  data-task_id="<?php echo e($taskItem['ID']); ?>" data-show_type="simple" style="display: flex">
+                                                        <div class="row kt-simple-task-item thin <?php if($taskId == $taskItem['ID']) echo 'selected';?>
+                                                        <?php if($taskId != $taskItem['ID'] && in_array($taskItem['ID'], $parents)) echo 'parent_selected';?>"
+                                                        data-task_id="<?php echo e($taskItem['ID']); ?>" data-show_type="simple"  data-task_id="<?php echo e($taskItem['ID']); ?>"   style="display: flex">
                                                             <?php $tagTask =new \App\TagTask();
                                                             $taskTags =  $tagTask->getTaskTagList($taskItem['ID']);
                                                             $color = '#9d88bf';
@@ -367,7 +371,7 @@
 
                                                             ?>
 
-                                                            <div class="task-status " style="width: 10%;background-color: <?php echo e($color); ?>;  ">
+                                                            <div class="task-status " style="padding-top: 10px; width: 10%;background-color: <?php echo e($color); ?>;">
                                                                 <?php echo($taskItem['status_icon'])?>
                                                             </div>
                                                             <div style="width: 90%">
@@ -437,10 +441,9 @@
         let timeAllocated = "<?php echo e($timeAllocated); ?>";
         let totalTimeSpent = "<?php echo e($totalTime); ?>";
         let subTimeSpent = "<?php echo e($timeSpentOnSubTask); ?>";
-        let selectedTask = $.parseJSON('<?php echo((isset($taskDetails['ID'])?json_encode($taskDetails['ID']):''));?>');
+        
 
         $(document).ready(function () {
-
             let arrows;
             let timeAllocatedDay = Math.floor(timeAllocated / 8);
             let timeAllocateHour = (timeAllocated - timeAllocatedDay * 8).toPrecision(1);
@@ -452,14 +455,15 @@
             let timeLeftDay = Math.floor(timeLeft / 8);
             let timeLeftHour = (timeLeft - timeLeftDay * 8).toPrecision(1);
 
-            // let taskPosition = document.getElementsByClassName(".taskID-"+selectedTask);
-            // taskPosition.scrollIntoView();
-            let $container = $('.kt-scroll'),
-                $scrollTo = $(".taskID-"+selectedTask);
-            $container.scrollTop(
-                $scrollTo.offset().top - $container.offset().top + $container.scrollTop() - 120
-            );
+            let element = '.kt-'+showType+'-task-item.selected';
+            let targetTask = $(element);
+            let parentTask = targetTask.parents('.kt-scroll');
 
+            if (parentTask.length > 0) {
+                parentTask.scrollTop(
+                    targetTask.offset().top - parentTask.offset().top + parentTask.scrollTop() - 120
+                );
+            }
 
             $("#timeAllocated").text(timeAllocatedDay + "d " + timeAllocateHour + "h");
             $("#allocatedTime").text(timeAllocatedDay + "d " + timeAllocateHour + "h");
@@ -551,7 +555,7 @@
                 },
                 //display error alert on form submit
                 invalidHandler: function(event, validator) {
-                    var alert = $('#kt_form_1_msg');
+                    let alert = $('#kt_form_1_msg');
                     alert.removeClass('kt--hide').show();
                     $(".taskAddBody").scrollTop("0");
                 },

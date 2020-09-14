@@ -8,14 +8,14 @@
 
                 <li class="kt-menu__item {{isset($taskCard)?"header_menu_item_active":""}} header_menu_item" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
                     <a href="{{route('task.taskCard')}}" class="header_menu_item_link">
-                        <span class="kt-menu__link-text top-menu"><i class="la la-credit-card header_menu_item_icon"></i>{{__('main.taskCard')}}</span>
+                        <span class="kt-menu__link-text top-menu"><i class="la la-credit-card header_menu_item_icon"></i>{{__('main.tasks')}}</span>
                     </a>
                 </li>
-                <li class="kt-menu__item  header_menu_item" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
-                    <a href="javascript:;" class="header_menu_item_link">
-                        <span class="kt-menu__link-text top-menu"><i class="fa fa-th-list header_menu_item_icon"></i>{{__('main.taskList')}}</span>
-                    </a>
-                </li>
+                {{--<li class="kt-menu__item  header_menu_item" data-ktmenu-submenu-toggle="click" aria-haspopup="true">--}}
+                    {{--<a href="javascript:;" class="header_menu_item_link">--}}
+                        {{--<span class="kt-menu__link-text top-menu"><i class="fa fa-th-list header_menu_item_icon"></i>{{__('main.taskList')}}</span>--}}
+                    {{--</a>--}}
+                {{--</li>--}}
                 <li class="kt-menu__item {{isset($calendar)?"header_menu_item_active":""}} header_menu_item" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
                     <a href="{{route('CalendarView')}}" class="header_menu_item_link">
                         <span class="kt-menu__link-text top-menu"><i class="fa fa-calendar header_menu_item_icon"></i>{{__('calendar.calendar_title')}}</span>
@@ -36,11 +36,11 @@
                         <span class="kt-menu__link-text top-menu"><i class="fa fa-tag header_menu_item_icon"></i>{{__('main.tags')}}</span>
                     </a>
                 </li>
-                <li class="kt-menu__item header_menu_item" data-ktmenu-submenu-toggle="click" aria-haspopup="true">
-                    <a href="javascript:;" class="header_menu_item_link kt-menu__toggle">
-                        <span class="kt-menu__link-text top-menu"><i class="fa fa-map-marker-alt header_menu_item_icon"></i>{{__('main.locations')}}</span>
-                    </a>
-                </li>
+                {{--<li class="kt-menu__item header_menu_item" data-ktmenu-submenu-toggle="click" aria-haspopup="true">--}}
+                    {{--<a href="javascript:;" class="header_menu_item_link kt-menu__toggle">--}}
+                        {{--<span class="kt-menu__link-text top-menu"><i class="fa fa-map-marker-alt header_menu_item_icon"></i>{{__('main.locations')}}</span>--}}
+                    {{--</a>--}}
+                {{--</li>--}}
             </ul>
         </div>
     </div>
@@ -72,7 +72,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="dropdown-menu dropdown-menu-fit dropdown-menu-left dropdown-menu-anim dropdown-menu-top-unround">
+                <div id="filter_manage" class="dropdown-menu dropdown-menu-fit dropdown-menu-left dropdown-menu-anim dropdown-menu-top-unround">
                     <form method="post" action="{{route('filter.update')}}">
                         @csrf
                         <input type="hidden" name="task_filter_order" id="task_filter_order" value="{{$filter_order}}">
@@ -82,7 +82,7 @@
                                 <div class="filter-column">
                                     <input type="hidden" name="statusFilter" id="statusFilter" value="{{$filters['status']}}">
                                     <div style="display:flex; justify-content: space-between">
-                                        <h3>Status</h3>
+                                        <h3 class="mt-auto mb-auto">Status</h3>
                                         <div class="kt-header__topbar-item dropdown mt-auto mb-auto">
                                             <div class="task-order-item" id="statusOrderMenu" onclick="StatusOrderMenu()" data-offset="0px,0px" aria-expanded="true" style="font-size: 20px">
                                                 <span>
@@ -160,7 +160,7 @@
                                 <div class="filter-column">
                                     <input type="hidden" name="priorityFilter" id="priorityFilter" value="{{$filters['priority']}}">
                                     <div style="display:flex; justify-content: space-between">
-                                        <h3>Priority</h3>
+                                        <h3 class="mt-auto mb-auto">Priority</h3>
                                         <div class="kt-header__topbar-item dropdown mt-auto mb-auto">
                                             <div class="task-order-item" id="priorityOrderMenu" onclick="PriorityOrderMenu()" data-offset="0px,0px" aria-expanded="true" style="font-size: 20px">
                                                 <span>
@@ -177,7 +177,6 @@
                                             <div class="dropdown-menu dropdown-menu-fit dropdown-menu-left dropdown-menu-anim dropdown-menu-top-unround"  id="priorityOrderDropDownMenu" style="border-radius: 10px; min-width: 1rem !important; transform: translateX(-70%);">
                                                 <div class="filter-order-box">
                                                     @foreach($filter_orders[0] as $index => $item)
-
                                                         <div class="row filter-order-item" onclick="PriorityOrderSelect({{$index}})">
                                                             <div class="col-lg-3 kt-notification__item">
                                                                 {{$filter_orders[1][$index]}}
@@ -225,14 +224,13 @@
                                             <div class="col-lg-3"><span>{{$priority}}</span></div>
                                         </div>
                                     @endforeach
-
                                 </div>
                             </div>
                             <div>
                                 <div class="filter-column">
                                     <input type="hidden" name="weightFilter" id="weightFilter" value="{{$filters['weight']}}">
                                     <div style="display:flex; justify-content: space-between">
-                                        <h3>Weight</h3>
+                                        <h3 class="mt-auto mb-auto">Weight</h3>
                                         <div class="kt-header__topbar-item dropdown mt-auto mb-auto">
                                             <div class="task-order-item" id="weightOrderMenu" onclick="WeightOrderMenu()" data-offset="0px,0px" aria-expanded="true" style="font-size: 20px">
                                                 <span>
@@ -300,7 +298,7 @@
                                 <div class="filter-column">
                                     <input type="hidden" name="dateFilter" id="dateFilter" value="{{$filters['date']}}">
                                     <div style="display:flex; justify-content: space-between">
-                                        <h3>Date</h3>
+                                        <h3  class="mt-auto mb-auto">Date</h3>
                                         <div class="kt-header__topbar-item dropdown mt-auto mb-auto">
                                             <div class="task-order-item" id="dateOrderMenu" onclick="DateOrderMenu()" data-offset="0px,0px" aria-expanded="true" style="font-size: 20px">
                                                 <span>
@@ -382,7 +380,7 @@
                                 <div class="filter-column">
                                     <input type="hidden" name="workTimeFilter" id="workTimeFilter" value="{{$filters['workTime']}}">
                                     <div style="display:flex; justify-content: space-between">
-                                        <h3>WorkTime</h3>
+                                        <h3  class="mt-auto mb-auto">WorkTime</h3>
                                         <div class="kt-header__topbar-item dropdown mt-auto mb-auto">
                                             <div class="task-order-item" id="workTimeOrderMenu" onclick="WorkTimeOrderMenu()" data-offset="0px,0px" aria-expanded="true" style="font-size: 20px">
                                                 <span>
@@ -449,7 +447,7 @@
                                 <div class="filter-column">
                                     <input type="hidden" name="budgetFilter" id="budgetFilter" value="{{$filters['budget']}}">
                                     <div style="display:flex; justify-content: space-between">
-                                        <h3>Budget</h3>
+                                        <h3 class="mt-auto mb-auto">Budget</h3>
                                         <div class="kt-header__topbar-item dropdown mt-auto mb-auto">
                                             <div class="task-order-item" id="budgetOrderMenu" onclick="BudgetOrderMenu()" data-offset="0px,0px" aria-expanded="true" style="font-size: 20px">
                                                 <span>

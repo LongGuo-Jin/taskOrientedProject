@@ -256,7 +256,6 @@
 <?php endif; ?> 
                                                 </div>
                                             </div>
-
                                         <?php else: ?>
                                             <div class="row " style="display: flex;">
                                                 <div style="width: 13%; padding-left: 5px">
@@ -845,7 +844,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer" style="justify-content: space-between">
                 <button type="button" class="btn btn-primary" data-taskid="<?php echo e($taskId); ?>" data-parentid="<?php echo e($taskDetails["parentID"]); ?>" id="taskDetailDelete"> <?php echo e(__('task.delete')); ?></button>
                 <button type="button" class="btn btn-primary disabled" id="taskDetailUpdate"> <?php echo e(__('task.update')); ?></button>
             </div>

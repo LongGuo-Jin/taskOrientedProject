@@ -7,6 +7,7 @@ return [
     'tomorrow' => 'Tomorrow',
     'theNextDay' => 'The Next Day',
     'showStatus' => 'Show Status',
+    'created' => 'Created',
     'onHold' => 'On Hold',
     'active' => 'Active',
     'paused' => 'Paused',

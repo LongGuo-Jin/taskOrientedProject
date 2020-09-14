@@ -3,29 +3,54 @@ let min = 0;
 let hour = 0;
 let timer;
 $(document).ready(function () {
+
+    $('#filter_manage').on('click', function(e){
+
+        if (document.getElementById('statusOrderMenu').contains(e.target) ||
+            document.getElementById('priorityOrderMenu').contains(e.target) ||
+            document.getElementById('weightOrderMenu').contains(e.target) ||
+            document.getElementById('dateOrderMenu').contains(e.target) ||
+            document.getElementById('workTimeOrderMenu').contains(e.target) ||
+            document.getElementById('budgetOrderMenu').contains(e.target)) {
+            console.log(e.target,"true");
+        } else {
+            $('.task-order-item').parent().find('.dropdown-menu').hide();
+            console.log(e.target,"else");
+        }
+    });
+
     $('div.kt-extended-task-item').on('click', function(){
         var offsetTop = $(this).offset().top - 64 - 25;
         $('div#kt_final_sub_task').css('margin-top', offsetTop);
         $('div#kt_final_sub_task').css('display', 'block');
     });
 
-    $('button.addTask').on('click', function () {
-        var ret = 1;
-        var parentId = $(this).data("parent_id");
-        if (parentId == "")
-            ret = -1;
+    $('.kt-portlet__head-toolbar .dropdown .dropdown-menu .dropdown-item').on('click',function(){
+        let tab = $(this).attr('href');
+        let element = tab+ ' .selected';
+        let targetTask = $(tab);
+        let parentTask = targetTask.parents('.kt-scroll');
+        parentTask.scrollTop(0);
 
-        if (ret == -1 && userRoleId != 1) {
-            swal.fire(
-                'Warning',
-                'You can not add task in root level.',
-                'warning'
-            );
-            return ;
-        }
-        $('div.detail-add input#add_parentID').val(parentId);
-        $('div.detail-edit').css('display', 'none');
-        $('div.detail-add').css('display', 'block');
+    });
+
+    $('button.addTask').on('click', function () {
+            var ret = 1;
+            var parentId = $(this).data("parent_id");
+            if (parentId == "")
+                ret = -1;
+
+            if (ret == -1 && userRoleId != 1) {
+                swal.fire(
+                    'Warning',
+                    'You can not add task in root level.',
+                    'warning'
+                );
+                return ;
+            }
+            $('div.detail-add input#add_parentID').val(parentId);
+            $('div.detail-edit').css('display', 'none');
+            $('div.detail-add').css('display', 'block');
 
         }
     );
@@ -518,13 +543,7 @@ $(document).ready(function () {
     if (notifications.includes(task_id)) {
         $('input#detail-information-task-memos_input').focus();
     }
-    // notifications.forEach((item)=>{
-    //     console.log(task_id,"----------",item);
-    //    if (item == task_id) {
-    //        console.log(notifications,"-------asdfasdfasdf---");
-    //        $('input#detail-information-task-memos_input').focus();
-    //    }
-    // });
+
 
 });
 
@@ -612,25 +631,47 @@ function deleteTask(params, parentId)
 function setColumnType()
 {
     //set Tab for task column
+
     $("div.parent_selected").parents("div.column-body").addClass("col-task-regular");
-    $("div.selected").parents("div.column-body").addClass("col-task-extended");
+    if (showType === "regular") {
+        $("div.selected").parents("div.column-body").addClass("col-task-regular");
+    } else if (showType === 'extended') {
+        $("div.selected").parents("div.column-body").addClass("col-task-extended");
+    } else {
+        $("div.selected").parents("div.column-body").addClass("col-task-simple");
+    }
+    // $("div.selected").parents("div.column-body").addClass("col-task-regular");
     $("div.selected").parents("div.column-body").next("div.column-body").addClass("col-task-simple");
 
     if ($("div.selected").length == 0)
         $("div[data-column_id = 0]").addClass("col-task-regular");
 
-    var regColumId = $("div.col-task-regular").data("column_id");
-    var extendedColumId = $("div.col-task-extended").data("column_id");
-    var simpleColumId = $("div.col-task-simple").data("column_id");
+    let regColumns = $.find("div.col-task-regular");
+    let extendedColumns = $.find("div.col-task-extended");
+    let simpleColumns = $.find("div.col-task-simple");
+    // var regColumId = $("div.col-task-regular").data("column_id");
+    // var extendedColumId = $("div.col-task-extended").data("column_id");
+    // var simpleColumId = $("div.col-task-simple").data("column_id");
 
     $("div.col-task-regular").find("div.tab-pane").removeClass("active");
-    $("div.col-task-regular").find("div#kt_regular_tab_" + regColumId).addClass("active");
+    $("div.col-task-regular").each(function(){
+        let regColumId = $(this).data('column_id');
+        $("div.col-task-regular").find("div#kt_regular_tab_" + regColumId).addClass("active");
+    });
     $("div.col-task-regular div.kt-portlet__head-toolbar a[data-toggle=dropdown]").html("<i class=\"flaticon-laptop\"></i>");
     $("div.col-task-extended").find("div.tab-pane").removeClass("active");
-    $("div.col-task-extended").find("div#kt_extended_tab_" + extendedColumId).addClass("active");
+    $("div.col-task-extended").each(function(){
+        let extendedColumId = $(this).data('column_id');
+        $("div.col-task-extended").find("div#kt_extended_tab_" + extendedColumId).addClass("active");
+    });
+
     $("div.col-task-extended div.kt-portlet__head-toolbar a[data-toggle=dropdown]").html("<i class=\"la flaticon-background\"></i>");
     $("div.col-task-simple").find("div.tab-pane").removeClass("active");
-    $("div.col-task-simple").find("div#kt_simple_tab_" + simpleColumId).addClass("active");
+    $("div.col-task-simple").each(function(){
+        let simpleColumId = $(this).data('column_id');
+        $("div.col-task-simple").find("div#kt_simple_tab_" + simpleColumId).addClass("active");
+    });
+
     $("div.col-task-simple div.kt-portlet__head-toolbar a[data-toggle=dropdown]").html("<i class=\"fa fa-align-justify\"></i>");
 
     //set Tab for task detail

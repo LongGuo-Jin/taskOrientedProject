@@ -70,6 +70,7 @@
     border-radius: 5px;
     position: relative;
     cursor: pointer;
+    padding: 5px;
 }
 .task-order-item:hover {
     -webkit-transition: background-color .35s ease-in-out;

@@ -14,8 +14,8 @@ div.kt-portlet__body {
 div.task-status {
     /*vertical-align: middle;*/
     text-align: center;
-    font-size: 12pt;
-    color: #000000;
+    font-size: 13pt;
+    color: #7e5a99;
 }
 div.task-name {
     font-weight: 500;
@@ -50,9 +50,15 @@ div.person-tag {
     text-align: right;
 }
 
-div.task-start-date, div.task-end-date {
+div.task-start-date {
     font-size: 8pt;
     letter-spacing: 2px;
+}
+
+div.task-end-date {
+    font-size: 8pt;
+    letter-spacing: 2px;
+    text-align: right;
 }
 
 div.kt-regular-task-item {
@@ -428,29 +434,47 @@ div.kt-quick-panel {
 }
 
 .content-calendar {
-    display: -webkit-box;
-    display: -ms-flexbox;
+    width: calc(100% - 300px);
     display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-
-    -webkit-box-flex: 0;
-    -ms-flex: 0 0 80%;
-    flex: 0 0 80%;
-    max-width: 80%;
+    overflow:auto;
+    transition: all 0.2s;
+    transform: scale(0.98);
+    will-change: transform;
+    user-select: none;
+    cursor: pointer;
     position: relative;
-    width: 100%;
+}
+.content-calendar.active {
+    cursor: grabbing;
+    cursor: -webkit-grabbing;
+    /*transform: scale(1);*/
+
+    /*background: rgba(255,255,255,0.3);*/
 }
 
+.content-calendar::-webkit-scrollbar {
+    width: 1px;
+    height: 1px;
+}
+
+/* Track */
+.content-calendar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+.content-calendar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0);
+}
+
+/* Handle on hover */
+.content-calendar:hover::-webkit-scrollbar-thumb{
+    background: rgba(210, 210, 210, 0.65);
+}
 .calendar-filter {
-    -webkit-box-flex: 0;
-    -ms-flex: 0 0 20%;
-    flex: 0 0 20%;
-    max-width: 20%;
     position: relative;
-    width: 100%;
+    width: 300px;
     padding-left: 5px;
-    height: 100vh;
 }
 
 .calendar-box {

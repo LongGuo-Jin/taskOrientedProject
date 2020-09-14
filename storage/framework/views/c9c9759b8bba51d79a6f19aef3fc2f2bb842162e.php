@@ -18,58 +18,125 @@
             <!-- begin:: Content -->
             <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
                 <div class="row">
-                    <div class="col-md-3">
-                        <!--begin::Portlet-->
-                        <div class="kt-portlet  kt-portlet--tabs">
-                            <div class="kt-portlet__head">
-                                <div class="kt-portlet__head-toolbar">
-                                    <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-2x nav-tabs-line-primary" role="tablist">
-                                        <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                                <i class="la flaticon-background"></i>
-                                            </a>
+                    <?php $__currentLoopData = $taskList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $taskListItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <div class="col-md-3">
+                            <!--begin::Portlet-->
+                            <div class="kt-portlet  kt-portlet--tabs">
+                                <div class="kt-portlet__head">
+                                    <div class="kt-portlet__head-toolbar">
+                                        <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-2x nav-tabs-line-primary" role="tablist">
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="la flaticon-background"></i>
+                                                </a>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" data-toggle="tab" data-type="col-task-simple" href="#kt_simple_tab_<?php echo e($index); ?>">
+                                                        <i class="fa fa-align-justify"></i><?php echo e(__('task.sample')); ?>
 
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="kt-portlet__head-actions">
-                                    <h5><?php echo e(__('dashboard.newTasks')); ?></h5>
-                                </div>
-                            </div>
-                         <?php $__currentLoopData = $taskList['new']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $columnClass => $columnItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <div class="column-body" data-column_id="<?php echo e($columnClass); ?>">
-                                    <?php if(isset($columnItem["ID"])): ?>
-                                            <div class="tab-content">
-                                                <div class="tab-pane active" id="kt_regular_tab_<?php echo e($columnClass); ?>">
-                                                    <div class="kt-regular-task-item thin"
-                                                         data-task_id="<?php echo e($columnItem['ID']); ?>" data-show_type="regular" style="display: flex">
-                                                        <div class="task-status pt-2" style="background-color: #c97acb; display: flex; flex-direction: column; width: 10%; justify-content: space-between">
-                                                            <div style="display: flex; flex-direction: column">
-                                                                <div><?php echo($columnItem['status_icon'])?></div>
-                                                                <div><?php echo e($columnItem['priority_title']); ?></div>
-                                                                <div><?php echo e($columnItem['weight']); ?></div>
-                                                            </div>
-                                                            <div style="position: relative; margin: 0; padding: 0">
-                                                                <?php if(in_array($columnItem['ID'],$notifications)): ?>
-                                                                    <i class="fa fa-envelope "></i>
-                                                                    <div class="blink_mark blink_mail_icon" id="blink_mail_icon_<?php echo e($columnItem['ID']); ?>">
-                                                                    </div>
-                                                                <?php endif; ?>
-                                                            </div>
-                                                        </div>
-                                                        <div style="width: 90%; padding: 10px">
-                                                            <div class="row m-2">
-                                                                  <div class="col-lg-9">
-                                                                    <div class="row task-name">
-                                                                        <?php echo e($columnItem['title']); ?>
+                                                    </a>
+                                                    <a class="dropdown-item" data-toggle="tab" data-type="col-task-regular" href="#kt_regular_tab_<?php echo e($index); ?>">
+                                                        <i class="flaticon-laptop"></i><?php echo e(__('task.regular')); ?>
 
-                                                                    </div>
-                                                                    <div class="row project-name">
-                                                                        
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-3">
-                                                                     <?php if (isset($component)) { $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da = $component; } ?>
+                                                    </a>
+                                                    <a class="dropdown-item" data-toggle="tab" data-type="col-task-extended" href="#kt_extended_tab_<?php echo e($index); ?>">
+                                                        <i class="flaticon-background"></i><?php echo e(__('task.extended')); ?>
+
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="kt-portlet__head-actions">
+                                        <?php if($index == 'new'): ?>
+                                            <h5><?php echo e(__('dashboard.newTasks')); ?></h5>
+                                        <?php elseif($index=='overdue'): ?>
+                                            <h5><?php echo e(__('dashboard.overdueTasks')); ?></h5>
+                                        <?php elseif($index=='active'): ?>
+                                            <h5><?php echo e(__('dashboard.activeTasks')); ?></h5>
+                                        <?php elseif($index=='unread'): ?>
+                                            <h5><?php echo e(__('dashboard.unreadMessages')); ?></h5>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                <div class="kt-portlet__body active">
+                                    <div class="kt-scroll " data-scroll="true"  >
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="kt_regular_tab_<?php echo e($index); ?>">
+                                                <?php $__currentLoopData = $taskListItem; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $columnItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <div class="column-body">
+                                                        <?php if(isset($columnItem["ID"])): ?>
+                                                            <?php $tagTask =new \App\TagTask();
+                                                            $taskTags =  $tagTask->getTaskTagList($columnItem['ID']);
+                                                            $color = '#9d88bf';
+
+                                                            foreach($taskTags as $taskTag) {
+                                                                if ($taskTag["tagtype"] != 1 ) {
+                                                                    continue;
+                                                                }
+
+                                                                if($taskTag['name'] == "PROJECT") {
+                                                                    $color = '#302344';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "MILESTONE") {
+                                                                    $color = '#98b6ea';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "TO DO") {
+                                                                    $color = '#f7dd6d';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "PERMANENT") {
+                                                                    $color = '#4fc6a2';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "PERIODIC") {
+                                                                    $color = '#88e588';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "TRIP") {
+                                                                    $color = '#a5a3aa';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "ERROR") {
+                                                                    $color = '#ef6f6f';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "ALARM") {
+                                                                    $color = '#f4c67d';
+                                                                    break;
+                                                                }
+                                                            }
+                                                            ?>
+                                                            <div class="kt-regular-task-item thin"
+                                                                         data-task_id="<?php echo e($columnItem['ID']); ?>" data-show_type="regular" style="display: flex">
+                                                                        <div class="task-status" style="background-color: <?php echo e($color); ?>; display: flex; flex-direction: column; width: 10%; justify-content: space-between; padding-top:10px">
+                                                                            <div style="display: flex; flex-direction: column">
+                                                                                <div><?php echo($columnItem['status_icon'])?></div>
+                                                                                <div><?php echo e($columnItem['priority_title']); ?></div>
+                                                                                <div><?php echo e($columnItem['weight']); ?></div>
+                                                                            </div>
+                                                                            <div style="position: relative; margin: 0; padding: 0">
+                                                                                <?php if(in_array($columnItem['ID'],$notifications)): ?>
+                                                                                    <i class="fa fa-envelope "></i>
+                                                                                    <div class="blink_mark blink_mail_icon" id="blink_mail_icon_<?php echo e($columnItem['ID']); ?>">
+                                                                                    </div>
+                                                                                <?php endif; ?>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div style="width: 90%; padding: 10px">
+                                                                            <div class="row m-2">
+                                                                                <div class="col-lg-9">
+                                                                                    <div class="row task-name">
+                                                                                        <?php echo e($columnItem['title']); ?>
+
+                                                                                    </div>
+                                                                                    <div class="row project-name">
+                                                                                        
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-3">
+                                                                                     <?php if (isset($component)) { $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\UserAvatar::class, ['type' => $columnItem['avatarType'],'nameTag' => $columnItem['nameTag'],'roleID' => $columnItem['roleID'],'color' => $columnItem['avatarColor']]); ?>
 <?php $component->withName('user-avatar'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -81,331 +148,275 @@
 <?php endif; ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?> 
-                                                                </div>
-                                                            </div>
-                                                            <div class="kt-space-10"></div>
-                                                            <div class="progress" style="height: 6px;">
-                                                                <?php if($columnItem["statusID"] == 4): ?>
-                                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                <?php elseif($columnItem['spentProgress'] <= $columnItem['finishProgress']): ?>
-                                                                    <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo e($columnItem['finishProgress']); ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                <?php else: ?>
-                                                                    <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo e($columnItem['finishProgress']); ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                    <div class="progress-bar bg-dark" role="progressbar" style="width: <?php echo e($columnItem['spentProgress'] - $columnItem['finishProgress']); ?>%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                <?php endif; ?>
-                                                            </div>
-                                                            <div class="kt-space-5"></div>
-                                                            <div class="row kt-item-date">
-                                                                <div class="col-lg-6 task-start-date">
-                                                                    <?php echo e($columnItem['datePlanStart']); ?>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row m-2">
+                                                                                <div style="display: flex; flex-wrap: wrap;"><?php
+                                                                                    foreach($taskTags as $taskTag) {
+                                                                                    ?>
+                                                                                    <span class="<?php if($taskTag['tagtype']==1): ?> system-span <?php elseif($taskTag['tagtype']==2): ?> organization-span <?php elseif($taskTag['tagtype']==3): ?> personal-span <?php endif; ?>" style="<?php if($taskTag['tagtype']!=3 ): ?>background-color:<?php echo e($taskTag['color']); ?> <?php else: ?> border-color:<?php echo e($taskTag['color']); ?> <?php endif; ?>">
+                                                                           <?php echo e($taskTag['name']); ?>
 
-                                                                </div>
-                                                                <div class="col-lg-6 task-end-date">
-                                                                    <?php echo e($columnItem['datePlanEnd']); ?>
+                                                                        </span> &nbsp;
+                                                                                    <?php
+                                                                                    }
+                                                                                    ?>
+                                                                                </div>
+                                                                            </div>
 
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                                            <div class="kt-space-10"></div>
+                                                                            <div class="progress" style="height: 6px;">
+                                                                                <?php if($columnItem["statusID"] == 4): ?>
+                                                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                                <?php elseif($columnItem['spentProgress'] <= $columnItem['finishProgress']): ?>
+                                                                                    <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo e($columnItem['finishProgress']); ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                                <?php else: ?>
+                                                                                    <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo e($columnItem['finishProgress']); ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                                    <div class="progress-bar bg-dark" role="progressbar" style="width: <?php echo e($columnItem['spentProgress'] - $columnItem['finishProgress']); ?>%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                                <?php endif; ?>
+                                                                            </div>
+                                                                            <div class="kt-space-5"></div>
+                                                                            <div class="row kt-item-date">
+                                                                                <div class="col-lg-6 task-start-date">
+                                                                                    <?php echo e($columnItem['datePlanStart']); ?>
+
+                                                                                </div>
+                                                                                <div class="col-lg-6 task-end-date">
+                                                                                    <?php echo e($columnItem['datePlanEnd']); ?>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                        <?php endif; ?>
                                                     </div>
-                                                </div>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </div>
-                                    <?php endif; ?>
+                                            <div class="tab-pane" id="kt_extended_tab_<?php echo e($index); ?>">
+                                                <?php $__currentLoopData = $taskListItem; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $columnItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <div class="column-body">
+                                                        <?php if(isset($columnItem["ID"])): ?>
+                                                            <?php $tagTask =new \App\TagTask();
+                                                            $taskTags =  $tagTask->getTaskTagList($columnItem['ID']);
+                                                            $color = '#9d88bf';
+
+                                                            foreach($taskTags as $taskTag) {
+                                                                if ($taskTag["tagtype"] != 1 ) {
+                                                                    continue;
+                                                                }
+
+                                                                if($taskTag['name'] == "PROJECT") {
+                                                                    $color = '#302344';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "MILESTONE") {
+                                                                    $color = '#98b6ea';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "TO DO") {
+                                                                    $color = '#f7dd6d';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "PERMANENT") {
+                                                                    $color = '#4fc6a2';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "PERIODIC") {
+                                                                    $color = '#88e588';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "TRIP") {
+                                                                    $color = '#a5a3aa';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "ERROR") {
+                                                                    $color = '#ef6f6f';
+                                                                    break;
+                                                                }
+                                                                if($taskTag['name'] == "ALARM") {
+                                                                    $color = '#f4c67d';
+                                                                    break;
+                                                                }
+                                                            }
+                                                            ?>
+                                                            <div class="kt-extended-task-item"
+                                                                 data-task_id="<?php echo e($columnItem['ID']); ?>" data-show_type="regular" style="display: flex">
+                                                                <div class="task-status" style="background-color: <?php echo e($color); ?>; display: flex; flex-direction: column; width: 10%; justify-content: space-between; padding-top:10px">
+                                                                    <div style="display: flex; flex-direction: column">
+                                                                        <div><?php echo($columnItem['status_icon'])?></div>
+                                                                        <div><?php echo e($columnItem['priority_title']); ?></div>
+                                                                        <div><?php echo e($columnItem['weight']); ?></div>
+                                                                    </div>
+                                                                    <div style="position: relative; margin: 0; padding: 0">
+                                                                        <?php if(in_array($columnItem['ID'],$notifications)): ?>
+                                                                            <i class="fa fa-envelope "></i>
+                                                                            <div class="blink_mark blink_mail_icon" id="blink_mail_icon_<?php echo e($columnItem['ID']); ?>">
+                                                                            </div>
+                                                                        <?php endif; ?>
+                                                                    </div>
+                                                                </div>
+                                                                <div style="width: 90%; padding: 10px">
+                                                                    <div class="row m-2">
+                                                                        <div class="col-lg-9">
+                                                                            <div class="row task-name">
+                                                                                <?php echo e($columnItem['title']); ?>
+
+                                                                            </div>
+                                                                            <div class="row project-name">
+                                                                                
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-3">
+                                                                             <?php if (isset($component)) { $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\UserAvatar::class, ['type' => $columnItem['avatarType'],'nameTag' => $columnItem['nameTag'],'roleID' => $columnItem['roleID'],'color' => $columnItem['avatarColor']]); ?>
+<?php $component->withName('user-avatar'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php if (isset($__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da)): ?>
+<?php $component = $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da; ?>
+<?php unset($__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da); ?>
+<?php endif; ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?> 
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row m-2">
+                                                                        <div style="display: flex; flex-wrap: wrap;"><?php
+                                                                            foreach($taskTags as $taskTag) {
+                                                                            ?>
+                                                                            <span class="<?php if($taskTag['tagtype']==1): ?> system-span <?php elseif($taskTag['tagtype']==2): ?> organization-span <?php elseif($taskTag['tagtype']==3): ?> personal-span <?php endif; ?>" style="<?php if($taskTag['tagtype']!=3 ): ?>background-color:<?php echo e($taskTag['color']); ?> <?php else: ?> border-color:<?php echo e($taskTag['color']); ?> <?php endif; ?>">
+                                                                           <?php echo e($taskTag['name']); ?>
+
+                                                                        </span> &nbsp;
+                                                                            <?php
+                                                                            }
+                                                                            ?>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="kt-space-10"></div>
+                                                                    <div class="progress" style="height: 6px;">
+                                                                        <?php if($columnItem["statusID"] == 4): ?>
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        <?php elseif($columnItem['spentProgress'] <= $columnItem['finishProgress']): ?>
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo e($columnItem['finishProgress']); ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        <?php else: ?>
+                                                                            <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo e($columnItem['finishProgress']); ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            <div class="progress-bar bg-dark" role="progressbar" style="width: <?php echo e($columnItem['spentProgress'] - $columnItem['finishProgress']); ?>%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        <?php endif; ?>
+                                                                    </div>
+                                                                    <div class="kt-space-5"></div>
+                                                                    <div class="row kt-item-date">
+                                                                        <div class="col-lg-6 task-start-date">
+                                                                            <?php echo e($columnItem['datePlanStart']); ?>
+
+                                                                        </div>
+                                                                        <div class="col-lg-6 task-end-date">
+                                                                            <?php echo e($columnItem['datePlanEnd']); ?>
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="extand-below-content">
+                                                                        <i class="fa fa-user"></i> &nbsp;&nbsp;&nbsp;<?php echo e($columnItem['fullName']); ?>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            </div>
+                                            <div class="tab-pane" id="kt_simple_tab_<?php echo e($index); ?>">
+                                                <?php $__currentLoopData = $taskListItem; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $columnItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <div class="column-body">
+                                                        <?php if(isset($columnItem["ID"])): ?>
+                                                                <?php $tagTask =new \App\TagTask();
+                                                                $taskTags =  $tagTask->getTaskTagList($columnItem['ID']);
+                                                                $color = '#9d88bf';
+
+                                                                foreach($taskTags as $taskTag) {
+                                                                    if ($taskTag["tagtype"] != 1 ) {
+                                                                        continue;
+                                                                    }
+
+                                                                    if($taskTag['name'] == "PROJECT") {
+                                                                        $color = '#302344';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "MILESTONE") {
+                                                                        $color = '#98b6ea';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "TO DO") {
+                                                                        $color = '#f7dd6d';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "PERMANENT") {
+                                                                        $color = '#4fc6a2';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "PERIODIC") {
+                                                                        $color = '#88e588';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "TRIP") {
+                                                                        $color = '#a5a3aa';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "ERROR") {
+                                                                        $color = '#ef6f6f';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "ALARM") {
+                                                                        $color = '#f4c67d';
+                                                                        break;
+                                                                    }
+                                                                }
+                                                                ?>
+                                                            <div class="kt-simple-task-item thin"
+                                                                 data-task_id="<?php echo e($columnItem['ID']); ?>" data-show_type="simple" style="display: flex">
+                                                                <div class="task-status" style="background-color: <?php echo e($color); ?>; display: flex; flex-direction: column; width: 10%; justify-content: space-between; padding-top:10px">
+                                                                    <div style="display: flex; flex-direction: column">
+                                                                        <div><?php echo($columnItem['status_icon'])?></div>
+                                                                    </div>
+                                                                    <div style="position: relative; margin: 0; padding: 0">
+                                                                    </div>
+                                                                </div>
+                                                                <div style="width: 90%;">
+                                                                    <div class="row ml-2">
+                                                                        <div class="col-lg-9 final-sub-task-name">
+                                                                            <?php echo e($columnItem['title']); ?>
+
+                                                                        </div>
+                                                                        <div class="col-lg-3 final-sub-task-name">
+                                                                             <?php if (isset($component)) { $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\UserAvatar::class, ['type' => $columnItem['avatarType'],'nameTag' => $columnItem['nameTag'],'roleID' => $columnItem['roleID'],'color' => $columnItem['avatarColor']]); ?>
+<?php $component->withName('user-avatar'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php if (isset($__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da)): ?>
+<?php $component = $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da; ?>
+<?php unset($__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da); ?>
+<?php endif; ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?> 
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
                             <!--end::Portlet-->
                         </div>
-                    <div class="col-md-3">
-                        <!--begin::Portlet-->
-                        <div class="kt-portlet  kt-portlet--tabs">
-                            <div class="kt-portlet__head">
-                                <div class="kt-portlet__head-toolbar">
-                                    <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-2x nav-tabs-line-primary" role="tablist">
-                                        <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                                <i class="la flaticon-background"></i>
-                                            </a>
-
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="kt-portlet__head-actions">
-                                    <h5><?php echo e(__('dashboard.activeTasks')); ?></h5>
-                                </div>
-                            </div>
-                            <?php $__currentLoopData = $taskList['active']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $columnClass => $columnItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <div class="column-body" data-column_id="<?php echo e($columnClass); ?>">
-                                    <?php if(isset($columnItem["ID"])): ?>
-
-                                        <div class="tab-content">
-                                            <div class="tab-pane active" id="kt_regular_tab_<?php echo e($columnClass); ?>">
-                                                <div class="kt-regular-task-item thin"
-                                                     data-task_id="<?php echo e($columnItem['ID']); ?>" data-show_type="regular" style="display: flex">
-                                                    <div class="task-status pt-2" style="background-color: #c97acb; display: flex; flex-direction: column; width: 10%; justify-content: space-between">
-                                                        <div style="display: flex; flex-direction: column">
-                                                            <div><?php echo($columnItem['status_icon'])?></div>
-                                                            <div><?php echo e($columnItem['priority_title']); ?></div>
-                                                            <div><?php echo e($columnItem['weight']); ?></div>
-                                                        </div>
-                                                        <div style="position: relative; margin: 0; padding: 0">
-                                                            <?php if(in_array($columnItem['ID'],$notifications)): ?>
-                                                                <i class="fa fa-envelope "></i>
-                                                                <div class="blink_mark blink_mail_icon" id="blink_mail_icon_<?php echo e($columnItem['ID']); ?>">
-                                                                </div>
-                                                            <?php endif; ?>
-                                                        </div>
-                                                    </div>
-                                                    <div style="width: 90%; padding: 10px">
-                                                        <div class="row m-2">
-                                                            <div class="col-lg-9">
-                                                                <div class="row task-name">
-                                                                    <?php echo e($columnItem['title']); ?>
-
-                                                                </div>
-                                                                <div class="row project-name">
-                                                                    
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-3">
-                                                                 <?php if (isset($component)) { $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\UserAvatar::class, ['type' => $columnItem['avatarType'],'nameTag' => $columnItem['nameTag'],'roleID' => $columnItem['roleID'],'color' => $columnItem['avatarColor']]); ?>
-<?php $component->withName('user-avatar'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes([]); ?>
-<?php if (isset($__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da)): ?>
-<?php $component = $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da; ?>
-<?php unset($__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da); ?>
-<?php endif; ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?> 
-                                                            </div>
-                                                        </div>
-                                                        <div class="kt-space-10"></div>
-                                                        <div class="progress" style="height: 6px;">
-                                                            <?php if($columnItem["statusID"] == 4): ?>
-                                                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            <?php elseif($columnItem['spentProgress'] <= $columnItem['finishProgress']): ?>
-                                                                <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo e($columnItem['finishProgress']); ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            <?php else: ?>
-                                                                <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo e($columnItem['finishProgress']); ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                <div class="progress-bar bg-dark" role="progressbar" style="width: <?php echo e($columnItem['spentProgress'] - $columnItem['finishProgress']); ?>%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            <?php endif; ?>
-                                                        </div>
-                                                        <div class="kt-space-5"></div>
-                                                        <div class="row kt-item-date">
-                                                            <div class="col-lg-6 task-start-date">
-                                                                <?php echo e($columnItem['datePlanStart']); ?>
-
-                                                            </div>
-                                                            <div class="col-lg-6 task-end-date">
-                                                                <?php echo e($columnItem['datePlanEnd']); ?>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                    <?php endif; ?>
-                                </div>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        </div>
-                        <!--end::Portlet-->
-                    </div>
-                    <div class="col-md-3">
-                        <!--begin::Portlet-->
-                        <div class="kt-portlet  kt-portlet--tabs">
-                            <div class="kt-portlet__head">
-                                <div class="kt-portlet__head-toolbar">
-                                    <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-2x nav-tabs-line-primary" role="tablist">
-                                        <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                                <i class="la flaticon-background"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="kt-portlet__head-actions">
-                                    <h5><?php echo e(__('dashboard.overdueTasks')); ?></h5>
-                                </div>
-                            </div>
-                            <?php $__currentLoopData = $taskList['overdue']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $columnClass => $columnItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <div class="column-body" data-column_id="<?php echo e($columnClass); ?>">
-                                    <?php if(isset($columnItem["ID"])): ?>
-                                        <div class="tab-content">
-                                            <div class="tab-pane active" id="kt_regular_tab_<?php echo e($columnClass); ?>">
-                                                <div class="kt-regular-task-item thin"
-                                                     data-task_id="<?php echo e($columnItem['ID']); ?>" data-show_type="regular" style="display: flex">
-                                                    <div class="task-status pt-2" style="background-color: #c97acb; display: flex; flex-direction: column; width: 10%; justify-content: space-between">
-                                                        <div style="display: flex; flex-direction: column">
-                                                            <div><?php echo($columnItem['status_icon'])?></div>
-                                                            <div><?php echo e($columnItem['priority_title']); ?></div>
-                                                            <div><?php echo e($columnItem['weight']); ?></div>
-                                                        </div>
-                                                        <div style="position: relative; margin: 0; padding: 0">
-                                                            <?php if(in_array($columnItem['ID'],$notifications)): ?>
-                                                                <i class="fa fa-envelope "></i>
-                                                                <div class="blink_mark blink_mail_icon" id="blink_mail_icon_<?php echo e($columnItem['ID']); ?>">
-                                                                </div>
-                                                            <?php endif; ?>
-                                                        </div>
-                                                    </div>
-                                                    <div style="width: 90%; padding: 10px">
-                                                        <div class="row m-2">
-                                                            <div class="col-lg-9">
-                                                                <div class="row task-name">
-                                                                    <?php echo e($columnItem['title']); ?>
-
-                                                                </div>
-                                                                <div class="row project-name">
-                                                                    
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-3">
-                                                                 <?php if (isset($component)) { $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\UserAvatar::class, ['type' => $columnItem['avatarType'],'nameTag' => $columnItem['nameTag'],'roleID' => $columnItem['roleID'],'color' => $columnItem['avatarColor']]); ?>
-<?php $component->withName('user-avatar'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes([]); ?>
-<?php if (isset($__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da)): ?>
-<?php $component = $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da; ?>
-<?php unset($__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da); ?>
-<?php endif; ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?> 
-                                                            </div>
-                                                        </div>
-                                                        <div class="kt-space-10"></div>
-                                                        <div class="progress" style="height: 6px;">
-                                                            <?php if($columnItem["statusID"] == 4): ?>
-                                                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            <?php elseif($columnItem['spentProgress'] <= $columnItem['finishProgress']): ?>
-                                                                <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo e($columnItem['finishProgress']); ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            <?php else: ?>
-                                                                <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo e($columnItem['finishProgress']); ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                <div class="progress-bar bg-dark" role="progressbar" style="width: <?php echo e($columnItem['spentProgress'] - $columnItem['finishProgress']); ?>%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            <?php endif; ?>
-                                                        </div>
-                                                        <div class="kt-space-5"></div>
-                                                        <div class="row kt-item-date">
-                                                            <div class="col-lg-6 task-start-date">
-                                                                <?php echo e($columnItem['datePlanStart']); ?>
-
-                                                            </div>
-                                                            <div class="col-lg-6 task-end-date">
-                                                                <?php echo e($columnItem['datePlanEnd']); ?>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <?php endif; ?>
-                                </div>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        </div>
-                        <!--end::Portlet-->
-                    </div>
-                    <div class="col-md-3">
-                        <!--begin::Portlet-->
-                        <div class="kt-portlet  kt-portlet--tabs">
-                            <div class="kt-portlet__head">
-                                <div class="kt-portlet__head-toolbar">
-                                    <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-2x nav-tabs-line-primary" role="tablist">
-                                        <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                                <i class="la flaticon-background"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="kt-portlet__head-actions">
-                                    <h5><?php echo e(__('dashboard.unreadMessages')); ?></h5>
-                                </div>
-                            </div>
-                            <?php $__currentLoopData = $taskList['unread']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $columnClass => $columnItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <div class="column-body" data-column_id="<?php echo e($columnClass); ?>">
-                                    <?php if(isset($columnItem["ID"])): ?>
-                                        <div class="tab-content">
-                                            <div class="tab-pane active" id="kt_regular_tab_<?php echo e($columnClass); ?>">
-                                                <div class="kt-regular-task-item thin"
-                                                     data-task_id="<?php echo e($columnItem['ID']); ?>" data-show_type="regular" style="display: flex">
-                                                    <div class="task-status pt-2" style="background-color: #c97acb; display: flex; flex-direction: column; width: 10%; justify-content: space-between">
-                                                        <div style="display: flex; flex-direction: column">
-                                                            <div><?php echo($columnItem['status_icon'])?></div>
-                                                            <div><?php echo e($columnItem['priority_title']); ?></div>
-                                                            <div><?php echo e($columnItem['weight']); ?></div>
-                                                        </div>
-                                                        <div style="position: relative; margin: 0; padding: 0">
-                                                            <?php if(in_array($columnItem['ID'],$notifications)): ?>
-                                                                <i class="fa fa-envelope "></i>
-                                                                <div class="blink_mark blink_mail_icon" id="blink_mail_icon_<?php echo e($columnItem['ID']); ?>">
-                                                                </div>
-                                                            <?php endif; ?>
-                                                        </div>
-                                                    </div>
-                                                    <div style="width: 90%; padding: 10px">
-                                                        <div class="row m-2">
-                                                            <div class="col-lg-9">
-                                                                <div class="row task-name">
-                                                                    <?php echo e($columnItem['title']); ?>
-
-                                                                </div>
-                                                                <div class="row project-name">
-                                                                    
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-3">
-                                                                 <?php if (isset($component)) { $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da = $component; } ?>
-<?php $component = $__env->getContainer()->make(App\View\Components\UserAvatar::class, ['type' => $columnItem['avatarType'],'nameTag' => $columnItem['nameTag'],'roleID' => $columnItem['roleID'],'color' => $columnItem['avatarColor']]); ?>
-<?php $component->withName('user-avatar'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes([]); ?>
-<?php if (isset($__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da)): ?>
-<?php $component = $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da; ?>
-<?php unset($__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da); ?>
-<?php endif; ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>                                                             </div>
-                                                        </div>
-                                                        <div class="kt-space-10"></div>
-                                                        <div class="progress" style="height: 6px;">
-                                                            <?php if($columnItem["statusID"] == 4): ?>
-                                                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            <?php elseif($columnItem['spentProgress'] <= $columnItem['finishProgress']): ?>
-                                                                <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo e($columnItem['finishProgress']); ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            <?php else: ?>
-                                                                <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo e($columnItem['finishProgress']); ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                <div class="progress-bar bg-dark" role="progressbar" style="width: <?php echo e($columnItem['spentProgress'] - $columnItem['finishProgress']); ?>%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            <?php endif; ?>
-                                                        </div>
-                                                        <div class="kt-space-5"></div>
-                                                        <div class="row kt-item-date">
-                                                            <div class="col-lg-6 task-start-date">
-                                                                <?php echo e($columnItem['datePlanStart']); ?>
-
-                                                            </div>
-                                                            <div class="col-lg-6 task-end-date">
-                                                                <?php echo e($columnItem['datePlanEnd']); ?>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <?php endif; ?>
-                                </div>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        </div>
-                        <!--end::Portlet-->
-                    </div>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
                 <!-- end:: Content -->
             </div>

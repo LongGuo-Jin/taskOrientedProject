@@ -93,6 +93,8 @@ class TaskController extends Controller
         $taskList = $Task->getTaskListForCalendar($request,auth()->user());
         $user = auth()->user();
         $personID = $user->id;
+        $memoNotification = auth()->user()->memoNotification;
+        $date = $request->input('date') == ""?date('Y-m-d'):date('Y-m-d',strtotime($request->input('date')));
         $status = $request->input('status') == "" ? "1": $request->input('status');
         $priority_high= $request->input('H') == "" ? "": $request->input('H');
         $priority_medium= $request->input('M') == "" ? "": $request->input('M');
@@ -117,9 +119,11 @@ class TaskController extends Controller
 
         return view('calendar', [
             'taskList' => $taskList,
+            'memoNotification' => $memoNotification,
             'calendar' => true,
             'personalID' => $personID,
             'status' => $status,
+            'date'=>$date,
             'H' => $priority_high,
             'M' => $priority_medium,
             'L' => $priority_low,
@@ -189,7 +193,7 @@ class TaskController extends Controller
                         }
                         break;
                     case "weight":
-                        if ($option) {
+                        if (!$option) {
                             if ($data[$i]["weight"] > $data[$j]["weight"]) {
                                 $temp = $data[$i];
                                 $data[$i] = $data[$j];
@@ -484,7 +488,6 @@ class TaskController extends Controller
         foreach ($taskList['list'] as $index => $task) {
             $taskList['list'][$index] = $this->task_filter($task,auth()->user());
         }
-//        dd($taskList);
         return view('task/taskCard',
             [
                 'totalPersonList' => $totalPersonList,
@@ -558,10 +561,9 @@ class TaskController extends Controller
 
         $Task = new Task();
 
-
         try {
             DB::beginTransaction();
-
+            $taskStatus = new TaskStatus();
             $ret = $Task->addTask($taskData);
             $taskID = $Task->getLastInsertId();
             if($taskData['tags'] != "") {
@@ -625,7 +627,7 @@ class TaskController extends Controller
                 'eventDate' => date("d.m.Y h:i"),
                 'personID' => $personID,
                 'taskID' => $taskID,
-                'event' => "Created."
+                'event' => "Created: ".$taskStatus->getStatusName($taskData["statusID"])
             );
             $ret = $History->addHistory($historyData);
 

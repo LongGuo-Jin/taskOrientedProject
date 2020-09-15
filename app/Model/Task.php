@@ -183,7 +183,16 @@ class Task extends Model
             if (!$this->isRootLevel($taskItem['ID'],auth()->user())) {
                 continue;
             }
-
+            //add overdue mark
+            $now = strtotime('today');
+            $datePlanEnd = strtotime($taskItem['datePlanEnd']);
+            $taskStatus = $taskItem['statusID'];
+            if ($taskStatus != 4 && $taskStatus!= 5 && $now >   $datePlanEnd){
+                $taskItem['overdue'] = true;
+            } else {
+                $taskItem['overdue'] = false;
+            }
+            //
             $history = History::where('taskID',$taskItem['ID'])->orderBy('id', 'asc')->get()->toArray();
             $length = count($history);
             $i = 0;
@@ -302,17 +311,19 @@ class Task extends Model
 
             $dateStart = $taskItem["creatAt"];
             $datePlanStart = strtotime($dateStart);
+            $datediff = $now - $datePlanStart;
             if ($taskStatus != 4 && $taskStatus!= 5 && $now >   $datePlanEnd){
                 array_push($overdue_tasks , $taskItem);
+            } else if (abs(round($datediff / (60 * 60 * 24))) < 5.0 && $taskStatus != 4 && $taskStatus!= 5) {
+                array_push($new_tasks , $taskItem);
             }
+
             if ($taskStatus != 4 && $taskStatus!= 5 && $now <=   $datePlanEnd){
                 array_push($active_tasks , $taskItem);
             }
-            $datediff = $now - $datePlanStart;
-            if (abs(round($datediff / (60 * 60 * 24))) < 5.0 && $taskStatus != 4 && $taskStatus!= 5) {
-                array_push($new_tasks , $taskItem);
-            }
+
         }
+
         $retArr['new'] = $new_tasks;
         $retArr['active'] = $active_tasks;
         $retArr['overdue'] = $overdue_tasks;

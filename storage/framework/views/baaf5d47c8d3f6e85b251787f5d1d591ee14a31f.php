@@ -121,16 +121,11 @@
                                                                     <?php endif; ?>
                                                                 </div>
                                                             </div>
-                                                            <div style="width: 90%; padding: 10px">
-                                                                <div class="row m-2">
-                                                                    <div class="col-lg-9">
-                                                                        <div class="row task-name">
-                                                                            <?php echo e($taskItem['title']); ?>
+                                                            <div style="width: 90%; padding: 10px; <?php if ($taskItem['overdue']) echo "background: #fff2f2";?>">
+                                                                <div class="row">
+                                                                    <div class="col-lg-9 task-name">
+                                                                        <?php echo e($taskItem['title']); ?>
 
-                                                                        </div>
-                                                                        <div class="row project-name">
-
-                                                                        </div>
                                                                     </div>
                                                                     <div class="col-lg-3">
                                                                          <?php if (isset($component)) { $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da = $component; } ?>
@@ -147,8 +142,8 @@
 <?php endif; ?> 
                                                                     </div>
                                                                 </div>
-                                                                <div class="row m-2">
-                                                                    <div style="display: flex; flex-wrap: wrap;"><?php
+                                                                <div class="row mt-2">
+                                                                    <div class="col-lg-12" style="display: flex; flex-wrap: wrap;"><?php
 
                                                                         foreach($taskTags as $taskTag) {
                                                                         ?>
@@ -252,15 +247,13 @@
                                                                     <?php endif; ?>
                                                                 </div>
                                                             </div>
-                                                            <div class="extand-main-content" style=" width: 90%">
+                                                            <div class="extand-main-content" style=" width: 90%; <?php if ($taskItem['overdue']) echo "background: #fff2f2";?>">
                                                                 <div class="kt-extend-part">
-                                                                    <div class="row ml-2" >
-                                                                        <div class="col-lg-9 col-lg-offset-1">
-                                                                            <div class="row task-name kt-font-task-warning">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-9">
+                                                                            <div class="task-name kt-font-task-warning">
                                                                                 <?php echo e($taskItem['title']); ?>
 
-                                                                            </div>
-                                                                            <div class="row project-name">
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-lg-3 person-tag">
@@ -279,8 +272,8 @@
                                                                        </div>
                                                                     </div>
                                                                     <div class="kt-space-10"></div>
-                                                                    <div class="row m-2">
-                                                                        <div style="display: flex; flex-wrap: wrap;"><?php
+                                                                    <div class="row">
+                                                                        <div class="col-lg-12" style="display: flex; flex-wrap: wrap;"><?php
                                                                             foreach($taskTags as $taskTag) {
                                                                             ?>
                                                                             <span class="<?php if($taskTag['tagtype']==1): ?> system-span <?php elseif($taskTag['tagtype']==2): ?> organization-span <?php elseif($taskTag['tagtype']==3): ?> personal-span <?php endif; ?>" style="<?php if($taskTag['tagtype']!=3 ): ?>background-color:<?php echo e($taskTag['color']); ?> <?php else: ?> border-color:<?php echo e($taskTag['color']); ?> <?php endif; ?>">
@@ -292,6 +285,7 @@
                                                                             ?>
                                                                         </div>
                                                                     </div>
+                                                                    <div class="kt-space-10"></div>
                                                                     <div class="progress" style="height: 6px;">
                                                                         <?php if($taskItem["statusID"] == 4): ?>
                                                                             <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
@@ -374,8 +368,8 @@
                                                             <div class="task-status " style="padding-top: 10px; width: 10%;background-color: <?php echo e($color); ?>;">
                                                                 <?php echo($taskItem['status_icon'])?>
                                                             </div>
-                                                            <div style="width: 90%">
-                                                            <div class="row ml-2">
+                                                            <div style="width: 90%; padding: 10px;  <?php if ($taskItem['overdue']) echo "background: #fff2f2";?>">
+                                                            <div class="row">
                                                                 <div class="col-lg-9 final-sub-task-name">
                                                                     <?php echo e($taskItem['title']); ?>
 

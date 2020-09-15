@@ -7,13 +7,95 @@
     <link rel="stylesheet" href="<?php echo e(asset('public/assets/css/task/taskcard.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('public/assets/css/calendar/vanilla-calendar.css')); ?>">
     <style>
-        .radio_span {
-            font-size: 14px;
-        }
-        .check-span {
+
+        .checked-title {
             font-size: 14px;
             font-weight: bold;
         }
+
+        .main {
+            display: block;
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* Hide the default checkbox */
+        input[type=checkbox] {
+            visibility: hidden;
+        }
+
+        .check-title {
+            font-size: 14px;
+            /*background-color: #9d88bf;*/
+        }
+        /* Creating a custom checkbox
+        based on demand */
+        .geekmark {
+            position: absolute;
+            top: 3px;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: rgba(42, 25, 14, 0.38);
+        }
+
+        /* Specify the background color to be
+        shown when hovering over checkbox */
+        .main:hover input ~ .geekmark {
+            background-color: #346c80;
+        }
+
+        /* Specify the background color to be
+        shown when checkbox is active */
+        .main input:active ~ .geekmark {
+            background-color: red;
+        }
+
+        /* Specify the background color to be
+        shown when checkbox is checked */
+
+        .main input:checked ~ .check-title{
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .main input:checked ~ .geekmark {
+            background-color: #9d88bf;
+        }
+
+        /* Checkmark to be shown in checkbox */
+        /* It is not be shown when not checked */
+        .geekmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        /* Display checkmark when checked */
+        .main input:checked ~ .geekmark:after {
+            display: block;
+        }
+
+
+        /* Styling the checkmark using webkit */
+        /* Rotated the rectangle by 45 degree and
+        showing only two border to make it look
+        like a tickmark */
+        .main .geekmark:after {
+            left: 7px;
+            bottom: 5px;
+            width: 6px;
+            height: 12px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+
     </style>
 <?php $__env->stopSection(); ?>
 
@@ -96,7 +178,7 @@
                                         <div class="kt-scroll " data-scroll="true" >
                                             <div class="tab-content">
                                                 <div class="tab-pane active" id="kt_regular_tab_<?php echo e($index); ?>">
-                                                    <?php $__currentLoopData = $taskListItem; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $columnItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <?php $__currentLoopData = $taskListItem; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $columnItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                         <div class="column-body">
                                                             <?php if(isset($columnItem["ID"])): ?>
                                                                 <?php $tagTask =new \App\TagTask();
@@ -159,16 +241,11 @@
                                                                             <?php endif; ?>
                                                                         </div>
                                                                     </div>
-                                                                    <div style="width: 90%; padding: 10px">
-                                                                        <div class="row m-2">
-                                                                            <div class="col-lg-9">
-                                                                                <div class="row task-name">
-                                                                                    <?php echo e($columnItem['title']); ?>
+                                                                    <div style="width: 90%; padding: 10px;  <?php if ($columnItem['overdue']) echo "background: #fff2f2";?>">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-9 task-name">
+                                                                                <?php echo e($columnItem['title']); ?>
 
-                                                                                </div>
-                                                                                <div class="row project-name">
-                                                                                    
-                                                                                </div>
                                                                             </div>
                                                                             <div class="col-lg-3">
                                                                                  <?php if (isset($component)) { $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da = $component; } ?>
@@ -185,8 +262,8 @@
 <?php endif; ?> 
                                                                             </div>
                                                                         </div>
-                                                                        <div class="row m-2">
-                                                                            <div style="display: flex; flex-wrap: wrap;"><?php
+                                                                        <div class="row mt-2">
+                                                                            <div class="col-lg-12" style="display: flex; flex-wrap: wrap;"><?php
 
                                                                                 foreach($taskTags as $taskTag) {
                                                                                 ?>
@@ -291,19 +368,17 @@
                                                                             <?php endif; ?>
                                                                         </div>
                                                                     </div>
-                                                                    <div style="width: 90%; padding: 10px">
-                                                                        <div class="row m-2">
-                                                                            <div class="col-lg-9">
-                                                                                <div class="row task-name">
-                                                                                    <?php echo e($columnItem['title']); ?>
+                                                                    <div class="extand-main-content" style=" width: 90%;  <?php if ($columnItem['overdue']) echo "background: #fff2f2";?>">
+                                                                        <div class="kt-extend-part">
+                                                                            <div class="row">
+                                                                                <div class="col-lg-9 task-name">
+                                                                                    <div class=" kt-font-task-warning">
+                                                                                        <?php echo e($columnItem['title']); ?>
 
+                                                                                    </div>
                                                                                 </div>
-                                                                                <div class="row project-name">
-                                                                                    
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-lg-3">
-                                                                                 <?php if (isset($component)) { $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da = $component; } ?>
+                                                                                <div class="col-lg-3 person-tag">
+                                                                                     <?php if (isset($component)) { $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\UserAvatar::class, ['type' => $columnItem['avatarType'],'nameTag' => $columnItem['nameTag'],'roleID' => $columnItem['roleID'],'color' => $columnItem['avatarColor']]); ?>
 <?php $component->withName('user-avatar'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -315,42 +390,42 @@
 <?php endif; ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?> 
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="row m-2">
-                                                                            <div style="display: flex; flex-wrap: wrap;"><?php
-
-                                                                                foreach($taskTags as $taskTag) {
-                                                                                ?>
-                                                                                <span class="<?php if($taskTag['tagtype']==1): ?> system-span <?php elseif($taskTag['tagtype']==2): ?> organization-span <?php elseif($taskTag['tagtype']==3): ?> personal-span <?php endif; ?>" style="<?php if($taskTag['tagtype']!=3 ): ?>background-color:<?php echo e($taskTag['color']); ?> <?php else: ?> border-color:<?php echo e($taskTag['color']); ?> <?php endif; ?>">
+                                                                            <div class="kt-space-10"></div>
+                                                                            <div class="row">
+                                                                                <div class="col-lg-12" style="display: flex; flex-wrap: wrap;"><?php
+                                                                                    foreach($taskTags as $taskTag) {
+                                                                                    ?>
+                                                                                    <span class="<?php if($taskTag['tagtype']==1): ?> system-span <?php elseif($taskTag['tagtype']==2): ?> organization-span <?php elseif($taskTag['tagtype']==3): ?> personal-span <?php endif; ?>" style="<?php if($taskTag['tagtype']!=3 ): ?>background-color:<?php echo e($taskTag['color']); ?> <?php else: ?> border-color:<?php echo e($taskTag['color']); ?> <?php endif; ?>">
                                                                            <?php echo e($taskTag['name']); ?>
 
                                                                         </span> &nbsp;
-                                                                                <?php
-                                                                                }
-                                                                                ?>
+                                                                                    <?php
+                                                                                    }
+                                                                                    ?>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="kt-space-10"></div>
-                                                                        <div class="progress" style="height: 6px;">
-                                                                            <?php if($columnItem["statusID"] == 4): ?>
-                                                                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                            <?php elseif($columnItem['spentProgress'] <= $columnItem['finishProgress']): ?>
-                                                                                <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo e($columnItem['finishProgress']); ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                            <?php else: ?>
-                                                                                <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo e($columnItem['finishProgress']); ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                                <div class="progress-bar bg-dark" role="progressbar" style="width: <?php echo e($columnItem['spentProgress'] - $columnItem['finishProgress']); ?>%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                            <?php endif; ?>
-                                                                        </div>
-                                                                        <div class="kt-space-5"></div>
-                                                                        <div class="row kt-item-date">
-                                                                            <div class="col-lg-6 task-start-date">
-                                                                                <?php echo e($columnItem['datePlanStart']); ?>
-
+                                                                            <div class="kt-space-10"></div>
+                                                                            <div class="progress" style="height: 6px;">
+                                                                                <?php if($columnItem["statusID"] == 4): ?>
+                                                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                                <?php elseif($columnItem['spentProgress'] <= $columnItem['finishProgress']): ?>
+                                                                                    <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo e($columnItem['finishProgress']); ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                                <?php else: ?>
+                                                                                    <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo e($columnItem['finishProgress']); ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                                    <div class="progress-bar bg-dark" role="progressbar" style="width: <?php echo e($columnItem['spentProgress'] - $columnItem['finishProgress']); ?>%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                                <?php endif; ?>
                                                                             </div>
-                                                                            <div class="col-lg-6 task-end-date">
-                                                                                <?php echo e($columnItem['datePlanEnd']); ?>
+                                                                            <div class="kt-space-5"></div>
+                                                                            <div class="row kt-item-date">
+                                                                                <div class="col-lg-6 task-start-date">
+                                                                                    <?php echo e($columnItem['datePlanStart']); ?>
 
+                                                                                </div>
+                                                                                <div class="col-lg-6 task-end-date">
+                                                                                    <p style="float: right"><?php echo e($columnItem['datePlanEnd']); ?></p>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                         <div class="extand-below-content">
@@ -420,8 +495,8 @@
                                                                         <div style="position: relative; margin: 0; padding: 0">
                                                                         </div>
                                                                     </div>
-                                                                    <div style="width: 90%;">
-                                                                        <div class="row ml-2">
+                                                                    <div style="width: 90%; padding: 10px;  <?php if ($columnItem['overdue']) echo "background: #fff2f2";?>">
+                                                                        <div class="row">
                                                                             <div class="col-lg-9 final-sub-task-name">
                                                                                 <?php echo e($columnItem['title']); ?>
 
@@ -485,20 +560,31 @@
                                             
                                             
                                             
-                                            <div class="ml-3 mt-3">
-                                                <h6>Show  Priority</h6>
-                                                <div>
-                                                    <input type="checkbox"  class="mr-3" id="check_high"> <span class="check-span mr-2">H</span> <span class="radio_span"><?php echo e(__('calendar.high')); ?></span>
-                                                </div>
-                                                <div>
-                                                    <input type="checkbox" class="mr-3" id="check_medium"> <span class='check-span mr-2'>M</span><span class="radio_span"><?php echo e(__('calendar.medium')); ?></span>
-                                                </div>
-                                                <div>
-                                                    <input type="checkbox" class="mr-3" id="check_low"> <span class='check-span mr-2'>L</span><span class="radio_span"><?php echo e(__('calendar.low')); ?></span>
-                                                </div>
-                                                <div>
-                                                    <input type="checkbox" class="mr-3" id="check_ness"> <span class='check-span mr-2'>O</span><span class="radio_span"><?php echo e(__('calendar.ness')); ?></span>
-                                                </div>
+                                            <div class="ml-3 mt-4">
+                                                <h5 class="mb-3">Show  Priority</h5>
+                                                <label class="main">
+                                                    <input type="checkbox" id="check_high">
+                                                    H <span class="check-title"><?php echo e(__('calendar.high')); ?></span>
+                                                    <span class="geekmark"></span>
+                                                </label>
+
+                                                <label class="main">
+                                                    <input type="checkbox" id="check_medium">
+                                                    M <span class="check-title"><?php echo e(__('calendar.medium')); ?></span>
+                                                    <span class="geekmark"></span>
+                                                </label>
+
+                                                <label class="main">
+                                                    <input type="checkbox" id="check_low">
+                                                    L <span class="check-title"><?php echo e(__('calendar.low')); ?></span>
+                                                    <span class="geekmark"></span>
+                                                </label>
+                                                <label class="main">
+                                                    <input type="checkbox" id="check_ness">
+                                                    O <span class="check-title"><?php echo e(__('calendar.ness')); ?></span>
+                                                    <span class="geekmark"></span>
+                                                </label>
+
                                             </div>
                                         </div>
                                     </div>

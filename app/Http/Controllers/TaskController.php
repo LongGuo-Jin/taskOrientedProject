@@ -90,8 +90,8 @@ class TaskController extends Controller
 
     public function CalendarView(Request $request) {
         $Task = new Task();
-        $taskList = $Task->getTaskListForCalendar($request,auth()->user());
         $user = auth()->user();
+        $taskList = $Task->getTaskListForCalendar($request,$user);
         $personID = $user->id;
         $memoNotification = auth()->user()->memoNotification;
         $date = $request->input('date') == ""?date('Y-m-d'):date('Y-m-d',strtotime($request->input('date')));
@@ -137,6 +137,16 @@ class TaskController extends Controller
         $filter = Filter::where('user_id',$user_id)->get()->first();
         $new_data = [];
         foreach($data as $item) {
+            //add overdue mark;
+            $now = strtotime('today');
+            $datePlanEnd = strtotime($item['datePlanEnd']);
+            $taskStatus = $item['statusID'];
+            if ($taskStatus != 4 && $taskStatus!= 5 && $now >   $datePlanEnd){
+                $item['overdue'] = true;
+            } else {
+                $item['overdue'] = false;
+            }
+            //
             if ($filter['status'][$item['statusID']-1]=='1' && $filter['priority'][$item['order']]=='1'
                 && $filter['weight'][9 - $item['weight']] == '1') {
                 if ($filter['date'][2] != '1') {
@@ -488,6 +498,7 @@ class TaskController extends Controller
         foreach ($taskList['list'] as $index => $task) {
             $taskList['list'][$index] = $this->task_filter($task,auth()->user());
         }
+
         return view('task/taskCard',
             [
                 'totalPersonList' => $totalPersonList,

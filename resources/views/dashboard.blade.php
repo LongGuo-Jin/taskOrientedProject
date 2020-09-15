@@ -121,54 +121,49 @@
                                                                                 @endif
                                                                             </div>
                                                                         </div>
-                                                                        <div style="width: 90%; padding: 10px">
-                                                                            <div class="row m-2">
-                                                                                <div class="col-lg-9">
-                                                                                    <div class="row task-name">
-                                                                                        {{$columnItem['title']}}
-                                                                                    </div>
-                                                                                    <div class="row project-name">
-                                                                                        {{--{{$columnItem['TagNames']}}--}}
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-lg-3">
-                                                                                    <x-user-avatar :type="$columnItem['avatarType']" :nameTag="$columnItem['nameTag']" :roleID="$columnItem['roleID']" :color="$columnItem['avatarColor']" />
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="row m-2">
-                                                                                <div style="display: flex; flex-wrap: wrap;"><?php
-                                                                                    foreach($taskTags as $taskTag) {
-                                                                                    ?>
-                                                                                    <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="@if ($taskTag['tagtype']!=3 )background-color:{{$taskTag['color']}} @else border-color:{{$taskTag['color']}} @endif">
+                                                                    <div style="width: 90%; padding: 10px; <?php if ($columnItem['overdue']) echo "background: #fff2f2";?>">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-9 task-name">
+                                                                            {{$columnItem['title']}}
+                                                                        </div>
+                                                                        <div class="col-lg-3">
+                                                                            <x-user-avatar :type="$columnItem['avatarType']" :nameTag="$columnItem['nameTag']" :roleID="$columnItem['roleID']" :color="$columnItem['avatarColor']" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mt-2">
+                                                                        <div class="col-lg-12" style="display: flex; flex-wrap: wrap;"><?php
+
+                                                                            foreach($taskTags as $taskTag) {
+                                                                            ?>
+                                                                            <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="@if ($taskTag['tagtype']!=3 )background-color:{{$taskTag['color']}} @else border-color:{{$taskTag['color']}} @endif">
                                                                            {{$taskTag['name']}}
                                                                         </span> &nbsp;
-                                                                                    <?php
-                                                                                    }
-                                                                                    ?>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="kt-space-10"></div>
-                                                                            <div class="progress" style="height: 6px;">
-                                                                                @if($columnItem["statusID"] == 4)
-                                                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                                @elseif($columnItem['spentProgress'] <= $columnItem['finishProgress'])
-                                                                                    <div class="progress-bar bg-success" role="progressbar" style="width: {{$columnItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                                @else
-                                                                                    <div class="progress-bar bg-danger" role="progressbar" style="width: {{$columnItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                                    <div class="progress-bar bg-dark" role="progressbar" style="width: {{$columnItem['spentProgress'] - $columnItem['finishProgress']}}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                                @endif
-                                                                            </div>
-                                                                            <div class="kt-space-5"></div>
-                                                                            <div class="row kt-item-date">
-                                                                                <div class="col-lg-6 task-start-date">
-                                                                                    {{$columnItem['datePlanStart']}}
-                                                                                </div>
-                                                                                <div class="col-lg-6 task-end-date">
-                                                                                    {{$columnItem['datePlanEnd']}}
-                                                                                </div>
-                                                                            </div>
+                                                                            <?php
+                                                                            }
+                                                                            ?>
                                                                         </div>
+                                                                    </div>
+                                                                    <div class="kt-space-10"></div>
+                                                                    <div class="progress" style="height: 6px;">
+                                                                        @if($columnItem["statusID"] == 4)
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        @elseif($columnItem['spentProgress'] <= $columnItem['finishProgress'])
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: {{$columnItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        @else
+                                                                            <div class="progress-bar bg-danger" role="progressbar" style="width: {{$columnItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            <div class="progress-bar bg-dark" role="progressbar" style="width: {{$columnItem['spentProgress'] - $columnItem['finishProgress']}}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        @endif
+                                                                    </div>
+                                                                    <div class="kt-space-5"></div>
+                                                                    <div class="row kt-item-date">
+                                                                        <div class="col-lg-6 task-start-date">
+                                                                            {{$columnItem['datePlanStart']}}
+                                                                        </div>
+                                                                        <div class="col-lg-6 task-end-date">
+                                                                            {{$columnItem['datePlanEnd']}}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                                     </div>
                                                         @endif
                                                     </div>
@@ -237,51 +232,50 @@
                                                                         @endif
                                                                     </div>
                                                                 </div>
-                                                                <div style="width: 90%; padding: 10px">
-                                                                    <div class="row m-2">
-                                                                        <div class="col-lg-9">
-                                                                            <div class="row task-name">
-                                                                                {{$columnItem['title']}}
+                                                                <div class="extand-main-content" style="width: 90%; <?php if ($columnItem['overdue']) echo "background: #fff2f2";?>">
+                                                                    <div class="kt-extend-part">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-9 task-name ">
+                                                                                <div class="kt-font-task-warning">
+                                                                                    {{$columnItem['title']}}
+                                                                                </div>
                                                                             </div>
-                                                                            <div class="row project-name">
-                                                                                {{--{{$columnItem['TagNames']}}--}}
+                                                                            <div class="col-lg-3 person-tag">
+                                                                                <x-user-avatar :type="$columnItem['avatarType']" :nameTag="$columnItem['nameTag']" :roleID="$columnItem['roleID']" :color="$columnItem['avatarColor']" />
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-lg-3">
-                                                                            <x-user-avatar :type="$columnItem['avatarType']" :nameTag="$columnItem['nameTag']" :roleID="$columnItem['roleID']" :color="$columnItem['avatarColor']" />
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row m-2">
-                                                                        <div style="display: flex; flex-wrap: wrap;"><?php
-                                                                            foreach($taskTags as $taskTag) {
-                                                                            ?>
-                                                                            <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="@if ($taskTag['tagtype']!=3 )background-color:{{$taskTag['color']}} @else border-color:{{$taskTag['color']}} @endif">
+                                                                        <div class="kt-space-10"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-lg-12" style="display: flex; flex-wrap: wrap;"><?php
+                                                                                foreach($taskTags as $taskTag) {
+                                                                                ?>
+                                                                                <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="@if ($taskTag['tagtype']!=3 )background-color:{{$taskTag['color']}} @else border-color:{{$taskTag['color']}} @endif">
                                                                            {{$taskTag['name']}}
                                                                         </span> &nbsp;
-                                                                            <?php
-                                                                            }
-                                                                            ?>
+                                                                                <?php
+                                                                                }
+                                                                                ?>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-
-                                                                    <div class="kt-space-10"></div>
-                                                                    <div class="progress" style="height: 6px;">
-                                                                        @if($columnItem["statusID"] == 4)
-                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                        @elseif($columnItem['spentProgress'] <= $columnItem['finishProgress'])
-                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: {{$columnItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                        @else
-                                                                            <div class="progress-bar bg-danger" role="progressbar" style="width: {{$columnItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                            <div class="progress-bar bg-dark" role="progressbar" style="width: {{$columnItem['spentProgress'] - $columnItem['finishProgress']}}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                        @endif
-                                                                    </div>
-                                                                    <div class="kt-space-5"></div>
-                                                                    <div class="row kt-item-date">
-                                                                        <div class="col-lg-6 task-start-date">
-                                                                            {{$columnItem['datePlanStart']}}
+                                                                        <div class="kt-space-10"></div>
+                                                                        <div class="progress" style="height: 6px;">
+                                                                            @if($columnItem["statusID"] == 4)
+                                                                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            @elseif($columnItem['spentProgress'] <= $columnItem['finishProgress'])
+                                                                                <div class="progress-bar bg-success" role="progressbar" style="width: {{$columnItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            @else
+                                                                                <div class="progress-bar bg-danger" role="progressbar" style="width: {{$columnItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                                <div class="progress-bar bg-dark" role="progressbar" style="width: {{$columnItem['spentProgress'] - $columnItem['finishProgress']}}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            @endif
                                                                         </div>
-                                                                        <div class="col-lg-6 task-end-date">
-                                                                            {{$columnItem['datePlanEnd']}}
+                                                                        <div class="kt-space-5"></div>
+                                                                        <div class="row kt-item-date">
+                                                                            <div class="col-lg-6 task-start-date">
+                                                                                {{$columnItem['datePlanStart']}}
+                                                                            </div>
+                                                                            <div class="col-lg-6 task-end-date">
+                                                                                <p style="float: right">{{$columnItem['datePlanEnd']}}</p>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="extand-below-content">
@@ -349,8 +343,8 @@
                                                                     <div style="position: relative; margin: 0; padding: 0">
                                                                     </div>
                                                                 </div>
-                                                                <div style="width: 90%;">
-                                                                    <div class="row ml-2">
+                                                                <div style="width: 90%; padding: 10px; <?php if ($columnItem['overdue']) echo "background: #fff2f2";?>">
+                                                                    <div class="row">
                                                                         <div class="col-lg-9 final-sub-task-name">
                                                                             {{$columnItem['title']}}
                                                                         </div>

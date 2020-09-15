@@ -117,22 +117,17 @@
                                                                     @endif
                                                                 </div>
                                                             </div>
-                                                            <div style="width: 90%; padding: 10px">
-                                                                <div class="row m-2">
-                                                                    <div class="col-lg-9">
-                                                                        <div class="row task-name">
-                                                                            {{$taskItem['title']}}
-                                                                        </div>
-                                                                        <div class="row project-name">
-
-                                                                        </div>
+                                                            <div style="width: 90%; padding: 10px; <?php if ($taskItem['overdue']) echo "background: #fff2f2";?>">
+                                                                <div class="row">
+                                                                    <div class="col-lg-9 task-name">
+                                                                        {{$taskItem['title']}}
                                                                     </div>
                                                                     <div class="col-lg-3">
                                                                         <x-user-avatar :type="$taskItem['avatarType']" :nameTag="$taskItem['nameTag']" :roleID="$taskItem['roleID']" :color="$taskItem['avatarColor']" />
                                                                     </div>
                                                                 </div>
-                                                                <div class="row m-2">
-                                                                    <div style="display: flex; flex-wrap: wrap;"><?php
+                                                                <div class="row mt-2">
+                                                                    <div class="col-lg-12" style="display: flex; flex-wrap: wrap;"><?php
 
                                                                         foreach($taskTags as $taskTag) {
                                                                         ?>
@@ -233,14 +228,12 @@
                                                                     @endif
                                                                 </div>
                                                             </div>
-                                                            <div class="extand-main-content" style=" width: 90%">
+                                                            <div class="extand-main-content" style=" width: 90%; <?php if ($taskItem['overdue']) echo "background: #fff2f2";?>">
                                                                 <div class="kt-extend-part">
-                                                                    <div class="row ml-2" >
-                                                                        <div class="col-lg-9 col-lg-offset-1">
-                                                                            <div class="row task-name kt-font-task-warning">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-9">
+                                                                            <div class="task-name kt-font-task-warning">
                                                                                 {{$taskItem['title']}}
-                                                                            </div>
-                                                                            <div class="row project-name">
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-lg-3 person-tag">
@@ -248,8 +241,8 @@
                                                                        </div>
                                                                     </div>
                                                                     <div class="kt-space-10"></div>
-                                                                    <div class="row m-2">
-                                                                        <div style="display: flex; flex-wrap: wrap;"><?php
+                                                                    <div class="row">
+                                                                        <div class="col-lg-12" style="display: flex; flex-wrap: wrap;"><?php
                                                                             foreach($taskTags as $taskTag) {
                                                                             ?>
                                                                             <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="@if ($taskTag['tagtype']!=3 )background-color:{{$taskTag['color']}} @else border-color:{{$taskTag['color']}} @endif">
@@ -260,6 +253,7 @@
                                                                             ?>
                                                                         </div>
                                                                     </div>
+                                                                    <div class="kt-space-10"></div>
                                                                     <div class="progress" style="height: 6px;">
                                                                         @if($taskItem["statusID"] == 4)
                                                                             <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
@@ -340,8 +334,8 @@
                                                             <div class="task-status " style="padding-top: 10px; width: 10%;background-color: {{$color}};">
                                                                 <?php echo($taskItem['status_icon'])?>
                                                             </div>
-                                                            <div style="width: 90%">
-                                                            <div class="row ml-2">
+                                                            <div style="width: 90%; padding: 10px;  <?php if ($taskItem['overdue']) echo "background: #fff2f2";?>">
+                                                            <div class="row">
                                                                 <div class="col-lg-9 final-sub-task-name">
                                                                     {{$taskItem['title']}}
                                                                 </div>

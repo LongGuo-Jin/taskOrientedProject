@@ -23,7 +23,8 @@ div.task-name {
     display: block;
     text-overflow: ellipsis;
     white-space: nowrap;
-    overflow: hidden
+    overflow: hidden;
+    align-self: center;
 }
 div.final-sub-task-name {
     font-size: 10pt;
@@ -137,10 +138,10 @@ div.kt-extended-task-item {
 div.kt-extend-part {
     padding: 10px;
     border-radius: 3px;
-    margin: 1.6rem 0.6rem;
+    /*margin: 1.6rem 0.6rem;*/
     /*-webkit-box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.1);*/
     cursor: pointer;
-    background: white;
+    /*background: white;*/
 }
 
 div.kt-extended-task-item div.kt-extend-part {
@@ -156,7 +157,7 @@ div.extand-main-content {
 }
 
 div.extand-below-content {
-    padding: 10px 0 10px 20px;
+    padding: 10px 0 10px 10px;
 }
 
 .triangle {
@@ -227,7 +228,7 @@ div.task-extand-description-right {
 }
 
 div.kt-extended-task-item:hover .kt-extend-part, div.kt-extended-task-item:hover{
-    background: #e8e8e8;
+    /*background: #e8e8e8;*/
     transition: all 0.5s ease;
 }
 
@@ -590,14 +591,14 @@ div.detail-statistics-content {
 .system-span {
     padding: 5px;
     color: black !important;
-    margin: 2px;
+    /*margin: 2px;*/
 }
 
 .organization-span {
     padding: 5px;
     border-radius: 10px;
     color: black !important;
-    margin: 2px;
+    /*margin: 2px;*/
 }
 
 .personal-span {
@@ -605,7 +606,7 @@ div.detail-statistics-content {
     border-radius: 10px;
     border: solid 2px;
     color: black !important;
-    margin: 2px;
+    /*margin: 2px;*/
 }
 
 .list-card .color-picker {

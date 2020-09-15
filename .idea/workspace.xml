@@ -3,12 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="cd7486bd-9e59-4686-b319-e85da83e8942" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Model/Task.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Model/Task.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/calendar/vanilla-calendar.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/calendar/vanilla-calendar.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/assets/css/task/taskcard.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/task/taskcard.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/calendar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/calendar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/P0uVliKDzfaDtBB2goMO8QIz8UiC5cGxtcAZOK43" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/Z8UAWOzrrJFATnFe6OrrAnRRHAeCeCfksEnIM2xB" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/dqxkl3sPevozXTJomnH54yLhTkwwMBYgbtzlZLaV" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/task/taskCard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/task/taskCard.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/Yp9o8dvOGWi4n8SgCDggcgxWU9FR0XbJB4RDYfom" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/baaf5d47c8d3f6e85b251787f5d1d591ee14a31f.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/baaf5d47c8d3f6e85b251787f5d1d591ee14a31f.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/c9c9759b8bba51d79a6f19aef3fc2f2bb842162e.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/c9c9759b8bba51d79a6f19aef3fc2f2bb842162e.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/views/ca739ddf99bf265f85bbb588a695b1aa98c31114.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/ca739ddf99bf265f85bbb588a695b1aa98c31114.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/logs/laravel.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel.log" afterDir="false" />
     </list>
@@ -42,19 +46,19 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="css" value="19" />
+          <entry key="css" value="20" />
           <entry key="env" value="3" />
           <entry key="html" value="2" />
           <entry key="js" value="10" />
           <entry key="log" value="11" />
-          <entry key="php" value="156" />
+          <entry key="php" value="157" />
           <entry key="scss" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Blade" value="62" />
-          <entry key="CSS" value="19" />
+          <entry key="Blade" value="63" />
+          <entry key="CSS" value="20" />
           <entry key="HTML" value="2" />
           <entry key="JavaScript" value="10" />
           <entry key="PHP" value="94" />
@@ -64,21 +68,21 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="css" value="308" />
+          <entry key="css" value="362" />
           <entry key="env" value="3" />
           <entry key="html" value="51" />
           <entry key="js" value="1374" />
           <entry key="log" value="9" />
-          <entry key="php" value="17073" />
+          <entry key="php" value="17811" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Blade" value="5414" />
-          <entry key="CSS" value="308" />
+          <entry key="Blade" value="5952" />
+          <entry key="CSS" value="362" />
           <entry key="HTML" value="51" />
           <entry key="JavaScript" value="1374" />
-          <entry key="PHP" value="11659" />
+          <entry key="PHP" value="11859" />
           <entry key="PLAIN_TEXT" value="12" />
         </counts>
       </usages-collector>
@@ -91,11 +95,53 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/calendar.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="836">
-              <caret line="38" column="79" selection-end-line="615" />
+            <state relative-caret-position="283">
+              <caret line="56" column="45" lean-forward="true" selection-start-line="56" selection-start-column="45" selection-end-line="56" selection-end-column="45" />
+              <folding>
+                <element signature="e#10405#10542#0#HTML" expanded="true" />
+                <element signature="e#12024#12121#0#HTML" expanded="true" />
+                <element signature="e#13637#13676#0#HTML" expanded="true" />
+                <element signature="e#23334#23417#0#HTML" expanded="true" />
+                <element signature="e#24898#24937#0#HTML" expanded="true" />
+                <element signature="e#26514#26533#0#HTML" expanded="true" />
+                <element signature="e#26869#26916#0#HTML" expanded="true" />
+                <element signature="e#27190#27237#0#HTML" expanded="true" />
+                <element signature="e#27431#27507#0#HTML" expanded="true" />
+                <element signature="e#28409#28429#0#HTML" expanded="true" />
+                <element signature="e#34821#34918#0#HTML" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/assets/css/calendar/vanilla-calendar.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="132">
+              <caret line="6" column="49" selection-start-line="6" selection-start-column="43" selection-end-line="6" selection-end-column="49" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/dashboard.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="397">
+              <caret line="345" column="162" selection-start-line="345" selection-start-column="162" selection-end-line="345" selection-end-column="162" />
+              <folding>
+                <element signature="e#9627#9725#0#HTML" expanded="true" />
+                <element signature="e#10926#10965#0#HTML" expanded="true" />
+                <element signature="e#20519#20603#0#HTML" expanded="true" />
+                <element signature="e#22199#22238#0#HTML" expanded="true" />
+                <element signature="e#23913#23932#0#HTML" expanded="true" />
+                <element signature="e#24288#24337#0#HTML" expanded="true" />
+                <element signature="e#24627#24676#0#HTML" expanded="true" />
+                <element signature="e#24878#24958#0#HTML" expanded="true" />
+                <element signature="e#25934#25954#0#HTML" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -103,9 +149,19 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/task/taskCard.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="814">
-              <caret line="37" column="113" selection-start-line="37" selection-start-column="113" selection-end-line="37" selection-end-column="113" />
+            <state relative-caret-position="541">
+              <caret line="119" column="156" selection-start-line="119" selection-start-column="156" selection-end-line="119" selection-end-column="156" />
               <folding>
+                <element signature="e#4476#4527#0#HTML" expanded="true" />
+                <element signature="e#4560#4565#0#PHP" />
+                <element signature="e#10650#10689#0#HTML" expanded="true" />
+                <element signature="e#11452#11575#0#HTML" expanded="true" />
+                <element signature="e#12316#12336#0#HTML" expanded="true" />
+                <element signature="e#12566#12585#0#HTML" expanded="true" />
+                <element signature="e#19676#19725#0#HTML" expanded="true" />
+                <element signature="e#20209#20295#0#HTML" expanded="true" />
+                <element signature="e#22130#22169#0#HTML" expanded="true" />
+                <element signature="e#30516#30613#0#HTML" expanded="true" />
                 <element signature="e#0#39151#0#Blade" />
               </folding>
             </state>
@@ -115,8 +171,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/assets/css/task/taskcard.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="9372">
-              <caret line="426" column="22" selection-start-line="426" selection-start-column="22" selection-end-line="426" selection-end-column="22" />
+            <state relative-caret-position="384">
+              <caret line="231" column="26" selection-start-line="231" selection-start-column="26" selection-end-line="231" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -124,17 +180,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TaskController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1496">
-              <caret line="96" column="8" selection-start-line="96" selection-start-column="8" selection-end-line="96" selection-end-column="8" />
+            <state relative-caret-position="212">
+              <caret line="43" column="34" selection-start-line="43" selection-start-column="34" selection-end-line="43" selection-end-column="34" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Model/Task.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="484">
-              <caret line="184" column="13" lean-forward="true" selection-start-line="184" selection-start-column="13" selection-end-line="184" selection-end-column="13" />
+            <state relative-caret-position="374">
+              <caret line="319" lean-forward="true" selection-start-line="319" selection-end-line="319" />
             </state>
           </provider>
         </entry>
@@ -143,11 +199,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>selected</find>
-      <find>kt_final_sub_task</find>
-      <find>&quot;</find>
-      <find>parnet</find>
-      <find>setColum</find>
       <find>kt-regular-task-item</find>
       <find>dropdown-item</find>
       <find>kt_simple_tab_</find>
@@ -172,7 +223,12 @@
       <find>taskCardUpdate</find>
       <find>initMap</find>
       <find>map</find>
+      <find>{</find>
+      <find>title</find>
+      <find>kt-extend-part</find>
       <find>calendar</find>
+      <find>geekmark</find>
+      <find>Show Priori</find>
     </findStrings>
     <replaceStrings>
       <replace>Log::debug(__FUNCTION_.</replace>
@@ -216,24 +272,24 @@
         <option value="$PROJECT_DIR$/resources/views/layouts/withmenu.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/company/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/task/taskDetailAdd.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/task/taskCard.blade.php" />
         <option value="$PROJECT_DIR$/resources/lang/en/main.php" />
         <option value="$PROJECT_DIR$/resources/lang/si/main.php" />
         <option value="$PROJECT_DIR$/resources/views/task/taskDetailEdit.blade.php" />
         <option value="$PROJECT_DIR$/public/assets/css/custom.css" />
         <option value="$PROJECT_DIR$/resources/views/layouts/header.blade.php" />
         <option value="$PROJECT_DIR$/public/assets/js/task/taskcard.js" />
-        <option value="$PROJECT_DIR$/resources/views/dashboard.blade.php" />
         <option value="$PROJECT_DIR$/config/session.php" />
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/resources/lang/en/calendar.php" />
         <option value="$PROJECT_DIR$/resources/lang/si/calendar.php" />
         <option value="$PROJECT_DIR$/public/assets/js/calendar/vanilla-calendar.js" />
-        <option value="$PROJECT_DIR$/public/assets/css/calendar/vanilla-calendar.css" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" />
         <option value="E:/WebPages/profile-bootstrap-master/index.html" />
         <option value="$PROJECT_DIR$/public/assets/css/task/taskcard.css" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" />
         <option value="$PROJECT_DIR$/app/Model/Task.php" />
+        <option value="$PROJECT_DIR$/resources/views/task/taskCard.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/dashboard.blade.php" />
+        <option value="$PROJECT_DIR$/public/assets/css/calendar/vanilla-calendar.css" />
         <option value="$PROJECT_DIR$/resources/views/calendar.blade.php" />
       </list>
     </option>
@@ -460,18 +516,45 @@
             <path>
               <item name="taskOriented" type="b2602c69:ProjectViewProjectNode" />
               <item name="taskOriented" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="API" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="taskOriented" type="b2602c69:ProjectViewProjectNode" />
               <item name="taskOriented" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="Auth" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="taskOriented" type="b2602c69:ProjectViewProjectNode" />
+              <item name="taskOriented" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="taskOriented" type="b2602c69:ProjectViewProjectNode" />
+              <item name="taskOriented" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+              <item name="calendar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="taskOriented" type="b2602c69:ProjectViewProjectNode" />
+              <item name="taskOriented" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="taskOriented" type="b2602c69:ProjectViewProjectNode" />
+              <item name="taskOriented" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="taskOriented" type="b2602c69:ProjectViewProjectNode" />
+              <item name="taskOriented" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -539,12 +622,12 @@
       <workItem from="1600043844156" duration="1487000" />
       <workItem from="1600045358761" duration="7099000" />
       <workItem from="1600053523536" duration="12698000" />
-      <workItem from="1600130623606" duration="699000" />
+      <workItem from="1600130623606" duration="10007000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="222536000" />
+    <option name="totallyTimeSpent" value="231844000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -842,13 +925,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/dashboard.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="19" column="32" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/lang/en/calendar.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -867,13 +943,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="440">
           <caret line="25" column="18" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/css/calendar/vanilla-calendar.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1738">
-          <caret line="79" column="22" selection-start-line="79" selection-start-column="22" selection-end-line="79" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -919,41 +988,89 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/calendar.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="836">
-          <caret line="38" column="79" selection-end-line="615" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/task/taskCard.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="814">
-          <caret line="37" column="113" selection-start-line="37" selection-start-column="113" selection-end-line="37" selection-end-column="113" />
-          <folding>
-            <element signature="e#0#39151#0#Blade" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/assets/css/task/taskcard.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9372">
-          <caret line="426" column="22" selection-start-line="426" selection-start-column="22" selection-end-line="426" selection-end-column="22" />
+        <state relative-caret-position="384">
+          <caret line="231" column="26" selection-start-line="231" selection-start-column="26" selection-end-line="231" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TaskController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1496">
-          <caret line="96" column="8" selection-start-line="96" selection-start-column="8" selection-end-line="96" selection-end-column="8" />
+        <state relative-caret-position="212">
+          <caret line="43" column="34" selection-start-line="43" selection-start-column="34" selection-end-line="43" selection-end-column="34" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Model/Task.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="184" column="13" lean-forward="true" selection-start-line="184" selection-start-column="13" selection-end-line="184" selection-end-column="13" />
+        <state relative-caret-position="374">
+          <caret line="319" lean-forward="true" selection-start-line="319" selection-end-line="319" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/task/taskCard.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="541">
+          <caret line="119" column="156" selection-start-line="119" selection-start-column="156" selection-end-line="119" selection-end-column="156" />
+          <folding>
+            <element signature="e#4476#4527#0#HTML" expanded="true" />
+            <element signature="e#4560#4565#0#PHP" />
+            <element signature="e#10650#10689#0#HTML" expanded="true" />
+            <element signature="e#11452#11575#0#HTML" expanded="true" />
+            <element signature="e#12316#12336#0#HTML" expanded="true" />
+            <element signature="e#12566#12585#0#HTML" expanded="true" />
+            <element signature="e#19676#19725#0#HTML" expanded="true" />
+            <element signature="e#20209#20295#0#HTML" expanded="true" />
+            <element signature="e#22130#22169#0#HTML" expanded="true" />
+            <element signature="e#30516#30613#0#HTML" expanded="true" />
+            <element signature="e#0#39151#0#Blade" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/dashboard.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="397">
+          <caret line="345" column="162" selection-start-line="345" selection-start-column="162" selection-end-line="345" selection-end-column="162" />
+          <folding>
+            <element signature="e#9627#9725#0#HTML" expanded="true" />
+            <element signature="e#10926#10965#0#HTML" expanded="true" />
+            <element signature="e#20519#20603#0#HTML" expanded="true" />
+            <element signature="e#22199#22238#0#HTML" expanded="true" />
+            <element signature="e#23913#23932#0#HTML" expanded="true" />
+            <element signature="e#24288#24337#0#HTML" expanded="true" />
+            <element signature="e#24627#24676#0#HTML" expanded="true" />
+            <element signature="e#24878#24958#0#HTML" expanded="true" />
+            <element signature="e#25934#25954#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/css/calendar/vanilla-calendar.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="6" column="49" selection-start-line="6" selection-start-column="43" selection-end-line="6" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/calendar.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="56" column="45" lean-forward="true" selection-start-line="56" selection-start-column="45" selection-end-line="56" selection-end-column="45" />
+          <folding>
+            <element signature="e#10405#10542#0#HTML" expanded="true" />
+            <element signature="e#12024#12121#0#HTML" expanded="true" />
+            <element signature="e#13637#13676#0#HTML" expanded="true" />
+            <element signature="e#23334#23417#0#HTML" expanded="true" />
+            <element signature="e#24898#24937#0#HTML" expanded="true" />
+            <element signature="e#26514#26533#0#HTML" expanded="true" />
+            <element signature="e#26869#26916#0#HTML" expanded="true" />
+            <element signature="e#27190#27237#0#HTML" expanded="true" />
+            <element signature="e#27431#27507#0#HTML" expanded="true" />
+            <element signature="e#28409#28429#0#HTML" expanded="true" />
+            <element signature="e#34821#34918#0#HTML" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

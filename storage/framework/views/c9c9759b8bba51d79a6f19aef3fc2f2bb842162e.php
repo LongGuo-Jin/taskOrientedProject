@@ -124,19 +124,14 @@
                                                                                 <?php endif; ?>
                                                                             </div>
                                                                         </div>
-                                                                        <div style="width: 90%; padding: 10px">
-                                                                            <div class="row m-2">
-                                                                                <div class="col-lg-9">
-                                                                                    <div class="row task-name">
-                                                                                        <?php echo e($columnItem['title']); ?>
+                                                                    <div style="width: 90%; padding: 10px; <?php if ($columnItem['overdue']) echo "background: #fff2f2";?>">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-9 task-name">
+                                                                            <?php echo e($columnItem['title']); ?>
 
-                                                                                    </div>
-                                                                                    <div class="row project-name">
-                                                                                        
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-lg-3">
-                                                                                     <?php if (isset($component)) { $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da = $component; } ?>
+                                                                        </div>
+                                                                        <div class="col-lg-3">
+                                                                             <?php if (isset($component)) { $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\UserAvatar::class, ['type' => $columnItem['avatarType'],'nameTag' => $columnItem['nameTag'],'roleID' => $columnItem['roleID'],'color' => $columnItem['avatarColor']]); ?>
 <?php $component->withName('user-avatar'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -148,45 +143,45 @@
 <?php endif; ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?> 
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="row m-2">
-                                                                                <div style="display: flex; flex-wrap: wrap;"><?php
-                                                                                    foreach($taskTags as $taskTag) {
-                                                                                    ?>
-                                                                                    <span class="<?php if($taskTag['tagtype']==1): ?> system-span <?php elseif($taskTag['tagtype']==2): ?> organization-span <?php elseif($taskTag['tagtype']==3): ?> personal-span <?php endif; ?>" style="<?php if($taskTag['tagtype']!=3 ): ?>background-color:<?php echo e($taskTag['color']); ?> <?php else: ?> border-color:<?php echo e($taskTag['color']); ?> <?php endif; ?>">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mt-2">
+                                                                        <div class="col-lg-12" style="display: flex; flex-wrap: wrap;"><?php
+
+                                                                            foreach($taskTags as $taskTag) {
+                                                                            ?>
+                                                                            <span class="<?php if($taskTag['tagtype']==1): ?> system-span <?php elseif($taskTag['tagtype']==2): ?> organization-span <?php elseif($taskTag['tagtype']==3): ?> personal-span <?php endif; ?>" style="<?php if($taskTag['tagtype']!=3 ): ?>background-color:<?php echo e($taskTag['color']); ?> <?php else: ?> border-color:<?php echo e($taskTag['color']); ?> <?php endif; ?>">
                                                                            <?php echo e($taskTag['name']); ?>
 
                                                                         </span> &nbsp;
-                                                                                    <?php
-                                                                                    }
-                                                                                    ?>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="kt-space-10"></div>
-                                                                            <div class="progress" style="height: 6px;">
-                                                                                <?php if($columnItem["statusID"] == 4): ?>
-                                                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                                <?php elseif($columnItem['spentProgress'] <= $columnItem['finishProgress']): ?>
-                                                                                    <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo e($columnItem['finishProgress']); ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                                <?php else: ?>
-                                                                                    <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo e($columnItem['finishProgress']); ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                                    <div class="progress-bar bg-dark" role="progressbar" style="width: <?php echo e($columnItem['spentProgress'] - $columnItem['finishProgress']); ?>%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                                <?php endif; ?>
-                                                                            </div>
-                                                                            <div class="kt-space-5"></div>
-                                                                            <div class="row kt-item-date">
-                                                                                <div class="col-lg-6 task-start-date">
-                                                                                    <?php echo e($columnItem['datePlanStart']); ?>
-
-                                                                                </div>
-                                                                                <div class="col-lg-6 task-end-date">
-                                                                                    <?php echo e($columnItem['datePlanEnd']); ?>
-
-                                                                                </div>
-                                                                            </div>
+                                                                            <?php
+                                                                            }
+                                                                            ?>
                                                                         </div>
+                                                                    </div>
+                                                                    <div class="kt-space-10"></div>
+                                                                    <div class="progress" style="height: 6px;">
+                                                                        <?php if($columnItem["statusID"] == 4): ?>
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        <?php elseif($columnItem['spentProgress'] <= $columnItem['finishProgress']): ?>
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo e($columnItem['finishProgress']); ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        <?php else: ?>
+                                                                            <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo e($columnItem['finishProgress']); ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            <div class="progress-bar bg-dark" role="progressbar" style="width: <?php echo e($columnItem['spentProgress'] - $columnItem['finishProgress']); ?>%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        <?php endif; ?>
+                                                                    </div>
+                                                                    <div class="kt-space-5"></div>
+                                                                    <div class="row kt-item-date">
+                                                                        <div class="col-lg-6 task-start-date">
+                                                                            <?php echo e($columnItem['datePlanStart']); ?>
+
+                                                                        </div>
+                                                                        <div class="col-lg-6 task-end-date">
+                                                                            <?php echo e($columnItem['datePlanEnd']); ?>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                                     </div>
                                                         <?php endif; ?>
                                                     </div>
@@ -255,19 +250,17 @@
                                                                         <?php endif; ?>
                                                                     </div>
                                                                 </div>
-                                                                <div style="width: 90%; padding: 10px">
-                                                                    <div class="row m-2">
-                                                                        <div class="col-lg-9">
-                                                                            <div class="row task-name">
-                                                                                <?php echo e($columnItem['title']); ?>
+                                                                <div class="extand-main-content" style="width: 90%; <?php if ($columnItem['overdue']) echo "background: #fff2f2";?>">
+                                                                    <div class="kt-extend-part">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-9 task-name ">
+                                                                                <div class="kt-font-task-warning">
+                                                                                    <?php echo e($columnItem['title']); ?>
 
+                                                                                </div>
                                                                             </div>
-                                                                            <div class="row project-name">
-                                                                                
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-3">
-                                                                             <?php if (isset($component)) { $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da = $component; } ?>
+                                                                            <div class="col-lg-3 person-tag">
+                                                                                 <?php if (isset($component)) { $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\UserAvatar::class, ['type' => $columnItem['avatarType'],'nameTag' => $columnItem['nameTag'],'roleID' => $columnItem['roleID'],'color' => $columnItem['avatarColor']]); ?>
 <?php $component->withName('user-avatar'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -279,42 +272,42 @@
 <?php endif; ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?> 
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="row m-2">
-                                                                        <div style="display: flex; flex-wrap: wrap;"><?php
-                                                                            foreach($taskTags as $taskTag) {
-                                                                            ?>
-                                                                            <span class="<?php if($taskTag['tagtype']==1): ?> system-span <?php elseif($taskTag['tagtype']==2): ?> organization-span <?php elseif($taskTag['tagtype']==3): ?> personal-span <?php endif; ?>" style="<?php if($taskTag['tagtype']!=3 ): ?>background-color:<?php echo e($taskTag['color']); ?> <?php else: ?> border-color:<?php echo e($taskTag['color']); ?> <?php endif; ?>">
+                                                                        <div class="kt-space-10"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-lg-12" style="display: flex; flex-wrap: wrap;"><?php
+                                                                                foreach($taskTags as $taskTag) {
+                                                                                ?>
+                                                                                <span class="<?php if($taskTag['tagtype']==1): ?> system-span <?php elseif($taskTag['tagtype']==2): ?> organization-span <?php elseif($taskTag['tagtype']==3): ?> personal-span <?php endif; ?>" style="<?php if($taskTag['tagtype']!=3 ): ?>background-color:<?php echo e($taskTag['color']); ?> <?php else: ?> border-color:<?php echo e($taskTag['color']); ?> <?php endif; ?>">
                                                                            <?php echo e($taskTag['name']); ?>
 
                                                                         </span> &nbsp;
-                                                                            <?php
-                                                                            }
-                                                                            ?>
+                                                                                <?php
+                                                                                }
+                                                                                ?>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-
-                                                                    <div class="kt-space-10"></div>
-                                                                    <div class="progress" style="height: 6px;">
-                                                                        <?php if($columnItem["statusID"] == 4): ?>
-                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                        <?php elseif($columnItem['spentProgress'] <= $columnItem['finishProgress']): ?>
-                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo e($columnItem['finishProgress']); ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                        <?php else: ?>
-                                                                            <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo e($columnItem['finishProgress']); ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                            <div class="progress-bar bg-dark" role="progressbar" style="width: <?php echo e($columnItem['spentProgress'] - $columnItem['finishProgress']); ?>%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                        <?php endif; ?>
-                                                                    </div>
-                                                                    <div class="kt-space-5"></div>
-                                                                    <div class="row kt-item-date">
-                                                                        <div class="col-lg-6 task-start-date">
-                                                                            <?php echo e($columnItem['datePlanStart']); ?>
-
+                                                                        <div class="kt-space-10"></div>
+                                                                        <div class="progress" style="height: 6px;">
+                                                                            <?php if($columnItem["statusID"] == 4): ?>
+                                                                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            <?php elseif($columnItem['spentProgress'] <= $columnItem['finishProgress']): ?>
+                                                                                <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo e($columnItem['finishProgress']); ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            <?php else: ?>
+                                                                                <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo e($columnItem['finishProgress']); ?>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                                <div class="progress-bar bg-dark" role="progressbar" style="width: <?php echo e($columnItem['spentProgress'] - $columnItem['finishProgress']); ?>%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            <?php endif; ?>
                                                                         </div>
-                                                                        <div class="col-lg-6 task-end-date">
-                                                                            <?php echo e($columnItem['datePlanEnd']); ?>
+                                                                        <div class="kt-space-5"></div>
+                                                                        <div class="row kt-item-date">
+                                                                            <div class="col-lg-6 task-start-date">
+                                                                                <?php echo e($columnItem['datePlanStart']); ?>
 
+                                                                            </div>
+                                                                            <div class="col-lg-6 task-end-date">
+                                                                                <p style="float: right"><?php echo e($columnItem['datePlanEnd']); ?></p>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="extand-below-content">
@@ -383,8 +376,8 @@
                                                                     <div style="position: relative; margin: 0; padding: 0">
                                                                     </div>
                                                                 </div>
-                                                                <div style="width: 90%;">
-                                                                    <div class="row ml-2">
+                                                                <div style="width: 90%; padding: 10px; <?php if ($columnItem['overdue']) echo "background: #fff2f2";?>">
+                                                                    <div class="row">
                                                                         <div class="col-lg-9 final-sub-task-name">
                                                                             <?php echo e($columnItem['title']); ?>
 

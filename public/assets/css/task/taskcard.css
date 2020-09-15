@@ -438,7 +438,6 @@ div.kt-quick-panel {
     display: flex;
     overflow:auto;
     transition: all 0.2s;
-    transform: scale(0.98);
     will-change: transform;
     user-select: none;
     cursor: pointer;

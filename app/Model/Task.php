@@ -170,9 +170,9 @@ class Task extends Model
         $retArr = [];
 
         $currentDate = new DateTime();
-        $today=$data->input('date')==""?strtotime($currentDate->format('Y-m-d')):(strtotime($data->input('date')));
+        $today=$data->input('date')==""?strtotime("-7 days",strtotime($currentDate->format('Y-m-d'))):(strtotime("-7 days",strtotime($data->input('date'))));
         for ($i = 0 ; $i < 15; $i ++) {
-            $current = date('Y-m-d',strtotime("-".$i." days",$today));
+            $current = date('Y-m-d',strtotime("+".$i." days",$today));
             $retArr[$current] = [];
         }
 
@@ -180,9 +180,9 @@ class Task extends Model
             if ($taskItem['priorityID'] != $priority_high && $taskItem['priorityID'] != $priority_medium && $taskItem['priorityID'] != $priority_low &&$taskItem['priorityID'] != $priority_ness) {
                 continue;
             }
-//            if (!$this->isRootLevel($taskItem['ID'],auth()->user()) && !$this->isRootLevel($taskItem['parentID'],auth()->user())) {
-//                continue;
-//            }
+            if (!$this->isRootLevel($taskItem['ID'],auth()->user())) {
+                continue;
+            }
 
             $history = History::where('taskID',$taskItem['ID'])->orderBy('id', 'asc')->get()->toArray();
             $length = count($history);
@@ -223,7 +223,9 @@ class Task extends Model
                 $i ++;
             }
             if ($activeFlag == 1) {
-                $endDate = date('Y-m-d', strtotime('today'));
+                $today = date('Y-m-d', strtotime('today'));
+                $datePlanEndDate = date('Y-m-d',strtotime($taskItem['datePlanEnd']));
+                $endDate = $datePlanEndDate > $today?$datePlanEndDate: $today;
                 $j = 0;
                 $iterator = date('Y-m-d', strtotime("+".$j." days", $startDate));
                 while($iterator != $endDate) {
@@ -315,9 +317,7 @@ class Task extends Model
         $retArr['active'] = $active_tasks;
         $retArr['overdue'] = $overdue_tasks;
 
-
         return $retArr;
-
     }
 
 

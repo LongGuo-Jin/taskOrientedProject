@@ -30,7 +30,15 @@
                 <div style="display: flex">
                     <div class="content-calendar" >
                         @foreach($taskList as $index => $taskListItem)
-                            <div style="margin-left: 10px; margin-right: 10px; flex: 0 0 25%;  box-sizing:border-box;">
+                            <?php
+                                $dt = date('d.m.Y',strtotime($index));
+                                $today = date('d.m.Y');
+                                $tomorrow = date('d.m.Y',strtotime('tomorrow'));
+                                $yesterday = date('d.m.Y',strtotime('yesterday'));
+                                $theNextDay = date('d.m.Y',strtotime("2 days",strtotime('today')));
+                                $current_date = date('d.m.Y',strtotime($date));
+                            ?>
+                            <div style="margin-left: 10px; margin-right: 10px; flex: 0 0 30%;  box-sizing:border-box;" class="<?php if ($dt == $current_date) echo "today";?>">
                                 <!--begin::Portlet-->
                                 <div class="kt-portlet  kt-portlet--tabs">
                                     <div class="kt-portlet__head">
@@ -66,16 +74,14 @@
                                             {{--@endif--}}
                                             <h5>
                                                 <?php
-                                                    $dt = date('d.m.Y',strtotime($index));
-                                                    $today = date('d.m.Y');
-                                                    $tomorrow = date('d.m.Y',strtotime('tomorrow'));
-                                                    $yesterday = date('d.m.Y',strtotime('yesterday'));
                                                     if ($dt == $today) {
-                                                        echo "Today";
+                                                        echo __('calendar.today');
                                                     } else if ($dt == $tomorrow) {
-                                                        echo "Tomorrow";
+                                                        echo __('calendar.tomorrow');
                                                     } else if ($dt == $yesterday) {
-                                                        echo "Yesterday";
+                                                        echo __('calendar.yesterday');
+                                                    } else if($dt == $theNextDay){
+                                                        echo __('calendar.theNextDay');
                                                     } else {
                                                         echo $dt;
                                                     }
@@ -84,15 +90,59 @@
                                         </div>
                                     </div>
                                     <div class="kt-portlet__body active">
-                                        <div class="kt-scroll " data-scroll="true" style="width: 250px">
+                                        <div class="kt-scroll " data-scroll="true" >
                                             <div class="tab-content">
                                                 <div class="tab-pane active" id="kt_regular_tab_{{$index}}">
-                                                    @foreach($taskListItem as  $columnItem)
+                                                    @foreach($taskListItem as  $index => $columnItem)
                                                         <div class="column-body">
                                                             @if(isset($columnItem["ID"]))
+                                                                <?php $tagTask =new \App\TagTask();
+                                                                $taskTags =  $tagTask->getTaskTagList($columnItem['ID']);
+                                                                $color = '#9d88bf';
+
+                                                                foreach($taskTags as $taskTag) {
+                                                                    if ($taskTag["tagtype"] != 1 ) {
+                                                                        continue;
+                                                                    }
+
+                                                                    if($taskTag['name'] == "PROJECT") {
+                                                                        $color = '#302344';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "MILESTONE") {
+                                                                        $color = '#98b6ea';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "TO DO") {
+                                                                        $color = '#f7dd6d';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "PERMANENT") {
+                                                                        $color = '#4fc6a2';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "PERIODIC") {
+                                                                        $color = '#88e588';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "TRIP") {
+                                                                        $color = '#a5a3aa';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "ERROR") {
+                                                                        $color = '#ef6f6f';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "ALARM") {
+                                                                        $color = '#f4c67d';
+                                                                        break;
+                                                                    }
+                                                                }
+
+                                                                ?>
                                                                 <div class="kt-regular-task-item thin"
                                                                      data-task_id="{{$columnItem['ID']}}" data-show_type="regular" style="display: flex">
-                                                                    <div class="task-status" style="background-color: #c97acb; display: flex; flex-direction: column; width: 10%; justify-content: space-between; padding-top:10px">
+                                                                    <div class="task-status" style="background-color: {{$color}}; display: flex; flex-direction: column; width: 10%; justify-content: space-between; padding-top:10px">
                                                                         <div style="display: flex; flex-direction: column">
                                                                             <div><?php echo($columnItem['status_icon'])?></div>
                                                                             <div>{{$columnItem['priority_title']}}</div>
@@ -118,6 +168,19 @@
                                                                             </div>
                                                                             <div class="col-lg-3">
                                                                                 <x-user-avatar :type="$columnItem['avatarType']" :nameTag="$columnItem['nameTag']" :roleID="$columnItem['roleID']" :color="$columnItem['avatarColor']" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row m-2">
+                                                                            <div style="display: flex; flex-wrap: wrap;"><?php
+
+                                                                                foreach($taskTags as $taskTag) {
+                                                                                ?>
+                                                                                <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="@if ($taskTag['tagtype']!=3 )background-color:{{$taskTag['color']}} @else border-color:{{$taskTag['color']}} @endif">
+                                                                           {{$taskTag['name']}}
+                                                                        </span> &nbsp;
+                                                                                <?php
+                                                                                }
+                                                                                ?>
                                                                             </div>
                                                                         </div>
                                                                         <div class="kt-space-10"></div>
@@ -150,9 +213,53 @@
                                                     @foreach($taskListItem as  $columnItem)
                                                         <div class="column-body">
                                                             @if(isset($columnItem["ID"]))
+                                                                <?php $tagTask =new \App\TagTask();
+                                                                $taskTags =  $tagTask->getTaskTagList($columnItem['ID']);
+                                                                $color = '#9d88bf';
+
+                                                                foreach($taskTags as $taskTag) {
+                                                                    if ($taskTag["tagtype"] != 1 ) {
+                                                                        continue;
+                                                                    }
+
+                                                                    if($taskTag['name'] == "PROJECT") {
+                                                                        $color = '#302344';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "MILESTONE") {
+                                                                        $color = '#98b6ea';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "TO DO") {
+                                                                        $color = '#f7dd6d';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "PERMANENT") {
+                                                                        $color = '#4fc6a2';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "PERIODIC") {
+                                                                        $color = '#88e588';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "TRIP") {
+                                                                        $color = '#a5a3aa';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "ERROR") {
+                                                                        $color = '#ef6f6f';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "ALARM") {
+                                                                        $color = '#f4c67d';
+                                                                        break;
+                                                                    }
+                                                                }
+
+                                                                ?>
                                                                 <div class="kt-extended-task-item"
                                                                      data-task_id="{{$columnItem['ID']}}" data-show_type="regular" style="display: flex">
-                                                                    <div class="task-status" style="background-color: #c97acb; display: flex; flex-direction: column; width: 10%; justify-content: space-between; padding-top:10px">
+                                                                    <div class="task-status" style="background-color: {{$color}}; display: flex; flex-direction: column; width: 10%; justify-content: space-between; padding-top:10px">
                                                                         <div style="display: flex; flex-direction: column">
                                                                             <div><?php echo($columnItem['status_icon'])?></div>
                                                                             <div>{{$columnItem['priority_title']}}</div>
@@ -178,6 +285,19 @@
                                                                             </div>
                                                                             <div class="col-lg-3">
                                                                                 <x-user-avatar :type="$columnItem['avatarType']" :nameTag="$columnItem['nameTag']" :roleID="$columnItem['roleID']" :color="$columnItem['avatarColor']" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row m-2">
+                                                                            <div style="display: flex; flex-wrap: wrap;"><?php
+
+                                                                                foreach($taskTags as $taskTag) {
+                                                                                ?>
+                                                                                <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="@if ($taskTag['tagtype']!=3 )background-color:{{$taskTag['color']}} @else border-color:{{$taskTag['color']}} @endif">
+                                                                           {{$taskTag['name']}}
+                                                                        </span> &nbsp;
+                                                                                <?php
+                                                                                }
+                                                                                ?>
                                                                             </div>
                                                                         </div>
                                                                         <div class="kt-space-10"></div>
@@ -213,9 +333,53 @@
                                                     @foreach($taskListItem as  $columnItem)
                                                         <div class="column-body">
                                                             @if(isset($columnItem["ID"]))
+                                                                <?php $tagTask =new \App\TagTask();
+                                                                $taskTags =  $tagTask->getTaskTagList($columnItem['ID']);
+                                                                $color = '#9d88bf';
+
+                                                                foreach($taskTags as $taskTag) {
+                                                                    if ($taskTag["tagtype"] != 1 ) {
+                                                                        continue;
+                                                                    }
+
+                                                                    if($taskTag['name'] == "PROJECT") {
+                                                                        $color = '#302344';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "MILESTONE") {
+                                                                        $color = '#98b6ea';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "TO DO") {
+                                                                        $color = '#f7dd6d';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "PERMANENT") {
+                                                                        $color = '#4fc6a2';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "PERIODIC") {
+                                                                        $color = '#88e588';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "TRIP") {
+                                                                        $color = '#a5a3aa';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "ERROR") {
+                                                                        $color = '#ef6f6f';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "ALARM") {
+                                                                        $color = '#f4c67d';
+                                                                        break;
+                                                                    }
+                                                                }
+
+                                                                ?>
                                                                 <div class="kt-simple-task-item thin"
                                                                      data-task_id="{{$columnItem['ID']}}" data-show_type="simple" style="display: flex">
-                                                                    <div class="task-status" style="background-color: #c97acb; display: flex; flex-direction: column; width: 10%; justify-content: space-between; padding-top:10px">
+                                                                    <div class="task-status" style="background-color: {{$color}}; display: flex; flex-direction: column; width: 10%; justify-content: space-between; padding-top:10px">
                                                                         <div style="display: flex; flex-direction: column">
                                                                             <div><?php echo($columnItem['status_icon'])?></div>
                                                                         </div>
@@ -324,9 +488,11 @@
         let O = "{{$O}}";
         let date ="{{$date}}";
         const slider = document.querySelector('.content-calendar');
+        const todayColumn = document.querySelector('.today');
         let isDown = false;
         let startX;
         let scrollLeft;
+        slider.scrollLeft = todayColumn.offsetLeft - 310;
 
         slider.addEventListener('mousedown', (e) => {
             isDown = true;
@@ -346,7 +512,7 @@
             if(!isDown) return;
             e.preventDefault();
             const x = e.pageX - slider.offsetLeft;
-            const walk = (x - startX) * 3; //scroll-fast
+            const walk = (x - startX) * 2; //scroll-fast
             slider.scrollLeft = scrollLeft - walk;
             console.log(walk);
         });

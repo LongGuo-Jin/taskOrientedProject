@@ -32,6 +32,7 @@ Route::group(['middleware'=>['auth' , 'tag']] , function() {
     Route::get('locale/{locale}', 'TaskController@Locale');
     Route::post('update_filter','TaskController@UpdateFilter')->name('filter.update');
     Route::get('rest_filter','TaskController@ResetFilter')->name('filter.reset');
+    Route::any('search','TaskController@Search')->name('search');
 
     Route::group(['middleware'=>['task'] , "prefix"=>"task"] , function() {
         Route::any('/taskCard', 'TaskController@taskCard')->name('task.taskCard');
@@ -47,6 +48,7 @@ Route::group(['middleware'=>['auth' , 'tag']] , function() {
         Route::any('/taskList', 'TaskController@taskList');
         Route::any('/addPin','TaskController@AddPin')->name('task.addPin');
         Route::any('/removePin','TaskController@RemovePin')->name('task.removePin');
+
     });
     Route::group(["prefix"=>"user"] , function() {
         Route::get('' , 'UserController@index')->name('user');

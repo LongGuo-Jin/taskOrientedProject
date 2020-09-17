@@ -21,6 +21,7 @@ use App\SubTaskTime;
 use App\TagTask;
 use App\Time;
 use App\User;
+use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -1130,5 +1131,59 @@ class TaskController extends Controller
         return redirect()->back();
     }
 
+    public function Search(Request $request) {
+        $user = auth()->user();
+        Log::debug(__FUNCTION__.$request->input('query'));
+        $query = $request->input('query');
+        $task = new Task();
+        $organization_id = $user->organization_id;
+        $qrBuilder = DB::table('task')
+            ->leftJoin("taskstatus", "task.statusID", "=", "taskstatus.ID")
+            ->leftJoin("taskpriority", "task.priorityID", "=", "taskpriority.ID")
+            ->leftJoin("taskweight", "task.weightID", "=", "taskweight.ID")
+            ->leftJoin("users", "task.personID", "=", "users.id")
+            ->where('users.organization_id',$organization_id)
+            ->where('deleteFlag', 0)
+            ->select("task.*", "taskstatus.note as status_icon" , "taskpriority.title as priority_title", "taskpriority.order as order" ,  "taskweight.title as weight"
+                ,"users.avatarType as avatarType","users.avatarColor as avatarColor" , "users.nameTag as nameTag" ,"users.roleID"
+                , DB::raw("concat(users.nameFamily, ' ', users.nameFirst) as fullName"));
+
+        switch ($user->roleId) {
+            case Common::constant("role.proManager"):
+            case Common::constant("role.foreman"):
+                $qrBuilder = $qrBuilder->where("task.personID", "=", $user->id);
+                $qrBuilder = $qrBuilder->orwhere("taskCreatorID", "=",  $user->id);
+                break;
+            case Common::constant("role.admin"):
+                break;
+            case Common::constant("role.worker"):
+                $qrBuilder = $qrBuilder->where("taskCreatorID", "!=",  $user->id);
+                $qrBuilder = $qrBuilder->where("task.personID", "=",  $user->id);
+                break;
+        }
+
+        $ret = $qrBuilder->orderBy('order', 'asc')->orderBy('id','asc')->orderBy('statusID','asc')->get()->toArray();
+        $result = $task->adtResult(Common::stdClass2Array($ret));
+        $retArray = [];
+
+        foreach($result as $item) {
+            $now = strtotime('today');
+            $datePlanEnd = strtotime($item['datePlanEnd']);
+            $taskStatus = $item['statusID'];
+            if ($taskStatus != 4 && $taskStatus!= 5 && $now >   $datePlanEnd){
+                $item['overdue'] = true;
+            } else {
+                $item['overdue'] = false;
+            }
+            if (strpos($item['title'],$query) !== false) {
+                array_push($retArray,$item);
+            }
+        }
+
+        $view = View::make('task.search',['tasks' => $retArray]);
+        $html = $view->render();
+
+        return $html;
+    }
 }
 

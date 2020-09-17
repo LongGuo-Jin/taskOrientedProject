@@ -9358,13 +9358,22 @@ var KTQuickSearch = function() {
         }
 
         query = input.value;
-
         KTUtil.removeClass(target, resultClass);
         showProgress();
 
+        let getUrl = window.location;
+        let baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         setTimeout(function() {
             $.ajax({
-                url: 'https://keenthemes.com/metronic/themes/themes/metronic/dist/preview/inc/api/quick_search.php',
+                url: baseUrl+'/search',
+                type:'POST',
                 data: {
                     query: query
                 },
@@ -9375,6 +9384,7 @@ var KTQuickSearch = function() {
                     KTUtil.addClass(target, resultClass);
                     KTUtil.setHTML(resultWrapper, res);
                     showDropdown();
+                    $('.kt-quick-search__wrapper').removeClass('ps');
                     KTUtil.scrollUpdate(resultWrapper);
                 },
                 error: function(res) {

@@ -582,7 +582,7 @@
                 </span>
             </div>
             <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-lg">
-                <div class="kt-quick-search kt-quick-search--inline" id="kt_quick_search_inline">
+                <div class="kt-quick-search kt-quick-search--inline" id="kt_quick_search_inline" style="margin-right: 0 !important;">
                     <form method="get" class="kt-quick-search__form">
                         <div class="input-group">
                             <div class="input-group-prepend"><span class="input-group-text"><i class="flaticon2-search-1"></i></span></div>

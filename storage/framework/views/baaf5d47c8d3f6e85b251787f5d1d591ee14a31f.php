@@ -375,13 +375,13 @@
                                                                     <?php echo($taskItem['status_icon'])?>
                                                                 </div>
                                                                 <div style="width: 90%; padding: 10px;  <?php if ($taskItem['overdue']) echo "background: #fff2f2";?>">
-                                                                <div class="row">
-                                                                    <div class="col-lg-9 final-sub-task-name">
-                                                                        <?php echo e($taskItem['title']); ?>
+                                                                    <div class="row">
+                                                                        <div class="col-lg-9 final-sub-task-name">
+                                                                            <?php echo e($taskItem['title']); ?>
 
-                                                                    </div>
-                                                                    <div class="col-lg-3 final-sub-task-name person-tag">
-                                                                         <?php if (isset($component)) { $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da = $component; } ?>
+                                                                        </div>
+                                                                        <div class="col-lg-3 final-sub-task-name person-tag">
+                                                                             <?php if (isset($component)) { $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\UserAvatar::class, ['type' => $taskItem['avatarType'],'nameTag' => $taskItem['nameTag'],'roleID' => $taskItem['roleID'],'color' => $taskItem['avatarColor']]); ?>
 <?php $component->withName('user-avatar'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -393,8 +393,8 @@
 <?php endif; ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?> 
+                                                                        </div>
                                                                     </div>
-                                                                </div>
                                                                 </div>
                                                             </div>
                                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

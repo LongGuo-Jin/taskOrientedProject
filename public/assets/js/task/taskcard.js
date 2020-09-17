@@ -121,6 +121,7 @@ $(document).ready(function () {
         var params = "taskID=" + taskId + "&_token=" + $("div.detail-edit input[name=_token]").val();
         var parentId = $(this).data("parentid");
 
+
         //confirm what is final subtask.
         $.ajax({
             type:'POST',

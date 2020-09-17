@@ -340,14 +340,14 @@
                                                                     <?php echo($taskItem['status_icon'])?>
                                                                 </div>
                                                                 <div style="width: 90%; padding: 10px;  <?php if ($taskItem['overdue']) echo "background: #fff2f2";?>">
-                                                                <div class="row">
-                                                                    <div class="col-lg-9 final-sub-task-name">
-                                                                        {{$taskItem['title']}}
+                                                                    <div class="row">
+                                                                        <div class="col-lg-9 final-sub-task-name">
+                                                                            {{$taskItem['title']}}
+                                                                        </div>
+                                                                        <div class="col-lg-3 final-sub-task-name person-tag">
+                                                                            <x-user-avatar :type="$taskItem['avatarType']" :nameTag="$taskItem['nameTag']" :roleID="$taskItem['roleID']" :color="$taskItem['avatarColor']" />
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="col-lg-3 final-sub-task-name person-tag">
-                                                                        <x-user-avatar :type="$taskItem['avatarType']" :nameTag="$taskItem['nameTag']" :roleID="$taskItem['roleID']" :color="$taskItem['avatarColor']" />
-                                                                    </div>
-                                                                </div>
                                                                 </div>
                                                             </div>
                                                         @endforeach

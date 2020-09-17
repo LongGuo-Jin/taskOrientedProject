@@ -70,23 +70,27 @@
 .company_detail_span_text {
     color: #9726af;
 }
+
 .system-span {
-    padding: 5px;
+    padding: 3px;
     color: black !important;
-    margin: 2px;
+    border-radius: 3px;
+    margin: 0 0 2px 0;
+
 }
 
 .organization-span {
-    padding: 5px;
-    border-radius: 10px;
+    padding: 3px;
+    border-radius: 15px;
     color: black !important;
-    margin: 2px;
+    margin: 0 0 2px 0;
 }
 
 .personal-span {
-    padding: 5px;
-    border-radius: 10px;
+    padding: 3px;
+    border-radius: 15px;
     border: solid 2px;
     color: black !important;
-    margin: 2px;
+    margin: 0 0 2px 0;
 }
+

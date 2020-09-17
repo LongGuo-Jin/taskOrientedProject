@@ -27,9 +27,11 @@ class Tag extends Model
 
         $ret = DB::Table($this->table)
             ->where('organization_id',$organizationID)
+            ->where('show',1)
             ->whereIn('tagtype', [1,2])
             ->orWhere(function($query) use ($organizationID,$personID){
               $query->where('organization_id',$organizationID)
+                  ->where('show',1)
                   ->where('tagtype', 3)
                   ->where('person_id', $personID);
             })

@@ -243,7 +243,7 @@
                                                                             <div class="col-lg-9 task-name">
                                                                                 {{$columnItem['title']}}
                                                                             </div>
-                                                                            <div class="col-lg-3">
+                                                                            <div class="col-lg-3 person-tag">
                                                                                 <x-user-avatar :type="$columnItem['avatarType']" :nameTag="$columnItem['nameTag']" :roleID="$columnItem['roleID']" :color="$columnItem['avatarColor']" />
                                                                             </div>
                                                                         </div>
@@ -467,7 +467,7 @@
                                                                             <div class="col-lg-9 final-sub-task-name">
                                                                                 {{$columnItem['title']}}
                                                                             </div>
-                                                                            <div class="col-lg-3 final-sub-task-name">
+                                                                            <div class="col-lg-3 final-sub-task-name person-tag">
                                                                                 <x-user-avatar :type="$columnItem['avatarType']" :nameTag="$columnItem['nameTag']" :roleID="$columnItem['roleID']" :color="$columnItem['avatarColor']" />
                                                                             </div>
                                                                         </div>

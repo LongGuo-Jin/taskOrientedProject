@@ -66,6 +66,7 @@ Route::group(['middleware'=>['auth' , 'tag']] , function() {
         Route::post('add','TagController@Add')->name('tag.add');
         Route::post('update','TagController@Update')->name('tag.update');
         Route::get('delete','TagController@Delete')->name('tag.delete');
+        Route::get('pin_tag','TagController@PinnedTag')->name('tag.pinTag');
     });
 
     Route::get('people','UserController@People')->name('people');

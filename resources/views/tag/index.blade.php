@@ -11,136 +11,255 @@
     <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
         @include('layouts.header')
         <!-- end:: Header -->
-        <div style="margin: 20px;">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="list-card">
-                        <div class="list-head">
-                            <div>
-                               <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-2x nav-tabs-line-primary list-nav-tab" role="tablist">
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                            <i class="la flaticon-background"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="list-header-title">
-                                {{__('tag.systemTag')}}
-                            </div>
-                        </div>
-                        <div class="mt-4  mb-4">
-                            @foreach($tags['system'] as $tag)
-                                <a href="{{route('tag',['tagID' => $tag['ID'] , 'selected' => 1,'system'=>1])}}">
-                                    <div class="row system-tag {{$selected==$tag['ID']?"selected":""}}">
-                                        <div class="col-md-4">
-                                        <span class="system-span" style="background-color: {{$tag['color']}}">
-                                            <?php echo $tag['name']; ?>
-                                        </span>
+            <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
+                <!-- begin:: Content -->
+                <div class="kt-content  kt-grid__item kt-grid__item--fluid">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="column-body">
+                                <!--begin::Portlet-->
+                                <div class="kt-portlet  kt-portlet--tabs">
+                                    <div class="kt-portlet__head">
+                                        <div class="kt-portlet__head-toolbar">
+                                            <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-2x nav-tabs-line-primary list-nav-tab" role="tablist">
+                                                <li class="nav-item dropdown">
+                                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="la flaticon-background"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu">
+                                                        <a onclick="tagDisplayType(0,1)"  class="dropdown-item" data-toggle="tab" href="#system_tag_occurrence">
+                                                            <i class="fa fa-align-justify"></i>occurrence
+                                                        </a>
+                                                        <a onclick="tagDisplayType(0,0)"  class="dropdown-item" data-toggle="tab" href="#system_tag_color">
+                                                            <i class="flaticon-laptop"></i>color
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                            </ul>
                                         </div>
-                                        <div class="col-md-1">
-                                        </div>
-                                        <div class="col-md-7" style="color: {{$tag['show']==0?'gray':'black'}}">
-                                            <?php echo $tag['note']; ?>
+                                        <div class="kt-portlet__head-actions">
+                                            <div class="list-header-title">
+                                                {{__('tag.systemTag')}}
+                                            </div>
                                         </div>
                                     </div>
-                                </a>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="list-card">
-                        <div class="list-head">
-                            <div>
-                                <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-2x nav-tabs-line-primary list-nav-tab" role="tablist">
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                            <i class="la flaticon-background"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="list-header-title">
-                                {{__('tag.organizationTag')}}
-                            </div>
-                        </div>
-                        <div class="mt-4 mb-4">
-                            @foreach($tags['organization'] as $tag)
-                                <a href="{{route('tag',['tagID' => $tag['ID'] , 'selected' => 1,'system'=>2])}}">
-                                <div class="row system-tag {{$selected==$tag['ID']?"selected":""}}">
-                                    <div class="col-md-4">
-                                    <span class="organization-span" style="background-color: {{$tag['color']}}">
-                                        <?php echo $tag['name']; ?>
-                                    </span>
-                                    </div>
-                                    <div class="col-md-1">
-
-                                    </div>
-                                    <div class="col-md-7" style="color: {{$tag['show']==0?'gray':'black'}}">
-                                        <?php echo $tag['note']; ?>
+                                    <div class="kt-portlet__body">
+                                        <div class="kt-scroll" data-scroll="true">
+                                            <div class="tab-content">
+                                                <div class="tab-pane active" id="system_tag_occurrence">
+                                                    @foreach($tags['system'] as $tag)
+                                                        <a onclick='tag("{{$tag['ID']}}", "1")'>
+                                                            <div class="row system-tag {{$selected==$tag['ID']?"selected":""}}">
+                                                                <div class="col-md-4">
+                                                                    <span class="system-span" style="background-color: {{$tag['color']}}">
+                                                                        <?php echo $tag['name']; ?>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="col-md-1">
+                                                                    <span> {{$tag['use_count']}}</span>
+                                                                </div>
+                                                                <div class="col-md-7" style="font-size: 11px;color: {{$tag['show']==0?'gray':'black'}}">
+                                                                    <?php echo $tag['note']; ?>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    @endforeach
+                                                </div>
+                                                <div class="tab-pane" id="system_tag_color">
+                                                    @foreach($tags['system_color'] as $tag)
+                                                        <a onclick='tag("{{$tag['ID']}}", "1")'>
+                                                            <div class="row system-tag {{$selected==$tag['ID']?"selected":""}}">
+                                                                <div class="col-md-4">
+                                                            <span class="system-span" style="background-color: {{$tag['color']}}">
+                                                                <?php echo $tag['name']; ?>
+                                                            </span>
+                                                                </div>
+                                                                <div class="col-md-1">
+                                                                    <span> {{$tag['use_count']}}</span>
+                                                                </div>
+                                                                <div class="col-md-7" style="font-size: 11px;color: {{$tag['show']==0?'gray':'black'}}">
+                                                                    <?php echo $tag['note']; ?>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                </a>
-                            @endforeach
+                            </div>
                         </div>
-                        @if ($roleID == 1)
-                        <div class="text-center mt-4">
-                            <button class="btn btn-brand btn-icon-sm" aria-expanded="false" onclick="AddNewTag('organization')">
-                                <i class="flaticon2-plus"></i> {{__('tag.addNew')}}
-                            </button>
+                        <div class="col-md-3">
+                            <div class="column-body">
+                                <!--begin::Portlet-->
+                                <div class="kt-portlet  kt-portlet--tabs">
+                                    <div class="kt-portlet__head">
+                                        <div class="kt-portlet__head-toolbar">
+                                            <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-2x nav-tabs-line-primary list-nav-tab" role="tablist">
+                                                <li class="nav-item dropdown">
+                                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="la flaticon-background"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu">
+                                                        <a onclick="tagDisplayType(1,1)"  class="dropdown-item" data-toggle="tab" href="#organization_tag_occurrence">
+                                                            <i class="fa fa-align-justify"></i>occurrence
+                                                        </a>
+                                                        <a onclick="tagDisplayType(1,0)"  class="dropdown-item" data-toggle="tab" href="#organization_tag_color">
+                                                            <i class="flaticon-laptop"></i>color
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="kt-portlet__head-actions">
+                                            <div class="list-header-title">
+                                                {{__('tag.organizationTag')}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="kt-portlet__body">
+                                        <div class="kt-scroll" data-scroll="true">
+                                            <div class="tab-content">
+                                                <div class="tab-pane active" id="organization_tag_occurrence">
+                                                    @foreach($tags['organization'] as $tag)
+                                                        <a onclick='tag("{{$tag['ID']}}", "2")'>
+                                                            <div class="row system-tag {{$selected==$tag['ID']?"selected":""}}">
+                                                                <div class="col-md-4">
+                                                                    <span class="organization-span" style="background-color: {{$tag['color']}}">
+                                                                        <?php echo $tag['name']; ?>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="col-md-1">
+                                                                    <span> {{$tag['use_count']}}</span>
+                                                                </div>
+                                                                <div class="col-md-7" style="font-size: 11px;color: {{$tag['show']==0?'gray':'black'}}">
+                                                                    <?php echo $tag['note']; ?>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    @endforeach
+                                                </div>
+                                                <div class="tab-pane" id="organization_tag_color">
+                                                    @foreach($tags['organization_color'] as $tag)
+                                                        <a onclick='tag("{{$tag['ID']}}", "2")'>
+                                                            <div class="row system-tag {{$selected==$tag['ID']?"selected":""}}">
+                                                                <div class="col-md-4">
+                                                                    <span class="organization-span" style="background-color: {{$tag['color']}}">
+                                                                        <?php echo $tag['name']; ?>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="col-md-1">
+                                                                    <span> {{$tag['use_count']}}</span>
+                                                                </div>
+                                                                <div class="col-md-7" style="font-size: 11px;color: {{$tag['show']==0?'gray':'black'}}">
+                                                                    <?php echo $tag['note']; ?>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    @endforeach
+                                                </div>
+                                                @if ($roleID == 1)
+                                                    <div class="text-center mt-4">
+                                                        <button class="btn btn-brand btn-icon-sm" aria-expanded="false" onclick="AddNewTag('organization')">
+                                                            <i class="flaticon2-plus"></i> {{__('tag.addNew')}}
+                                                        </button>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        <div class="col-md-3">
+                            <div class="column-body">
+                                <!--begin::Portlet-->
+                                <div class="kt-portlet  kt-portlet--tabs">
+                                    <div class="kt-portlet__head">
+                                        <div class="kt-portlet__head-toolbar">
+                                            <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-2x nav-tabs-line-primary list-nav-tab" role="tablist">
+                                                <li class="nav-item dropdown">
+                                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="la flaticon-background"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu">
+                                                        <a onclick="tagDisplayType(2,1)"  class="dropdown-item" data-toggle="tab" href="#personal_tag_occurrence">
+                                                            <i class="fa fa-align-justify"></i>occurrence
+                                                        </a>
+                                                        <a onclick="tagDisplayType(2,0)"  class="dropdown-item" data-toggle="tab" href="#personal_tag_color">
+                                                            <i class="flaticon-laptop"></i>color
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="kt-portlet__head-actions">
+                                            <div class="list-header-title">
+                                                {{__('tag.personalTag')}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="kt-portlet__body">
+                                        <div class="kt-scroll" data-scroll="true">
+                                            <div class="tab-content">
+                                                <div class="tab-pane active" id="personal_tag_occurrence">
+                                                    @foreach($tags['personal'] as $tag)
+                                                        <a onclick='tag("{{$tag['ID']}}", "3")'>
+                                                            <div class="row system-tag {{$selected==$tag['ID']?"selected":""}}">
+                                                                <div class="col-md-4">
+                                                                    <span class="personal-span" style="border-color: {{$tag['color']}}">
+                                                                        <?php echo $tag['name']; ?>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="col-md-1">
+                                                                    <span> {{$tag['use_count']}}</span>
+                                                                </div>
+                                                                <div class="col-md-7" style="font-size: 11px;color: {{$tag['show']==0?'gray':'black'}}">
+                                                                    <?php echo $tag['note']; ?>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    @endforeach
+                                                </div>
+                                                <div class="tab-pane" id="personal_tag_color">
+                                                    @foreach($tags['personal_color'] as $tag)
+                                                        <a onclick='tag("{{$tag['ID']}}", "1")'>
+                                                            <div class="row system-tag {{$selected==$tag['ID']?"selected":""}}">
+                                                                <div class="col-md-4">
+                                                                    <span class="personal-span" style="border-color: {{$tag['color']}}">
+                                                                        <?php echo $tag['name']; ?>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="col-md-1">
+                                                                    <span> {{$tag['use_count']}}</span>
+                                                                </div>
+                                                                <div class="col-md-7" style="font-size: 11px;color: {{$tag['show']==0?'gray':'black'}}">
+                                                                    <?php echo $tag['note']; ?>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    @endforeach
+                                                </div>
+                                                <div class="text-center mt-4">
+                                                    <button class="btn btn-brand btn-icon-sm" aria-expanded="false" onclick="AddNewTag('personal')">
+                                                        <i class="flaticon2-plus"></i> {{__('tag.addNew')}}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @include('tag.partials.add')
+                        @if($tags['selected'])
+                            @include('tag.partials.edit')
                         @endif
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="list-card">
-                        <div class="list-head">
-                            <div>
-                                <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-2x nav-tabs-line-primary list-nav-tab" role="tablist">
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                            <i class="la flaticon-background"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="list-header-title">
-                                {{__('tag.personalTag')}}
-                            </div>
-                        </div>
-                        <div class="mt-4  mb-4">
-                            @foreach($tags['personal'] as $tag)
-                                <a href="{{route('tag',['tagID' => $tag['ID'] , 'selected' => 1,'system'=>3])}}">
-                                <div class="row system-tag {{$selected==$tag['ID']?"selected":""}}">
-                                    <div class="col-md-4">
-                                    <span class="personal-span" style="border-color: {{$tag['color']}}">
-                                        <?php echo $tag['name']; ?>
-                                    </span>
-                                    </div>
-                                    <div class="col-md-1">
 
-                                    </div>
-                                    <div class="col-md-7"  style="color: {{$tag['show']==0?'gray':'black'}}">
-                                        <?php echo $tag['note']; ?>
-                                    </div>
-                                </div>
-                                </a>
-                            @endforeach
-                        </div>
-                        <div class="text-center mt-4">
-                            <button class="btn btn-brand btn-icon-sm" aria-expanded="false" onclick="AddNewTag('personal')">
-                                <i class="flaticon2-plus"></i> {{__('tag.addNew')}}
-                            </button>
-                        </div>
                     </div>
                 </div>
-                @include('tag.partials.add')
-                @if($tags['selected'])
-                    @include('tag.partials.edit')
-                @endif
             </div>
-        </div>
     </div>
 @endsection
 
@@ -157,6 +276,8 @@
         {{--var showType = "{{$showType}}";--}}
         let roleID = "{{$roleID}}";
         let system = "{{$system}}";
+        let displayType = '{{$displayType}}';
+        let dType = [displayType[0],displayType[1],displayType[2]];
         let colors = [
             ['#FF0000','#FF0000CC','#FF000044'],
             ['#d4b04d','#d4b04dcc','#d4b04d44'],
@@ -167,6 +288,39 @@
             ['#2a27f7','#2a27f7cc','#2a27f744'],
             ['#f72787','#f72787cc','#f7278744'],
         ];
+
+        $('#organization_tag_occurrence').removeClass('active');
+        $('#organization_tag_color').removeClass('active');
+        $('#system_tag_occurrence').removeClass('active');
+        $('#system_tag_color').removeClass('active');
+        $('#personal_tag_color').removeClass('active');
+        $('#personal_tag_occurrence').removeClass('active');
+        if (dType[0]=='1') {
+            $('#system_tag_occurrence').addClass('active')
+        } else {
+            $('#system_tag_color').addClass('active');
+        }
+        if (dType[1]=='1') {
+            $('#organization_tag_occurrence').addClass('active')
+        } else {
+            console.log("active");
+            $('#organization_tag_color').addClass('active');
+        }
+
+        if (dType[2]=='1') {
+            $('#personal_tag_occurrence').addClass('active')
+        } else {
+            $('#personal_tag_color').addClass('active');
+        }
+
+        function tag(val,system) {
+            window.location.href = base_url + "/tag?tagID="+ val + "&system=" + system + "&displayType="+dType[0]+dType[1]+dType[2];
+        }
+
+        function tagDisplayType(order , val) {
+            dType[order] = val;
+        }
+
         function ColorSelect(j,i) {
             $('#tagColor').val(colors[j][i]);
             color = colors[j][i];
@@ -187,7 +341,7 @@
             let colVal = 8 * i + j * 1;
             $('#tagColorValueEdit').val(colVal);
             if (system === "1") {
-                console.log("system 1")
+                console.log("system 1");
                 return;
             }
             $('#tagDelete').show();
@@ -197,14 +351,16 @@
         function AddNewTag(tagType) {
             if (tagType === 'organization') {
 
-                $('#tagTypeShow').html( '<h5>Organization Tag</h5>');
+                $('#tagTypeShow').html( '<h6>Organization Tag</h6>');
                 $('#tagType').val('organization');
             } else if (tagType === 'personal') {
                 console.log(tagType);
-                $('#tagTypeShow').html( '<h5>Personal Tag</h5>');
+                $('#tagTypeShow').html( '<h6>Personal Tag</h6>');
                 $('#tagType').val('personal');
             }
+            $('#tagEditCard').hide();
             $('#tagAddCard').show();
+
         }
 
         $(document).ready(function() {

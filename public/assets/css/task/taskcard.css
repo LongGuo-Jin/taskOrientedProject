@@ -551,8 +551,8 @@ div.detail-statistics-content {
 
 .list-card {
     width: 100%;
-    min-height: 90vh;
-    margin: 10px;
+    min-height: calc(100% - 20px);
+    /*margin: 10px;*/
     padding: 20px;
     border-radius: 5px;
 
@@ -560,53 +560,58 @@ div.detail-statistics-content {
      box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.05);
     background-color: #ffffff;
 }
-.list-card .list-head {
+.list-head {
     display: flex;
-    border-bottom: solid 2px #b3b1c2;
+    border-bottom: 1px solid #ebedf2;
     justify-content: space-between;
 }
-.list-card .list-header-title {
+.list-header-title {
     margin-top: auto;
     margin-bottom: auto;
-    font-weight: bold;
-    font-size: 18px;
+    font-size: 17px;
     color: #464e74;
 }
 .list-card .list-nav-tab {
     margin: 0 0 0 0;
 }
 
-.list-card .system-tag {
-    color:  black;
-    padding-top: 3px;
-    padding-bottom: 3px;
+.system-tag {
+    color: black;
+    padding-bottom: 5px;
     font-size: 12px;
-    margin-top: 5px;
+    padding-top: 5px;
     cursor: pointer;
 }
 
-.list-card .system-tag .selected{
+.system-tag .selected{
     background-color: lightblue;
 }
 .system-span {
-    padding: 5px;
+    padding: 3px;
     color: black !important;
-    /*margin: 2px;*/
+    font-size: 11px;
+    margin: 0 0 2px 0;
+    border-radius: 3px;
 }
 
 .organization-span {
-    padding: 5px;
-    border-radius: 10px;
+    padding: 3px;
+    border-radius: 15px;
     color: black !important;
-    /*margin: 2px;*/
+    font-size: 11px;
+    margin: 0 0 2px 0;
 }
 
 .personal-span {
-    padding: 5px;
-    border-radius: 10px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    padding: 3px;
+    border-radius: 15px;
     border: solid 2px;
     color: black !important;
-    /*margin: 2px;*/
+    font-size: 11px;
+    margin: 0 0 2px 0;
 }
 
 .list-card .color-picker {
@@ -617,7 +622,7 @@ div.detail-statistics-content {
 }
 
 .list-card .custom-span {
-    font-size: 16px;
+    font-size: 15px;
     color: lightskyblue;
 }
 

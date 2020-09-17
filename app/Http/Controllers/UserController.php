@@ -28,8 +28,6 @@ class UserController extends Controller
         $organization_id = auth()->user()->Organization()->first()->id;
         $organization = Organization::findOrFail($organization_id);
         $users = $organization->Users()->get();
-//        dd($users);
-
         return view('user.index',['users'=>$users , 'organization' => $organization->organization]);
     }
 

@@ -1,5 +1,5 @@
 <div class="col-md-3" id="tagAddCard" style="display: none;">
-    <div class="list-card">
+    <div class="list-card kt-scroll" data-scroll="true" >
         <form method="post" role="form" action="{{route('tag.add')}}">
             @csrf
             <input type="hidden" name="personalID" value="{{$personalID}}">
@@ -20,13 +20,13 @@
                     </div>
                     <div class="ml-2" style="display: flex">
                         <input type="hidden" name="tagType" id="tagType">
-                        <span id="tagTypeShow"> <h5>Organization Tag</h5></span>
+                        <span id="tagTypeShow"> Organization Tag </span>
                     </div>
                 </div>
             </div>
-            <div class="row mt-3">
+            <div class="row mt-2">
+                <span class="custom-span mb-2 ml-2">Tag Color</span>
                 <div class="ml-2">
-                    <span class="custom-span">Tag Color</span>
                     <input type="hidden" name="tagColor" id="tagColor" value="#4a6f4b99" class="color-picker mt-2 mb-3">
                     <input type="hidden" name="tagColorValue" id="tagColorValue" value="{{13}}">
                     <?php
@@ -65,7 +65,7 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-2">
+            <div class="mt-3">
                 <div class="mb-2 custom-span">
                     <span> Note </span>
                     <input name="tagNote" class="form-control" style="font-size: 16px">
@@ -74,10 +74,9 @@
                         <strong>{{ $errors->first('tagNote') }}</strong>
                     </span>
                     @endif
-
                 </div>
-                <div class="mb-2 mt-5 custom-span">
-                    <span> Show Tag </span>
+                <div class="mb-2 mt-3 custom-span">
+                    <span> Description </span>
                     <textarea name="tagDescription" class="form-control" style="font-size: 16px"> </textarea>
                     @if ($errors->has('tagDescription'))
                         <span class="invalid-feedback" style="display: block;" role="alert">

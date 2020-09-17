@@ -411,7 +411,8 @@ class TaskController extends Controller
 
         if ($taskId == "") {
             $taskList = $Task->getTaskListInit(auth()->user());
-        } else {
+        }
+        else {
             $notifications = explode(',',$memoNotification);
             $newMemos = '';
             $memos = explode(',',$newMemo);

@@ -32,8 +32,8 @@ class TagMiddleware
         $role_id = $user->roleID;
         $organization_id = $user->organization_id;
 
-        $tags = Tag::where('organization_id',$organization_id)->where('tagtype','!=' ,3)->where('pinned',1)->get()->toArray();
-        $personalTags = Tag::where('person_id',$personID)->where('pinned',1)->get()->toArray();
+        $tags = Tag::where('organization_id',$organization_id)->where('tagtype','!=' ,3)->where('show',1)->where('pinned',1)->get()->toArray();
+        $personalTags = Tag::where('person_id',$personID)->where('show',1)->where('pinned',1)->get()->toArray();
         $pinnedTasks = PinnedTask::where('personID',$personID)->get()->toArray();
         $pinnedTasks_data = [];
         foreach ($pinnedTasks as $task) {

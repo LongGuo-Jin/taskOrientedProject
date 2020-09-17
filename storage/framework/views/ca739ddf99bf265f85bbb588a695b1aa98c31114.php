@@ -247,7 +247,7 @@
                                                                                 <?php echo e($columnItem['title']); ?>
 
                                                                             </div>
-                                                                            <div class="col-lg-3">
+                                                                            <div class="col-lg-3 person-tag">
                                                                                  <?php if (isset($component)) { $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\UserAvatar::class, ['type' => $columnItem['avatarType'],'nameTag' => $columnItem['nameTag'],'roleID' => $columnItem['roleID'],'color' => $columnItem['avatarColor']]); ?>
 <?php $component->withName('user-avatar'); ?>
@@ -501,7 +501,7 @@
                                                                                 <?php echo e($columnItem['title']); ?>
 
                                                                             </div>
-                                                                            <div class="col-lg-3 final-sub-task-name">
+                                                                            <div class="col-lg-3 final-sub-task-name person-tag">
                                                                                  <?php if (isset($component)) { $__componentOriginal44db2fd38a5a2ed593dece4b684aa7914ca664da = $component; } ?>
 <?php $component = $__env->getContainer()->make(App\View\Components\UserAvatar::class, ['type' => $columnItem['avatarType'],'nameTag' => $columnItem['nameTag'],'roleID' => $columnItem['roleID'],'color' => $columnItem['avatarColor']]); ?>
 <?php $component->withName('user-avatar'); ?>

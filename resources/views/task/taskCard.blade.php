@@ -53,13 +53,129 @@
                                     <div class="kt-portlet__body">
                                         @if(isset($columnItem[0]["ID"]))
                                             <div class="kt-scroll" data-scroll="true">
-                                            <div class="tab-content">
-                                                <div class="tab-pane active" id="kt_regular_tab_{{$columnClass}}">
-                                                    @foreach($columnItem as $taskItem)
-                                                        <div class="kt-regular-task-item row thin <?php if($taskId == $taskItem['ID']) echo 'selected';?>
-                                                        <?php if($taskId != $taskItem['ID'] && in_array($taskItem['ID'], $parents)) echo 'parent_selected';?>"
-                                                             data-task_id="{{$taskItem['ID']}}" data-show_type="regular" style="display: flex;">
-                                                            <?php $tagTask =new \App\TagTask();
+                                                <div class="tab-content">
+                                                    <div class="tab-pane active" id="kt_regular_tab_{{$columnClass}}">
+                                                        @foreach($columnItem as $taskItem)
+                                                            <div class="kt-regular-task-item row thin <?php if($taskId == $taskItem['ID']) echo 'selected';?>
+                                                            <?php if($taskId != $taskItem['ID'] && in_array($taskItem['ID'], $parents)) echo 'parent_selected';?>"
+                                                                 data-task_id="{{$taskItem['ID']}}" data-show_type="regular" style="display: flex;">
+                                                                <?php $tagTask =new \App\TagTask();
+                                                                    $taskTags =  $tagTask->getTaskTagList($taskItem['ID']);
+                                                                    $color = '#9d88bf';
+                                                                    foreach($taskTags as $taskTag) {
+                                                                        if ($taskTag["tagtype"] != 1 ) {
+                                                                            continue;
+                                                                        }
+
+                                                                        if($taskTag['name'] == "PROJECT") {
+                                                                            $color = '#302344';
+                                                                            break;
+                                                                        }
+                                                                        if($taskTag['name'] == "MILESTONE") {
+                                                                            $color = '#98b6ea';
+                                                                            break;
+                                                                        }
+                                                                        if($taskTag['name'] == "TO DO") {
+                                                                            $color = '#f7dd6d';
+                                                                            break;
+                                                                        }
+                                                                        if($taskTag['name'] == "PERMANENT") {
+                                                                            $color = '#4fc6a2';
+                                                                            break;
+                                                                        }
+                                                                        if($taskTag['name'] == "PERIODIC") {
+                                                                            $color = '#88e588';
+                                                                            break;
+                                                                        }
+                                                                        if($taskTag['name'] == "TRIP") {
+                                                                            $color = '#a5a3aa';
+                                                                            break;
+                                                                        }
+                                                                        if($taskTag['name'] == "ERROR") {
+                                                                            $color = '#ef6f6f';
+                                                                            break;
+                                                                        }
+                                                                        if($taskTag['name'] == "ALARM") {
+                                                                            $color = '#f4c67d';
+                                                                            break;
+                                                                        }
+                                                                    }
+
+                                                                    ?>
+                                                                <div class="task-status" style="padding-top: 10px; background-color: {{$color}};display: flex; flex-direction: column; width: 10%; justify-content: space-between">
+                                                                    <div style="display: flex; flex-direction: column">
+                                                                        <div><?php echo($taskItem['status_icon'])?></div>
+                                                                        <div>{{$taskItem['priority_title']}}</div>
+                                                                        <div>{{$taskItem['weight']}}</div>
+                                                                    </div>
+                                                                    <div style="position: relative; margin: 0; padding: 0">
+                                                                        @if(in_array($taskItem['ID'],$notifications))
+                                                                            <i class="fa fa-envelope "></i>
+                                                                            <div class="blink_mark blink_mail_icon" id="blink_mail_icon_{{$taskItem['ID']}}">
+                                                                            </div>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+                                                                <div style="width: 90%; padding: 10px; <?php if ($taskItem['overdue']) echo "background: #fff2f2";?>">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-9 task-name">
+                                                                            {{$taskItem['title']}}
+                                                                        </div>
+                                                                        <div class="col-lg-3 person-tag">
+                                                                            <x-user-avatar :type="$taskItem['avatarType']" :nameTag="$taskItem['nameTag']" :roleID="$taskItem['roleID']" :color="$taskItem['avatarColor']" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mt-2">
+                                                                        <div class="col-lg-12" style="flex-wrap: wrap;"><?php
+
+                                                                            foreach($taskTags as $index => $taskTag) {
+                                                                            ?>
+                                                                            @if ($index == 0)
+                                                                                <span style="@if($taskTag['tagtype']==1) font-weight: bold; @endif font-size: 11px;">
+                                                                                    {{$taskTag['name']}}
+                                                                                </span>
+                                                                            @else
+                                                                                <span style="@if($taskTag['tagtype']==1) font-weight: bold; @endif font-size: 11px;">
+                                                                                   , {{$taskTag['name']}}
+                                                                                </span>
+                                                                            @endif
+                                                                            <?php
+                                                                            }
+                                                                            ?>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="kt-space-10"></div>
+                                                                    <div class="progress" style="height: 6px;">
+                                                                        @if($taskItem["statusID"] == 4)
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        @elseif($taskItem['spentProgress'] <= $taskItem['finishProgress'])
+                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: {{$taskItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        @else
+                                                                            <div class="progress-bar bg-danger" role="progressbar" style="width: {{$taskItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            <div class="progress-bar bg-dark" role="progressbar" style="width: {{$taskItem['spentProgress'] - $taskItem['finishProgress']}}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        @endif
+                                                                    </div>
+                                                                    <div class="kt-space-5"></div>
+                                                                    <div class="row kt-item-date">
+                                                                        <div class="col-lg-6 task-start-date">
+                                                                            {{$taskItem['datePlanStart']}}
+                                                                        </div>
+                                                                        <div class="col-lg-6 task-end-date">
+                                                                            {{$taskItem['datePlanEnd']}}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                    <div class="tab-pane" id="kt_extended_tab_{{$columnClass}}">
+                                                        @foreach($columnItem as $taskItem)
+                                                            <div class="row kt-extended-task-item <?php if($taskId == $taskItem['ID']) echo 'selected';?>
+                                                            <?php if($taskId != $taskItem['ID'] && in_array($taskItem['ID'], $parents)) echo 'parent_selected';?>"
+                                                                    data-task_id="{{$taskItem['ID']}}" data-show_type="extended" style="display: flex;">
+                                                                <?php $tagTask =new \App\TagTask();
                                                                 $taskTags =  $tagTask->getTaskTagList($taskItem['ID']);
                                                                 $color = '#9d88bf';
 
@@ -103,252 +219,141 @@
                                                                 }
 
                                                                 ?>
-                                                            <div class="task-status" style="padding-top: 10px; background-color: {{$color}};display: flex; flex-direction: column; width: 10%; justify-content: space-between">
-                                                                <div style="display: flex; flex-direction: column">
-                                                                    <div><?php echo($taskItem['status_icon'])?></div>
-                                                                    <div>{{$taskItem['priority_title']}}</div>
-                                                                    <div>{{$taskItem['weight']}}</div>
+                                                                <div class="task-status" style="padding-top: 10px; background-color: {{$color}}; display: flex; flex-direction: column; width: 10%; justify-content: space-between">
+                                                                    <div style="display: flex; flex-direction: column">
+                                                                        <div><?php echo($taskItem['status_icon'])?></div>
+                                                                        <div>{{$taskItem['priority_title']}}</div>
+                                                                        <div>{{$taskItem['weight']}}</div>
+                                                                    </div>
+                                                                    <div style="position: relative; margin: 0; padding: 0">
+                                                                        @if(in_array($taskItem['ID'],$notifications))
+                                                                            <i class="fa fa-envelope "></i>
+                                                                            <div class="blink_mark blink_mail_icon"  id="blink_mail_icon_{{$taskItem['ID']}}">
+                                                                            </div>
+                                                                        @endif
+                                                                    </div>
                                                                 </div>
-                                                                <div style="position: relative; margin: 0; padding: 0">
-                                                                    @if(in_array($taskItem['ID'],$notifications))
-                                                                        <i class="fa fa-envelope "></i>
-                                                                        <div class="blink_mark blink_mail_icon" id="blink_mail_icon_{{$taskItem['ID']}}">
+                                                                <div class="extand-main-content" style=" width: 90%; <?php if ($taskItem['overdue']) echo "background: #fff2f2";?>">
+                                                                    <div class="kt-extend-part">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-9">
+                                                                                <div class="task-name kt-font-task-warning">
+                                                                                    {{$taskItem['title']}}
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-lg-3 person-tag">
+                                                                                <x-user-avatar :type="$taskItem['avatarType']" :nameTag="$taskItem['nameTag']" :roleID="$taskItem['roleID']" :color="$taskItem['avatarColor']" />
+                                                                           </div>
                                                                         </div>
-                                                                    @endif
+                                                                        <div class="kt-space-10"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-lg-12" style="flex-wrap: wrap;"><?php
+                                                                                foreach($taskTags as $taskTag) {
+                                                                                ?>
+                                                                                <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="@if ($taskTag['tagtype']!=3 )background-color:{{$taskTag['color']}} @else border-color:{{$taskTag['color']}} @endif">
+                                                                               {{$taskTag['name']}}
+                                                                            </span> &nbsp;
+                                                                                <?php
+                                                                                }
+                                                                                ?>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="kt-space-10"></div>
+                                                                        <div class="progress" style="height: 6px;">
+                                                                            @if($taskItem["statusID"] == 4)
+                                                                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            @elseif($taskItem['spentProgress'] <= $taskItem['finishProgress'])
+                                                                                <div class="progress-bar bg-success" role="progressbar" style="width: {{$taskItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            @else
+                                                                                <div class="progress-bar bg-danger" role="progressbar" style="width: {{$taskItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                                <div class="progress-bar bg-dark" role="progressbar" style="width: {{$taskItem['spentProgress'] - $taskItem['finishProgress']}}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            @endif
+                                                                        </div>
+                                                                        <div class="kt-space-5"></div>
+                                                                        <div class="row kt-item-date">
+                                                                            <div class="col-lg-6 task-start-date">
+                                                                                {{$taskItem['datePlanStart']}}
+                                                                            </div>
+                                                                            <div class="col-lg-6 task-end-date">
+                                                                                <p style="float: right">{{$taskItem['datePlanEnd']}}</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="extand-below-content">
+                                                                        <i class="fa fa-user"></i> &nbsp;&nbsp;&nbsp;{{$taskItem['fullName']}}
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                            <div style="width: 90%; padding: 10px; <?php if ($taskItem['overdue']) echo "background: #fff2f2";?>">
+                                                        @endforeach
+                                                    </div>
+                                                    <div class="tab-pane" id="kt_simple_tab_{{$columnClass}}">
+                                                        @foreach($columnItem as $taskItem)
+                                                            <div class="row kt-simple-task-item thin <?php if($taskId == $taskItem['ID']) echo 'selected';?>
+                                                            <?php if($taskId != $taskItem['ID'] && in_array($taskItem['ID'], $parents)) echo 'parent_selected';?>"
+                                                            data-task_id="{{$taskItem['ID']}}" data-show_type="simple"  data-task_id="{{$taskItem['ID']}}"   style="display: flex">
+                                                                <?php $tagTask =new \App\TagTask();
+                                                                $taskTags =  $tagTask->getTaskTagList($taskItem['ID']);
+                                                                $color = '#9d88bf';
+
+                                                                foreach($taskTags as $taskTag) {
+                                                                    if ($taskTag["tagtype"] != 1 ) {
+                                                                        continue;
+                                                                    }
+
+                                                                    if($taskTag['name'] == "PROJECT") {
+                                                                        $color = '#302344';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "MILESTONE") {
+                                                                        $color = '#98b6ea';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "TO DO") {
+                                                                        $color = '#f7dd6d';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "PERMANENT") {
+                                                                        $color = '#4fc6a2';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "PERIODIC") {
+                                                                        $color = '#88e588';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "TRIP") {
+                                                                        $color = '#a5a3aa';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "ERROR") {
+                                                                        $color = '#ef6f6f';
+                                                                        break;
+                                                                    }
+                                                                    if($taskTag['name'] == "ALARM") {
+                                                                        $color = '#f4c67d';
+                                                                        break;
+                                                                    }
+                                                                }
+
+                                                                ?>
+
+                                                                <div class="task-status " style="padding-top: 10px; width: 10%;background-color: {{$color}};">
+                                                                    <?php echo($taskItem['status_icon'])?>
+                                                                </div>
+                                                                <div style="width: 90%; padding: 10px;  <?php if ($taskItem['overdue']) echo "background: #fff2f2";?>">
                                                                 <div class="row">
-                                                                    <div class="col-lg-9 task-name">
+                                                                    <div class="col-lg-9 final-sub-task-name">
                                                                         {{$taskItem['title']}}
                                                                     </div>
-                                                                    <div class="col-lg-3">
+                                                                    <div class="col-lg-3 final-sub-task-name person-tag">
                                                                         <x-user-avatar :type="$taskItem['avatarType']" :nameTag="$taskItem['nameTag']" :roleID="$taskItem['roleID']" :color="$taskItem['avatarColor']" />
                                                                     </div>
                                                                 </div>
-                                                                <div class="row mt-2">
-                                                                    <div class="col-lg-12" style="display: flex; flex-wrap: wrap;"><?php
-
-                                                                        foreach($taskTags as $taskTag) {
-                                                                        ?>
-                                                                        <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="@if ($taskTag['tagtype']!=3 )background-color:{{$taskTag['color']}} @else border-color:{{$taskTag['color']}} @endif">
-                                                                           {{$taskTag['name']}}
-                                                                        </span> &nbsp;
-                                                                        <?php
-                                                                        }
-                                                                        ?>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="kt-space-10"></div>
-                                                                <div class="progress" style="height: 6px;">
-                                                                    @if($taskItem["statusID"] == 4)
-                                                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                    @elseif($taskItem['spentProgress'] <= $taskItem['finishProgress'])
-                                                                        <div class="progress-bar bg-success" role="progressbar" style="width: {{$taskItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                    @else
-                                                                        <div class="progress-bar bg-danger" role="progressbar" style="width: {{$taskItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                        <div class="progress-bar bg-dark" role="progressbar" style="width: {{$taskItem['spentProgress'] - $taskItem['finishProgress']}}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                    @endif
-                                                                </div>
-                                                                <div class="kt-space-5"></div>
-                                                                <div class="row kt-item-date">
-                                                                    <div class="col-lg-6 task-start-date">
-                                                                        {{$taskItem['datePlanStart']}}
-                                                                    </div>
-                                                                    <div class="col-lg-6 task-end-date">
-                                                                        {{$taskItem['datePlanEnd']}}
-                                                                    </div>
                                                                 </div>
                                                             </div>
-
-                                                        </div>
-                                                    @endforeach
-                                                </div>
-                                                <div class="tab-pane" id="kt_extended_tab_{{$columnClass}}">
-                                                    @foreach($columnItem as $taskItem)
-                                                        <div class="row kt-extended-task-item <?php if($taskId == $taskItem['ID']) echo 'selected';?>
-                                                        <?php if($taskId != $taskItem['ID'] && in_array($taskItem['ID'], $parents)) echo 'parent_selected';?>"
-                                                                data-task_id="{{$taskItem['ID']}}" data-show_type="extended" style="display: flex;">
-                                                            <?php $tagTask =new \App\TagTask();
-                                                            $taskTags =  $tagTask->getTaskTagList($taskItem['ID']);
-                                                            $color = '#9d88bf';
-
-                                                            foreach($taskTags as $taskTag) {
-                                                                if ($taskTag["tagtype"] != 1 ) {
-                                                                    continue;
-                                                                }
-
-                                                                if($taskTag['name'] == "PROJECT") {
-                                                                    $color = '#302344';
-                                                                    break;
-                                                                }
-                                                                if($taskTag['name'] == "MILESTONE") {
-                                                                    $color = '#98b6ea';
-                                                                    break;
-                                                                }
-                                                                if($taskTag['name'] == "TO DO") {
-                                                                    $color = '#f7dd6d';
-                                                                    break;
-                                                                }
-                                                                if($taskTag['name'] == "PERMANENT") {
-                                                                    $color = '#4fc6a2';
-                                                                    break;
-                                                                }
-                                                                if($taskTag['name'] == "PERIODIC") {
-                                                                    $color = '#88e588';
-                                                                    break;
-                                                                }
-                                                                if($taskTag['name'] == "TRIP") {
-                                                                    $color = '#a5a3aa';
-                                                                    break;
-                                                                }
-                                                                if($taskTag['name'] == "ERROR") {
-                                                                    $color = '#ef6f6f';
-                                                                    break;
-                                                                }
-                                                                if($taskTag['name'] == "ALARM") {
-                                                                    $color = '#f4c67d';
-                                                                    break;
-                                                                }
-                                                            }
-
-                                                            ?>
-                                                            <div class="task-status" style="padding-top: 10px; background-color: {{$color}}; display: flex; flex-direction: column; width: 10%; justify-content: space-between">
-                                                                <div style="display: flex; flex-direction: column">
-                                                                    <div><?php echo($taskItem['status_icon'])?></div>
-                                                                    <div>{{$taskItem['priority_title']}}</div>
-                                                                    <div>{{$taskItem['weight']}}</div>
-                                                                </div>
-                                                                <div style="position: relative; margin: 0; padding: 0">
-                                                                    @if(in_array($taskItem['ID'],$notifications))
-                                                                        <i class="fa fa-envelope "></i>
-                                                                        <div class="blink_mark blink_mail_icon"  id="blink_mail_icon_{{$taskItem['ID']}}">
-                                                                        </div>
-                                                                    @endif
-                                                                </div>
-                                                            </div>
-                                                            <div class="extand-main-content" style=" width: 90%; <?php if ($taskItem['overdue']) echo "background: #fff2f2";?>">
-                                                                <div class="kt-extend-part">
-                                                                    <div class="row">
-                                                                        <div class="col-lg-9">
-                                                                            <div class="task-name kt-font-task-warning">
-                                                                                {{$taskItem['title']}}
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-3 person-tag">
-                                                                            <x-user-avatar :type="$taskItem['avatarType']" :nameTag="$taskItem['nameTag']" :roleID="$taskItem['roleID']" :color="$taskItem['avatarColor']" />
-                                                                       </div>
-                                                                    </div>
-                                                                    <div class="kt-space-10"></div>
-                                                                    <div class="row">
-                                                                        <div class="col-lg-12" style="display: flex; flex-wrap: wrap;"><?php
-                                                                            foreach($taskTags as $taskTag) {
-                                                                            ?>
-                                                                            <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="@if ($taskTag['tagtype']!=3 )background-color:{{$taskTag['color']}} @else border-color:{{$taskTag['color']}} @endif">
-                                                                           {{$taskTag['name']}}
-                                                                        </span> &nbsp;
-                                                                            <?php
-                                                                            }
-                                                                            ?>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="kt-space-10"></div>
-                                                                    <div class="progress" style="height: 6px;">
-                                                                        @if($taskItem["statusID"] == 4)
-                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                        @elseif($taskItem['spentProgress'] <= $taskItem['finishProgress'])
-                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: {{$taskItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                        @else
-                                                                            <div class="progress-bar bg-danger" role="progressbar" style="width: {{$taskItem['finishProgress']}}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                            <div class="progress-bar bg-dark" role="progressbar" style="width: {{$taskItem['spentProgress'] - $taskItem['finishProgress']}}%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                        @endif
-                                                                    </div>
-                                                                    <div class="kt-space-5"></div>
-                                                                    <div class="row kt-item-date">
-                                                                        <div class="col-lg-6 task-start-date">
-                                                                            {{$taskItem['datePlanStart']}}
-                                                                        </div>
-                                                                        <div class="col-lg-6 task-end-date">
-                                                                            <p style="float: right">{{$taskItem['datePlanEnd']}}</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="extand-below-content">
-                                                                    <i class="fa fa-user"></i> &nbsp;&nbsp;&nbsp;{{$taskItem['fullName']}}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
-                                                </div>
-                                                <div class="tab-pane" id="kt_simple_tab_{{$columnClass}}">
-                                                    @foreach($columnItem as $taskItem)
-                                                        <div class="row kt-simple-task-item thin <?php if($taskId == $taskItem['ID']) echo 'selected';?>
-                                                        <?php if($taskId != $taskItem['ID'] && in_array($taskItem['ID'], $parents)) echo 'parent_selected';?>"
-                                                        data-task_id="{{$taskItem['ID']}}" data-show_type="simple"  data-task_id="{{$taskItem['ID']}}"   style="display: flex">
-                                                            <?php $tagTask =new \App\TagTask();
-                                                            $taskTags =  $tagTask->getTaskTagList($taskItem['ID']);
-                                                            $color = '#9d88bf';
-
-                                                            foreach($taskTags as $taskTag) {
-                                                                if ($taskTag["tagtype"] != 1 ) {
-                                                                    continue;
-                                                                }
-
-                                                                if($taskTag['name'] == "PROJECT") {
-                                                                    $color = '#302344';
-                                                                    break;
-                                                                }
-                                                                if($taskTag['name'] == "MILESTONE") {
-                                                                    $color = '#98b6ea';
-                                                                    break;
-                                                                }
-                                                                if($taskTag['name'] == "TO DO") {
-                                                                    $color = '#f7dd6d';
-                                                                    break;
-                                                                }
-                                                                if($taskTag['name'] == "PERMANENT") {
-                                                                    $color = '#4fc6a2';
-                                                                    break;
-                                                                }
-                                                                if($taskTag['name'] == "PERIODIC") {
-                                                                    $color = '#88e588';
-                                                                    break;
-                                                                }
-                                                                if($taskTag['name'] == "TRIP") {
-                                                                    $color = '#a5a3aa';
-                                                                    break;
-                                                                }
-                                                                if($taskTag['name'] == "ERROR") {
-                                                                    $color = '#ef6f6f';
-                                                                    break;
-                                                                }
-                                                                if($taskTag['name'] == "ALARM") {
-                                                                    $color = '#f4c67d';
-                                                                    break;
-                                                                }
-                                                            }
-
-                                                            ?>
-
-                                                            <div class="task-status " style="padding-top: 10px; width: 10%;background-color: {{$color}};">
-                                                                <?php echo($taskItem['status_icon'])?>
-                                                            </div>
-                                                            <div style="width: 90%; padding: 10px;  <?php if ($taskItem['overdue']) echo "background: #fff2f2";?>">
-                                                            <div class="row">
-                                                                <div class="col-lg-9 final-sub-task-name">
-                                                                    {{$taskItem['title']}}
-                                                                </div>
-                                                                <div class="col-lg-3 final-sub-task-name">
-                                                                    <x-user-avatar :type="$taskItem['avatarType']" :nameTag="$taskItem['nameTag']" :roleID="$taskItem['roleID']" :color="$taskItem['avatarColor']" />
-                                                                </div>
-                                                            </div>
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
+                                                        @endforeach
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
                                         @endif
                                     </div>
                                 </div>

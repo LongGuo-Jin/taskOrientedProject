@@ -37,7 +37,7 @@
                                             {{$pathArr[$i]["title"]}}
                                         </a>
                                         @if($i != 1)
-                                            &nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp
+                                            &nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;
                                         @endif
                                     @endfor
                                     </div>
@@ -132,7 +132,7 @@
                                         {{__('task.tags')}}
                                     </div>
                                     <div class="col-lg-10 detail-edit-tags">
-                                        <div style="display: flex; flex-wrap: wrap;"><?php
+                                        <div style="flex-wrap: wrap;"><?php
                                             foreach($taskTagList as $taskTag) {
                                                 ?>
                                                 <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="@if ($taskTag['tagtype']!=3 )background-color:{{$taskTag['color']}} @else border-color:{{$taskTag['color']}} @endif">
@@ -150,8 +150,7 @@
                                                         </span>' value="{{$tagItem['ID']}}"
                                                         <?php
                                                             foreach($taskTagList as $taskTag) {
-                                                            if ($taskTag['ID'] == $tagItem['ID'])
-                                                            {
+                                                            if ($taskTag['ID'] == $tagItem['ID']) {
                                                                 echo 'selected';
                                                                 break;
                                                             }
@@ -207,7 +206,7 @@
                                     <h5  class="subtitle_text">{{__('task.memos')}}</h5>
                                     @foreach($memos as $memoitem)
                                         @if($memoitem['personID'] == auth()->user()->id)
-                                            <div class="row " style="display: flex; padding-left: 5px;text-align: right">
+                                            <div class="row " style="display: flex; padding-left: 5px;">
                                                 <div class="detail-label" style="word-break: break-word;white-space: normal;flex-wrap: wrap;width: 50%;padding: 3px">
                                                     {{$memoitem["Message"]}}
                                                 </div>
@@ -328,7 +327,7 @@
                                                 </div>
                                             </div>
                                         @else
-                                            <div class="row text-right">
+                                            <div class="row">
                                                 <div class="col-lg-5 detail-label">
                                                     {{$historyItem['event']}}
                                                 </div>

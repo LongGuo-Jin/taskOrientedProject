@@ -12,10 +12,8 @@ $(document).ready(function () {
             document.getElementById('dateOrderMenu').contains(e.target) ||
             document.getElementById('workTimeOrderMenu').contains(e.target) ||
             document.getElementById('budgetOrderMenu').contains(e.target)) {
-            console.log(e.target,"true");
         } else {
             $('.task-order-item').parent().find('.dropdown-menu').hide();
-            console.log(e.target,"else");
         }
     });
 

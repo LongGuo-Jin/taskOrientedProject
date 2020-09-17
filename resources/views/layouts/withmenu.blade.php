@@ -81,18 +81,18 @@
                 </li>
                 @foreach($pinnedTags as $tag)
                     <li class="kt-menu__item " aria-haspopup="true">
-                        <a href="javascript:;" class="kt-menu__link ">
-                        <span class="kt-menu__link-text">
-                            <i class="flaticon-add-label-button" style="color: {{$tag['color']}}; font-size: 18px; margin-right: 10px"></i>
-                            {{$tag['name']}}
-                        </span>
+                        <a href="{{route('tag.pinTag',['ID'=>$tag['ID']])}}" class="kt-menu__link ">
+                            <span class="kt-menu__link-text">
+                                <i class="flaticon-add-label-button" style="color: {{$tag['color']}}; font-size: 18px; margin-right: 10px"></i>
+                                {{$tag['name']}}
+                            </span>
                         </a>
                     </li>
                 @endforeach
 
                 @foreach($pinnedPersonTags as $tag)
                     <li class="kt-menu__item " aria-haspopup="true">
-                        <a href="javascript:;" class="kt-menu__link ">
+                        <a href="{{route('tag.pinTag',['ID'=>$tag['ID']])}}" class="kt-menu__link ">
                         <span class="kt-menu__link-text">
                             <i class="flaticon-add-label-button" style="color: {{$tag['color']}}; font-size: 18px; margin-right: 10px"></i>
                             {{$tag['name']}}

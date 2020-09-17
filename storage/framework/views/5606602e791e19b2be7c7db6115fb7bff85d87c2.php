@@ -38,7 +38,7 @@
 
                                         </a>
                                         <?php if($i != 1): ?>
-                                            &nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp
+                                            &nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;
                                         <?php endif; ?>
                                     <?php endfor; ?>
                                     </div>
@@ -151,7 +151,7 @@
 
                                     </div>
                                     <div class="col-lg-10 detail-edit-tags">
-                                        <div style="display: flex; flex-wrap: wrap;"><?php
+                                        <div style="flex-wrap: wrap;"><?php
                                             foreach($taskTagList as $taskTag) {
                                                 ?>
                                                 <span class="<?php if($taskTag['tagtype']==1): ?> system-span <?php elseif($taskTag['tagtype']==2): ?> organization-span <?php elseif($taskTag['tagtype']==3): ?> personal-span <?php endif; ?>" style="<?php if($taskTag['tagtype']!=3 ): ?>background-color:<?php echo e($taskTag['color']); ?> <?php else: ?> border-color:<?php echo e($taskTag['color']); ?> <?php endif; ?>">
@@ -171,8 +171,7 @@
                                                         </span>' value="<?php echo e($tagItem['ID']); ?>"
                                                         <?php
                                                             foreach($taskTagList as $taskTag) {
-                                                            if ($taskTag['ID'] == $tagItem['ID'])
-                                                            {
+                                                            if ($taskTag['ID'] == $tagItem['ID']) {
                                                                 echo 'selected';
                                                                 break;
                                                             }
@@ -232,7 +231,7 @@
                                     <h5  class="subtitle_text"><?php echo e(__('task.memos')); ?></h5>
                                     <?php $__currentLoopData = $memos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $memoitem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <?php if($memoitem['personID'] == auth()->user()->id): ?>
-                                            <div class="row " style="display: flex; padding-left: 5px;text-align: right">
+                                            <div class="row " style="display: flex; padding-left: 5px;">
                                                 <div class="detail-label" style="word-break: break-word;white-space: normal;flex-wrap: wrap;width: 50%;padding: 3px">
                                                     <?php echo e($memoitem["Message"]); ?>
 
@@ -383,7 +382,7 @@
                                                 </div>
                                             </div>
                                         <?php else: ?>
-                                            <div class="row text-right">
+                                            <div class="row">
                                                 <div class="col-lg-5 detail-label">
                                                     <?php echo e($historyItem['event']); ?>
 

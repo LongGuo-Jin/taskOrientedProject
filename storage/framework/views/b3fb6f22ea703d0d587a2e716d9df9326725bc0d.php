@@ -83,19 +83,19 @@
                 </li>
                 <?php $__currentLoopData = $pinnedTags; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tag): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <li class="kt-menu__item " aria-haspopup="true">
-                        <a href="javascript:;" class="kt-menu__link ">
-                        <span class="kt-menu__link-text">
-                            <i class="flaticon-add-label-button" style="color: <?php echo e($tag['color']); ?>; font-size: 18px; margin-right: 10px"></i>
-                            <?php echo e($tag['name']); ?>
+                        <a href="<?php echo e(route('tag.pinTag',['ID'=>$tag['ID']])); ?>" class="kt-menu__link ">
+                            <span class="kt-menu__link-text">
+                                <i class="flaticon-add-label-button" style="color: <?php echo e($tag['color']); ?>; font-size: 18px; margin-right: 10px"></i>
+                                <?php echo e($tag['name']); ?>
 
-                        </span>
+                            </span>
                         </a>
                     </li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                 <?php $__currentLoopData = $pinnedPersonTags; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tag): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <li class="kt-menu__item " aria-haspopup="true">
-                        <a href="javascript:;" class="kt-menu__link ">
+                        <a href="<?php echo e(route('tag.pinTag',['ID'=>$tag['ID']])); ?>" class="kt-menu__link ">
                         <span class="kt-menu__link-text">
                             <i class="flaticon-add-label-button" style="color: <?php echo e($tag['color']); ?>; font-size: 18px; margin-right: 10px"></i>
                             <?php echo e($tag['name']); ?>

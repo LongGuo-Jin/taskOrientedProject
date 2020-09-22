@@ -50,7 +50,7 @@ Route::group(['middleware'=>['auth' , 'tag']] , function() {
         Route::any('/removePin','TaskController@RemovePin')->name('task.removePin');
 
     });
-    Route::group(["prefix"=>"user"] , function() {
+    Route::group(["prefix"=>"user",'middleware'=>['user']] , function() {
         Route::get('' , 'UserController@index')->name('user');
         Route::get('add' , 'UserController@AddUser')->name('user.add');
         Route::post('save' , 'UserController@SaveUser')->name('user.save');

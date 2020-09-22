@@ -9310,7 +9310,7 @@ var KTQuickSearch = function() {
     var requestTimeout = 200; // ajax request fire timeout in milliseconds 
     var spinnerClass = 'kt-spinner kt-spinner--input kt-spinner--sm kt-spinner--brand kt-spinner--right';
     var resultClass = 'kt-quick-search--has-result';
-    var minLength = 2;
+    var minLength = 1;
 
     var showProgress = function() {
         isProcessing = true;
@@ -9379,12 +9379,14 @@ var KTQuickSearch = function() {
                 },
                 dataType: 'html',
                 success: function(res) {
-                    hasResult = true;
+
                     hideProgress();
-                    KTUtil.addClass(target, resultClass);
-                    KTUtil.setHTML(resultWrapper, res);
-                    showDropdown();
-                    $('.kt-quick-search__wrapper').removeClass('ps');
+                    if (query != '') {
+                        hasResult = true;
+                        KTUtil.addClass(target, resultClass);
+                        KTUtil.setHTML(resultWrapper, res);
+                        showDropdown();
+                    }
                     KTUtil.scrollUpdate(resultWrapper);
                 },
                 error: function(res) {
@@ -9396,7 +9398,7 @@ var KTQuickSearch = function() {
                     KTUtil.scrollUpdate(resultWrapper);
                 }
             });
-        }, 1000);       
+        }, 100);
     }
 
     var handleCancel = function(e) {
@@ -9406,19 +9408,19 @@ var KTQuickSearch = function() {
         KTUtil.hide(closeIcon);
         KTUtil.removeClass(target, resultClass);
         hideDropdown();
-    }
+    };
 
     var handleSearch = function() {
-        if (input.value.length < minLength) {
-            hideProgress();
-            hideDropdown();
 
-            return;
-        }
+        // if (input.value.length < minLength) {
+        //     hideProgress()
+        //     hideDropdown()
+        //     return
+        // }
 
-        if (isProcessing == true) {
-            return;
-        }
+        // if (isProcessing == true) {
+        //     return;
+        // }
 
         if (timeout) {
             clearTimeout(timeout);
@@ -9443,15 +9445,24 @@ var KTQuickSearch = function() {
 
             // Attach input keyup handler
             KTUtil.addEvent(input, 'keyup', handleSearch);
-            KTUtil.addEvent(input, 'focus', handleSearch);
-
+            // KTUtil.addEvent(input, 'focus', handleSearch);
             // Prevent enter click
             form.onkeypress = function(e) {
                 var key = e.charCode || e.keyCode || 0;     
-                if (key == 13) {
+                if (key == 13 ) {
                     e.preventDefault();
                 }
-            }
+                console.log(key,"ekey press");
+                if ( key == 27 ) {
+                    e.preventDefault();
+                    input.value = '';
+                    query = '';
+                    hasResult = false;
+                    KTUtil.hide(closeIcon);
+                    KTUtil.removeClass(target, resultClass);
+                    hideDropdown();
+                }
+            };
            
             KTUtil.addEvent(closeIcon, 'click', handleCancel);     
 

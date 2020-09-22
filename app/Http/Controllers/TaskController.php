@@ -45,12 +45,12 @@ class TaskController extends Controller
         $taskList = $Task->getTaskListForDashboard(auth()->user());
         $user = auth()->user();
         $personID = $user->id;
-        $filters =Filter::where('user_id',$personID)->first()->toArray();
+        $filters = Filter::where('user_id',$personID)->first()->toArray();
         $memoNotification = auth()->user()->memoNotification;
         $notifications = explode(',',$memoNotification);
 
         $filter_order = auth()->user()->filter_order;
-        $filter_array= array();
+        $filter_array = array();
         $filter_array_str = ["status","priority","weight","date","workTime","budget"];
 
         for ($i = 0 ; $i < strlen($filter_order);  $i ++) {
@@ -1133,8 +1133,9 @@ class TaskController extends Controller
 
     public function Search(Request $request) {
         $user = auth()->user();
-        Log::debug(__FUNCTION__.$request->input('query'));
         $query = $request->input('query');
+        if ($query == "")
+            return;
         $task = new Task();
         $organization_id = $user->organization_id;
         $qrBuilder = DB::table('task')
@@ -1165,7 +1166,7 @@ class TaskController extends Controller
         $ret = $qrBuilder->orderBy('order', 'asc')->orderBy('id','asc')->orderBy('statusID','asc')->get()->toArray();
         $result = $task->adtResult(Common::stdClass2Array($ret));
         $retArray = [];
-
+        $taskTag = new TagTask();
         foreach($result as $item) {
             $now = strtotime('today');
             $datePlanEnd = strtotime($item['datePlanEnd']);
@@ -1175,8 +1176,17 @@ class TaskController extends Controller
             } else {
                 $item['overdue'] = false;
             }
-            if (strpos($item['title'],$query) !== false) {
+            if (stripos($item['title'],$query) !== false || stripos($item['fullName'],$query) !== false) {
                 array_push($retArray,$item);
+            } else {
+                $taskTagList = $taskTag->getTaskTagList($item['ID']);
+                foreach($taskTagList as $tag) {
+                    Log::debug($tag);
+                    if (stripos($tag['name'],$query) !== false) {
+                        array_push($retArray,$item);
+                        break;
+                    }
+                }
             }
         }
 

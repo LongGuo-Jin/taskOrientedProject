@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 @section('title')
-    User Settings
+    User Settings | TOP
 @endsection
 
 @section('style')

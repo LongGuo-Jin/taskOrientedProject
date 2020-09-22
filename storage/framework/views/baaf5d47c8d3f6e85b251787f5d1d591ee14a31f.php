@@ -1,6 +1,6 @@
 
 <?php $__env->startSection('title'); ?>
-    taskCard
+    Tasks | TOP
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('style'); ?>
@@ -93,7 +93,6 @@
                                                                         }
                                                                         if($taskTag['name'] == "TRIP") {
                                                                             $color = '#a5a3aa';
-                                                                            break;
                                                                         }
                                                                         if($taskTag['name'] == "ERROR") {
                                                                             $color = '#ef6f6f';
@@ -142,24 +141,31 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="row mt-2">
-                                                                        <div class="col-lg-12" style="flex-wrap: wrap;"><?php
-
-                                                                            foreach($taskTags as $index => $taskTag) {
+                                                                        <div class="col-lg-12" style="display: flex; flex-wrap: wrap;"><?php
+                                                                            foreach($taskTags as $taskTag) {
                                                                             ?>
-                                                                            <?php if($index == 0): ?>
-                                                                                <span style="<?php if($taskTag['tagtype']==1): ?> font-weight: bold; <?php endif; ?> font-size: 11px;">
-                                                                                    <?php echo e($taskTag['name']); ?>
+                                                                            <span class="<?php if($taskTag['tagtype']==1): ?> system-span <?php elseif($taskTag['tagtype']==2): ?> organization-span <?php elseif($taskTag['tagtype']==3): ?> personal-span <?php endif; ?>" style="color:<?php echo e($taskTag['color']); ?>">
+                                                                               <?php echo e($taskTag['name']); ?>
 
-                                                                                </span>
-                                                                            <?php else: ?>
-                                                                                <span style="<?php if($taskTag['tagtype']==1): ?> font-weight: bold; <?php endif; ?> font-size: 11px;">
-                                                                                   , <?php echo e($taskTag['name']); ?>
-
-                                                                                </span>
-                                                                            <?php endif; ?>
+                                                                            </span> &nbsp;
                                                                             <?php
                                                                             }
                                                                             ?>
+                                                                            
+                                                                            
+                                                                            
+                                                                                
+                                                                                    
+                                                                                
+                                                                            
+                                                                                
+                                                                                   
+                                                                                
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
                                                                         </div>
                                                                     </div>
 
@@ -279,10 +285,10 @@
                                                                         </div>
                                                                         <div class="kt-space-10"></div>
                                                                         <div class="row">
-                                                                            <div class="col-lg-12" style="flex-wrap: wrap;"><?php
+                                                                            <div class="col-lg-12" style="display: flex;flex-wrap: wrap;"><?php
                                                                                 foreach($taskTags as $taskTag) {
                                                                                 ?>
-                                                                                <span class="<?php if($taskTag['tagtype']==1): ?> system-span <?php elseif($taskTag['tagtype']==2): ?> organization-span <?php elseif($taskTag['tagtype']==3): ?> personal-span <?php endif; ?>" style="<?php if($taskTag['tagtype']!=3 ): ?>background-color:<?php echo e($taskTag['color']); ?> <?php else: ?> border-color:<?php echo e($taskTag['color']); ?> <?php endif; ?>">
+                                                                                <span class="<?php if($taskTag['tagtype']==1): ?> system-span <?php elseif($taskTag['tagtype']==2): ?> organization-span <?php elseif($taskTag['tagtype']==3): ?> personal-span <?php endif; ?>" style="color:<?php echo e($taskTag['color']); ?>">
                                                                                <?php echo e($taskTag['name']); ?>
 
                                                                             </span> &nbsp;

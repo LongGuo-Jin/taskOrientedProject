@@ -1,6 +1,6 @@
 
 <?php $__env->startSection('title'); ?>
-    Calendar
+    Calendar | TOP
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('style'); ?>
@@ -263,14 +263,14 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="row mt-2">
-                                                                            <div class="col-lg-12" style="display: flex; flex-wrap: wrap;"><?php
+                                                                            <div class="col-lg-12" style="display:flex; flex-wrap: wrap;"><?php
 
                                                                                 foreach($taskTags as $taskTag) {
                                                                                 ?>
-                                                                                <span class="<?php if($taskTag['tagtype']==1): ?> system-span <?php elseif($taskTag['tagtype']==2): ?> organization-span <?php elseif($taskTag['tagtype']==3): ?> personal-span <?php endif; ?>" style="<?php if($taskTag['tagtype']!=3 ): ?>background-color:<?php echo e($taskTag['color']); ?> <?php else: ?> border-color:<?php echo e($taskTag['color']); ?> <?php endif; ?>">
-                                                                           <?php echo e($taskTag['name']); ?>
+                                                                                <span class="<?php if($taskTag['tagtype']==1): ?> system-span <?php elseif($taskTag['tagtype']==2): ?> organization-span <?php elseif($taskTag['tagtype']==3): ?> personal-span <?php endif; ?>" style="color:<?php echo e($taskTag['color']); ?>">
+                                                                                   <?php echo e($taskTag['name']); ?>
 
-                                                                        </span> &nbsp;
+                                                                                </span> &nbsp;
                                                                                 <?php
                                                                                 }
                                                                                 ?>
@@ -394,10 +394,10 @@
                                                                             </div>
                                                                             <div class="kt-space-10"></div>
                                                                             <div class="row">
-                                                                                <div class="col-lg-12" style="display: flex; flex-wrap: wrap;"><?php
+                                                                                <div class="col-lg-12" style="display:flex;flex-wrap: wrap;"><?php
                                                                                     foreach($taskTags as $taskTag) {
                                                                                     ?>
-                                                                                    <span class="<?php if($taskTag['tagtype']==1): ?> system-span <?php elseif($taskTag['tagtype']==2): ?> organization-span <?php elseif($taskTag['tagtype']==3): ?> personal-span <?php endif; ?>" style="<?php if($taskTag['tagtype']!=3 ): ?>background-color:<?php echo e($taskTag['color']); ?> <?php else: ?> border-color:<?php echo e($taskTag['color']); ?> <?php endif; ?>">
+                                                                                    <span class="<?php if($taskTag['tagtype']==1): ?> system-span <?php elseif($taskTag['tagtype']==2): ?> organization-span <?php elseif($taskTag['tagtype']==3): ?> personal-span <?php endif; ?>" style="color:<?php echo e($taskTag['color']); ?>">
                                                                            <?php echo e($taskTag['name']); ?>
 
                                                                         </span> &nbsp;

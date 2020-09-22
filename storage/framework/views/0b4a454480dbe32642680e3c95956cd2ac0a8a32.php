@@ -1,6 +1,6 @@
 
 <?php $__env->startSection('title'); ?>
-    Tag
+    Tag | TOP
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('style'); ?>
@@ -52,7 +52,7 @@
                                                         <a onclick='tag("<?php echo e($tag['ID']); ?>", "1")'>
                                                             <div class="row system-tag <?php echo e($selected==$tag['ID']?"selected":""); ?>">
                                                                 <div class="col-md-4">
-                                                                    <span class="system-span" style="background-color: <?php echo e($tag['color']); ?>">
+                                                                    <span class="system-span" style="color: <?php echo e($tag['color']); ?>">
                                                                         <?php echo $tag['name']; ?>
                                                                     </span>
                                                                 </div>
@@ -71,7 +71,7 @@
                                                         <a onclick='tag("<?php echo e($tag['ID']); ?>", "1")'>
                                                             <div class="row system-tag <?php echo e($selected==$tag['ID']?"selected":""); ?>">
                                                                 <div class="col-md-4">
-                                                            <span class="system-span" style="background-color: <?php echo e($tag['color']); ?>">
+                                                            <span class="system-span" style="color: <?php echo e($tag['color']); ?>">
                                                                 <?php echo $tag['name']; ?>
                                                             </span>
                                                                 </div>
@@ -128,7 +128,7 @@
                                                         <a onclick='tag("<?php echo e($tag['ID']); ?>", "2")'>
                                                             <div class="row system-tag <?php echo e($selected==$tag['ID']?"selected":""); ?>">
                                                                 <div class="col-md-4">
-                                                                    <span class="organization-span" style="background-color: <?php echo e($tag['color']); ?>">
+                                                                    <span class="organization-span" style="color: <?php echo e($tag['color']); ?>">
                                                                         <?php echo $tag['name']; ?>
                                                                     </span>
                                                                 </div>
@@ -147,7 +147,7 @@
                                                         <a onclick='tag("<?php echo e($tag['ID']); ?>", "2")'>
                                                             <div class="row system-tag <?php echo e($selected==$tag['ID']?"selected":""); ?>">
                                                                 <div class="col-md-4">
-                                                                    <span class="organization-span" style="background-color: <?php echo e($tag['color']); ?>">
+                                                                    <span class="organization-span" style="color: <?php echo e($tag['color']); ?>">
                                                                         <?php echo $tag['name']; ?>
                                                                     </span>
                                                                 </div>
@@ -212,7 +212,7 @@
                                                         <a onclick='tag("<?php echo e($tag['ID']); ?>", "3")'>
                                                             <div class="row system-tag <?php echo e($selected==$tag['ID']?"selected":""); ?>">
                                                                 <div class="col-md-4">
-                                                                    <span class="personal-span" style="border-color: <?php echo e($tag['color']); ?>">
+                                                                    <span class="personal-span" style="color: <?php echo e($tag['color']); ?>">
                                                                         <?php echo $tag['name']; ?>
                                                                     </span>
                                                                 </div>
@@ -231,7 +231,7 @@
                                                         <a onclick='tag("<?php echo e($tag['ID']); ?>", "1")'>
                                                             <div class="row system-tag <?php echo e($selected==$tag['ID']?"selected":""); ?>">
                                                                 <div class="col-md-4">
-                                                                    <span class="personal-span" style="border-color: <?php echo e($tag['color']); ?>">
+                                                                    <span class="personal-span" style="color: <?php echo e($tag['color']); ?>">
                                                                         <?php echo $tag['name']; ?>
                                                                     </span>
                                                                 </div>

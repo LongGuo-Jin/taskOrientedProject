@@ -588,30 +588,32 @@ div.detail-statistics-content {
 }
 .system-span {
     padding: 3px;
-    color: black !important;
     font-size: 11px;
     margin: 0 0 2px 0;
     border-radius: 3px;
+    background-color: #decafe;
+    align-self: center;
 }
 
 .organization-span {
     padding: 3px;
     border-radius: 15px;
-    color: black !important;
     font-size: 11px;
     margin: 0 0 2px 0;
+    background-color: #decafe;
+    align-self: center;
 }
 
 .personal-span {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    padding: 3px;
+    padding: 2px;
     border-radius: 15px;
-    border: solid 2px;
-    color: black !important;
+    border: solid 2px #decafe;
     font-size: 11px;
     margin: 0 0 2px 0;
+    align-self: center;
 }
 
 .list-card .color-picker {

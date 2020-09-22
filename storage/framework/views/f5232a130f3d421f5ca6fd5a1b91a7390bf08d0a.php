@@ -26,10 +26,10 @@
                                 <div id="organization-tags" style="display: flex; flex-wrap: wrap;"><?php
                                     foreach($organizationTagList as $taskTag) {
                                     ?>
-                                    <span class="<?php if($taskTag['tagtype']==1): ?> system-span <?php elseif($taskTag['tagtype']==2): ?> organization-span <?php elseif($taskTag['tagtype']==3): ?> personal-span <?php endif; ?>" style="<?php if($taskTag['tagtype']!=3 ): ?>background-color:<?php echo e($taskTag['color']); ?> <?php else: ?> border-color:<?php echo e($taskTag['color']); ?> <?php endif; ?>">
-                                                    <?php echo e($taskTag['name']); ?>
+                                        <span class="<?php if($taskTag['tagtype']==1): ?> system-span <?php elseif($taskTag['tagtype']==2): ?> organization-span <?php elseif($taskTag['tagtype']==3): ?> personal-span <?php endif; ?>" style="color:<?php echo e($taskTag['color']); ?>">
+                                            <?php echo e($taskTag['name']); ?>
 
-                                                </span> &nbsp;
+                                        </span> &nbsp;
                                     <?php
                                     }
                                     ?>
@@ -38,10 +38,10 @@
                                 <p id="organization-edit-tags" <?php if(count($organizationTagList) != 0): ?> style="display: none;" <?php endif; ?>>
                                     <select class="form-control kt-selectpicker" multiple data-actions-box="true" name="orgTags">
                                         <?php $__currentLoopData = $tagList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tagItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <option data-content='<span class="<?php if($tagItem['tagtype']==1): ?> system-span <?php elseif($tagItem['tagtype']==2): ?> organization-span <?php elseif($tagItem['tagtype']==3): ?> personal-span <?php endif; ?>" style="<?php if($tagItem['tagtype']!=3 ): ?>background-color:<?php echo e($tagItem['color']); ?> <?php else: ?> border-color:<?php echo e($tagItem['color']); ?> <?php endif; ?>">
-                                                    <?php echo e($tagItem['name']); ?>
+                                            <option data-content='<span class="<?php if($tagItem['tagtype']==1): ?> system-span <?php elseif($tagItem['tagtype']==2): ?> organization-span <?php elseif($tagItem['tagtype']==3): ?> personal-span <?php endif; ?>" style="color:<?php echo e($tagItem['color']); ?>">
+                                                <?php echo e($tagItem['name']); ?>
 
-                                                    </span>' value="<?php echo e($tagItem['ID']); ?>"
+                                                </span>' value="<?php echo e($tagItem['ID']); ?>"
                                             <?php
                                                 foreach($organizationTagList as $taskTag) {
                                                     if ($taskTag['ID'] == $tagItem['ID'])

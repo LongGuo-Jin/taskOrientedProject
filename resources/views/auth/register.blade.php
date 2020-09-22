@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Login
+    Register | TOP
 @endsection
 
 @section('content')

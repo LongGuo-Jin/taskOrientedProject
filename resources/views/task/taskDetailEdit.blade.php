@@ -132,10 +132,10 @@
                                         {{__('task.tags')}}
                                     </div>
                                     <div class="col-lg-10 detail-edit-tags">
-                                        <div style="flex-wrap: wrap;"><?php
+                                        <div style="display: flex;flex-wrap: wrap;"><?php
                                             foreach($taskTagList as $taskTag) {
                                                 ?>
-                                                <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="@if ($taskTag['tagtype']!=3 )background-color:{{$taskTag['color']}} @else border-color:{{$taskTag['color']}} @endif">
+                                                <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="color:{{$taskTag['color']}}">
                                                     {{$taskTag['name']}}
                                                 </span> &nbsp;
                                             <?php
@@ -145,7 +145,7 @@
                                         <p @if (count($taskTagList) != 0) style="display: none;" @endif>
                                             <select class="form-control kt-selectpicker" multiple data-actions-box="true" name="tags">
                                                 @foreach($tagList as $tagItem)
-                                                    <option data-content='<span class="@if($tagItem['tagtype']==1) system-span @elseif($tagItem['tagtype']==2) organization-span @elseif($tagItem['tagtype']==3) personal-span @endif" style="@if ($tagItem['tagtype']!=3 )background-color:{{$tagItem['color']}} @else border-color:{{$tagItem['color']}} @endif">
+                                                    <option data-content='<span class="@if($tagItem['tagtype']==1) system-span @elseif($tagItem['tagtype']==2) organization-span @elseif($tagItem['tagtype']==3) personal-span @endif" style="color:{{$tagItem['color']}}">
                                                     {{$tagItem['name']}}
                                                         </span>' value="{{$tagItem['ID']}}"
                                                         <?php

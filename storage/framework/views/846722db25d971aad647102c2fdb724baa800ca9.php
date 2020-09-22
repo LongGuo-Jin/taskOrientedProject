@@ -1,6 +1,6 @@
 
 <?php $__env->startSection('title'); ?>
-    Organization
+    Organization | TOP
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('style'); ?>
     <link rel="stylesheet" href="<?php echo e(asset('public/assets/css/company/company.css')); ?>">

@@ -1,7 +1,7 @@
 
 
 <?php $__env->startSection('title'); ?>
-    Login
+    Login | TOP
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>

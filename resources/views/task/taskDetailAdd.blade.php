@@ -102,7 +102,7 @@
                                                 <div class="detail-information-staus-content">
                                                     <select class="form-control kt-selectpicker" multiple data-actions-box="true" name="tags">
                                                         @foreach($tagList as $tagItem)
-                                                            <option data-content='<span class="@if($tagItem['tagtype']==1) system-span @elseif($tagItem['tagtype']==2) organization-span @elseif($tagItem['tagtype']==3) personal-span @endif" style="@if ($tagItem['tagtype']!=3 )background-color:{{$tagItem['color']}} @else border-color:{{$tagItem['color']}} @endif">
+                                                            <option data-content='<span class="@if($tagItem['tagtype']==1) system-span @elseif($tagItem['tagtype']==2) organization-span @elseif($tagItem['tagtype']==3) personal-span @endif" style="color:{{$tagItem['color']}}">
                                                                         {{$tagItem['name']}}
                                                                     </span>' value="{{$tagItem['ID']}}">
                                                             </option>

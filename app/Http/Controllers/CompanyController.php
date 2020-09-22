@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
+    public function __construct()
+    {
+
+    }
     //
     public function company(Request $request) {
         $Tag = new Tag();

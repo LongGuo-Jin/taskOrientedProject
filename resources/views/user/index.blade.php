@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 @section('title')
-    User
+    User | TOP
 @endsection
 
 @section('style')

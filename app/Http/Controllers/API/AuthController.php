@@ -22,7 +22,7 @@ class AuthController extends Controller
           'email' => $request->email,
           'password' => $request->password,
         ];
-
+        Log::debug($credentials);
         if (auth()->attempt($credentials)) {
             $user = Auth::user();
             $success['token'] = $user->createToken('TaskOrientedProjects')->accessToken;

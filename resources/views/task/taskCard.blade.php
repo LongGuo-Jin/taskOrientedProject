@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 @section('title')
-    taskCard
+    Tasks | TOP
 @endsection
 
 @section('style')
@@ -89,7 +89,6 @@
                                                                         }
                                                                         if($taskTag['name'] == "TRIP") {
                                                                             $color = '#a5a3aa';
-                                                                            break;
                                                                         }
                                                                         if($taskTag['name'] == "ERROR") {
                                                                             $color = '#ef6f6f';
@@ -126,22 +125,30 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="row mt-2">
-                                                                        <div class="col-lg-12" style="flex-wrap: wrap;"><?php
-
-                                                                            foreach($taskTags as $index => $taskTag) {
+                                                                        <div class="col-lg-12" style="display: flex; flex-wrap: wrap;"><?php
+                                                                            foreach($taskTags as $taskTag) {
                                                                             ?>
-                                                                            @if ($index == 0)
-                                                                                <span style="@if($taskTag['tagtype']==1) font-weight: bold; @endif font-size: 11px;">
-                                                                                    {{$taskTag['name']}}
-                                                                                </span>
-                                                                            @else
-                                                                                <span style="@if($taskTag['tagtype']==1) font-weight: bold; @endif font-size: 11px;">
-                                                                                   , {{$taskTag['name']}}
-                                                                                </span>
-                                                                            @endif
+                                                                            <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="color:{{$taskTag['color']}}">
+                                                                               {{$taskTag['name']}}
+                                                                            </span> &nbsp;
                                                                             <?php
                                                                             }
                                                                             ?>
+                                                                            {{--foreach($taskTags as $index => $taskTag) {--}}
+                                                                            {{--?>--}}
+                                                                            {{--@if ($index == 0)--}}
+                                                                                {{--<span style="@if($taskTag['tagtype']==1) font-weight: bold; @endif font-size: 11px;">--}}
+                                                                                    {{--{{$taskTag['name']}}--}}
+                                                                                {{--</span>--}}
+                                                                            {{--@else--}}
+                                                                                {{--<span style="@if($taskTag['tagtype']==1) font-weight: bold; @endif font-size: 11px;">--}}
+                                                                                   {{--, {{$taskTag['name']}}--}}
+                                                                                {{--</span>--}}
+                                                                            {{--@endif--}}
+                                                                            {{--<?php--}}
+                                                                            {{--break;--}}
+                                                                            {{--}--}}
+                                                                            {{--?>--}}
                                                                         </div>
                                                                     </div>
 
@@ -247,10 +254,10 @@
                                                                         </div>
                                                                         <div class="kt-space-10"></div>
                                                                         <div class="row">
-                                                                            <div class="col-lg-12" style="flex-wrap: wrap;"><?php
+                                                                            <div class="col-lg-12" style="display: flex;flex-wrap: wrap;"><?php
                                                                                 foreach($taskTags as $taskTag) {
                                                                                 ?>
-                                                                                <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="@if ($taskTag['tagtype']!=3 )background-color:{{$taskTag['color']}} @else border-color:{{$taskTag['color']}} @endif">
+                                                                                <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="color:{{$taskTag['color']}}">
                                                                                {{$taskTag['name']}}
                                                                             </span> &nbsp;
                                                                                 <?php

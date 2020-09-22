@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 @section('title')
-    Tag
+    Tag | TOP
 @endsection
 
 @section('style')
@@ -51,7 +51,7 @@
                                                         <a onclick='tag("{{$tag['ID']}}", "1")'>
                                                             <div class="row system-tag {{$selected==$tag['ID']?"selected":""}}">
                                                                 <div class="col-md-4">
-                                                                    <span class="system-span" style="background-color: {{$tag['color']}}">
+                                                                    <span class="system-span" style="color: {{$tag['color']}}">
                                                                         <?php echo $tag['name']; ?>
                                                                     </span>
                                                                 </div>
@@ -70,7 +70,7 @@
                                                         <a onclick='tag("{{$tag['ID']}}", "1")'>
                                                             <div class="row system-tag {{$selected==$tag['ID']?"selected":""}}">
                                                                 <div class="col-md-4">
-                                                            <span class="system-span" style="background-color: {{$tag['color']}}">
+                                                            <span class="system-span" style="color: {{$tag['color']}}">
                                                                 <?php echo $tag['name']; ?>
                                                             </span>
                                                                 </div>
@@ -126,7 +126,7 @@
                                                         <a onclick='tag("{{$tag['ID']}}", "2")'>
                                                             <div class="row system-tag {{$selected==$tag['ID']?"selected":""}}">
                                                                 <div class="col-md-4">
-                                                                    <span class="organization-span" style="background-color: {{$tag['color']}}">
+                                                                    <span class="organization-span" style="color: {{$tag['color']}}">
                                                                         <?php echo $tag['name']; ?>
                                                                     </span>
                                                                 </div>
@@ -145,7 +145,7 @@
                                                         <a onclick='tag("{{$tag['ID']}}", "2")'>
                                                             <div class="row system-tag {{$selected==$tag['ID']?"selected":""}}">
                                                                 <div class="col-md-4">
-                                                                    <span class="organization-span" style="background-color: {{$tag['color']}}">
+                                                                    <span class="organization-span" style="color: {{$tag['color']}}">
                                                                         <?php echo $tag['name']; ?>
                                                                     </span>
                                                                 </div>
@@ -208,7 +208,7 @@
                                                         <a onclick='tag("{{$tag['ID']}}", "3")'>
                                                             <div class="row system-tag {{$selected==$tag['ID']?"selected":""}}">
                                                                 <div class="col-md-4">
-                                                                    <span class="personal-span" style="border-color: {{$tag['color']}}">
+                                                                    <span class="personal-span" style="color: {{$tag['color']}}">
                                                                         <?php echo $tag['name']; ?>
                                                                     </span>
                                                                 </div>
@@ -227,7 +227,7 @@
                                                         <a onclick='tag("{{$tag['ID']}}", "1")'>
                                                             <div class="row system-tag {{$selected==$tag['ID']?"selected":""}}">
                                                                 <div class="col-md-4">
-                                                                    <span class="personal-span" style="border-color: {{$tag['color']}}">
+                                                                    <span class="personal-span" style="color: {{$tag['color']}}">
                                                                         <?php echo $tag['name']; ?>
                                                                     </span>
                                                                 </div>

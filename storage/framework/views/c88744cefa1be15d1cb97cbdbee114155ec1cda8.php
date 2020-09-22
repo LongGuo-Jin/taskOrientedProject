@@ -1,6 +1,6 @@
 
 <?php $__env->startSection('title'); ?>
-    User
+    User | TOP
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('style'); ?>

@@ -695,7 +695,7 @@ class Task extends Model
             $timeLeft = 0;
         else
             $timeLeft = $totalDay - $spentDay;
-        $statisticsData['timeLeft'] = $timeLeft;
+        $statisticsData['timeLeft'] = round($timeLeft);
         $statisticsData['timeLeftPercent'] = $totalDay == 0 ? 0 : round(($timeLeft/$totalDay)*100, 2);
 
         $retArr = Common::stdClass2Array(

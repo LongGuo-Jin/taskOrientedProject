@@ -102,6 +102,7 @@
 @section('content')
     <?php
     $notifications = explode(',',$memoNotification);
+    $locale = app()->getLocale();
     ?>
     <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
     @include('layouts.header')
@@ -253,7 +254,7 @@
                                                                                 foreach($taskTags as $taskTag) {
                                                                                 ?>
                                                                                 <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="color:{{$taskTag['color']}}">
-                                                                                   {{$taskTag['name']}}
+                                                                                   {{$taskTag['tagtype']==1?__('tag.'.$taskTag['name']):$taskTag['name']}}
                                                                                 </span> &nbsp;
                                                                                 <?php
                                                                                 }
@@ -367,9 +368,9 @@
                                                                                 <div class="col-lg-12" style="display:flex;flex-wrap: wrap;"><?php
                                                                                     foreach($taskTags as $taskTag) {
                                                                                     ?>
-                                                                                    <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="color:{{$taskTag['color']}}">
-                                                                           {{$taskTag['name']}}
-                                                                        </span> &nbsp;
+                                                                                        <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="color:{{$taskTag['color']}}">
+                                                                                            {{$taskTag['tagtype']==1?__('tag.'.$taskTag['name']):$taskTag['name']}}
+                                                                                        </span> &nbsp;
                                                                                     <?php
                                                                                     }
                                                                                     ?>
@@ -495,28 +496,8 @@
                                             <div id="myCalendar" class="vanilla-calendar ml-auto mr-auto mb-2"></div>
                                             <div style="height: 1px; width: 100%; background-color: grey">
                                             </div>
-                                            {{--<div class="ml-3 mt-1">--}}
-                                                {{--<h6> {{__('calendar.showStatus')}}</h6>--}}
-                                                {{--<div>--}}
-                                                    {{--<input type="radio"  class="mr-3" id="radio_created"> <i class="fa fa-circle mr-2"></i> <span class="radio_span">{{__('calendar.created')}}</span>--}}
-                                                {{--</div>--}}
-                                                {{--<div>--}}
-                                                    {{--<input type="radio" class="mr-3" id="radio_active"> <i class='flaticon2-arrow lg mr-2'></i> <span class="radio_span">{{__('calendar.active')}}</span>--}}
-                                                {{--</div>--}}
-                                                {{--<div>--}}
-                                                    {{--<input type="radio" class="mr-3" id="radio_paused"> <i class='fa fa-pause mr-2'></i> <span class="radio_span">{{__('calendar.paused')}}</span>--}}
-                                                {{--</div>--}}
-                                                {{--<div>--}}
-                                                    {{--<input type="radio" class="mr-3" id="radio_finished"> <i class='flaticon2-check-mark mr-2'></i> <span class="radio_span">{{__('calendar.finished')}}</span>--}}
-                                                {{--</div>--}}
-                                                {{--<div>--}}
-                                                    {{--<input type="radio" class="mr-3" id="radio_canceled"> <i class='flaticon2-hexagonal mr-2'></i> <span class="radio_span">{{__('calendar.canceled')}}</span>--}}
-                                                {{--</div>--}}
-                                            {{--</div>--}}
-                                            {{--<div style="margin-top: 20px;height: 1px; width: 100%; background-color: grey">--}}
-                                            {{--</div>--}}
                                             <div class="ml-3 mt-4">
-                                                <h5 class="mb-3">Show  Priority</h5>
+                                                <h5 class="mb-3">{{__('calendar.showPriority')}}</h5>
                                                 <label class="main">
                                                     <input type="checkbox" id="check_high">
                                                     H <span class="check-title">{{__('calendar.high')}}</span>
@@ -569,6 +550,9 @@
         {{--var task_id = "{{$taskId}}";--}}
         {{--var showType = "{{$showType}}";--}}
         let filter_status = "{{$status}}";
+        let locale = "{{$locale}}";
+        let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        let shortWeekday = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         let H = "{{$H}}";
         let M = "{{$M}}";
         let L = "{{$L}}";
@@ -579,22 +563,30 @@
         let isDown = false;
         let startX;
         let scrollLeft;
-        slider.scrollLeft = todayColumn.offsetLeft - 310;
 
+        if (locale == 'si') {
+            months = ['Januar', 'Februar', 'Marec', 'April', 'Maj', 'Junij', 'Julij', 'Avgust', 'September', 'Oktober', 'November', 'December'];
+            shortWeekday = ['Ne', 'Po', 'To', 'Sr', 'Če', 'Pe', 'So'];
+        }
+
+        slider.scrollLeft = todayColumn.offsetLeft - 310;
         slider.addEventListener('mousedown', (e) => {
             isDown = true;
             slider.classList.add('active');
             startX = e.pageX - slider.offsetLeft;
             scrollLeft = slider.scrollLeft;
         });
+
         slider.addEventListener('mouseleave', () => {
             isDown = false;
             slider.classList.remove('active');
         });
+
         slider.addEventListener('mouseup', () => {
             isDown = false;
             slider.classList.remove('active');
         });
+
         slider.addEventListener('mousemove', (e) => {
             if(!isDown) return;
             e.preventDefault();
@@ -683,6 +675,8 @@
             // });
             let calendar = new VanillaCalendar({
                 selector: "#myCalendar",
+                months: months,
+                shortWeekday: shortWeekday,
                 date:new Date(date),
                 todaysDate: new Date(date),
                 onSelect: (data, elem) => {

@@ -155,7 +155,7 @@
                                             foreach($taskTagList as $taskTag) {
                                                 ?>
                                                 <span class="<?php if($taskTag['tagtype']==1): ?> system-span <?php elseif($taskTag['tagtype']==2): ?> organization-span <?php elseif($taskTag['tagtype']==3): ?> personal-span <?php endif; ?>" style="color:<?php echo e($taskTag['color']); ?>">
-                                                    <?php echo e($taskTag['name']); ?>
+                                                    <?php echo e($taskTag['tagtype']==1?__('tag.'.$taskTag['name']):$taskTag['name']); ?>
 
                                                 </span> &nbsp;
                                             <?php
@@ -166,7 +166,7 @@
                                             <select class="form-control kt-selectpicker" multiple data-actions-box="true" name="tags">
                                                 <?php $__currentLoopData = $tagList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tagItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     <option data-content='<span class="<?php if($tagItem['tagtype']==1): ?> system-span <?php elseif($tagItem['tagtype']==2): ?> organization-span <?php elseif($tagItem['tagtype']==3): ?> personal-span <?php endif; ?>" style="color:<?php echo e($tagItem['color']); ?>">
-                                                    <?php echo e($tagItem['name']); ?>
+                                                    <?php echo e($taskTag['tagtype']==1?__('tag.'.$taskTag['name']):$taskTag['name']); ?>
 
                                                         </span>' value="<?php echo e($tagItem['ID']); ?>"
                                                         <?php
@@ -507,7 +507,8 @@
                                 <div class="row mt-2">
                                     <div class="col-md-4 ml-auto">
                                         <button type="button" class="btn btn-outline-brand btn-elevate btn-pill" id="addWorkHour">
-                                            Add Work Hours
+                                            <?php echo e(__('task.addWorkHours')); ?>
+
                                         </button>
                                     </div>
                                 </div>
@@ -548,7 +549,8 @@
                                 <div class="row mt-2">
                                     <div class="col-md-4 ml-auto">
                                         <button type="button" class="btn btn-outline-brand btn-elevate btn-pill" id="addAllocationTime">
-                                            Add Work Hours
+                                            <?php echo e(__('task.addWorkHours')); ?>
+
                                         </button>
                                     </div>
                                 </div>
@@ -729,8 +731,7 @@
 
                                             </div>
                                             <div class="col-lg-6 statistics-content" style="text-align: right">
-                                                <?php echo e($statisticsData['timeLeft']); ?>
-
+                                                <?php echo e($statisticsData['timeLeft']); ?>D
                                             </div>
                                         </div>
                                         <div class="row statistics-row">

@@ -29,7 +29,7 @@
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                         <?php
-                            $sections = ['Employees' , 'Partners' , 'Customers' , 'Contacts'];
+                            $sections = [__('people.employees') , __('people.partners') , __('people.customers') , __('people.contacts')];
                             $index = 0;
                         ?>
                     <div class="people_outer">
@@ -42,7 +42,7 @@
                                                 <h3> <i class="fa fa-eye person_eye_icon" id="<?php echo e($sections[$index]."eye"); ?>" onclick="section(<?php echo e($index); ?>)"></i> <?php echo e($sections[$index]); ?></h3>
                                                 &nbsp;&nbsp;&nbsp;<h4> <?php echo e(count($item)); ?> of <?php echo e($people[$index1.'_count']); ?></h4>
                                             </div>
-                                            <?php if($sections[$index] == "Employees"): ?><button class="form-control btn btn-primary" style="width: 20%;" id="addPerson"> Add Person </button><?php endif; ?>
+                                            <?php if($sections[$index] == __('people.employees')): ?><button class="form-control btn btn-primary" style="width: 20%;" id="addPerson"> <?php echo e(__('people.addPerson')); ?> </button><?php endif; ?>
                                         </div>
                                         <div style="width: 100%; height: 1px; background-color: rgba(99,99,99,0.72)"></div>
                                         <div class="people_section" id="<?php echo e($sections[$index ++]); ?>">
@@ -56,29 +56,29 @@
 
                                                             </div>
                                                             <div style="font-size: 16px; margin-bottom: 5px">
-                                                                EMPLOYEE,<?php if($person['roleID']==1): ?> ADMIN <?php elseif($person['roleID']==2): ?> Manager <?php elseif($person['roleID']==4): ?> Member <?php endif; ?>
+                                                                <?php echo e(__('people.employee')); ?>,<?php if($person['roleID']==1): ?> ADMIN <?php elseif($person['roleID']==2): ?> Manager <?php elseif($person['roleID']==4): ?> Member <?php endif; ?>
                                                             </div>
                                                             <div class="people_card_text">
                                                                 <div>
-                                                                    From:&nbsp;
+                                                                    <?php echo e(__('people.from')); ?>:&nbsp;
                                                                 </div>
                                                                 <div> <?php echo e($person['address']); ?> </div>
                                                             </div>
                                                             <div class="people_card_text">
                                                                 <div>
-                                                                    Org:&nbsp;
+                                                                    <?php echo e(__('people.org')); ?>:&nbsp;
                                                                 </div>
                                                                 <div> <?php echo e($person['organization']); ?> </div>
                                                             </div>
                                                             <div class="people_card_text">
                                                                 <div>
-                                                                    Phone:&nbsp;
+                                                                    <?php echo e(__('people.phone')); ?>:&nbsp;
                                                                 </div>
                                                                 <div> <?php echo e($person['phone_number']); ?> </div>
                                                             </div>
                                                             <div class="people_card_text">
                                                                 <div>
-                                                                    Mail:&nbsp;
+                                                                    <?php echo e(__('people.mail')); ?>:&nbsp;
                                                                 </div>
                                                                 <div> <?php echo e($person['email']); ?> </div>
                                                             </div>

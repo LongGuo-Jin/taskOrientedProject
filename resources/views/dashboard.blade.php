@@ -136,7 +136,7 @@
                                                                             foreach($taskTags as $taskTag) {
                                                                             ?>
                                                                             <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="color:{{$taskTag['color']}}">
-                                                                               {{$taskTag['name']}}
+                                                                               {{$taskTag['tagtype']==1?__('tag.'.$taskTag['name']):$taskTag['name']}}
                                                                             </span> &nbsp;
                                                                             <?php
                                                                             }
@@ -250,7 +250,7 @@
                                                                                 foreach($taskTags as $taskTag) {
                                                                                 ?>
                                                                                 <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="color:{{$taskTag['color']}}">
-                                                                                   {{$taskTag['name']}}
+                                                                                   {{$taskTag['tagtype']==1?__('tag.'.$taskTag['name']):$taskTag['name']}}
                                                                                 </span> &nbsp;
                                                                                 <?php
                                                                                 }

@@ -52,14 +52,14 @@
                                                             <div class="row system-tag {{$selected==$tag['ID']?"selected":""}}">
                                                                 <div class="col-md-4">
                                                                     <span class="system-span" style="color: {{$tag['color']}}">
-                                                                        <?php echo $tag['name']; ?>
+                                                                        <?php echo __('tag.'.$tag['name']); ?>
                                                                     </span>
                                                                 </div>
                                                                 <div class="col-md-1">
                                                                     <span> {{$tag['use_count']}}</span>
                                                                 </div>
                                                                 <div class="col-md-7" style="font-size: 11px;color: {{$tag['show']==0?'gray':'black'}}">
-                                                                    <?php echo $tag['note']; ?>
+                                                                    <?php echo __('tag.'.$tag['name'].'_D'); ?>
                                                                 </div>
                                                             </div>
                                                         </a>
@@ -71,7 +71,7 @@
                                                             <div class="row system-tag {{$selected==$tag['ID']?"selected":""}}">
                                                                 <div class="col-md-4">
                                                             <span class="system-span" style="color: {{$tag['color']}}">
-                                                                <?php echo $tag['name']; ?>
+                                                                <?php echo __('tag.'.$tag['name']); ?>
                                                             </span>
                                                                 </div>
                                                                 <div class="col-md-1">
@@ -274,6 +274,7 @@
         let base_url = "{{URL::to('')}}";
         {{--var task_id = "{{$taskId}}";--}}
         {{--var showType = "{{$showType}}";--}}
+        let locale = "{{app()->getLocale()}}";
         let roleID = "{{$roleID}}";
         let system = "{{$system}}";
         let displayType = '{{$displayType}}';
@@ -349,13 +350,16 @@
         }
 
         function AddNewTag(tagType) {
-            if (tagType === 'organization') {
 
-                $('#tagTypeShow').html( '<h6>Organization Tag</h6>');
+            let orgTag = "{{__('tag.orgTag')}}";
+            let personTag = "{{__('tag.perTag')}}";
+
+            if (tagType === 'organization') {
+                $('#tagTypeShow').html( '<h6>'+orgTag+'</h6>');
                 $('#tagType').val('organization');
             } else if (tagType === 'personal') {
                 console.log(tagType);
-                $('#tagTypeShow').html( '<h6>Personal Tag</h6>');
+                $('#tagTypeShow').html( '<h6>'+personTag+'</h6>');
                 $('#tagType').val('personal');
             }
             $('#tagEditCard').hide();

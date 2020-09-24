@@ -53,14 +53,14 @@
                                                             <div class="row system-tag <?php echo e($selected==$tag['ID']?"selected":""); ?>">
                                                                 <div class="col-md-4">
                                                                     <span class="system-span" style="color: <?php echo e($tag['color']); ?>">
-                                                                        <?php echo $tag['name']; ?>
+                                                                        <?php echo __('tag.'.$tag['name']); ?>
                                                                     </span>
                                                                 </div>
                                                                 <div class="col-md-1">
                                                                     <span> <?php echo e($tag['use_count']); ?></span>
                                                                 </div>
                                                                 <div class="col-md-7" style="font-size: 11px;color: <?php echo e($tag['show']==0?'gray':'black'); ?>">
-                                                                    <?php echo $tag['note']; ?>
+                                                                    <?php echo __('tag.'.$tag['name'].'_D'); ?>
                                                                 </div>
                                                             </div>
                                                         </a>
@@ -72,7 +72,7 @@
                                                             <div class="row system-tag <?php echo e($selected==$tag['ID']?"selected":""); ?>">
                                                                 <div class="col-md-4">
                                                             <span class="system-span" style="color: <?php echo e($tag['color']); ?>">
-                                                                <?php echo $tag['name']; ?>
+                                                                <?php echo __('tag.'.$tag['name']); ?>
                                                             </span>
                                                                 </div>
                                                                 <div class="col-md-1">
@@ -279,6 +279,7 @@
         let base_url = "<?php echo e(URL::to('')); ?>";
         
         
+        let locale = "<?php echo e(app()->getLocale()); ?>";
         let roleID = "<?php echo e($roleID); ?>";
         let system = "<?php echo e($system); ?>";
         let displayType = '<?php echo e($displayType); ?>';
@@ -354,13 +355,16 @@
         }
 
         function AddNewTag(tagType) {
-            if (tagType === 'organization') {
 
-                $('#tagTypeShow').html( '<h6>Organization Tag</h6>');
+            let orgTag = "<?php echo e(__('tag.orgTag')); ?>";
+            let personTag = "<?php echo e(__('tag.perTag')); ?>";
+
+            if (tagType === 'organization') {
+                $('#tagTypeShow').html( '<h6>'+orgTag+'</h6>');
                 $('#tagType').val('organization');
             } else if (tagType === 'personal') {
                 console.log(tagType);
-                $('#tagTypeShow').html( '<h6>Personal Tag</h6>');
+                $('#tagTypeShow').html( '<h6>'+personTag+'</h6>');
                 $('#tagType').val('personal');
             }
             $('#tagEditCard').hide();

@@ -1,7 +1,5 @@
 <div class="col-md-3" id="tagEditCard">
-
     <div class="list-card kt-scroll" data-scroll="true">
-
         <form method="post" action="{{route('tag.update')}}">
             @csrf
             <input type="hidden" name="tagID" value="{{$selected}}" >
@@ -9,7 +7,7 @@
                 <input type="hidden" name="systemTag" value="1" >
             @endif
         <div style="display: flex; justify-content: space-between;font-size: 17px; color: #464e74;">
-            <span {{$system != 1?"id=tagNameEdit":""}}> {{$tags['selected']['name']}} </span>
+            <span {{$system != 1?"id=tagNameEdit":""}}> {{$system == 1?__('tag.'.$tags['selected']['name']):$tags['selected']['name']}} </span>
             @if ($system != 1)
                 <input type="text" name="tagName" id = "tagName" class="form-control"   value="{{$tags['selected']['name']}}" style="display: none">
             @endif
@@ -27,23 +25,22 @@
         <div class="row mt-3">
                 <div class="ml-2">
                     <div class="mb-2 custom-span">
-                        Tag Type
+                        {{__('tag.tagType')}}
                     </div>
                     <div class="ml-2" style="display: flex">
-                        <input type="radio" id="system-radio" {{$tags['selected']['tagtype'] == 1?"checked":""}} disabled class="mt-1 mr-3"> <span> <h6>System Tag</h6></span>
+                        <input type="radio" id="system-radio" {{$tags['selected']['tagtype'] == 1?"checked":""}} disabled class="mt-1 mr-3"> <span> <h6>{{__('tag.sysTag')}}</h6></span>
                     </div>
                     <div class="ml-2" style="display: flex">
-                        <input type="radio" id="system-radio" {{$tags['selected']['tagtype'] == 2?"checked":""}} disabled class="mt-1 mr-3"> <span> <h6>Organization Tag</h6></span>
+                        <input type="radio" id="system-radio" {{$tags['selected']['tagtype'] == 2?"checked":""}} disabled class="mt-1 mr-3"> <span> <h6>{{__('tag.orgTag')}}</h6></span>
                     </div>
                     <div class="ml-2" style="display: flex">
-                        <input type="radio" id="system-radio" {{$tags['selected']['tagtype'] == 3?"checked":""}} disabled class="mt-1 mr-3"> <span> <h6>Personal Tag</h6></span>
+                        <input type="radio" id="system-radio" {{$tags['selected']['tagtype'] == 3?"checked":""}} disabled class="mt-1 mr-3"> <span> <h6>{{__('tag.perTag')}}</h6></span>
                     </div>
                 </div>
         </div>
         <div class="row mt-2">
-            <span class="custom-span mb-2 ml-2">Tag Color</span>
+            <span class="custom-span mb-2 ml-2">{{__('tag.tagColor')}}</span>
             <div class="ml-2">
-
                 <input type="hidden" name="tagColor" id="tagColorEdit" value="{{$tags['selected']['color']}}">
                 <input type="hidden" name="tagColorValue" id="tagColorValueEdit" value="{{$tags['selected']['colorValue']}}">
                 <?php
@@ -77,23 +74,23 @@
                 @endfor
                 <div style="display: flex;margin-left: 10px">
                     <input type="checkbox" style="width: 25px; height: 25px" name="showTagEdit" id="tagShowEdit" {{$tags['selected']['show'] == 1?"checked":""}}>
-                    <span class="mt-auto mb-auto ml-2 custom-span">Show Tag</span>
+                    <span class="mt-auto mb-auto ml-2 custom-span">{{__('tag.showTag')}}</span>
                 </div>
             </div>
 
         </div>
         <div class="mt-3">
             <div class="mb-2 custom-span">
-                Note
+                {{__('tag.note')}}
             </div>
             <div>
-                <span class="ml-2" {{$system != 1?"id=tagNoteEdit":""}} style="font-size: 13px">{{$tags['selected']['note']}}</span>
+                <span class="ml-2" {{$system != 1?"id=tagNoteEdit":""}} style="font-size: 13px">{{$system == 1?__('tag.'.$tags['selected']['name'].'_D'):$tags['selected']['note']}}</span>
                 @if($system != 1)
                     <input type="text"  id = "tagNote" name="tagNote" class="form-control"  value="{{$tags['selected']['note']}}" style="display: none">
                 @endif
             </div>
             <div class="mb-2 mt-3 custom-span">
-                Description
+                {{__('tag.description')}}
             </div>
             <div>
                 <span id="tagDescriptionEdit" class="ml-2" style="font-size: 13px">{{$tags['selected']['description']}}</span>

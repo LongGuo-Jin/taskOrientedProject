@@ -86,7 +86,7 @@
                         <a href="<?php echo e(route('tag.pinTag',['ID'=>$tag['ID']])); ?>" class="kt-menu__link ">
                             <span class="kt-menu__link-text">
                                 <i class="flaticon-add-label-button" style="color: <?php echo e($tag['color']); ?>; font-size: 18px; margin-right: 10px"></i>
-                                <?php echo e($tag['name']); ?>
+                                <?php echo e($tag['tagtype'] == 1 ? __('tag.'.$tag['name']): $tag['name']); ?>
 
                             </span>
                         </a>

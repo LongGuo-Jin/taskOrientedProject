@@ -84,7 +84,7 @@
                         <a href="{{route('tag.pinTag',['ID'=>$tag['ID']])}}" class="kt-menu__link ">
                             <span class="kt-menu__link-text">
                                 <i class="flaticon-add-label-button" style="color: {{$tag['color']}}; font-size: 18px; margin-right: 10px"></i>
-                                {{$tag['name']}}
+                                {{$tag['tagtype'] == 1 ? __('tag.'.$tag['name']): $tag['name']}}
                             </span>
                         </a>
                     </li>

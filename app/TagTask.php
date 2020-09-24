@@ -17,4 +17,5 @@ class TagTask extends Model
                     ->where('tag_tasks.taskID',$taskID)->where('tag.show',1)->select('tag.ID','tag.name','tag.tagtype','tag.color')->get()->toArray();
         return Common::stdClass2Array($ret);
     }
+
 }

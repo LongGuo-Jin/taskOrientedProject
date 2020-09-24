@@ -103,7 +103,7 @@
                                                     <select class="form-control kt-selectpicker" multiple data-actions-box="true" name="tags">
                                                         @foreach($tagList as $tagItem)
                                                             <option data-content='<span class="@if($tagItem['tagtype']==1) system-span @elseif($tagItem['tagtype']==2) organization-span @elseif($tagItem['tagtype']==3) personal-span @endif" style="color:{{$tagItem['color']}}">
-                                                                        {{$tagItem['name']}}
+                                                                       {{$taskTag['tagtype']==1?__('tag.'.$taskTag['name']):$taskTag['name']}}
                                                                     </span>' value="{{$tagItem['ID']}}">
                                                             </option>
                                                         @endforeach

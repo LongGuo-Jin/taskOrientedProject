@@ -29,7 +29,7 @@
                         @endforeach
                     </div>
                         <?php
-                            $sections = ['Employees' , 'Partners' , 'Customers' , 'Contacts'];
+                            $sections = [__('people.employees') , __('people.partners') , __('people.customers') , __('people.contacts')];
                             $index = 0;
                         ?>
                     <div class="people_outer">
@@ -42,7 +42,7 @@
                                                 <h3> <i class="fa fa-eye person_eye_icon" id="{{$sections[$index]."eye"}}" onclick="section({{$index}})"></i> {{$sections[$index]}}</h3>
                                                 &nbsp;&nbsp;&nbsp;<h4> {{count($item)}} of {{$people[$index1.'_count']}}</h4>
                                             </div>
-                                            @if($sections[$index] == "Employees")<button class="form-control btn btn-primary" style="width: 20%;" id="addPerson"> Add Person </button>@endif
+                                            @if($sections[$index] == __('people.employees'))<button class="form-control btn btn-primary" style="width: 20%;" id="addPerson"> {{__('people.addPerson')}} </button>@endif
                                         </div>
                                         <div style="width: 100%; height: 1px; background-color: rgba(99,99,99,0.72)"></div>
                                         <div class="people_section" id="{{$sections[$index ++]}}">
@@ -55,29 +55,29 @@
                                                                 {{$person['nameFirst'].' '.$person['nameMiddle'].' '.$person['nameFamily']}}
                                                             </div>
                                                             <div style="font-size: 16px; margin-bottom: 5px">
-                                                                EMPLOYEE,@if($person['roleID']==1) ADMIN @elseif($person['roleID']==2) Manager @elseif($person['roleID']==4) Member @endif
+                                                                {{__('people.employee')}},@if($person['roleID']==1) ADMIN @elseif($person['roleID']==2) Manager @elseif($person['roleID']==4) Member @endif
                                                             </div>
                                                             <div class="people_card_text">
                                                                 <div>
-                                                                    From:&nbsp;
+                                                                    {{__('people.from')}}:&nbsp;
                                                                 </div>
                                                                 <div> {{$person['address']}} </div>
                                                             </div>
                                                             <div class="people_card_text">
                                                                 <div>
-                                                                    Org:&nbsp;
+                                                                    {{__('people.org')}}:&nbsp;
                                                                 </div>
                                                                 <div> {{$person['organization']}} </div>
                                                             </div>
                                                             <div class="people_card_text">
                                                                 <div>
-                                                                    Phone:&nbsp;
+                                                                    {{__('people.phone')}}:&nbsp;
                                                                 </div>
                                                                 <div> {{$person['phone_number']}} </div>
                                                             </div>
                                                             <div class="people_card_text">
                                                                 <div>
-                                                                    Mail:&nbsp;
+                                                                    {{__('people.mail')}}:&nbsp;
                                                                 </div>
                                                                 <div> {{$person['email']}} </div>
                                                             </div>

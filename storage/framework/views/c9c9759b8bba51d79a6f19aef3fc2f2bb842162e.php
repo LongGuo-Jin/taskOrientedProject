@@ -151,7 +151,7 @@
                                                                             foreach($taskTags as $taskTag) {
                                                                             ?>
                                                                             <span class="<?php if($taskTag['tagtype']==1): ?> system-span <?php elseif($taskTag['tagtype']==2): ?> organization-span <?php elseif($taskTag['tagtype']==3): ?> personal-span <?php endif; ?>" style="color:<?php echo e($taskTag['color']); ?>">
-                                                                               <?php echo e($taskTag['name']); ?>
+                                                                               <?php echo e($taskTag['tagtype']==1?__('tag.'.$taskTag['name']):$taskTag['name']); ?>
 
                                                                             </span> &nbsp;
                                                                             <?php
@@ -280,7 +280,7 @@
                                                                                 foreach($taskTags as $taskTag) {
                                                                                 ?>
                                                                                 <span class="<?php if($taskTag['tagtype']==1): ?> system-span <?php elseif($taskTag['tagtype']==2): ?> organization-span <?php elseif($taskTag['tagtype']==3): ?> personal-span <?php endif; ?>" style="color:<?php echo e($taskTag['color']); ?>">
-                                                                                   <?php echo e($taskTag['name']); ?>
+                                                                                   <?php echo e($taskTag['tagtype']==1?__('tag.'.$taskTag['name']):$taskTag['name']); ?>
 
                                                                                 </span> &nbsp;
                                                                                 <?php

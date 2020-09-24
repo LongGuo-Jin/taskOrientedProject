@@ -13,7 +13,7 @@
             <div class="col-lg-8">
                 <div style="display: flex">
                     <div style="width: 80%; height: 1px; margin-top: auto;background-color: rgba(99,99,99,0.72)"></div>
-                    <button class="form-control btn btn-primary" style="width: 20%;" id="addCompany"> Add Organization </button>
+                    <button class="form-control btn btn-primary" style="width: 20%;" id="addCompany"><?php echo e(__('people.addOrganization')); ?> </button>
                 </div>
                 <div class="company_outer">
                     <div class="company_inner">
@@ -34,31 +34,31 @@
                                             </div>
                                             <div class="company_card_text">
                                                 <div>
-                                                    From:&nbsp;
+                                                    <?php echo e(__('people.from')); ?>:&nbsp;
                                                 </div>
                                                 <div> <?php echo e($company['address']); ?> </div>
                                             </div>
                                             <div class="company_card_text">
                                                 <div>
-                                                    Mgr:&nbsp;
+                                                    <?php echo e(__('people.mgr')); ?>:&nbsp;
                                                 </div>
                                                 <div>  </div>
                                             </div>
                                             <div class="company_card_text">
                                                 <div>
-                                                    Contact:&nbsp;
+                                                    <?php echo e(__('people.contact')); ?>:&nbsp;
                                                 </div>
                                                 <div>  </div>
                                             </div>
                                             <div class="company_card_text">
                                                 <div>
-                                                    Phone:&nbsp;
+                                                    <?php echo e(__('people.phone')); ?>:&nbsp;
                                                 </div>
                                                 <div> <?php echo e($company['phone']); ?> </div>
                                             </div>
                                             <div class="company_card_text">
                                                 <div>
-                                                    Mail:&nbsp;
+                                                    <?php echo e(__('people.mail')); ?>:&nbsp;
                                                 </div>
                                                 <div> <?php echo e($company['email']); ?> </div>
                                             </div>

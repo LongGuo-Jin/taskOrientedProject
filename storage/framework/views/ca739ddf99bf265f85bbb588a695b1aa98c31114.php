@@ -102,6 +102,7 @@
 <?php $__env->startSection('content'); ?>
     <?php
     $notifications = explode(',',$memoNotification);
+    $locale = app()->getLocale();
     ?>
     <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
     <?php echo $__env->make('layouts.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
@@ -268,7 +269,7 @@
                                                                                 foreach($taskTags as $taskTag) {
                                                                                 ?>
                                                                                 <span class="<?php if($taskTag['tagtype']==1): ?> system-span <?php elseif($taskTag['tagtype']==2): ?> organization-span <?php elseif($taskTag['tagtype']==3): ?> personal-span <?php endif; ?>" style="color:<?php echo e($taskTag['color']); ?>">
-                                                                                   <?php echo e($taskTag['name']); ?>
+                                                                                   <?php echo e($taskTag['tagtype']==1?__('tag.'.$taskTag['name']):$taskTag['name']); ?>
 
                                                                                 </span> &nbsp;
                                                                                 <?php
@@ -397,10 +398,10 @@
                                                                                 <div class="col-lg-12" style="display:flex;flex-wrap: wrap;"><?php
                                                                                     foreach($taskTags as $taskTag) {
                                                                                     ?>
-                                                                                    <span class="<?php if($taskTag['tagtype']==1): ?> system-span <?php elseif($taskTag['tagtype']==2): ?> organization-span <?php elseif($taskTag['tagtype']==3): ?> personal-span <?php endif; ?>" style="color:<?php echo e($taskTag['color']); ?>">
-                                                                           <?php echo e($taskTag['name']); ?>
+                                                                                        <span class="<?php if($taskTag['tagtype']==1): ?> system-span <?php elseif($taskTag['tagtype']==2): ?> organization-span <?php elseif($taskTag['tagtype']==3): ?> personal-span <?php endif; ?>" style="color:<?php echo e($taskTag['color']); ?>">
+                                                                                            <?php echo e($taskTag['tagtype']==1?__('tag.'.$taskTag['name']):$taskTag['name']); ?>
 
-                                                                        </span> &nbsp;
+                                                                                        </span> &nbsp;
                                                                                     <?php
                                                                                     }
                                                                                     ?>
@@ -540,28 +541,8 @@
                                             <div id="myCalendar" class="vanilla-calendar ml-auto mr-auto mb-2"></div>
                                             <div style="height: 1px; width: 100%; background-color: grey">
                                             </div>
-                                            
-                                                
-                                                
-                                                    
-                                                
-                                                
-                                                    
-                                                
-                                                
-                                                    
-                                                
-                                                
-                                                    
-                                                
-                                                
-                                                    
-                                                
-                                            
-                                            
-                                            
                                             <div class="ml-3 mt-4">
-                                                <h5 class="mb-3">Show  Priority</h5>
+                                                <h5 class="mb-3"><?php echo e(__('calendar.showPriority')); ?></h5>
                                                 <label class="main">
                                                     <input type="checkbox" id="check_high">
                                                     H <span class="check-title"><?php echo e(__('calendar.high')); ?></span>
@@ -614,6 +595,9 @@
         
         
         let filter_status = "<?php echo e($status); ?>";
+        let locale = "<?php echo e($locale); ?>";
+        let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        let shortWeekday = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         let H = "<?php echo e($H); ?>";
         let M = "<?php echo e($M); ?>";
         let L = "<?php echo e($L); ?>";
@@ -624,22 +608,30 @@
         let isDown = false;
         let startX;
         let scrollLeft;
-        slider.scrollLeft = todayColumn.offsetLeft - 310;
 
+        if (locale == 'si') {
+            months = ['Januar', 'Februar', 'Marec', 'April', 'Maj', 'Junij', 'Julij', 'Avgust', 'September', 'Oktober', 'November', 'December'];
+            shortWeekday = ['Ne', 'Po', 'To', 'Sr', 'Če', 'Pe', 'So'];
+        }
+
+        slider.scrollLeft = todayColumn.offsetLeft - 310;
         slider.addEventListener('mousedown', (e) => {
             isDown = true;
             slider.classList.add('active');
             startX = e.pageX - slider.offsetLeft;
             scrollLeft = slider.scrollLeft;
         });
+
         slider.addEventListener('mouseleave', () => {
             isDown = false;
             slider.classList.remove('active');
         });
+
         slider.addEventListener('mouseup', () => {
             isDown = false;
             slider.classList.remove('active');
         });
+
         slider.addEventListener('mousemove', (e) => {
             if(!isDown) return;
             e.preventDefault();
@@ -728,6 +720,8 @@
             // });
             let calendar = new VanillaCalendar({
                 selector: "#myCalendar",
+                months: months,
+                shortWeekday: shortWeekday,
                 date:new Date(date),
                 todaysDate: new Date(date),
                 onSelect: (data, elem) => {

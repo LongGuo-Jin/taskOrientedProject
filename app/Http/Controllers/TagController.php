@@ -135,6 +135,7 @@ class TagController extends Controller
                 }
             }
         }
+
         $displayType = $request->input('displayType')==""?"111":$request->input('displayType');
         $tags = [];
         $tags['system'] = $system_tag;

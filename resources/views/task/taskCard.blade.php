@@ -129,7 +129,7 @@
                                                                             foreach($taskTags as $taskTag) {
                                                                             ?>
                                                                             <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="color:{{$taskTag['color']}}">
-                                                                               {{$taskTag['name']}}
+                                                                                {{$taskTag['tagtype']==1?__('tag.'.$taskTag['name']):$taskTag['name']}}
                                                                             </span> &nbsp;
                                                                             <?php
                                                                             }
@@ -258,8 +258,8 @@
                                                                                 foreach($taskTags as $taskTag) {
                                                                                 ?>
                                                                                 <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="color:{{$taskTag['color']}}">
-                                                                               {{$taskTag['name']}}
-                                                                            </span> &nbsp;
+                                                                                   {{$taskTag['tagtype']==1?__('tag.'.$taskTag['name']):$taskTag['name']}}
+                                                                                </span> &nbsp;
                                                                                 <?php
                                                                                 }
                                                                                 ?>
@@ -412,7 +412,7 @@
             let sutTimeSpentDay = Math.floor(subTimeSpent / 8);
             let sutTimeSpentHour = (subTimeSpent - sutTimeSpentDay * 8).toPrecision(1);
             let timeLeft = timeAllocated  - totalTimeSpent - subTimeSpent;
-            let timeLeftDay = Math.floor(timeLeft / 8);
+            let timeLeftDay = timeLeft < 0? Math.round(timeLeft / 8):Math.floor(timeLeft / 8);
             let timeLeftHour = (timeLeft - timeLeftDay * 8).toPrecision(1);
 
             let element = '.kt-'+showType+'-task-item.selected';

@@ -21,13 +21,13 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-2" style="color: #ca30e9">Tags:</div>
+                            <div class="col-2" style="color: #ca30e9"><?php echo e(__('people.tags')); ?>:</div>
                             <div class="col-lg-10 ">
                                 <div id="organization-tags" style="display: flex; flex-wrap: wrap;"><?php
                                     foreach($organizationTagList as $taskTag) {
                                     ?>
                                         <span class="<?php if($taskTag['tagtype']==1): ?> system-span <?php elseif($taskTag['tagtype']==2): ?> organization-span <?php elseif($taskTag['tagtype']==3): ?> personal-span <?php endif; ?>" style="color:<?php echo e($taskTag['color']); ?>">
-                                            <?php echo e($taskTag['name']); ?>
+                                            <?php echo e($taskTag['tagtype']==1?__('tag.'.$taskTag['name']):$taskTag['name']); ?>
 
                                         </span> &nbsp;
                                     <?php
@@ -39,7 +39,7 @@
                                     <select class="form-control kt-selectpicker" multiple data-actions-box="true" name="orgTags">
                                         <?php $__currentLoopData = $tagList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tagItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <option data-content='<span class="<?php if($tagItem['tagtype']==1): ?> system-span <?php elseif($tagItem['tagtype']==2): ?> organization-span <?php elseif($tagItem['tagtype']==3): ?> personal-span <?php endif; ?>" style="color:<?php echo e($tagItem['color']); ?>">
-                                                <?php echo e($tagItem['name']); ?>
+                                                <?php echo e($tagItem['tagtype']==1?__('tag.'.$tagItem['name']):$tagItem['name']); ?>
 
                                                 </span>' value="<?php echo e($tagItem['ID']); ?>"
                                             <?php
@@ -60,19 +60,19 @@
                         </div>
                         <div class="mb-3" style="width: 100%; height: 1px; background-color: grey"></div>
                         <div class="row">
-                            <div class="col-md-3"><label for="shortName">Short Name</label></div>
+                            <div class="col-md-3"><label for="shortName"><?php echo e(__('people.shortName')); ?></label></div>
                             <div class="col-md-3">
                                     <span class="company_detail_span_text"><?php echo e($selected_company['short_name']); ?></span>
                                     <input type="text" class="form-control" name="shortName" value="<?php echo e($selected_company['short_name']); ?>" id="shortName" style="display: <?php  if($selected_company['short_name']!="") echo 'none'; else echo 'block'; ?>">
                                </div>
-                            <div class="col-md-3"><label for="type">Type</label></div>
+                            <div class="col-md-3"><label for="type"><?php echo e(__('people.type')); ?></label></div>
                             <div class="col-md-3">
                                     <span class="company_detail_span_text"><?php echo e($selected_company['type']); ?></span>
                                     <input type="text" class="form-control" name="type" value="<?php echo e($selected_company['type']); ?>" id="type"  style="display: <?php  if($selected_company['type']!="") echo 'none'; else echo 'block'; ?>">
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3"><label for="longName">Long Name</label></div>
+                            <div class="col-md-3"><label for="longName"><?php echo e(__('people.longName')); ?></label></div>
                             <div class="col-md-9">
                                 <span class="company_detail_span_text"><?php echo e($selected_company['long_name']); ?></span>
                                 <input type="text" class="form-control" name="longName" id="longName" value="<?php echo e($selected_company['long_name']); ?>" style="display: <?php  if($selected_company['long_name']!="") echo 'none'; else echo 'block'; ?>">
@@ -80,7 +80,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-3"><label for="industry">Industry</label></div>
+                            <div class="col-md-3"><label for="industry"><?php echo e(__('people.industry')); ?></label></div>
                             <div class="col-md-9">
                                 <span class="company_detail_span_text"><?php echo e($selected_company['industry']); ?></span>
                                 <input type="text" class="form-control" value="<?php echo e($selected_company['industry']); ?>" name="industry" id="industry" style="display: <?php  if($selected_company['industry']!="") echo 'none'; else echo 'block'; ?>">
@@ -88,36 +88,36 @@
                         </div>
                         <div class="mb-3" style="width: 100%; height: 1px; background-color: grey"></div>
                         <div class="row">
-                            <div class="col-md-3"><label for="address">Address</label></div>
+                            <div class="col-md-3"><label for="address"><?php echo e(__('people.address')); ?></label></div>
                             <div class="col-md-3">
                                 <span class="company_detail_span_text"><?php echo e($selected_company['address']); ?></span>
                                 <input type="text" class="form-control" value="<?php echo e($selected_company['address']); ?>" name="address" id="address" style="display: <?php  if($selected_company['address']!="") echo 'none'; else echo 'block'; ?>">
                             </div>
-                            <div class="col-md-3"><label for="registrationNumber">Registration No</label></div>
+                            <div class="col-md-3"><label for="registrationNumber"><?php echo e(__('people.registrationNo')); ?></label></div>
                             <div class="col-md-3">
                                 <span class="company_detail_span_text"><?php echo e($selected_company['registrationNumber']); ?></span>
                                 <input type="text" class="form-control" value="<?php echo e($selected_company['registrationNumber']); ?>" name="registrationNumber" id="registrationNumber" style="display: <?php  if($selected_company['registrationNumber']!="") echo 'none'; else echo 'block'; ?>">
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3"><label for="country">Country</label></div>
+                            <div class="col-md-3"><label for="country"><?php echo e(__('people.country')); ?></label></div>
                             <div class="col-md-3">
                                 <span class="company_detail_span_text"><?php echo e($selected_company['country']); ?></span>
                                 <input type="text" class="form-control" value="<?php echo e($selected_company['country']); ?>" name="country" id="country" style="display: <?php  if($selected_company['country']!="") echo 'none'; else echo 'block'; ?>">
                             </div>
-                            <div class="col-md-3"><label for="vatNumber">VAT No</label></div>
+                            <div class="col-md-3"><label for="vatNumber"><?php echo e(__('people.vatNo')); ?></label></div>
                             <div class="col-md-3">
                                 <span class="company_detail_span_text"><?php echo e($selected_company['VATNumber']); ?></span>
                                 <input type="text" class="form-control" value="<?php echo e($selected_company['VATNumber']); ?>" name="vatNumber" id="vatNumber" style="display: <?php  if($selected_company['VATNumber']!="") echo 'none'; else echo 'block'; ?>">
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3"><label for="phone">Phone</label></div>
+                            <div class="col-md-3"><label for="phone"><?php echo e(__('people.phone')); ?></label></div>
                             <div class="col-md-3">
                                 <span class="company_detail_span_text"><?php echo e($selected_company['phone']); ?></span>
                                 <input type="text" class="form-control" value="<?php echo e($selected_company['phone']); ?>" name="phone" id="phone" style="display: <?php  if($selected_company['phone']!="") echo 'none'; else echo 'block'; ?>">
                             </div>
-                            <div class="col-md-3"><label for="taxPayer">Taxpayer</label></div>
+                            <div class="col-md-3"><label for="taxPayer"><?php echo e(__('people.taxPayer')); ?></label></div>
                             <div class="col-md-3">
                                 <span class="company_detail_span_text" id="taxPayerSpan">
                                     <?php
@@ -128,14 +128,14 @@
                                         }
                                     ?></span>
                                 <select class="form-control" name="taxPayer" id="taxPayer" style="display: none">
-                                    <option value="0" <?php if($selected_company['Taxpayer'] == 0) echo "selected"; ?>>Yes</option>
-                                    <option value="1" <?php if($selected_company['Taxpayer'] == 1) echo "selected"; ?>>No</option>
+                                    <option value="0" <?php if($selected_company['Taxpayer'] == 0) echo "selected"; ?>><?php echo e(__('people.yes')); ?></option>
+                                    <option value="1" <?php if($selected_company['Taxpayer'] == 1) echo "selected"; ?>><?php echo e(__('people.no')); ?></option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-3"><label for="email">mail</label></div>
+                            <div class="col-md-3"><label for="email"><?php echo e(__('people.mail')); ?></label></div>
                             <div class="col-md-3">
                                 <span class="company_detail_span_text">
                                     <?php echo e($selected_company['email']); ?>
@@ -143,7 +143,7 @@
                                 </span>
                                 <input type="text" class="form-control" value="<?php echo e($selected_company['email']); ?>" name="email" id="email" style="display: <?php  if($selected_company['email']!="") echo 'none'; else echo 'block'; ?>">
                             </div>
-                            <div class="col-md-3"><label for="messenger">messenger</label></div>
+                            <div class="col-md-3"><label for="messenger"><?php echo e(__('people.messenger')); ?></label></div>
                             <div class="col-md-3">
                                 <span class="company_detail_span_text">
                                     <?php echo e($selected_company['messenger']); ?>
@@ -154,7 +154,7 @@
                         </div>
                         <div class="mb-3" style="width: 100%; height: 1px; background-color: grey"></div>
                         <div class="row">
-                            <div class="col-md-3"><label for="companyID">Company ID</label></div>
+                            <div class="col-md-3"><label for="companyID"><?php echo e(__('people.companyID')); ?></label></div>
                             <div class="col-md-9">
                                 <span class="company_detail_span_text">
                                     <?php echo e($selected_company['companyID']); ?>
@@ -164,21 +164,21 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3"><label for="bankAccount">Bank Account</label></div>
+                            <div class="col-md-3"><label for="bankAccount"><?php echo e(__('people.bankAccount')); ?></label></div>
                             <div class="col-md-9">
                                 <span class="company_detail_span_text"><?php echo e($selected_company['bank_account']); ?></span>
                                 <input type="text" class="form-control" value="<?php echo e($selected_company['bank_account']); ?>" name="bankAccount" id="bankAccount" style="display: <?php  if($selected_company['bank_account']!="") echo 'none'; else echo 'block'; ?>">
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3"><label for="bank">Bank</label></div>
+                            <div class="col-md-3"><label for="bank"><?php echo e(__('people.bank')); ?></label></div>
                             <div class="col-md-9">
                                 <span class="company_detail_span_text"><?php echo e($selected_company['bank']); ?></span>
                                 <input type="text" class="form-control" value="<?php echo e($selected_company['bank']); ?>" name="bank" id="bank" style="display: <?php  if($selected_company['bank']!="") echo 'none'; else echo 'block'; ?>">
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3"><label for="swift_bic">SWIFT/BIC</label></div>
+                            <div class="col-md-3"><label for="swift_bic"><?php echo e(__('people.swift')); ?>/<?php echo e(__('people.bic')); ?></label></div>
                             <div class="col-md-9">
                                 <span class="company_detail_span_text"><?php echo e($selected_company['swift_bic']); ?></span>
                                 <input type="text" class="form-control" value="<?php echo e($selected_company['swift_bic']); ?>" name="swift_bic" id="swift_bic" style="display: <?php  if($selected_company['swift_bic']!="") echo 'none'; else echo 'block'; ?>">
@@ -186,7 +186,7 @@
                         </div>
                         <div class="mb-3" style="width: 100%; height: 1px; background-color: grey"></div>
                         <div class="row">
-                            <div class="col-md-3"  style="color: #ca30e9"><label for="description">Description</label></div>
+                            <div class="col-md-3"  style="color: #ca30e9"><label for="description"><?php echo e(__('people.description')); ?></label></div>
                         </div>
                         <div class="row">
                             <div class="col-12">
@@ -196,10 +196,10 @@
                         </div>
                         <div class="row mt-5">
                             <div class="col-4 ml-auto mr-auto">
-                                <a href="<?php echo e(route('company.delete',['id'=>$selectedID])); ?>" class="form-control btn btn-success">Delete</a>
+                                <a href="<?php echo e(route('company.delete',['id'=>$selectedID])); ?>" class="form-control btn btn-success"><?php echo e(__('people.delete')); ?></a>
                             </div>
                             <div class="col-4 ml-auto mr-auto">
-                                <button type="submit" class="form-control btn btn-success" id="companyCardUpdate" disabled>Update</button>
+                                <button type="submit" class="form-control btn btn-success" id="companyCardUpdate" disabled><?php echo e(__('people.update')); ?></button>
                             </div>
                         </div>
                     </div>

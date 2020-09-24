@@ -81,7 +81,7 @@
                                 <span style="font-size:22px; color: #1e1e2d;margin-bottom: 50px"> {{__("user.avatarEditor")}} </span>
                                 <div class="row  mt-4" >
                                     <div class="col-3">
-                                        <span style="font-size:18px; color: #1e1e2d">Initials:</span>
+                                        <span style="font-size:18px; color: #1e1e2d">{{__('user.initials')}}:</span>
                                     </div>
                                     <div class="col-9">
                                         <span style="font-size:18px; color: #1e1e2d">{{$user->nameTag}}</span>
@@ -89,7 +89,7 @@
                                 </div>
                                 <div class="row  mt-4" >
                                     <div class="col-3">
-                                        <span style="font-size:18px; color: #1e1e2d">Shape:</span>
+                                        <span style="font-size:18px; color: #1e1e2d">{{__('user.shape')}}:</span>
                                     </div>
                                     <div class="col-9">
                                         <input type="hidden" name="avatarType" id="avatarType" value="{{$user->avatarType}}">
@@ -124,7 +124,7 @@
                                 </div>
                                 <div class="row  mt-4" >
                                     <div class="col-3">
-                                        <span style="font-size:18px; color: #1e1e2d">Color:</span>
+                                        <span style="font-size:18px; color: #1e1e2d">{{__('user.color')}}:</span>
                                     </div>
                                     <div class="col-9">
                                         <input type="hidden" name="avatarColor" id="avatarColor" value="{{$user->avatarColor}}">
@@ -163,7 +163,7 @@
                                 </div>
                                 <div class="row  mt-4" >
                                     <div class="col-3">
-                                        <span style="font-size:18px; color: #1e1e2d">Avatar:</span>
+                                        <span style="font-size:18px; color: #1e1e2d">{{__('user.avatar')}}:</span>
                                     </div>
                                     <div class="col-9">
                                         {{--//circle--}}

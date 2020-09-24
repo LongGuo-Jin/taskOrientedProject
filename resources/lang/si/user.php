@@ -22,5 +22,9 @@ return [
     'update' => 'Nadgradnja',
     'userSettings' => 'Uporabniške nastavitve',
     'userRole' => 'Vloga uporabnika',
-    'avatarEditor' => "Avatar Editor",
+    'avatarEditor' => "Nastavitve Avatarja",
+    'initials' => 'Inicialke',
+    'shape' => 'Oblika',
+    'color' => 'Barva',
+    'avatar' => 'Avatarja'
 ];

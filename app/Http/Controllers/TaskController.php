@@ -453,6 +453,7 @@ class TaskController extends Controller
             }
             $timeSpentOnSubTask = SubTaskTime::where('taskID',$taskId)->get()->first();
             $timeSpentOnSubTask = $timeSpentOnSubTask==null?0:$timeSpentOnSubTask['timeSpentOnSubTask'];
+
             $taskDetails = $Task->adtResult($Task->getTaskListbyCond(array("taskID" => $taskId),auth()->user()));
             $pinnedTask = PinnedTask::where('personID',$user->id)->where('taskID',$taskId)->get()->first();
 

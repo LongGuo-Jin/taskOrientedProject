@@ -136,7 +136,7 @@
                                             foreach($taskTagList as $taskTag) {
                                                 ?>
                                                 <span class="@if($taskTag['tagtype']==1) system-span @elseif($taskTag['tagtype']==2) organization-span @elseif($taskTag['tagtype']==3) personal-span @endif" style="color:{{$taskTag['color']}}">
-                                                    {{$taskTag['name']}}
+                                                    {{$taskTag['tagtype']==1?__('tag.'.$taskTag['name']):$taskTag['name']}}
                                                 </span> &nbsp;
                                             <?php
                                             }
@@ -146,7 +146,7 @@
                                             <select class="form-control kt-selectpicker" multiple data-actions-box="true" name="tags">
                                                 @foreach($tagList as $tagItem)
                                                     <option data-content='<span class="@if($tagItem['tagtype']==1) system-span @elseif($tagItem['tagtype']==2) organization-span @elseif($tagItem['tagtype']==3) personal-span @endif" style="color:{{$tagItem['color']}}">
-                                                    {{$tagItem['name']}}
+                                                    {{$taskTag['tagtype']==1?__('tag.'.$taskTag['name']):$taskTag['name']}}
                                                         </span>' value="{{$tagItem['ID']}}"
                                                         <?php
                                                             foreach($taskTagList as $taskTag) {
@@ -442,7 +442,7 @@
                                 <div class="row mt-2">
                                     <div class="col-md-4 ml-auto">
                                         <button type="button" class="btn btn-outline-brand btn-elevate btn-pill" id="addWorkHour">
-                                            Add Work Hours
+                                            {{__('task.addWorkHours')}}
                                         </button>
                                     </div>
                                 </div>
@@ -480,7 +480,7 @@
                                 <div class="row mt-2">
                                     <div class="col-md-4 ml-auto">
                                         <button type="button" class="btn btn-outline-brand btn-elevate btn-pill" id="addAllocationTime">
-                                            Add Work Hours
+                                            {{__('task.addWorkHours')}}
                                         </button>
                                     </div>
                                 </div>
@@ -640,7 +640,7 @@
                                                 {{__('task.timeLeft')}}
                                             </div>
                                             <div class="col-lg-6 statistics-content" style="text-align: right">
-                                                {{$statisticsData['timeLeft']}}
+                                                {{$statisticsData['timeLeft']}}D
                                             </div>
                                         </div>
                                         <div class="row statistics-row">
@@ -653,7 +653,6 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
-
                                     </div>
                                 </div>
                                 <div class="row" style="margin-top: 20px;">

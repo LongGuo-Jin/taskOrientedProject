@@ -5,7 +5,7 @@
             <input type="hidden" name="personalID" value="{{$personalID}}">
             <input type="hidden" name="organizationID" value="{{$organizationID}}">
             <div class="custom-span">
-                <span> Tag Name </span>
+                <span> {{__('tag.tagName')}} </span>
                 <input name="tagName" class="form-control" style="font-size: 16px">
                 @if ($errors->has('tagName'))
                     <span class="invalid-feedback" style="display: block;" role="alert">
@@ -16,16 +16,16 @@
             <div class="row mt-3">
                 <div class="ml-2">
                     <div class="mb-2 custom-span">
-                        Tag Type
+                        {{__('tag.tagType')}}
                     </div>
                     <div class="ml-2" style="display: flex">
                         <input type="hidden" name="tagType" id="tagType">
-                        <span id="tagTypeShow"> Organization Tag </span>
+                        <span id="tagTypeShow"> {{__('tag.orgTag')}} </span>
                     </div>
                 </div>
             </div>
             <div class="row mt-2">
-                <span class="custom-span mb-2 ml-2">Tag Color</span>
+                <span class="custom-span mb-2 ml-2">{{__('tag.tagColor')}}</span>
                 <div class="ml-2">
                     <input type="hidden" name="tagColor" id="tagColor" value="#4a6f4b99" class="color-picker mt-2 mb-3">
                     <input type="hidden" name="tagColorValue" id="tagColorValue" value="{{13}}">
@@ -61,13 +61,13 @@
                     @endfor
                     <div style="display: flex;margin-left: 10px">
                         <input type="checkbox" style="width: 25px; height: 25px" name="showTag" checked >
-                        <span class="mt-auto mb-auto ml-2 custom-span">Show Tag</span>
+                        <span class="mt-auto mb-auto ml-2 custom-span">{{__('tag.showTag')}}</span>
                     </div>
                 </div>
             </div>
             <div class="mt-3">
                 <div class="mb-2 custom-span">
-                    <span> Note </span>
+                    <span> {{__('tag.note')}} </span>
                     <input name="tagNote" class="form-control" style="font-size: 16px">
                     @if ($errors->has('tagNote'))
                         <span class="invalid-feedback" style="display: block;" role="alert">
@@ -76,7 +76,7 @@
                     @endif
                 </div>
                 <div class="mb-2 mt-3 custom-span">
-                    <span> Description </span>
+                    <span> {{__('tag.description')}} </span>
                     <textarea name="tagDescription" class="form-control" style="font-size: 16px"> </textarea>
                     @if ($errors->has('tagDescription'))
                         <span class="invalid-feedback" style="display: block;" role="alert">

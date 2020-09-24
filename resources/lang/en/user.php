@@ -23,4 +23,8 @@ return [
     'userSettings' => 'User Settings',
     'userRole' => 'User Role',
     'avatarEditor' => "Avatar Editor",
+    'initials' => 'Initials',
+    'shape' => 'Shape',
+    'color' => 'Color',
+    'avatar' => 'Avatar'
 ];

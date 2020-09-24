@@ -37,10 +37,10 @@ return [
     'addBudget'=>'Dodaj bilanco',
     'expense'=>'Stroški',
     'expenseDescription'=>'Opis stroška',
-    'workTimeDescription'=>'Work Description',
-    'timeAllocated' => 'Time Allocated',
-    'timeSpent' => 'Time Spent',
-    'timeSpentOnSubTask' => 'Time On SubTasks',
+    'workTimeDescription'=>'Opis dela',
+    'timeAllocated' => 'Določen čas',
+    'timeSpent' => 'Porabljen čas',
+    'timeSpentOnSubTask' => 'Čas na podopravilih',
     'timeLeft'=>'Preostali čas',
     'progress'=>'Napredek',
     'progressLeft'=>'Preostali napredek',
@@ -49,5 +49,6 @@ return [
     'subTasksLeft'=>'Preostala podopravila',
     'finished'=>'Dokončano',
     'hours'=>'Ure',
-    'time'=>'Čas'
+    'time'=>'Čas',
+    'addWorkHours'=>'Dodaj delovni čas',
 ];

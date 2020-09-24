@@ -49,5 +49,6 @@ return [
     'subTasksLeft'=>'Sub Tasks Left',
     'finished'=>'Finished',
     'hours'=>'Hours',
-    'time'=>'Time'
+    'time'=>'Time',
+    'addWorkHours'=>'Add Work Hours',
 ];

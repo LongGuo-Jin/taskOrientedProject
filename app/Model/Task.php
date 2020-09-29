@@ -26,8 +26,8 @@ class Task extends Model
     {
         $Person = auth()->user();
 
-        $personID = $Person->id;
-        $login_role_id = $Person->roleID;
+        $personID = $Person['id'];
+        $login_role_id = $Person['roleID'];
 
         $this->roleId = $login_role_id;
         $this->login_id = $personID;
@@ -672,7 +672,7 @@ class Task extends Model
             $parentName = isset($tmp[0]["title"]) ? $tmp[0]["title"]: "";
             array_push($result, array("ID" => $id, "title" => $parentName));
         }
-
+//        dd($result);
         return $result;
     }
 

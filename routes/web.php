@@ -105,3 +105,11 @@ Route::get('/cmd/passport', function () {
     $cmd = shell_exec ('php artisan passport:install');
     return $cmd;
 });
+
+Route::get('/cmd/cronjob',function() {
+    chdir('./');
+    $dir = getcwd();
+    print_r($dir);
+    $cmd = shell_exec ('php artisan schedule:run >> /dev/null 2>&1');
+    return $cmd;
+});

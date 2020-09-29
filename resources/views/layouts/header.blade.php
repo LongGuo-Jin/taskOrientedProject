@@ -130,18 +130,18 @@
                                         </div>
                                     </div>
                                     <?php
-                                    $status = [ ['Created' , 'Active','Paused','Finished','Canceled','Reviewed',
-                                        'Confirmed','Refused','Failed','Removed','Deleted'],[
+                                    $status = [ ['Created' , 'Active','Paused','Finished','Canceled','Removed','Reviewed',
+                                        'Confirmed','Refused','Failed','Deleted'],[
                                         "<i class='fa fa-circle'></i>",
-                                        "<i class='flaticon2-arrow lg'></i>",
+                                        "<i class='fa fa-play'></i>",
                                         "<i class='fa fa-pause'></i>",
-                                        "<i class='flaticon2-check-mark'></i>",
-                                        "<i class='flaticon2-hexagonal'></i>",
+                                        "<i class='fa fa-check'></i>",
+                                        "<i class='fa fa-times'></i>",
+                                        "<i class='fa fa-ban'></i>",
                                         "<i class='fa fa-check-circle'></i>",
                                         "<i class='fa fa-star'></i>",
-                                        "<i class='fa fa-star'></i>",
+                                        "<i class='fa fa-minus-circle'></i>",
                                         "<i class='fa fa-times-circle'></i>",
-                                        "<i class='fa fa-star'></i>",
                                         "<i class='fa fa-trash'></i>",
                                     ] ];
 

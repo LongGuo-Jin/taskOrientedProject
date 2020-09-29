@@ -120,7 +120,7 @@
                                                     <select class="form-control kt-selectpicker" multiple data-actions-box="true" name="tags">
                                                         <?php $__currentLoopData = $tagList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tagItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                             <option data-content='<span class="<?php if($tagItem['tagtype']==1): ?> system-span <?php elseif($tagItem['tagtype']==2): ?> organization-span <?php elseif($tagItem['tagtype']==3): ?> personal-span <?php endif; ?>" style="color:<?php echo e($tagItem['color']); ?>">
-                                                                       <?php echo e($taskTag['tagtype']==1?__('tag.'.$taskTag['name']):$taskTag['name']); ?>
+                                                                       <?php echo e($tagItem['tagtype']==1?__('tag.'.$tagItem['name']):$tagItem['name']); ?>
 
                                                                     </span>' value="<?php echo e($tagItem['ID']); ?>">
                                                             </option>

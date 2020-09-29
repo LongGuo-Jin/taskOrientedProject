@@ -242,7 +242,7 @@
                                                                             <?php endif; ?>
                                                                         </div>
                                                                     </div>
-                                                                    <div style="width: 90%; padding: 10px;  <?php if ($columnItem['overdue']) echo "background: #fff2f2";?>">
+                                                                    <div style="width: 90%; padding: 10px;  <?php if ($columnItem['overdue']) echo "background: #be98987a";?>">
                                                                         <div class="row">
                                                                             <div class="col-lg-9 task-name">
                                                                                 <?php echo e($columnItem['title']); ?>
@@ -369,7 +369,7 @@
                                                                             <?php endif; ?>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="extand-main-content" style=" width: 90%;  <?php if ($columnItem['overdue']) echo "background: #fff2f2";?>">
+                                                                    <div class="extand-main-content" style=" width: 90%;  <?php if ($columnItem['overdue']) echo "background: #be98987a";?>">
                                                                         <div class="kt-extend-part">
                                                                             <div class="row">
                                                                                 <div class="col-lg-9 task-name">
@@ -496,7 +496,7 @@
                                                                         <div style="position: relative; margin: 0; padding: 0">
                                                                         </div>
                                                                     </div>
-                                                                    <div style="width: 90%; padding: 10px;  <?php if ($columnItem['overdue']) echo "background: #fff2f2";?>">
+                                                                    <div style="width: 90%; padding: 10px;  <?php if ($columnItem['overdue']) echo "background: #be98987a";?>">
                                                                         <div class="row">
                                                                             <div class="col-lg-9 final-sub-task-name">
                                                                                 <?php echo e($columnItem['title']); ?>

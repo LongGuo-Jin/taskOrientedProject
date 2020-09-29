@@ -146,7 +146,7 @@
                                             <select class="form-control kt-selectpicker" multiple data-actions-box="true" name="tags">
                                                 @foreach($tagList as $tagItem)
                                                     <option data-content='<span class="@if($tagItem['tagtype']==1) system-span @elseif($tagItem['tagtype']==2) organization-span @elseif($tagItem['tagtype']==3) personal-span @endif" style="color:{{$tagItem['color']}}">
-                                                    {{$taskTag['tagtype']==1?__('tag.'.$taskTag['name']):$taskTag['name']}}
+                                                    {{$tagItem['tagtype']==1?__('tag.'.$tagItem['name']):$tagItem['name']}}
                                                         </span>' value="{{$tagItem['ID']}}"
                                                         <?php
                                                             foreach($taskTagList as $taskTag) {
@@ -163,7 +163,6 @@
                                         </p>
                                     </div>
                                 </div>
-
                                 <div class="detail-information-task-date">
                                     <div class="row">
                                         <div class="col-lg-3 detail-label">

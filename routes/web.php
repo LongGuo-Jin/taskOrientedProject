@@ -20,6 +20,11 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
+Route::get('/mail',function() {
+    return view("mail.overdue");
+});
+
+
 Auth::routes();
 
 Route::group(['middleware'=>['auth' , 'tag']] , function() {

@@ -2,29 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd7486bd-9e59-4686-b319-e85da83e8942" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/mail/overdue.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Model/Task.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Model/Task.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Model/TaskStatus.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Model/TaskStatus.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/calendar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/calendar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/header.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/task/taskCard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/task/taskCard.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/task/taskDetailAdd.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/task/taskDetailAdd.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/task/taskDetailEdit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/task/taskDetailEdit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Commands/OverdueTasks.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/OverdueTasks.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/mail/overdue.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/mail/overdue.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/4f/4d/4f4d35639d9bba4121c2ce991071b8d8941f7b3a" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/4f/4d/4f4d35639d9bba4121c2ce991071b8d8941f7b3a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/76/e7/76e7c0fdd0cc0d46502f9d381b947cdf6aa69891" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/76/e7/76e7c0fdd0cc0d46502f9d381b947cdf6aa69891" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/9c/1c/9c1c01dc3ac1445a500251fc34a15d3e75a849df" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/9c/1c/9c1c01dc3ac1445a500251fc34a15d3e75a849df" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/cache/data/b7/f9/b7f943ae196bb41493b289688ba462f57aff7a34" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/cache/data/b7/f9/b7f943ae196bb41493b289688ba462f57aff7a34" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/lUvUG8mTgp0c5mO6ZobazUfmWLtVp0ydlLqsJFIL" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/5606602e791e19b2be7c7db6115fb7bff85d87c2.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/5606602e791e19b2be7c7db6115fb7bff85d87c2.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/6278340722c44d01d09fbadbeb3bc647dc4a51a8.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/6278340722c44d01d09fbadbeb3bc647dc4a51a8.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/9326493c59eba34f79dc2af060ef4caf97e83fd4.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/9326493c59eba34f79dc2af060ef4caf97e83fd4.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/baaf5d47c8d3f6e85b251787f5d1d591ee14a31f.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/baaf5d47c8d3f6e85b251787f5d1d591ee14a31f.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/c9c9759b8bba51d79a6f19aef3fc2f2bb842162e.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/c9c9759b8bba51d79a6f19aef3fc2f2bb842162e.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/ca739ddf99bf265f85bbb588a695b1aa98c31114.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/ca739ddf99bf265f85bbb588a695b1aa98c31114.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/a91dd79d25b54481524fc05fc44b2a4b062f59cc.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/a91dd79d25b54481524fc05fc44b2a4b062f59cc.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/logs/laravel.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel.log" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -40,45 +22,50 @@
     <session id="1684177551">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="20" />
+          <entry key="project.closed" value="23" />
           <entry key="project.open.time.0" value="3" />
           <entry key="project.open.time.1" value="6" />
           <entry key="project.open.time.11" value="4" />
           <entry key="project.open.time.12" value="1" />
           <entry key="project.open.time.13" value="1" />
+          <entry key="project.open.time.15" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.4" value="2" />
           <entry key="project.open.time.5" value="3" />
           <entry key="project.open.time.6" value="3" />
           <entry key="project.open.time.7" value="3" />
-          <entry key="project.open.time.8" value="4" />
+          <entry key="project.open.time.8" value="5" />
           <entry key="project.open.time.9" value="3" />
-          <entry key="project.opened" value="34" />
+          <entry key="project.opened" value="36" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="css" value="39" />
           <entry key="env" value="6" />
+          <entry key="example" value="1" />
           <entry key="html" value="2" />
+          <entry key="jpg" value="2" />
           <entry key="js" value="21" />
           <entry key="json" value="2" />
           <entry key="lock" value="1" />
           <entry key="log" value="21" />
           <entry key="mail" value="1" />
-          <entry key="php" value="393" />
+          <entry key="php" value="400" />
+          <entry key="png" value="5" />
           <entry key="scss" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Blade" value="176" />
+          <entry key="Blade" value="182" />
           <entry key="CSS" value="39" />
           <entry key="HTML" value="2" />
+          <entry key="Image" value="7" />
           <entry key="JSON" value="3" />
           <entry key="JavaScript" value="21" />
-          <entry key="PHP" value="218" />
-          <entry key="PLAIN_TEXT" value="27" />
+          <entry key="PHP" value="219" />
+          <entry key="PLAIN_TEXT" value="28" />
           <entry key="SCSS" value="2" />
         </counts>
       </usages-collector>
@@ -89,16 +76,16 @@
           <entry key="html" value="51" />
           <entry key="js" value="2028" />
           <entry key="log" value="14" />
-          <entry key="php" value="27756" />
+          <entry key="php" value="27891" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Blade" value="10483" />
+          <entry key="Blade" value="10529" />
           <entry key="CSS" value="568" />
           <entry key="HTML" value="60" />
           <entry key="JavaScript" value="2028" />
-          <entry key="PHP" value="17264" />
+          <entry key="PHP" value="17353" />
           <entry key="PLAIN_TEXT" value="182" />
         </counts>
       </usages-collector>
@@ -112,74 +99,88 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TaskController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
-              <caret line="480" lean-forward="true" selection-start-line="480" selection-end-line="480" />
-              <folding>
-                <element signature="e#40#62#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/public/images/user1.jpg">
+          <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.env">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22">
-              <caret line="1" column="13" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/task/taskDetailEdit.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="35" column="49" lean-forward="true" selection-start-line="35" selection-start-column="49" selection-end-line="35" selection-end-column="49" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Model/Task.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="179">
-              <caret line="675" column="22" lean-forward="true" selection-start-line="675" selection-start-column="22" selection-end-line="675" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Console/Commands/OverdueTasks.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1430">
-              <caret line="84" lean-forward="true" selection-start-line="84" selection-end-line="84" />
-              <folding>
-                <element signature="e#40#71#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/public/images/pinned.png">
+          <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/mail/overdue.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="67">
-              <caret line="214" column="54" selection-start-line="214" selection-start-column="54" selection-end-line="214" selection-end-column="54" />
+            <state relative-caret-position="299">
+              <caret line="221" column="9" selection-start-line="221" selection-start-column="9" selection-end-line="221" selection-end-column="9" />
               <folding>
-                <element signature="e#6441#6447#0#HTML" expanded="true" />
-                <element signature="e#6448#6454#0#HTML" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/task/taskDetailAdd.blade.php">
+        <entry file="file://$PROJECT_DIR$/resources/views/layouts/layout.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="105" column="132" selection-start-line="105" selection-start-column="132" selection-end-line="105" selection-end-column="132" />
+            <state relative-caret-position="-1527" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/auth/login.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-9">
+              <caret line="82" column="46" selection-start-line="82" selection-start-column="46" selection-end-line="82" selection-end-column="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="145">
+              <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="43" selection-end-column="10" />
+              <folding>
+                <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/images/logo-03.png">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/layouts/header.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2904">
+              <caret line="132" column="102" selection-start-line="132" selection-start-column="102" selection-end-line="132" selection-end-column="102" />
+              <folding>
+                <element signature="n#style#0;n#i#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/layouts/withmenu.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="242">
+              <caret line="11" column="14" lean-forward="true" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/web.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="308">
+              <caret line="23" column="32" lean-forward="true" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -276,13 +277,13 @@
         <option value="$PROJECT_DIR$/resources/views/task/taskCard.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/mail/mail.blade.php" />
         <option value="$PROJECT_DIR$/app/Console/Kernel.php" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" />
         <option value="$PROJECT_DIR$/app/Model/Task.php" />
         <option value="$PROJECT_DIR$/resources/views/task/taskDetailAdd.blade.php" />
-        <option value="$PROJECT_DIR$/app/Console/Commands/OverdueTasks.php" />
-        <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/storage/logs/laravel.log" />
+        <option value="$PROJECT_DIR$/.env" />
+        <option value="$PROJECT_DIR$/app/Console/Commands/OverdueTasks.php" />
+        <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/resources/views/mail/overdue.blade.php" />
       </list>
     </option>
@@ -472,15 +473,18 @@
       <path value="$PROJECT_DIR$/vendor/league/mime-type-detection" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="-10" />
+    <option name="y" value="-10" />
     <option name="width" value="980" />
-    <option name="height" value="1030" />
+    <option name="height" value="1050" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -547,6 +551,20 @@
               <item name="taskOriented" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="auth" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="taskOriented" type="b2602c69:ProjectViewProjectNode" />
+              <item name="taskOriented" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="layouts" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="taskOriented" type="b2602c69:ProjectViewProjectNode" />
+              <item name="taskOriented" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="mail" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -565,13 +583,12 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="laravel.log&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/storage/logs/laravel.log&#10;taskC&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/app/Http/Controllers/API/TaskController.php&#10;lara&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/storage/logs/laravel.log&#10;l&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/storage/logs/laravel.log&#10;si.p&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/vendor/nesbot/carbon/src/Carbon/Lang/si.php&#10;header&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/resources/views/layouts/header.blade.php&#10;tagM&#9;null&#9;null&#10;web.&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/routes/web.php&#10;taskCard&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/resources/views/task/taskCard.blade.php&#10;TaskController&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/app/Http/Controllers/TaskController.php&#10;sea&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/resources/views/task/search.blade.php&#10;taskCard.css&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/public/assets/css/task/taskcard.css&#10;tag&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/app/Model/Tag.php&#10;laravel.&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/storage/logs/laravel.log&#10;taskCont&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/app/Http/Controllers/TaskController.php&#10;web&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/routes/web.php&#10;style.&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/public/assets/css/demo1/style.bundle.css&#10;head&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/resources/views/layouts/header.blade.php&#10;taskCa&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/public/assets/js/task/taskcard.js&#10;laravel.lo&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/storage/logs/laravel.log&#10;taskCard.js&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/public/assets/js/task/taskcard.js&#10;TaskContr&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/app/Http/Controllers/TaskController.php&#10;taskcard.css&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/public/assets/css/task/taskcard.css&#10;taskca&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/public/assets/js/task/taskcard.js&#10;taskcard.j&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/public/assets/js/task/taskcard.js&#10;header.&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/resources/views/layouts/header.blade.php&#10;task&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/app/Http/Controllers/TaskController.php&#10;env&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/.env&#10;heade&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/resources/views/layouts/header.blade.php&#10;taskcard.blade&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/resources/views/task/taskCard.blade.php&#10;taskcard&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/public/assets/js/task/taskcard.js&#10;taskcard.js&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/public/assets/js/task/taskcard.js&#10;taskDetail&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/resources/views/task/taskDetailEdit.blade.php&#10;taskContr&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/app/Http/Controllers/TaskController.php&#10;taskCard.j&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/public/assets/js/task/taskcard.js&#10;Task&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/resources/views/task/taskDetailEdit.blade.php&#10;Ta&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/app/Http/Controllers/TaskController.php&#10;api&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/routes/api.php&#10;lar&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/storage/logs/laravel.log&#10;company.&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/public/assets/css/company/company.css&#10;Lar&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/storage/logs/laravel.log&#10;laravel&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/storage/logs/laravel.log&#10;api.ph&#9;FILE&#9;file://C:/xampp/htdocs/taskOriented/routes/api.php" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../barkrz-backend" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -637,18 +654,20 @@
       <workItem from="1600879241505" duration="6325000" />
       <workItem from="1601019309748" duration="3213000" />
       <workItem from="1601082297696" duration="20794000" />
-      <workItem from="1601345358039" duration="8817000" />
+      <workItem from="1601345358039" duration="9473000" />
+      <workItem from="1601457967453" duration="770000" />
+      <workItem from="1601626766376" duration="3447000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="359011000" />
+    <option name="totallyTimeSpent" value="363884000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2590604" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1671141" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -663,7 +682,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.33758864" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.17730497" />
       <window_info anchor="bottom" id="TypeScript" order="12" weight="0.32907802" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -704,90 +723,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1653">
-          <caret line="303" column="40" lean-forward="true" selection-start-line="303" selection-start-column="40" selection-end-line="303" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TagController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2156">
-          <caret line="140" column="37" selection-start-line="140" selection-start-column="26" selection-end-line="140" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/TagTask.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/people/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="79" column="85" selection-start-line="79" selection-start-column="85" selection-end-line="79" selection-end-column="85" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/people/partials/add.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="28" column="112" selection-start-line="28" selection-start-column="112" selection-end-line="28" selection-end-column="112" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/people/partials/details.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="51" column="57" lean-forward="true" selection-start-line="51" selection-start-column="57" selection-end-line="51" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/company/partials/add.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="25" column="52" selection-start-line="25" selection-start-column="52" selection-end-line="25" selection-end-column="123" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/tag/partials/edit.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="86" column="152" selection-start-line="86" selection-start-column="111" selection-end-line="86" selection-end-column="152" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/tag/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="54" column="107" lean-forward="true" selection-start-line="54" selection-start-column="83" selection-end-line="54" selection-end-column="107" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/layouts/withmenu.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="86" column="47" selection-start-line="86" selection-start-column="47" selection-end-line="86" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/company/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-858">
-          <caret line="15" column="133" selection-start-line="15" selection-start-column="133" selection-end-line="15" selection-end-column="133" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/company/partials/edit.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="105" column="91" selection-start-line="105" selection-start-column="86" selection-end-line="105" selection-end-column="91" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/assets/js/calendar/vanilla-calendar.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="560">
@@ -958,20 +893,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/layouts/header.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2904">
-          <caret line="132" column="102" selection-start-line="132" selection-start-column="102" selection-end-line="132" selection-end-column="102" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-320">
-          <caret line="82" column="3" lean-forward="true" selection-start-line="82" selection-start-column="3" selection-end-line="82" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/TaskController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="880">
@@ -979,64 +900,131 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/storage/logs/laravel.log">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TaskController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="480" lean-forward="true" selection-start-line="480" selection-end-line="480" />
+        <state relative-caret-position="9922">
+          <caret line="480" selection-start-line="480" selection-end-line="480" />
           <folding>
             <element signature="e#40#62#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Model/Task.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/task/taskDetailEdit.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="675" column="22" lean-forward="true" selection-start-line="675" selection-start-column="22" selection-end-line="675" selection-end-column="22" />
+        <state relative-caret-position="770">
+          <caret line="35" column="49" selection-start-line="35" selection-start-column="49" selection-end-line="35" selection-end-column="49" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/task/taskDetailEdit.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Model/Task.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="35" column="49" lean-forward="true" selection-start-line="35" selection-start-column="49" selection-end-line="35" selection-end-column="49" />
+        <state relative-caret-position="14674">
+          <caret line="675" column="22" selection-start-line="675" selection-start-column="22" selection-end-line="675" selection-end-column="22" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env.example">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/task/taskDetailAdd.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
+        <state relative-caret-position="2310">
           <caret line="105" column="132" selection-start-line="105" selection-start-column="132" selection-end-line="105" selection-end-column="132" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="1" column="13" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storage/logs/laravel.log">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Console/Commands/OverdueTasks.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1430">
-          <caret line="84" lean-forward="true" selection-start-line="84" selection-end-line="84" />
+        <state relative-caret-position="332">
+          <caret line="73" column="66" selection-start-line="73" selection-start-column="66" selection-end-line="73" selection-end-column="66" />
           <folding>
             <element signature="e#40#71#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/images/logo.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/images/login_bg.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/images/login_back.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/images/unpinned.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/images/user1.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/images/pinned.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/images/logo-03.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layouts/header.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2904">
+          <caret line="132" column="102" selection-start-line="132" selection-start-column="102" selection-end-line="132" selection-end-column="102" />
+          <folding>
+            <element signature="n#style#0;n#i#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layouts/withmenu.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="11" column="14" lean-forward="true" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="23" column="32" lean-forward="true" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layouts/layout.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1527" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/auth/login.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-9">
+          <caret line="82" column="46" selection-start-line="82" selection-start-column="46" selection-end-line="82" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="43" selection-end-column="10" />
+          <folding>
+            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/mail/overdue.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="67">
-          <caret line="214" column="54" selection-start-line="214" selection-start-column="54" selection-end-line="214" selection-end-column="54" />
+        <state relative-caret-position="299">
+          <caret line="221" column="9" selection-start-line="221" selection-start-column="9" selection-end-line="221" selection-end-column="9" />
           <folding>
-            <element signature="e#6441#6447#0#HTML" expanded="true" />
-            <element signature="e#6448#6454#0#HTML" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

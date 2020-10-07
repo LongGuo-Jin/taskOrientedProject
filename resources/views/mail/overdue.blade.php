@@ -204,15 +204,18 @@
 
 <body>
 <!-- Start main body Area -->
+<div class="text-center" style="height: 80px; background-color: #253356; padding: 12px">
+    <img id="logo" src="http://localhost/taskOriented/public/images/logo-03.png" height="60%" alt="Logo" style="text-align: center">
+</div>
 <div id="email_section" class="section-gap">
     <div class="container">
         <div id="email_detail_home" class="mt-40 p-20">
             <div class="row align-items-center justify-content-center text-center">
                 <div class="col-md-10 col-sm-10 col-10 text-left mt-20">
-                    <h3>{{$subject}}</h3>
+                    <h3>{{ $subject ?? '' }}</h3>
                     <p class="mt-20">
                     <?php
-                        $length = count($messages); ?>
+                        $length = count( $messages ?? []); ?>
                         Following tasks have the End date due today: <br/>
                         <ul>
                             @for($i = 0; $i < $length; $i ++)
@@ -232,9 +235,8 @@
         </div>
     </div>
 </div>
-<div style="text-align: center;">
-    <p>Copyright © 2019 - 2020 AVG, Alfred Vesligaj s.p.,</p>
-    <p>All rights reserved.</p>
+<div class="text-center" style="height: 25px; background-color: #253356; padding: 12px">
+    <span class="mt-auto mb-auto" style=" font-size: 14px; color: white">Copyright © 2019 - {{date("Y")}} AVG, Alfred Vesligaj s.p., All Rights Reserved</span>
 </div>
 
 </body>

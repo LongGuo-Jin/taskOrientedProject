@@ -71,7 +71,7 @@ class OverdueTasks extends Command
                     Log::debug($message);
                     Mail::send('mail.overdue', ['subject'=>'Overdue Tasks' ,'messages' => $messages], function($message) use ($user)  {
                         $message->to($user['email'],$user['nameFirst'].' '.$user['nameMiddle'].' '.$user['nameFamily'])->subject('Overdue Tasks from TaskOrientedProjects');
-                        $message->from('alert@athleticjunctionevents.com');
+                        $message->from('alert@taskorientedprojects.com');
                     });
                 } catch (Exception $exception) {
                     Log::debug(__FUNCTION__.$exception->getMessage());

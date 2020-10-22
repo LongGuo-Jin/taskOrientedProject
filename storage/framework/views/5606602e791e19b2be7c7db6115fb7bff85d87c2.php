@@ -1,5 +1,5 @@
 <?php if(!empty($taskDetails)): ?>
-<div class="col-detail-add detail-edit">
+<div class="col-detail-add detail-edit" style="display: none;">
     <div class="kt-portlet kt-portlet--tabs kt-portlet--height-fluid">
         <form class="kt-form" id="task_update_form" name="task_update_form" enctype="multipart/form-data">
             <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
@@ -226,6 +226,27 @@
                                     <p style="white-space: pre-line;"><?php echo e($taskDetails["description"]); ?></p>
                                     <textarea class="form-control" id="edit_description" <?php if($taskDetails["description"] != ""): ?> style="display: none;" <?php endif; ?> rows="5" name="info_description"><?php echo e($taskDetails["description"]); ?></textarea>
                                 </div>
+                                
+                                    
+                                    
+                                        
+                                            
+                                                
+                                                
+                                            
+                                        
+                                    
+                                    
+                                    
+                                    
+                                        
+                                            
+                                        
+                                        
+                                            
+                                        
+                                    
+                                
                                 <div class="detail-information-task-memos">
                                     <h5  class="subtitle_text"><?php echo e(__('task.memos')); ?></h5>
                                     <?php $__currentLoopData = $memos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $memoitem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

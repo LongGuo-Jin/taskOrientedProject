@@ -19,13 +19,11 @@
                                 'T','U','V','W','X','Y','Z']
                         ?>
                         @foreach($alphas as $alpha_item)
-                            <a href="{{route('people',['alpha' => $alpha_item])}}">
-                                @if($alpha == $alpha_item)
-                                    <div class="filter_item_selected"> {{$alpha_item}} </div>
-                                @else
-                                    <div class="filter_item"> {{$alpha_item}} </div>
-                                @endif
-                            </a>
+                            @if( $alpha == $alpha_item )
+                                <div data-alpha = {{$alpha_item}} class="filter_item_selected"> {{$alpha_item}} </div>
+                            @else
+                                <div data-alpha = {{$alpha_item}} class="filter_item"> {{$alpha_item}} </div>
+                            @endif
                         @endforeach
                     </div>
                         <?php
@@ -47,8 +45,8 @@
                                         <div style="width: 100%; height: 1px; background-color: rgba(99,99,99,0.72)"></div>
                                         <div class="people_section" id="{{$sections[$index ++]}}">
                                             @foreach($item as $person)
-                                                <a href="{{route('people',['alpha' => $alpha,'select'=>$person['id']])}}">
-                                                    <div class="<?php if ($person['id'] == $selectedID) echo 'person_card_selected'; else echo 'person_card'; ?>">
+                                                {{--<a href="{{route('people',['alpha' => $alpha,'select'=>$person['id']])}}">--}}
+                                                    <div data-alpha = {{$alpha}} data-select={{$person['id']}} class="person_info_card <?php if ($person['id'] == $selectedID) echo 'person_card_selected'; else echo 'person_card'; ?>">
                                                         <div style="width: 10%; background-color: #d1ffa7; border-bottom-left-radius: 10px; border-top-left-radius: 10px;"></div>
                                                         <div style="width: 77%; padding: 10px">
                                                             <div style="font-size: 20px; margin-bottom: 5px">
@@ -86,7 +84,7 @@
                                                             <x-user-avatar :type="$person['avatarType']" :nameTag="$person['nameTag']" :roleID="$person['roleID']" :color="$person['avatarColor']" />
                                                         </div>
                                                     </div>
-                                                </a>
+
                                             @endforeach
                                         </div>
                                     @endif
@@ -113,6 +111,8 @@
 
 <script>
     let alpha = "{{$alpha}}";
+    let base_url = "{{URL::to('')}}";
+
     function section(id) {
 
         switch (id) {

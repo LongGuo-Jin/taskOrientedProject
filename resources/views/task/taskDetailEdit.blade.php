@@ -1,5 +1,5 @@
 @if(!empty($taskDetails))
-<div class="col-detail-add detail-edit">
+<div class="col-detail-add detail-edit" style="display: none;">
     <div class="kt-portlet kt-portlet--tabs kt-portlet--height-fluid">
         <form class="kt-form" id="task_update_form" name="task_update_form" enctype="multipart/form-data">
             <input type="hidden" name="_token" value="{{csrf_token()}}">
@@ -201,6 +201,27 @@
                                     <p style="white-space: pre-line;">{{$taskDetails["description"]}}</p>
                                     <textarea class="form-control" id="edit_description" @if ($taskDetails["description"] != "") style="display: none;" @endif rows="5" name="info_description">{{$taskDetails["description"]}}</textarea>
                                 </div>
+                                {{--<div class="detail-information-description">--}}
+                                    {{--<h5 class="subtitle_text">{{__('task.checkInstallation')}}</h5>--}}
+                                    {{--<div class="check-list-items">--}}
+                                        {{--@foreach($taskItem['checkList'] as $item)--}}
+                                            {{--<div>--}}
+                                                {{--<input type="checkbox" data-id="{{$item['id']}}" checked="{{$item['status']}}" class="checkListItem" disabled>--}}
+                                                {{--<span>{{$item['description']}}</span>--}}
+                                            {{--</div>--}}
+                                        {{--@endforeach--}}
+                                    {{--</div>--}}
+                                    {{--<div class="row">--}}
+                                    {{--</div>--}}
+                                    {{--<div class="row pl-2">--}}
+                                        {{--<div class="col-lg-9 text-left">--}}
+                                            {{--<input type="text" class="form-control" name="newItem">--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-lg-3 text-right">--}}
+                                            {{--<button type="button" class="btn btn-primary"> save </button>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
                                 <div class="detail-information-task-memos">
                                     <h5  class="subtitle_text">{{__('task.memos')}}</h5>
                                     @foreach($memos as $memoitem)

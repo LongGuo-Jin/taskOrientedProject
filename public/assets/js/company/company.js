@@ -1,8 +1,49 @@
 
 $(document).ready(function () {
     $('#addCompany').on('click',()=>{
-        $('#companyAddForm').show();
-        $('#companyEditForm').hide();
+
+        if (($('#companyCardUpdate').length != 0 && !($('#companyCardUpdate')[0].disabled == true))) {
+            swal.fire({
+                title: 'Are u sure to go out without saving task?',
+                text: '',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                reverseButtons: true
+            }).then(function(result){
+                if (result.value) {
+                    $('#companyAddForm').show();
+                    $('#companyEditForm').hide();
+                }
+            });
+        } else {
+            $('#companyAddForm').show();
+            $('#companyEditForm').hide();
+        }
+
+    });
+    $('.company_card, .company_card_selected').on('click',function() {
+        var select = $(this).data('select');
+        if (($('#companyAddForm').css('display') != 'none' )|| ($('#companyCardUpdate').length != 0 && !($('#companyCardUpdate')[0].disabled == true))) {
+            swal.fire({
+                title: 'Are u sure to go out without saving task?',
+                text: '',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                reverseButtons: true
+            }).then(function(result){
+                if (result.value) {
+                    window.location.href = base_url + '/organization?select=' + select;
+                }
+            });
+        } else {
+            window.location.href = base_url + '/organization?select=' + select;
+        }
+
+
     });
 
     $(".company_detail_span_text").on('click',(target)=>{

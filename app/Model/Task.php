@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Model;
+use App\CheckList;
 use App\PinnedTask;
 use Carbon\Carbon;
 use DB;
@@ -106,6 +107,12 @@ class Task extends Model
 
 
         $result1 = $this->adtResult(Common::stdClass2Array($ret));
+        $array_length = count($result1);
+        for ($i = 0; $i < $array_length; $i ++) {
+            $taskID = $result1[$i]['ID'];
+            $checkList = CheckList::where('taskID',$taskID)->get()->toArray();
+            $result1[$i]['checkList'] = $checkList;
+        }
 
         $retArr[0] = $result1;
 
@@ -373,7 +380,6 @@ class Task extends Model
             if ($this->roleId == 1) {
                 $retArr[1] = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID']),auth()->user()));
             } else {
-
                 $tmp = $this->adtResult($this->getTaskListbyCond(array("parentID" => $taskDetails['ID'], "personID"=>$user->id),auth()->user()));
                 $tmp1 = $this->adtResult($this->getTaskListbyCond(array("parentID" =>$taskDetails['ID'],"taskCreatorID"=>$user->id),auth()->user()));
 //                dd($tmp1);
@@ -414,9 +420,16 @@ class Task extends Model
             }
         }
 
-//        dd($retArr)
+
         foreach ($retArr as $key => $retItem)
         {
+            $array_length = count($retItem);
+            for ($i = 0; $i < $array_length; $i ++) {
+                $taskID = $retItem[$i]['ID'];
+                $checkList = CheckList::where('taskID',$taskID)->get()->toArray();
+                $retItem[$i]['checkList'] = $checkList;
+            }
+
 //            if (!empty($retItem)) {
                 array_push($result['list'], $retItem);
                 array_push($result['parents'], $parentsArr[$key]);
@@ -518,7 +531,14 @@ class Task extends Model
         }
 
         $ret = $qrBuilder->orderBy('order', 'asc')->orderBy('id', 'asc')->orderBy('statusID','asc')->get()->toArray();
-        return Common::stdClass2Array($ret);
+        $ret = Common::stdClass2Array($ret);
+        $array_length = count($ret);
+        for ($i = 0; $i < $array_length; $i ++) {
+            $taskID = $ret[$i]['ID'];
+            $checkList = CheckList::where('taskID',$taskID)->get()->toArray();
+            $ret[$i]['checkList'] = $checkList;
+        }
+        return $ret;
     }
 
 
@@ -713,6 +733,10 @@ class Task extends Model
 
     function childTask() {
         return $this->hasMany(Task::class);
+    }
+
+    function checkList() {
+        return $this->hasMany(CheckList::class);
     }
 
     function parentTask() {

@@ -60,8 +60,7 @@
                                                 <div class="tab-content">
                                                     <div class="tab-pane active" id="kt_regular_tab_<?php echo e($columnClass); ?>">
                                                         <?php $__currentLoopData = $columnItem; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $taskItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                            <div class="kt-regular-task-item row thin <?php if($taskId == $taskItem['ID']) echo 'selected';?>
-                                                            <?php if($taskId != $taskItem['ID'] && in_array($taskItem['ID'], $parents)) echo 'parent_selected';?>"
+                                                            <div class="kt-regular-task-item row thin"
                                                                  data-task_id="<?php echo e($taskItem['ID']); ?>" data-show_type="regular" style="display: flex;">
                                                                 <?php $tagTask =new \App\TagTask();
                                                                     $taskTags =  $tagTask->getTaskTagList($taskItem['ID']);
@@ -119,7 +118,8 @@
                                                                         <?php endif; ?>
                                                                     </div>
                                                                 </div>
-                                                                <div style="width: 90%; padding: 10px; <?php if ($taskItem['overdue']) echo "background: #be98987a";?>">
+                                                                <div class=" <?php if($taskId == $taskItem['ID']) echo 'selected';?>
+                                                                <?php if($taskId != $taskItem['ID'] && in_array($taskItem['ID'], $parents)) echo 'parent_selected';?>" style="width: 90%; padding: 10px; <?php if ($taskItem['overdue']) echo "background: #be98987a";?>">
                                                                     <div class="row">
                                                                         <div class="col-lg-9 task-name">
                                                                             <?php echo e($taskItem['title']); ?>
@@ -198,9 +198,7 @@
                                                     </div>
                                                     <div class="tab-pane" id="kt_extended_tab_<?php echo e($columnClass); ?>">
                                                         <?php $__currentLoopData = $columnItem; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $taskItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                            <div class="row kt-extended-task-item <?php if($taskId == $taskItem['ID']) echo 'selected';?>
-                                                            <?php if($taskId != $taskItem['ID'] && in_array($taskItem['ID'], $parents)) echo 'parent_selected';?>"
-                                                                    data-task_id="<?php echo e($taskItem['ID']); ?>" data-show_type="extended" style="display: flex;">
+                                                            <div class="row kt-extended-task-item" data-task_id="<?php echo e($taskItem['ID']); ?>" data-show_type="extended" style="display: flex;">
                                                                 <?php $tagTask =new \App\TagTask();
                                                                 $taskTags =  $tagTask->getTaskTagList($taskItem['ID']);
                                                                 $color = '#9d88bf';
@@ -259,7 +257,8 @@
                                                                         <?php endif; ?>
                                                                     </div>
                                                                 </div>
-                                                                <div class="extand-main-content" style=" width: 90%; <?php if ($taskItem['overdue']) echo "background: #be98987a";?>">
+                                                                <div class="extand-main-content <?php if($taskId == $taskItem['ID']) echo 'selected';?>
+                                                                <?php if($taskId != $taskItem['ID'] && in_array($taskItem['ID'], $parents)) echo 'parent_selected';?>" style="width: 90%; <?php if ($taskItem['overdue']) echo "background: #be98987a"; ?>">
                                                                     <div class="kt-extend-part">
                                                                         <div class="row">
                                                                             <div class="col-lg-9">
@@ -320,17 +319,27 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="extand-below-content">
-                                                                        <i class="fa fa-user"></i> &nbsp;&nbsp;&nbsp;<?php echo e($taskItem['fullName']); ?>
+                                                                        <i class="fa fa-user"></i> <?php echo e($taskItem['fullName']); ?>
 
                                                                     </div>
+                                                                    
+                                                                        
+                                                                    
+                                                                    
+                                                                        
+                                                                            
+                                                                                
+                                                                                
+                                                                            
+                                                                        
+                                                                    
                                                                 </div>
                                                             </div>
                                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                     </div>
                                                     <div class="tab-pane" id="kt_simple_tab_<?php echo e($columnClass); ?>">
                                                         <?php $__currentLoopData = $columnItem; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $taskItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                            <div class="row kt-simple-task-item thin <?php if($taskId == $taskItem['ID']) echo 'selected';?>
-                                                            <?php if($taskId != $taskItem['ID'] && in_array($taskItem['ID'], $parents)) echo 'parent_selected';?>"
+                                                            <div class="row kt-simple-task-item thin"
                                                             data-task_id="<?php echo e($taskItem['ID']); ?>" data-show_type="simple"  data-task_id="<?php echo e($taskItem['ID']); ?>"   style="display: flex">
                                                                 <?php $tagTask =new \App\TagTask();
                                                                 $taskTags =  $tagTask->getTaskTagList($taskItem['ID']);
@@ -380,7 +389,8 @@
                                                                 <div class="task-status " style="padding-top: 10px; width: 10%;background-color: <?php echo e($color); ?>;">
                                                                     <?php echo($taskItem['status_icon'])?>
                                                                 </div>
-                                                                <div style="width: 90%; padding: 10px;  <?php if ($taskItem['overdue']) echo "background: #be98987a";?>">
+                                                                <div class=" <?php if($taskId == $taskItem['ID']) echo 'selected';?>
+                                                                <?php if($taskId != $taskItem['ID'] && in_array($taskItem['ID'], $parents)) echo 'parent_selected';?>" style="width: 90%; padding: 10px;  <?php if ($taskItem['overdue']) echo "background: #be98987a";?>">
                                                                     <div class="row">
                                                                         <div class="col-lg-9 final-sub-task-name">
                                                                             <?php echo e($taskItem['title']); ?>
@@ -416,9 +426,9 @@
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </div>
                     <?php echo $__env->make('task.taskDetailAdd', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                    <?php if(isset($taskDetails['ID'])): ?>
+                    
                         <?php echo $__env->make('task.taskDetailEdit', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                    <?php endif; ?>
+                    
                 </div>
 
                 <!-- end:: Content -->

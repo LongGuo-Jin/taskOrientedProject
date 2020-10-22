@@ -51,4 +51,5 @@ return [
     'hours'=>'Hours',
     'time'=>'Time',
     'addWorkHours'=>'Add Work Hours',
+    'checkInstallation' => 'Check Installations',
 ];

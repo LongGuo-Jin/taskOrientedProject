@@ -664,7 +664,6 @@ class TaskController extends Controller
     }
 
     public function AddAllocationTime(Request $request) {
-
         $taskID = $request->input('taskID');
         $description = $request->input('description');
         $hour = $request->input('hour');

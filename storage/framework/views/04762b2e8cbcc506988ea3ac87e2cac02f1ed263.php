@@ -19,13 +19,11 @@
                                 'T','U','V','W','X','Y','Z']
                         ?>
                         <?php $__currentLoopData = $alphas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $alpha_item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <a href="<?php echo e(route('people',['alpha' => $alpha_item])); ?>">
-                                <?php if($alpha == $alpha_item): ?>
-                                    <div class="filter_item_selected"> <?php echo e($alpha_item); ?> </div>
-                                <?php else: ?>
-                                    <div class="filter_item"> <?php echo e($alpha_item); ?> </div>
-                                <?php endif; ?>
-                            </a>
+                            <?php if( $alpha == $alpha_item ): ?>
+                                <div data-alpha = <?php echo e($alpha_item); ?> class="filter_item_selected"> <?php echo e($alpha_item); ?> </div>
+                            <?php else: ?>
+                                <div data-alpha = <?php echo e($alpha_item); ?> class="filter_item"> <?php echo e($alpha_item); ?> </div>
+                            <?php endif; ?>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                         <?php
@@ -47,8 +45,8 @@
                                         <div style="width: 100%; height: 1px; background-color: rgba(99,99,99,0.72)"></div>
                                         <div class="people_section" id="<?php echo e($sections[$index ++]); ?>">
                                             <?php $__currentLoopData = $item; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $person): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                <a href="<?php echo e(route('people',['alpha' => $alpha,'select'=>$person['id']])); ?>">
-                                                    <div class="<?php if ($person['id'] == $selectedID) echo 'person_card_selected'; else echo 'person_card'; ?>">
+                                                
+                                                    <div data-alpha = <?php echo e($alpha); ?> data-select=<?php echo e($person['id']); ?> class="person_info_card <?php if ($person['id'] == $selectedID) echo 'person_card_selected'; else echo 'person_card'; ?>">
                                                         <div style="width: 10%; background-color: #d1ffa7; border-bottom-left-radius: 10px; border-top-left-radius: 10px;"></div>
                                                         <div style="width: 77%; padding: 10px">
                                                             <div style="font-size: 20px; margin-bottom: 5px">
@@ -98,7 +96,7 @@
 <?php endif; ?> 
                                                         </div>
                                                     </div>
-                                                </a>
+
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </div>
                                     <?php endif; ?>
@@ -125,6 +123,8 @@
 
 <script>
     let alpha = "<?php echo e($alpha); ?>";
+    let base_url = "<?php echo e(URL::to('')); ?>";
+
     function section(id) {
 
         switch (id) {

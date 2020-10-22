@@ -1,9 +1,12 @@
-let sec = 0;
+let ss = 0;
 let min = 0;
 let hour = 0;
 let timer;
-$(document).ready(function () {
 
+$(document).ready(function () {
+    $('.detail-edit').focusout(function(){
+        // alert('focus out of');
+    });
     $('#filter_manage').on('click', function(e){
 
         if (document.getElementById('statusOrderMenu').contains(e.target) ||
@@ -33,8 +36,38 @@ $(document).ready(function () {
     });
 
     $('button.addTask').on('click', function () {
-            var ret = 1;
-            var parentId = $(this).data("parent_id");
+        var ret = 1;
+        var parentId = $(this).data("parent_id");
+
+        if ($('#taskDetailUpdate').length != 0 && !$('#taskDetailUpdate').hasClass('disabled')) {
+            swal.fire({
+                title: 'Are u sure to go out without saving task?',
+                text: '',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                reverseButtons: true
+            }).then(function(result){
+                if (result.value) {
+                    if (parentId == "")
+                        ret = -1;
+
+                    if (ret == -1 && userRoleId != 1) {
+                        swal.fire(
+                            'Warning',
+                            'You can not add task in root level.',
+                            'warning'
+                        );
+                        return ;
+                    }
+
+                    $('div.detail-add input#add_parentID').val(parentId);
+                    $('div.detail-edit').css('display', 'none');
+                    $('div.detail-add').css('display', 'block');
+                }
+            });
+        } else {
             if (parentId == "")
                 ret = -1;
 
@@ -46,9 +79,11 @@ $(document).ready(function () {
                 );
                 return ;
             }
+
             $('div.detail-add input#add_parentID').val(parentId);
             $('div.detail-edit').css('display', 'none');
             $('div.detail-add').css('display', 'block');
+        }
 
         }
     );
@@ -68,9 +103,27 @@ $(document).ready(function () {
     });
 
     $("div.kt-regular-task-item, div.kt-extended-task-item:not(div.selected), div.kt-simple-task-item").on('click', function () {
-        $show_type = $(this).data("show_type");
-        $task_id = $(this).data("task_id");
-        window.location.href = base_url + "/task/taskCard?task_id=" + $task_id + "&show_type=" + $show_type;
+        var show_type = $(this).data('show_type');
+        var task_id = $(this).data('task_id');
+
+        if (($('.detail-add').css('display') != 'none' )|| ($('#taskDetailUpdate').length != 0 && !$('#taskDetailUpdate').hasClass('disabled'))) {
+            swal.fire({
+                title: 'Are u sure to go out without saving task?',
+                text: '',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                reverseButtons: true
+            }).then(function(result){
+                if (result.value) {
+                    window.location.href = base_url + '/task/taskCard?task_id=' + task_id + '&show_type=' + show_type;
+                }
+            });
+        } else {
+            window.location.href = base_url + '/task/taskCard?task_id=' + task_id + '&show_type=' + show_type;
+        }
+
     });
 
     $("button#taskDetailUpdate").on("click", function () {
@@ -178,7 +231,7 @@ $(document).ready(function () {
     });
 
     $("button#startCounter").on("click",function(){
-        sec = 0; min = 0; hour = 0;
+        ss = 0; min = 0; hour = 0;
         timer = setInterval(WorkTimeCounter, 1000)
         $("button#startCounter").hide();
         $("button#stopCounter").show();
@@ -536,7 +589,6 @@ $(document).ready(function () {
      * focus on memo if it is unread
      */
     let notifications = memoNotification.split(',');
-    console.log('#blink_mail_icon_'+task_id,"---------------");
     $('.kt-extended-task-item #blink_mail_icon_'+task_id).removeClass('blink_mail_icon');
     $('.kt-regular-task-item #blink_mail_icon_'+task_id).removeClass('blink_mail_icon');
     if (notifications.includes(task_id)) {
@@ -902,10 +954,10 @@ function changeUserId()
 
 function WorkTimeCounter() {
 
-    sec ++;
-    if ( sec > 59) {
+    ss ++;
+    if ( ss > 59) {
         min ++;
-        sec = 0;
+        ss = 0;
         if (min > 59) {
             hour ++;
             min = 0;
@@ -915,9 +967,9 @@ function WorkTimeCounter() {
     timeText+=":";
     timeText += min < 10?"0"+min:min;
     timeText+=":";
-    timeText += sec < 10?"0"+sec:sec;
+    timeText += ss < 10?"0"+ss:ss;
     $("#workTimeCounterText").text(timeText);
-    if (sec % 30 === 0) {
+    if (ss % 30 === 0) {
         $.ajax({
             type:'POST',
             url:base_url+'/shake',

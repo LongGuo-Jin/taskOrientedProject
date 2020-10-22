@@ -51,4 +51,5 @@ return [
     'hours'=>'Ure',
     'time'=>'Čas',
     'addWorkHours'=>'Dodaj delovni čas',
+    'checkInstallation' => 'Check Installations',
 ];

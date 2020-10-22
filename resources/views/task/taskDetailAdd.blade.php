@@ -5,7 +5,7 @@
         $userDetails['nameTag'] = auth()->user()->nameTag;
         $userDetails['roleID'] = auth()->user()->roleID;
 ?>
-<div class="col-detail-add detail-add">
+<div class="col-detail-add detail-add" style="display: none">
     <div class="kt-portlet kt-portlet--tabs kt-portlet--height-fluid">
         <form class="kt-form kt-form--label-right" id="task_add_form">
             <input type="hidden" name="_token" value="{{csrf_token()}}">

@@ -56,8 +56,7 @@
                                                 <div class="tab-content">
                                                     <div class="tab-pane active" id="kt_regular_tab_{{$columnClass}}">
                                                         @foreach($columnItem as $taskItem)
-                                                            <div class="kt-regular-task-item row thin <?php if($taskId == $taskItem['ID']) echo 'selected';?>
-                                                            <?php if($taskId != $taskItem['ID'] && in_array($taskItem['ID'], $parents)) echo 'parent_selected';?>"
+                                                            <div class="kt-regular-task-item row thin"
                                                                  data-task_id="{{$taskItem['ID']}}" data-show_type="regular" style="display: flex;">
                                                                 <?php $tagTask =new \App\TagTask();
                                                                     $taskTags =  $tagTask->getTaskTagList($taskItem['ID']);
@@ -115,7 +114,8 @@
                                                                         @endif
                                                                     </div>
                                                                 </div>
-                                                                <div style="width: 90%; padding: 10px; <?php if ($taskItem['overdue']) echo "background: #be98987a";?>">
+                                                                <div class=" <?php if($taskId == $taskItem['ID']) echo 'selected';?>
+                                                                <?php if($taskId != $taskItem['ID'] && in_array($taskItem['ID'], $parents)) echo 'parent_selected';?>" style="width: 90%; padding: 10px; <?php if ($taskItem['overdue']) echo "background: #be98987a";?>">
                                                                     <div class="row">
                                                                         <div class="col-lg-9 task-name">
                                                                             {{$taskItem['title']}}
@@ -179,9 +179,7 @@
                                                     </div>
                                                     <div class="tab-pane" id="kt_extended_tab_{{$columnClass}}">
                                                         @foreach($columnItem as $taskItem)
-                                                            <div class="row kt-extended-task-item <?php if($taskId == $taskItem['ID']) echo 'selected';?>
-                                                            <?php if($taskId != $taskItem['ID'] && in_array($taskItem['ID'], $parents)) echo 'parent_selected';?>"
-                                                                    data-task_id="{{$taskItem['ID']}}" data-show_type="extended" style="display: flex;">
+                                                            <div class="row kt-extended-task-item" data-task_id="{{$taskItem['ID']}}" data-show_type="extended" style="display: flex;">
                                                                 <?php $tagTask =new \App\TagTask();
                                                                 $taskTags =  $tagTask->getTaskTagList($taskItem['ID']);
                                                                 $color = '#9d88bf';
@@ -240,7 +238,8 @@
                                                                         @endif
                                                                     </div>
                                                                 </div>
-                                                                <div class="extand-main-content" style=" width: 90%; <?php if ($taskItem['overdue']) echo "background: #be98987a";?>">
+                                                                <div class="extand-main-content <?php if($taskId == $taskItem['ID']) echo 'selected';?>
+                                                                <?php if($taskId != $taskItem['ID'] && in_array($taskItem['ID'], $parents)) echo 'parent_selected';?>" style="width: 90%; <?php if ($taskItem['overdue']) echo "background: #be98987a"; ?>">
                                                                     <div class="kt-extend-part">
                                                                         <div class="row">
                                                                             <div class="col-lg-9">
@@ -287,16 +286,26 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="extand-below-content">
-                                                                        <i class="fa fa-user"></i> &nbsp;&nbsp;&nbsp;{{$taskItem['fullName']}}
+                                                                        <i class="fa fa-user"></i> {{$taskItem['fullName']}}
                                                                     </div>
+                                                                    {{--<div class="extand-below-content">--}}
+                                                                        {{--<i class="fa fa-check-square"></i>Check Installations--}}
+                                                                    {{--</div>--}}
+                                                                    {{--<div class="check-list-items">--}}
+                                                                        {{--@foreach($taskItem['checkList'] as $item)--}}
+                                                                            {{--<div>--}}
+                                                                                {{--<input type="checkbox" data-id="{{$item['id']}}" checked="{{$item['status']}}" class="checkListItem" disabled>--}}
+                                                                                {{--<span>{{$item['description']}}</span>--}}
+                                                                            {{--</div>--}}
+                                                                        {{--@endforeach--}}
+                                                                    {{--</div>--}}
                                                                 </div>
                                                             </div>
                                                         @endforeach
                                                     </div>
                                                     <div class="tab-pane" id="kt_simple_tab_{{$columnClass}}">
                                                         @foreach($columnItem as $taskItem)
-                                                            <div class="row kt-simple-task-item thin <?php if($taskId == $taskItem['ID']) echo 'selected';?>
-                                                            <?php if($taskId != $taskItem['ID'] && in_array($taskItem['ID'], $parents)) echo 'parent_selected';?>"
+                                                            <div class="row kt-simple-task-item thin"
                                                             data-task_id="{{$taskItem['ID']}}" data-show_type="simple"  data-task_id="{{$taskItem['ID']}}"   style="display: flex">
                                                                 <?php $tagTask =new \App\TagTask();
                                                                 $taskTags =  $tagTask->getTaskTagList($taskItem['ID']);
@@ -346,7 +355,8 @@
                                                                 <div class="task-status " style="padding-top: 10px; width: 10%;background-color: {{$color}};">
                                                                     <?php echo($taskItem['status_icon'])?>
                                                                 </div>
-                                                                <div style="width: 90%; padding: 10px;  <?php if ($taskItem['overdue']) echo "background: #be98987a";?>">
+                                                                <div class=" <?php if($taskId == $taskItem['ID']) echo 'selected';?>
+                                                                <?php if($taskId != $taskItem['ID'] && in_array($taskItem['ID'], $parents)) echo 'parent_selected';?>" style="width: 90%; padding: 10px;  <?php if ($taskItem['overdue']) echo "background: #be98987a";?>">
                                                                     <div class="row">
                                                                         <div class="col-lg-9 final-sub-task-name">
                                                                             {{$taskItem['title']}}
@@ -370,9 +380,9 @@
                         @endforeach
                         </div>
                     @include('task.taskDetailAdd')
-                    @if (isset($taskDetails['ID']))
+                    {{--@if (isset($taskDetails['ID']))--}}
                         @include('task.taskDetailEdit')
-                    @endif
+                    {{--@endif--}}
                 </div>
 
                 <!-- end:: Content -->

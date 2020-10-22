@@ -20,8 +20,7 @@
                         <div class="company_element">
                             <div style="display:flex; flex-wrap: wrap">
                             @foreach($companies as $company)
-                                <a href="{{route('company',['select' => $company['id']])}}">
-                                    <div class="<?php if ($company['id'] == $selectedID) echo 'company_card_selected'; else echo 'company_card'; ?>">
+                                    <div data-select = {{$company['id']}} class="<?php if ($company['id'] == $selectedID) echo 'company_card_selected'; else echo 'company_card'; ?>">
                                         <div style="width: 10%; background-color: #377aff; border-bottom-left-radius: 10px; border-top-left-radius: 10px;"></div>
                                         <div style="width: 90%; padding: 10px">
                                             <div style="font-size: 20px; margin-bottom: 5px">
@@ -62,7 +61,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </a>
                             @endforeach
                             </div>
                         </div>
@@ -84,7 +82,7 @@
     <script src="{{asset('public/assets/js/demo1/pages/crud/forms/widgets/bootstrap-select.js')}}" type="text/javascript"></script>
 
     <script>
-
+        let base_url = "{{URL::to('')}}";
         function section(id) {
             switch (id) {
                 case 0:

@@ -116,6 +116,7 @@
             </div>
 
         </div>
+        @include('layouts.footer')
     </div>
     <form id="deleteForm" method="get" action="{{ route('user.delete') }}" hidden>
         @csrf

@@ -101,6 +101,7 @@
                 @include('people.partials.add')
             </div>
         </div>
+    @include('layouts.footer')
     </div>
 @endsection
 @section('script')

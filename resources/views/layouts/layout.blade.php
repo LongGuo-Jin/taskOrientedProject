@@ -144,7 +144,7 @@
 
     <script type="text/javascript" charset="utf-8" src="{{asset('public/assets/js/task/taskcard.js')}}"></script>
 
-    @yield('script');
+    @yield('script')
 
 </body>
 </html>

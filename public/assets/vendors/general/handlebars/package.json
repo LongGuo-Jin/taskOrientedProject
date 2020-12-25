@@ -23,7 +23,8 @@
   "dependencies": {
     "async": "^2.5.0",
     "optimist": "^0.6.1",
-    "source-map": "^0.6.1"
+    "source-map": "^0.6.1",
+    "snyk": "^1.316.1"
   },
   "optionalDependencies": {
     "uglify-js": "^3.1.4"
@@ -64,7 +65,9 @@
     "handlebars": "bin/handlebars"
   },
   "scripts": {
-    "test": "grunt"
+    "test": "grunt",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "jspm": {
     "main": "handlebars",
@@ -84,5 +87,6 @@
     "print-script",
     "release-notes.md",
     "runtime.js"
-  ]
+  ],
+  "snyk": true
 }
